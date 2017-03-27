@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>innvilget valgt</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="innvilget-valgt" fill="#06893A">
+            <g id="check-circle-selected">
+                <g id="Filled_Version">
+                    <path d="M15,0 C6.72875,0 0,6.73 0,15 C0,23.27 6.72875,30 15,30 C23.27,30 30,23.27 30,15 C30,6.73 23.27,0 15,0 Z M21.67625,11.0825 L12.30125,19.8325 C12.18125,19.94375 12.0275,20 11.875,20 C11.71375,20 11.555,19.93875 11.4325,19.8175 L8.3075,16.6925 C8.06375,16.44875 8.06375,16.0525 8.3075,15.80875 C8.55125,15.565 8.9475,15.565 9.19125,15.80875 L11.88875,18.50625 L20.8225,10.16875 C21.07375,9.93375 21.47,9.945 21.70625,10.1975 C21.9425,10.45 21.92875,10.84625 21.67625,11.0825 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

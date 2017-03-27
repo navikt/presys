@@ -1,0 +1,28 @@
+.container {
+  composes: panel-container-mixin from 'styles/mixins.less';
+}
+
+.header {
+  composes: typo-element from 'styles/typografiModigDesign.less';
+}
+
+.fieldLabel {
+  composes: typo-undertekst from 'styles/typografiModigDesign.less';
+}
+
+.noTpsInfo {
+  composes: typo-avsnitt from 'styles/typografiModigDesign.less';
+}
+
+.dateField {
+  composes: nav-input from 'styles/inputModigDesign.less';
+}
+
+.numberOfChildren {
+  composes: input-xs from 'styles/inputModigDesign.less';
+}
+
+.explanationTextarea {
+  composes: input-fullbredde from 'styles/inputModigDesign.less';
+  resize: none;
+}

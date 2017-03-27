@@ -1,0 +1,10 @@
+/node/
+/node_modules/
+/src/client/public/*
+/bin/
+/.tmp/
+/.happypack/
+/.nyc_output/
+/coverage/
+*.iml
+*.log*

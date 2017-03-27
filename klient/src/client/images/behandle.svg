@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>behandle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="behandle" stroke="#FF9100">
+            <g id="behandle-">
+                <g id="Group">
+                    <path d="M22.498,11.31 C22.603,17.385 17.575,22.396 11.5,22.502 C5.426,22.607 0.607,17.768 0.502,11.692 C0.396,5.619 5.426,0.607 11.5,0.502 C17.574,0.396 22.393,5.236 22.498,11.31 Z M11.5,13 L11.5,6 L11.5,13 Z" id="Shape" stroke-linecap="round"></path>
+                    <path d="M12,16.5 C12,16.776 11.776,17 11.5,17 C11.224,17 11,16.776 11,16.5 C11,16.224 11.224,16 11.5,16 C11.776,16 12,16.224 12,16.5 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

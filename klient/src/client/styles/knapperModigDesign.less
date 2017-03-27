@@ -1,0 +1,183 @@
+.knapp,
+.contrast .knapp,
+.contrast .knapp-fare,
+.contrast .knapp-hoved {
+	box-shadow: none;
+	border: 2px solid #0067c5;
+	padding: 8px 38px 10px 38px;
+}
+
+.knapp:hover,
+.contrast .knapp:hover,
+.contrast .knapp-fare:hover,
+.contrast .knapp-hoved:hover {
+	box-shadow: none;
+}
+
+.knapp:focus,
+.contrast .knapp:focus,
+.contrast .knapp-fare:focus,
+.contrast .knapp-hoved:focus,
+.knapp:focus:hover,
+.contrast .knapp:focus:hover,
+.contrast .knapp-fare:focus:hover,
+.contrast .knapp-hoved:focus:hover {
+	box-shadow: 0 0 0 3px #ffbd66;
+}
+
+.knapp {
+	line-height: 1;
+	letter-spacing: 1px;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #0067c5;
+	font-size: 1rem;
+	background-color: transparent;
+	text-decoration: none;
+	display: inline-block;
+	font-family: Modus, Arial, sans-serif;
+	font-weight: 600;
+	outline: none;
+}
+
+.knapp:hover {
+	color: #ffffff;
+	background-color: #0067c5;
+	border-color: #0067c5;
+}
+
+.knapp:active {
+	border-color: #005b82;
+}
+
+.knapp:focus {
+	box-shadow: 0 0 0 3px #ffbd66;
+	outline: none;
+}
+
+.knapp:focus:hover {
+	color: #ffffff;
+}
+
+.knapp:focus:hover:active {
+	box-shadow: 0 0 0 3px #ffbd66;
+	color: #ffffff;
+}
+
+.knapp:active,
+.knapp.er-aktiv,
+.knapp:active:hover {
+	transform: translateY(2px);
+	color: #ffffff;
+	-o-transform: translateY(2px);
+	background-color: #005b82;
+	-webkit-transform: translateY(2px);
+	border-color: #005b82;
+	-ms-transform: translateY(2px);
+	-moz-transform: translateY(2px);
+}
+
+.knapp-hoved,
+.knapp-fare {
+	padding: 10px 40px 12px;
+	border: 0;
+}
+
+.knapp-hoved:hover,
+.knapp-fare:hover {
+	transform: translateY(-1px);
+	-o-transform: translateY(-1px);
+	-webkit-transform: translateY(-1px);
+	-ms-transform: translateY(-1px);
+	-moz-transform: translateY(-1px);
+}
+
+.knapp-hoved:focus,
+.knapp-fare:focus,
+.knapp-hoved:active:focus,
+.knapp-fare:active:focus {
+	box-shadow: 0 0 0 3px #ffbd66;
+}
+
+.knapp-hoved:active,
+.knapp-fare:active,
+.knapp-hoved.er-aktiv,
+.knapp-fare.er-aktiv {
+	box-shadow: none;
+}
+
+.knapp-hoved.knapp-liten,
+.knapp-fare.knapp-liten,
+.knapp-hoved.knapp-liten:hover,
+.knapp-fare.knapp-liten:hover {
+	padding: 11px 20px 10px;
+}
+
+.knapp-hoved.knapp-stor,
+.knapp-fare.knapp-stor,
+.knapp-hoved.knapp-stor:hover,
+.knapp-fare.knapp-stor:hover {
+	padding: 12px 50px 14px;
+}
+
+.knapp-hoved {
+	box-shadow: 0 -2px 0 #3e3832 inset;
+	color: #ffffff;
+	background-color: #0067c5;
+}
+
+.knapp-hoved:hover {
+	box-shadow: 0 -2px 0 #3e3832 inset, 0 1px 0 #3e3832;
+	background-color: #1976cb;
+	border-color: #1976cb;
+	border-bottom-color: #3e3832;
+}
+
+.knapp-hoved:active {
+	box-shadow: none;
+}
+
+.knapp-hoved:active,
+.knapp-hoved:active:hover {
+	box-shadow: none;
+	background-color: #005b82;
+}
+
+.knapp-hoved:focus {
+	box-shadow: 0 -2px 0 #3e3832 inset, 0 0 0 3px #ffbd66;
+}
+
+.knapp-liten,
+.knapp-liten:hover,
+.contrast .knapp-liten,
+.contrast .knapp-liten.knapp-fare,
+.contrast .knapp-liten.knapp-hoved {
+	font-size: 0.875rem;
+	padding: 8px 5px 10px 5px;
+}
+
+.knapp.er-inaktiv,
+.knapp.er-inaktiv:hover,
+.knapp.er-inaktiv:hover:active,
+.knapp.er-inaktiv:active,
+.knapp.er-inaktiv:active:focus,
+.knapp.er-inaktiv:focus,
+.knapp.er-inaktiv:focus:hover {
+	transform: none;
+	box-shadow: none;
+	color: #7f756c;
+	background-color: #cccccc;
+	border-color: #cccccc;
+}
+
+.knapp-hoved.er-inaktiv:hover,
+.knapp-fare.er-inaktiv:hover,
+.knapp-hoved.er-inaktiv:active:hover,
+.knapp-fare.er-inaktiv:active:hover {
+	transform: none;
+	box-shadow: none;
+	-o-transform: none;
+	-webkit-transform: none;
+	-ms-transform: none;
+	-moz-transform: none;
+}

@@ -1,0 +1,22 @@
+.container {
+  composes: panel-container-mixin from 'styles/mixins.less';
+  width: 100%;
+}
+
+.header {
+  composes: typo-element from 'styles/typografiModigDesign.less';
+}
+
+
+.fieldLabel {
+  composes: typo-undertekst from 'styles/typografiModigDesign.less';
+}
+
+.explanationTextarea {
+  composes: input-fullbredde from 'styles/inputModigDesign.less';
+  resize: none;
+}
+
+.confirmButton {
+  composes: knapp knapp-hoved knapp-liten from 'styles/knapperModigDesign.less';
+}

@@ -1,0 +1,55 @@
+.container {
+  border: 1px solid #949899;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 7px;
+}
+
+.container:hover {
+  background-color: #efefef;
+  border-color: #0067c5;
+}
+
+.containerWithoutPointer {
+  border: 1px solid #949899;
+  border-radius: 5px;
+  cursor: default;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 7px;
+}
+
+.header {
+  overflow: auto;
+}
+
+.mainRow {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headerRow {
+  color: #3e3832;
+  composes: typo-undertekst from 'styles/typografiModigDesign.less';
+}
+
+.contentRow {
+  composes: typo-infotekst from 'styles/typografiModigDesign.less';
+}
+
+.type {
+  composes: typo-element from 'styles/typografiModigDesign.less';
+  float: left;
+  width: 80%;
+}
+
+.image {
+  cursor: pointer;
+  float: right;
+}

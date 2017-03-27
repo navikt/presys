@@ -1,0 +1,57 @@
+/* Based on https://www.w3schools.com/css/css_tooltip.asp */
+.tooltip {
+    display: inline-block;
+    position: relative;
+}
+
+.tooltip .tooltiptext {
+    background-color: #efefef;
+    border: 1px solid #979797;
+    border-radius: 2px;
+    bottom: 100%;
+    box-shadow: 10px 5px 20px #888888;
+    color: black;
+    left: 50%;
+    margin-bottom: 30px;
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    position: absolute;
+    visibility: hidden;
+    width: 250px;
+    z-index: 101;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext::before {
+    border-color: #979797 transparent transparent transparent;
+    border-style: solid;
+    border-width: 15px;
+    content: ' ';
+    filter: drop-shadow(5px 10px 8px #888888);
+    left: 42px;
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+}
+
+.tooltip .tooltiptext::after {
+    border-color: #efefef transparent transparent transparent;
+    border-style: solid;
+    border-width: 14px;
+    content: ' ';
+    left: 43px;
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+}
+
+.tooltipHeader {
+  composes: typo-element from 'styles/typografiModigDesign.less';
+}
+
+.tooltipBody {
+  composes: typo-infotekst from 'styles/typografiModigDesign.less';
+}

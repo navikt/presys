@@ -1,0 +1,43 @@
+.skjema-feilmelding {
+	color: #ba3a26;
+	font-style: italic;
+	margin-bottom: 0;
+	display: none;
+	margin-top: .5rem;
+}
+
+.skjema-feilmelding:empty {
+	margin-top: 0;
+}
+
+
+.har-valideringsfeil .skjema-feilmelding,
+.feil .skjema-feilmelding {
+  display: block;
+}
+.har-valideringsfeil input:not([type="submit"]),
+.feil input:not([type="submit"]),
+.har-valideringsfeil textarea,
+.feil textarea,
+.har-valideringsfeil select,
+.feil select {
+  border: 1px solid #ba3a26;
+  background: #fbf5f4;
+}
+.har-valideringsfeil .skjema-enkeltfeil:not(.har-valideringsfeil) .skjema-feilmelding,
+.feil .skjema-enkeltfeil:not(.har-valideringsfeil) .skjema-feilmelding,
+.har-valideringsfeil .skjema-feilomrade:not(.har-valideringsfeil) .skjema-feilmelding,
+.feil .skjema-feilomrade:not(.har-valideringsfeil) .skjema-feilmelding {
+  display: none;
+}
+.har-valideringsfeil .skjema-enkeltfeil:not(.har-valideringsfeil) input:not([type="submit"]),
+.feil .skjema-enkeltfeil:not(.har-valideringsfeil) input:not([type="submit"]),
+.har-valideringsfeil .skjema-feilomrade:not(.har-valideringsfeil) input:not([type="submit"]),
+.feil .skjema-feilomrade:not(.har-valideringsfeil) input:not([type="submit"]),
+.har-valideringsfeil .skjema-enkeltfeil:not(.har-valideringsfeil) textarea,
+.feil .skjema-enkeltfeil:not(.har-valideringsfeil) textarea,
+.har-valideringsfeil .skjema-feilomrade:not(.har-valideringsfeil) textarea,
+.feil .skjema-feilomrade:not(.har-valideringsfeil) textarea {
+  border: 1px solid #b7b1a9;
+  background: none;
+}

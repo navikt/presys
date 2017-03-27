@@ -1,0 +1,49 @@
+.container {
+  composes: panel-container-mixin from 'styles/mixins.less';
+}
+
+.header {
+  composes: typo-element from 'styles/typografiModigDesign.less';
+}
+
+.element {
+  composes: typo-infotekst from 'styles/typografiModigDesign.less';
+}
+
+.fieldLabel {
+  composes: typo-undertekst from 'styles/typografiModigDesign.less';
+}
+
+.dateField {
+  composes: nav-input from 'styles/inputModigDesign.less';
+}
+
+.numberOfChildren {
+  composes: input-xs from 'styles/inputModigDesign.less';
+}
+
+.explanationTextarea {
+  composes: input-fullbredde from 'styles/inputModigDesign.less';
+  resize: none;
+}
+
+.confirmButtonReadOnly {
+  composes: knapp knapp-liten er-inaktiv from 'styles/knapperModigDesign.less';
+}
+
+.confirmButton {
+  composes: knapp knapp-hoved knapp-liten from 'styles/knapperModigDesign.less';
+}
+
+.arrowLine {
+  composes: panel panel-relatert from 'styles/arrowLineModigDesign.less';
+}
+
+.divider {
+  border-bottom: 0px;
+  border-top: 1px solid #949899;
+}
+
+.radioButtonError {
+  padding-left: 15px;
+}

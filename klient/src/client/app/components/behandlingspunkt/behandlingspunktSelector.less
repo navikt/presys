@@ -1,0 +1,62 @@
+.container {
+  composes: panel-container-mixin from 'styles/mixins.less';
+  height: 150px;
+  width: 100%;
+}
+
+.behandlingspunkt {
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.behandlingspunkt:focus {
+  outline: none;
+}
+
+.behandlingspunkt_selected {
+  cursor: default;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.behandlingspunkt_selected:focus {
+  outline: none;
+}
+
+.header {
+  composes: typo-element from 'styles/typografiModigDesign.less';
+}
+
+.info {
+  composes: typo-infotekst from 'styles/typografiModigDesign.less';
+}
+
+.arrowLine {
+  composes: panel panel-relatert from 'styles/arrowLineModigDesign.less';
+  margin-top: 14px;
+}
+
+.arrowLine_1 {
+  composes: arrowLine;
+}
+
+.arrowLine_1:before {
+	left: 7px;
+}
+
+.arrowLine_2 {
+  composes: arrowLine;
+}
+
+.arrowLine_2:before {
+	left: 45px;
+}
+
+.arrowLine_3 {
+  composes: arrowLine;
+}
+
+.arrowLine_3:before {
+	left: 83px;
+}

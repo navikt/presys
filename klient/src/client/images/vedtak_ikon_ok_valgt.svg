@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>vedtak ikon ok valgt</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Vedtak-valgt-OK" fill="#06893A">
+            <g id="Vedtak">
+                <g id="vedtak-ikon-ok-valgt">
+                    <g id="stamp">
+                        <g id="Filled_Version" fill-rule="nonzero">
+                            <path d="M26.875,20.02125 L20.8175,20.02125 C16.71125,17.165 18.59875,12.95875 20.1175,9.605 C20.75,8.20875 21.25,7.1075 21.25,6.22875 C21.25,2.1525 18.105,0.02 14.99875,0.02 C11.8925,0.02125 8.75,2.15375 8.75,6.22875 C8.75,7.11 9.2525,8.21625 9.8875,9.61125 C11.40875,12.96 13.2975,17.15625 9.18375,20.02 L3.125,20.02 C1.4025,20.02 0,21.38 0,23.10375 L0,26.85375 C0,27.19875 0.28,27.47875 0.625,27.47875 L1.25,27.47875 L1.25,29.35375 C1.25,29.69875 1.53,29.97875 1.875,29.97875 L28.125,29.97875 C28.47,29.97875 28.75,29.69875 28.75,29.35375 L28.75,27.47875 L29.375,27.47875 C29.72,27.47875 30,27.19875 30,26.85375 L30,23.10375 C30,21.38 28.5975,20.02125 26.875,20.02125 Z M27.5,28.77125 L2.5,28.77125 L2.5,27.48 L27.5,27.48 L27.5,28.77125 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,188 @@
+button,
+input,
+optgroup,
+select,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+.nav-input {
+	position: relative;
+	margin-bottom: .5rem;
+}
+
+.nav-input label {
+	display: inline-block;
+}
+
+label,
+.label {
+	line-height: 1.4;
+	font-size: 1rem;
+	margin-bottom: .25rem;
+	font-family: Arial, sans-serif;
+	display: block;
+	font-weight: 400;
+}
+
+.input-xxs {
+	width: 35px;
+}
+
+.input-xs {
+	width: 70px;
+}
+
+.input-s {
+	width: 140px;
+}
+
+.input-m {
+	max-width: 210px;
+	width: 100%;
+}
+
+.input-l {
+	max-width: 280px;
+	width: 100%;
+}
+
+.input-xl {
+	max-width: 350px;
+	width: 100%;
+}
+
+.input-xxl {
+	max-width: 420px;
+	width: 100%;
+}
+
+.input-fullbredde {
+	width: 100%;
+}
+
+input[type="date"],
+input[type="text"],
+select {
+  padding: .45rem;
+  line-height: 1.2;
+  border-radius: 1px;
+  border: 1px solid #b7b1a9;
+  box-sizing: border-box;
+}
+
+textarea:focus,
+input[type="date"]:focus,
+input[type="text"]:focus,
+select:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px #ffbd66;
+}
+
+textarea:hover,
+input[type="date"]:hover,
+input[type="text"]:hover,
+select:hover {
+  border: 1px solid #0067c5;
+  -webkit-transition: all 100ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  -moz-transition: all 100ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  -ms-transition: all 100ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  -o-transition: all 100ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  transition: all 100ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+input[type="text"]:disabled,
+select:disabled {
+  background-color: #efefef;
+}
+input[type="text"]:disabled:hover,
+select:disabled:hover,
+input[type="text"].er-inaktiv:hover,
+select.er-inaktiv:hover {
+  border: 1px solid #b7b1a9;
+}
+
+.nav-checkbox,
+.nav-radioknapp {
+	position: absolute;
+	opacity: 0;
+}
+
+.nav-checkbox + label,
+.nav-radioknapp + label {
+	position: relative;
+	padding-left: 2rem;
+	padding-top: 1px;
+	cursor: pointer;
+	margin-bottom: 0;
+	display: block;
+	min-height: 22px;
+}
+
+.nav-checkbox + label:before,
+.nav-radioknapp + label:before {
+	position: absolute;
+	content: "";
+	text-align: center;
+	background-color: #ffffff;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.nav-radioknapp + label:before {
+	-o-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	box-shadow: 0 0 0 14px #ffffff inset;
+	height: 20px;
+	border-radius: 50%;
+	-webkit-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	-ms-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	width: 20px;
+	transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	left: 0;
+	border: 1px solid #978e85;
+	-moz-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	top: 0;
+}
+
+.nav-radioknapp:checked + label:before {
+	-o-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	box-shadow: 0 0 0 3px #ffffff inset, 0 0 0 12px #0067c5 inset;
+	height: 18px;
+	-webkit-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	-ms-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	width: 18px;
+	transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	border: 2px solid #0067c5;
+	-moz-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+
+.nav-radioknapp:focus + label:before {
+	-o-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	box-shadow: 0 0 0 3px #ffbd66, 0 0 0 12px #ffffff inset;
+	-webkit-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	-ms-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	-moz-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+
+.nav-radioknapp:checked:focus + label:before {
+	-o-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	box-shadow: 0 0 0 3px #ffbd66, 0 0 0 3px #ffffff inset, 0 0 0 12px #0067c5 inset;
+	-webkit-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	-ms-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	-moz-transition: box-shadow 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+
+.nav-checkbox + label,
+.nav-radioknapp + label {
+	padding-top: 2px;
+}

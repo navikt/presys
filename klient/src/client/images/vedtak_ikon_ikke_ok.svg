@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>vedtak ikon ikke ok</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Vedtak-NOK" transform="translate(0.000000, -5.000000)" stroke="#BA3A26">
+            <g id="vedtak-ikon-ikke-ok" transform="translate(0.000000, 5.000000)">
+                <g id="stamp">
+                    <g id="Group">
+                        <polyline id="Shape" points="22.5 21.5 22.5 23.5 1.5 23.5 1.5 21.5"></polyline>
+                        <path d="M21.5,16.467 L16.5,16.467 C11.261,12.987 16.5,7.129 16.5,4.967 C16.5,-0.986 7.5,-0.991 7.5,4.967 C7.5,7.137 12.752,12.978 7.5,16.467 L2.5,16.467 C1.396,16.467 0.5,17.362 0.5,18.467 L0.5,21.5 L23.5,21.5 L23.5,18.467 C23.5,17.361 22.604,16.467 21.5,16.467 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

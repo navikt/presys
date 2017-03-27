@@ -1,0 +1,30 @@
+.container {
+  height: 100px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.saksinfoContainer {
+  float: left;
+}
+
+.sakstype {
+  composes: typo-innholdstittel from 'styles/typografiModigDesign.less';
+}
+
+.saksnummer {
+  composes: typo-infotekst from 'styles/typografiModigDesign.less';
+}
+
+.buttonContainer {
+  float: right;
+  width: 150px;
+}
+
+.button {
+  composes: knapp knapp-liten from 'styles/knapperModigDesign.less';
+  margin-bottom: 10px;
+  width: 150px;
+}
