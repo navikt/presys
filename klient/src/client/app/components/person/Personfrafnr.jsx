@@ -1,21 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
+import fetchPerson from 'actions/personActions';
+import { connect } from 'react-redux';
 
-import H2 from 'elements/H2';
 import Person from './Person';
 
-const state = [{ navn: 'Lars Erik', alder: 31, personnummer: '123', erKvinne: false },
-{ navn: 'Bernt Halseide', alder: 73, personnummer: '321', erKvinne: true }];
 
-const connector = (props) => {
-  const person = state.find(item => item.personnummer === props.params.fnr);
-  return person ? (
-    <Person navn={person.navn} alder={person.alder} personnummer={person.personnummer} erKvinne={person.erKvinne} hasLargeFont={false} />
-    ) : <H2 textCode="FagsakSearch.ZeroSearchResults" />;
-};
+// connector.propTypes = {
+//  params: React.PropTypes.shape({ fnr: React.PropTypes.string.isRequired }).isRequired,
+// };
 
-connector.propTypes = {
+class PersonFraFnr extends Component {
+
+  constructor(props) {
+    super(props);
+    props.fetchPerson(props.params.fnr);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.fnr !== nextProps.person.fnr) {
+      this.props.fetchPerson(nextProps.params.fnr);
+    }
+  }
+
+  render() {
+    const person = this.props.person;
+    return (<Person
+      navn={person.navn}
+      alder={person.alder}
+      personnummer={person.fnr}
+      erKvinne={person.kjonn === 'KVINNE'}
+      hasLargeFont={false}
+    />);
+  }
+}
+
+PersonFraFnr.propTypes = {
+  person: React.PropTypes.shape({
+    fnr: React.PropTypes.string.isRequired,
+  }).isRequired,
+  fetchPerson: React.PropTypes.func.isRequired,
   params: React.PropTypes.shape({ fnr: React.PropTypes.string.isRequired }).isRequired,
+
 };
 
 
-export default connector;
+export default connect(state => ({
+  person: state.person,
+}), { fetchPerson })(PersonFraFnr);

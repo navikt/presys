@@ -63,9 +63,9 @@ FagsakSearchIndex.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  searchString: state.default.fagsakContext.searchString,
-  searchResultReceived: state.default.fagsakContext.searchResultReceived,
-  fagsaker: state.default.fagsakContext.fagsaker,
+  searchString: state.fagsakContext.searchString,
+  searchResultReceived: state.fagsakContext.searchResultReceived,
+  fagsaker: state.fagsakContext.fagsaker,
 });
 
 const mapDispatchToProps = dispatch => ({

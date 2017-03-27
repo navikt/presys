@@ -35,8 +35,8 @@ App.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  errorMessage: state.default.errorHandlingContext.errorMessage,
-  saksbehandlerName: state.default.saksbehandlerContext.saksbehandlerName,
+  errorMessage: state.errorHandlingContext.errorMessage,
+  saksbehandlerName: state.saksbehandlerContext.saksbehandlerName,
   fetchSaksbehandler: 'Lars Erik',
 });
 
