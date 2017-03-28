@@ -2,7 +2,7 @@ Innsyn i DFS
 =============
 
 ### Struktur
-Delt inn i klientkode og serverkode. Pr nå må disse kjøres hver for seg
+Delt inn i klientkode og serverkode. Pr nÃ¥ mÃ¥ disse kjÃ¸res hver for seg
 
-### Kjøre applikasjonene lokalt
+### KjÃ¸re applikasjonene lokalt
 Se readme i modulene
