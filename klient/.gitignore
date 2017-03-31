@@ -6,5 +6,7 @@
 /.happypack/
 /.nyc_output/
 /coverage/
+/target/
+.vscode/
 *.iml
 *.log*
