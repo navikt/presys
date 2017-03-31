@@ -1,18 +1,22 @@
 package no.nav.pensjon.dsf.web.resources;
 
 
+import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 @RestController
 @RequestMapping("api/person")
 public class PersonEndpoint {
 
-    List<Person> repo = new ArrayList<>();
+    private final List<Person> repo = new ArrayList<>();
 
     PersonEndpoint(){
         repo.add(new Person("123", "Lars", 31, Person.Kjonn.MANN));
@@ -20,9 +24,8 @@ public class PersonEndpoint {
 
     }
 
-
     @RequestMapping("/{fnr}")
     public Person findOne(@PathVariable String fnr){
-        return repo.stream().filter(p->p.getFnr().equals(fnr)).findAny().get();
+        return repo.stream().filter(p->p.getFnr().equals(fnr)).findAny().orElseThrow(ResourceNotFound::new);
     }
 }

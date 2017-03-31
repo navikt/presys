@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import { get } from 'services/restMethods';
 import { PERSON_FETCH_STARTED, PERSON_RECEIVED } from 'constants/actionTypes';
 import { PERSON_ENDPOINT } from 'constants/serverApi';
@@ -16,10 +17,20 @@ function fagsakSearchResultReceived(json) {
   };
 }
 
+const handleError = dispatch => (ajax) => {
+  switch (ajax.response.status) {
+    case 404:
+      dispatch(push('/'));
+      return showErrorMessage(ajax);
+    default:
+      return showErrorMessage(ajax);
+  }
+};
+
 export default function fetchPerson(fnr) {
   return (dispatch) => {
     dispatch(removeErrorMessage());
     dispatch(searchStarted());
-    return get(`${PERSON_ENDPOINT}/${fnr}`, {}, dispatch, fagsakSearchResultReceived, showErrorMessage);
+    return get(`${PERSON_ENDPOINT}/${fnr}`, {}, dispatch, fagsakSearchResultReceived, handleError(dispatch));
   };
 }

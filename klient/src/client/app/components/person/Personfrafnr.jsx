@@ -4,26 +4,25 @@ import { connect } from 'react-redux';
 
 import Person from './Person';
 
-
-// connector.propTypes = {
-//  params: React.PropTypes.shape({ fnr: React.PropTypes.string.isRequired }).isRequired,
-// };
-
 class PersonFraFnr extends Component {
 
-  constructor(props) {
-    super(props);
-    props.fetchPerson(props.params.fnr);
+  componentDidMount() {
+    this.props.fetchPerson(this.props.params.fnr);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.fnr !== nextProps.person.fnr) {
+    if (nextProps.params.fnr !== this.props.params.fnr) {
       this.props.fetchPerson(nextProps.params.fnr);
     }
   }
 
   render() {
-    const person = this.props.person;
+    const { person } = this.props;
+    if (!person.fnr) {
+      return null;
+    } else if (person.loading) {
+      return <div>loading</div>;
+    }
     return (<Person
       navn={person.navn}
       alder={person.alder}
@@ -36,13 +35,13 @@ class PersonFraFnr extends Component {
 
 PersonFraFnr.propTypes = {
   person: React.PropTypes.shape({
-    fnr: React.PropTypes.string.isRequired,
+    // fnr: React.PropTypes.string.isRequired,
+    loading: React.PropTypes.bool.isRequired,
   }).isRequired,
   fetchPerson: React.PropTypes.func.isRequired,
   params: React.PropTypes.shape({ fnr: React.PropTypes.string.isRequired }).isRequired,
 
 };
-
 
 export default connect(state => ({
   person: state.person,
