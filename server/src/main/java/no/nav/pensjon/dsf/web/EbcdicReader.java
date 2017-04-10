@@ -15,9 +15,11 @@ public class EbcdicReader {
         EbcdicReader er = new EbcdicReader();
 
         //er.compress(1983);
-        //DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("RFDB"));
-        DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("rfdbhex.txt"));
+        DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
+        //DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("rfdbhex.txt"));
+        DataInputStream isPinntekt = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("pinntekt.txt"));
         DataOutputStream os = new DataOutputStream(System.out);
+        DataOutputStream osFil = new DataOutputStream(new FileOutputStream("pinntekt.txt"));
 
         //er.read(is,102);
 
@@ -25,19 +27,53 @@ public class EbcdicReader {
 
         //er.deCompress(test);
 
-        byte[] value = er.read(is,9);
-        value = er.read(is,8);
-        er.write(value, os);
 
-        value = er.read(is,22);
-        //er.write(value, os);
+            byte[] start = er.read(isPinntekt, 6);
+            byte[] segmentNavn = er.read(isPinntekt, 8);
+            er.read(isPinntekt, 19);
+            byte[] ukjent1 = er.read(isPinntekt, 2);
+            byte[] pi_aar = er.read(isPinntekt, 3);
+            byte[] pi_type = er.read(isPinntekt, 1);
+            byte[] ukjent2 = er.read(isPinntekt, 6);
+            byte[] kommune = er.read(isPinntekt, 3);
+            byte[] rappdato = er.read(isPinntekt, 4);
+            byte[] reserve = er.read(isPinntekt, 4);
 
-        value = er.read(is,3);
-        for (byte b : value){
-            er.writePlus(b, os);
+           /* while ((value = er.read(isPinntekt, 1)) != null) {
+                er.writePlus(value[0], os);
+            }
+            */
+           String aar = "";
+            for (byte b : pi_aar){
+               // er.writePlus(b, os);
+                aar += String.format("%02X", b);
+                //System.out.print( String.format("%02X", b).substring() /*+ ":" + value */);
+            }
+
+            System.out.println(Integer.parseInt(aar.substring(0, 5)));
+
+
+
+/*
+        for (int i = 0 ; i< 10000; i++){
+            byte[] value = er.read(is,1);
+            if ((value[0] & 0xFF) == 0xE2 ){
+                byte o = er.read(is,1)[0];
+                i++;
+                if((o & 0xFF) == 0xD6) {
+                    System.out.print(i + ":");
+                    er.writePlus(value[0], os);
+                    er.writePlus(o, os);
+                    er.writePlus(er.read(is, 1)[0], os);
+                    er.writePlus(er.read(is, 1)[0], os);
+                    er.writePlus(er.read(is, 1)[0], os);
+                    i += 3;
+                }
+            }
         }
 
-        er.deCompress(value);
+*/
+        //er.deCompress(value);
 
         //for(int i = 0; i<32; i++){
         //    value = er.read(is,1);
@@ -65,7 +101,7 @@ public class EbcdicReader {
     public void writePlus(byte value, DataOutput out) throws IOException {
         out.write(value);
         int unsignedByte = value & 0xFF;
-        System.out.print(":" + String.format("%02X ", value) + ":" + value + "\n");
+        System.out.print(":" + String.format("%02X ", value) /*+ ":" + value */+ "\n");
 
 
     }
