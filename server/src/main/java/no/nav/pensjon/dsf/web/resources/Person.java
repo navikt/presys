@@ -6,12 +6,14 @@ public class Person {
     private String navn;
     private int alder;
     private Kjonn kjonn;
+    private SivilStatus sivilStatus;
 
-    public Person(String fnr, String navn, int alder, Kjonn kjonn) {
+    public Person(String fnr, String navn, int alder, Kjonn kjonn, SivilStatus sivilStatus) {
         this.fnr = fnr;
         this.navn = navn;
         this.alder = alder;
         this.kjonn = kjonn;
+        this.sivilStatus = sivilStatus;
     }
 
     public String getFnr() {
@@ -46,7 +48,18 @@ public class Person {
         this.kjonn = kjonn;
     }
 
-    public static enum Kjonn{
+    public SivilStatus getSivilStatus() {
+        return sivilStatus;
+    }
+
+    public void setSivilStatus(SivilStatus sivilStatus) {
+        this.sivilStatus = sivilStatus;
+    }
+
+    public enum Kjonn{
         MANN, KVINNE
+    }
+    public enum SivilStatus{
+        GIFT, ENSLIG, PARTNER, SAMBOER
     }
 }

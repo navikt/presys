@@ -19,8 +19,8 @@ public class PersonEndpoint {
     private final List<Person> repo = new ArrayList<>();
 
     PersonEndpoint(){
-        repo.add(new Person("123", "Lars", 31, Person.Kjonn.MANN));
-        repo.add(new Person("321", "Bernt", 78, Person.Kjonn.KVINNE));
+        repo.add(new Person("123", "Lars", 31, Person.Kjonn.MANN, Person.SivilStatus.PARTNER));
+        repo.add(new Person("321", "Bernt", 78, Person.Kjonn.KVINNE, Person.SivilStatus.SAMBOER));
 
     }
 

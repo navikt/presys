@@ -28,6 +28,10 @@ class PersonFraFnr extends Component {
       alder={person.alder}
       personnummer={person.fnr}
       erKvinne={person.kjonn === 'KVINNE'}
+      erGift={person.sivilStatus === 'GIFT'}
+      erSamboer={person.sivilStatus === 'SAMBOER'}
+      erEnslig={person.sivilStatus === 'ENSLIG'}
+      erPartner={person.sivilStatus === 'PARTNER'}
       hasLargeFont={false}
     />);
   }
