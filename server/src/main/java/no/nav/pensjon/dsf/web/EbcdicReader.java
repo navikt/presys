@@ -34,7 +34,8 @@ public class EbcdicReader {
             byte[] ukjent1 = er.read(isPinntekt, 2);
             byte[] pi_aar = er.read(isPinntekt, 3);
             byte[] pi_type = er.read(isPinntekt, 1);
-            byte[] ukjent2 = er.read(isPinntekt, 6);
+            byte[] pi_merke = er.read(isPinntekt, 1);
+            byte[] pi = er.read(isPinntekt, 5);
             byte[] kommune = er.read(isPinntekt, 3);
             byte[] rappdato = er.read(isPinntekt, 4);
             byte[] reserve = er.read(isPinntekt, 4);
@@ -51,6 +52,16 @@ public class EbcdicReader {
             }
 
             System.out.println(Integer.parseInt(aar.substring(0, 5)));
+
+            System.out.println(new String(segmentNavn));
+            System.out.println(new String(segmentNavn, "Cp1047"));
+
+            System.out.println(er.deCompress(pi_aar, 5));
+            System.out.println(er.deCompress(kommune, 5));
+            System.out.println(er.deCompress(rappdato, 7));
+
+
+
 
 
 
@@ -106,16 +117,9 @@ public class EbcdicReader {
 
     }
 
-    public void deCompress(byte[] packed){
-        //if (re.isErKomprimert()) {
-        AS400PackedDecimal packedDecimal = new AS400PackedDecimal(5, 0);
-        double d = packedDecimal.toDouble(packed);
-        //BigDecimal komprimertEntry = (BigDecimal) packedDecimal.toObject(packed);
-
-        System.out.println(d);
-        // } else {
-        //     entryValue = new String(recordEntryBytes, "Cp1047");
-        // }
+    public String deCompress(byte[] packed, int length){
+        BigDecimal komprimertEntry = (BigDecimal) new AS400PackedDecimal(length, 0).toObject(packed);
+        return komprimertEntry.toString();
     }
 
     public void compress(double unpacked) throws IOException {
