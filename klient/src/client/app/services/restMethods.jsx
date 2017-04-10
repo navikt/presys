@@ -1,11 +1,18 @@
 import axios from 'axios';
 
+
+const addJwt = (headers) => {
+  const jwt = localStorage.getItem('jwt') || null;
+  return jwt ? { ...headers, 'X-Jwt': jwt } : headers;
+};
+
 export const get = function get(url, params, dispatch, successCallback, failedCallback) {
   return axios({
     url,
     params,
     method: 'get',
     timeout: 20000,
+    headers: addJwt({}),
     responseType: 'json',
   }).then((response) => {
     dispatch(successCallback(response.data));
@@ -20,9 +27,26 @@ export const post = function post(url, data, dispatch, successCallback, failedCa
     data: JSON.stringify(data),
     method: 'post',
     timeout: 20000,
-    headers: {
+    headers: addJwt({
       'Content-Type': 'application/json',
-    },
+    }),
+    responseType: 'json',
+  }).then((response) => {
+    dispatch(successCallback(response.data));
+  }).catch((response) => {
+    dispatch(failedCallback(response));
+  });
+};
+
+export const put = function put(url, data, dispatch, successCallback, failedCallback) {
+  return axios({
+    url,
+    data: JSON.stringify(data),
+    method: 'put',
+    timeout: 20000,
+    headers: addJwt({
+      'Content-Type': 'application/json',
+    }),
     responseType: 'json',
   }).then((response) => {
     dispatch(successCallback(response.data));

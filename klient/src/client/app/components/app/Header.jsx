@@ -5,8 +5,11 @@ import { FormattedMessage } from 'react-intl';
 import logoUrl from 'images/nav.svg';
 import saksbehandlerIkonUrl from 'images/saksbehandler.svg';
 import Label from 'elements/Label';
+import LoginManager from 'containers/app/LoginManager';
+
 
 import MessagePanel from './MessagePanel';
+
 
 import styles from './header.less';
 
@@ -28,6 +31,9 @@ const Header = ({
       <div className={styles.saksbehandler}>
         <img src={saksbehandlerIkonUrl} className={styles.saksbehandlerIkon} alt={<FormattedMessage id="Header.Saksbehandler" />} />
         <div className={styles.saksbehandlerTekst}>{saksbehandlerName}</div>
+      </div>
+      <div className={styles.saksbehandlerTekst} >
+        <LoginManager />
       </div>
     </div>
     {errorMessage !== '' &&
