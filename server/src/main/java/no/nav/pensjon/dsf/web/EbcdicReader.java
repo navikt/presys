@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 public class EbcdicReader {
 
-    public static void main(String[] args) throws IOException {
+    public static void main2(String[] args) throws IOException {
         DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
         DataOutputStream os = new DataOutputStream(System.out);
         EbcdicReader er = new EbcdicReader();
@@ -42,7 +42,7 @@ public class EbcdicReader {
     }
 
 
-    public static void main2(String [] args) throws IOException {
+    public static void main(String [] args) throws IOException {
         EbcdicReader er = new EbcdicReader();
 
         DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
@@ -58,41 +58,52 @@ public class EbcdicReader {
         //er.deCompress(test);
 
             Segment<Inntekt> inntektssegment = new PinntektSegment();
+            byte[] file = new byte[56];
+            isPinntekt.readFully(file);
+            Inntekt inntekt = inntektssegment.readSegment(file);
+            System.out.println();
+
+        
+//            byte[] start = er.read(isPinntekt, 6);
+//            byte[] segmentNavn = er.read(isPinntekt, 8);
+//            byte[] mellomrom = er.read(isPinntekt, 19);
+//            byte[] ukjent1 = er.read(isPinntekt, 2);
+//            byte[] pi_aar = er.read(isPinntekt, 3);
+//            byte[] pi_type = er.read(isPinntekt, 1);
+//            byte[] pi_merke = er.read(isPinntekt, 1);
+//            byte[] pi = er.read(isPinntekt, 5);
+//            byte[] kommune = er.read(isPinntekt, 3);
+//            byte[] rappdato = er.read(isPinntekt, 4);
+//            byte[] reserve = er.read(isPinntekt, 4);
 
 
-            byte[] start = er.read(isPinntekt, 6);
-            byte[] segmentNavn = er.read(isPinntekt, 8);
-            er.read(isPinntekt, 19);
-            byte[] ukjent1 = er.read(isPinntekt, 2);
-            byte[] pi_aar = er.read(isPinntekt, 3);
-            byte[] pi_type = er.read(isPinntekt, 1);
-            byte[] pi_merke = er.read(isPinntekt, 1);
-            byte[] pi = er.read(isPinntekt, 5);
-            byte[] kommune = er.read(isPinntekt, 3);
-            byte[] rappdato = er.read(isPinntekt, 4);
-            byte[] reserve = er.read(isPinntekt, 4);
 
            /* while ((value = er.read(isPinntekt, 1)) != null) {
                 er.writePlus(value[0], os);
             }
+
             */
-           String aar = "";
-            for (byte b : pi_aar){
-               // er.writePlus(b, os);
-                aar += String.format("%02X", b);
-                //System.out.print( String.format("%02X", b).substring() /*+ ":" + value */);
-            }
 
-            System.out.println(Integer.parseInt(aar.substring(0, 5)));
-
-            System.out.println(new String(segmentNavn));
-            System.out.println(new String(segmentNavn, "Cp1047"));
-
-            System.out.println(er.deCompress(pi_aar, 5));
-            System.out.println(er.deCompress(kommune, 5));
-            System.out.println(er.deCompress(rappdato, 7));
-
-
+//           String aar = "";
+//            for (byte b : pi_aar){
+//               // er.writePlus(b, os);
+//                aar += String.format("%02X", b);
+//                //System.out.print( String.format("%02X", b).substring() /*+ ":" + value */);
+//            }
+//
+//            System.out.println(Integer.parseInt(aar.substring(0, 5)));
+//            System.out.println(Integer.parseInt(aar.substring(0, 5)));
+//
+//
+//            System.out.println(new String(segmentNavn));
+//            System.out.println(new String(segmentNavn, "Cp1047"));
+//
+//            System.out.println(er.deCompress(pi_aar, 5));
+//            System.out.println(er.deCompress(kommune, 5));
+//            System.out.println(er.deCompress(rappdato, 7));
+//
+//
+//
 
 
 

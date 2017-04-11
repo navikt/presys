@@ -23,7 +23,7 @@ public class SaksbehandlerEndpoint {
     @RequestMapping("/login")
     public LoggedInCredentials login(@RequestBody Credentials credentials) throws UnsupportedEncodingException {
         LoggedInCredentials loggedIn = new LoggedInCredentials();
-        //loggedIn.setNavn(credentials.getBrukernavn());
+        //loggedIn.setFeltNavn(credentials.getBrukernavn());
 
         Algorithm algorithm = Algorithm.HMAC256("secret");
         String token = JWT.create()

@@ -4,24 +4,24 @@ package no.nav.pensjon.dsf.ebcdic.segmenter;
  * Created by d132988 on 11.04.2017.
  */
 public class Felt {
-    private String navn;
+    private String feltNavn;
     private int byteLength;
     private boolean packed;
     private int unpackedLength;
 
-    public Felt(String navn, int byteLength, boolean packed, int unpackedLength) {
-        this.navn = navn;
+    public Felt(String feltNavn, int byteLength, boolean packed, int unpackedLength) {
+        this.feltNavn = feltNavn;
         this.byteLength = byteLength;
         this.packed = packed;
         this.unpackedLength = unpackedLength;
     }
 
-    public String getNavn() {
-        return navn;
+    public String getFeltNavn() {
+        return feltNavn;
     }
 
-    public void setNavn(String navn) {
-        this.navn = navn;
+    public void setFeltNavn(String feltNavn) {
+        this.feltNavn = feltNavn;
     }
 
     public int getByteLength() {
