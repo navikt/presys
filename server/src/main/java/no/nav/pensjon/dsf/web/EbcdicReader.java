@@ -1,6 +1,9 @@
 package no.nav.pensjon.dsf.web;
 
 import com.ibm.as400.access.AS400PackedDecimal;
+import no.nav.pensjon.dsf.ebcdic.segmenter.Inntekt;
+import no.nav.pensjon.dsf.ebcdic.segmenter.PinntektSegment;
+import no.nav.pensjon.dsf.ebcdic.segmenter.Segment;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -10,11 +13,38 @@ import java.math.BigDecimal;
  */
 public class EbcdicReader {
 
-
-    public static void main(String [] args) throws IOException {
+    public static void main(String[] args) throws IOException {
+        DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
+        DataOutputStream os = new DataOutputStream(System.out);
         EbcdicReader er = new EbcdicReader();
 
-        //er.compress(1983);
+        //String seearchString = new String("SOLBAKKEN BRITT ANITA    ");
+
+
+        int [] pattern = {0x07, 0x11, 0x66, 0x45, 0x42, 0x9C};//, 0x9C};
+        //pattern = seearchString.getBytes("Cp1047");
+        byte [] value = er.read(is, 2600);
+        forvalue:
+        for (int i = 0; i < value.length-pattern.length; i++){
+            for(int j = 0; j<pattern.length;j++){
+                if((value[j+i]&0xFF) != pattern[j] ){
+                //if(value[j+i] != pattern[j] ){
+                continue forvalue;
+                }
+            }
+            System.out.println(i);
+
+
+            for(int s = i + pattern.length; s < i + 20; s++)
+            er.writePlus(value[s], os);
+            break;
+        }
+    }
+
+
+    public static void main2(String [] args) throws IOException {
+        EbcdicReader er = new EbcdicReader();
+
         DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
         //DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("rfdbhex.txt"));
         DataInputStream isPinntekt = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("pinntekt.txt"));
@@ -26,6 +56,8 @@ public class EbcdicReader {
        // byte[] test = {1, -104, 63};
 
         //er.deCompress(test);
+
+            Segment<Inntekt> inntektssegment = new PinntektSegment();
 
 
             byte[] start = er.read(isPinntekt, 6);
@@ -110,7 +142,8 @@ public class EbcdicReader {
     }
 
     public void writePlus(byte value, DataOutput out) throws IOException {
-        out.write(value);
+        byte stringbytes[] = {value};
+        out.write(new String(stringbytes, "Cp1047").getBytes("UTF-8"));
         int unsignedByte = value & 0xFF;
         System.out.print(":" + String.format("%02X ", value) /*+ ":" + value */+ "\n");
 
