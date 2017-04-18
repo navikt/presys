@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 
 import static no.nav.pensjon.dsf.ebcdic.EbcdicUtils.EBCDIC_CHARSET;
 
@@ -14,6 +15,10 @@ import static no.nav.pensjon.dsf.ebcdic.EbcdicUtils.EBCDIC_CHARSET;
  * Created by d132988 on 18.04.2017.
  */
 public class SplitPerson {
+
+    public static void main(String[]args) throws IOException {
+        split();
+    }
 
     public static void split() throws IOException {
         DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
@@ -38,15 +43,19 @@ public class SplitPerson {
                 continue;
             }
 
-            DataOutputStream osFil = new DataOutputStream(new FileOutputStream(EbcdicUtils.deCompress(Arrays.copyOfRange(value, segmentStart+6+29, segmentStart+6+29+6),11,0).toString() + ".txt"));
-            osFil.write(Arrays.copyOfRange(value, segmentStart, i-6));
-            osFil.close();
-            System.out.print(new String(Arrays.copyOfRange(value, segmentStart+6, segmentStart+6+8), EBCDIC_CHARSET));
+            //DataOutputStream osFil = new DataOutputStream(new FileOutputStream(EbcdicUtils.deCompress(Arrays.copyOfRange(value, segmentStart+6+29, segmentStart+6+29+6),11,0).toString() + ".txt"));
+            //osFil.write(Arrays.copyOfRange(value, segmentStart, i-6));
+            System.out.print(EbcdicUtils.deCompress(Arrays.copyOfRange(value, segmentStart+6+29, segmentStart+6+29+6),11,0));
+            System.out.print(":" +Arrays.copyOfRange(value, segmentStart, i-6).length + ":" );
+            System.out.print(":" +Base64.getEncoder().encode(Arrays.copyOfRange(value, segmentStart, i-6)).length +":" );
+            System.out.println(new String(Base64.getEncoder().encode(Arrays.copyOfRange(value, segmentStart, i-6))));
+            //osFil.close();
+            /*System.out.print(new String(Arrays.copyOfRange(value, segmentStart+6, segmentStart+6+8), EBCDIC_CHARSET));
             System.out.print(" ");
             System.out.print(EbcdicUtils.deCompress(Arrays.copyOfRange(value, segmentStart+6+29, segmentStart+6+29+6),11,0));
             System.out.print(" ");
             System.out.print(new String(Arrays.copyOfRange(value, segmentStart+6+35, segmentStart+6+35+25), EBCDIC_CHARSET));
-            System.out.print("\n");
+            System.out.print("\n");*/
             segmentStart = i-6;
 
         }

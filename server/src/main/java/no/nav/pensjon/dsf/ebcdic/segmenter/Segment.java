@@ -12,19 +12,17 @@ public abstract class Segment<DomeneKlasse> {
 
     public abstract String getNavn();
 
-    public abstract  List<Felt> getFelter() ;
+    public abstract  List<Felt<DomeneKlasse>> getFelter() ;
 
     public abstract DomeneKlasse initDomene();
-
-    public abstract void setFeltVerdi(DomeneKlasse domene, Felt f, String verdi);
 
     public DomeneKlasse readSegment(byte[] data){
         int position = 0;
         DomeneKlasse domene = initDomene();
         for(Felt f : getFelter()){
             byte[] feltBytes = Arrays.copyOfRange(data, position,f.getByteLength() + position);
+            f.setVerdiPaaDomene(domene, feltBytes);
             position += f.getByteLength();
-            setFeltVerdi(domene, f, f.isPacked() ? EbcdicUtils.deCompress(feltBytes, f.getUnpackedLength(), 0): EbcdicUtils.getString(feltBytes));
         }
 
         return domene;

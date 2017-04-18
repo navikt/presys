@@ -4,25 +4,26 @@ import no.nav.pensjon.dsf.domene.Inntekt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
-/**
- * Created by d132988 on 11.04.2017.
- */
 public class PinntektSegment extends Segment<Inntekt> {
 
-    private static List<Felt> felter = new ArrayList<>();
+    private List<Felt<Inntekt>> felter = new ArrayList<>();
 
-    static {
-        felter.add(new Felt("start", 6, false, 6));
-        felter.add(new Felt("segmentNavn", 8, false, 8));
-        felter.add(new Felt("ukjent1", 21, false, 21));
-        felter.add(new Felt("pi_aar", 3, true, 5));
-        felter.add(new Felt("pi_type", 1, false, 1));
-        felter.add(new Felt("pi_merke", 1, false, 1));
-        felter.add(new Felt("pi", 5, true, 9));
-        felter.add(new Felt("kommune", 3, true, 5));
-        felter.add(new Felt("rappdato", 4, true, 7));
-        felter.add(new Felt("reserve", 4, false, 4));
+    PinntektSegment() {
+        BiConsumer<Inntekt, String> devNull = (inntekt, verdi)-> {};
+
+        felter.add(Characters.on(Inntekt.class, "start", 6, devNull ));
+        felter.add(Characters.on(Inntekt.class, "segmentNavn", 8, devNull ));
+        felter.add(Characters.on(Inntekt.class, "ukjent1", 21, devNull ));
+        felter.add(PackedDecimal.tall(Inntekt.class, "pi_aar", 3, 5, Inntekt::setPersonInntektAar));
+        felter.add(Characters.on(Inntekt.class, "pi_type", 1, Inntekt::setPersonInntektType));
+        felter.add(Characters.on(Inntekt.class, "pi_merke", 1, Inntekt::setPersonInntektMerke));
+        felter.add(PackedDecimal.tall(Inntekt.class, "pi", 5, 9, Inntekt::setPersonInntekt));
+        felter.add(PackedDecimal.tekst(Inntekt.class, "kommune", 3, 5, Inntekt::setKommune));
+        felter.add(PackedDecimal.tall(Inntekt.class, "rappdato", 4, 7, Inntekt::setRapporteringsDato));
+        felter.add(Characters.on(Inntekt.class, "reserve", 4, devNull ));
     }
 
     @Override
@@ -31,30 +32,13 @@ public class PinntektSegment extends Segment<Inntekt> {
     }
 
     @Override
-    public List<Felt> getFelter() {
+    public List<Felt<Inntekt>> getFelter() {
         return felter;
     }
 
     @Override
     public Inntekt initDomene() {
         return new Inntekt();
-    }
-
-    @Override
-    public void setFeltVerdi(Inntekt domene, Felt f,String verdi) {
-        if (f.getFeltNavn().equals("pi_aar")){
-            domene.setPersonInntektAar(Integer.parseInt(verdi));// lag datofelt (kanskje som dag 223 i 1973)
-        } else if (f.getFeltNavn().equals("pi_type")){
-            domene.setPersonInntektType((verdi));
-        } else if (f.getFeltNavn().equals("pi_merke")){
-            domene.setPersonInntektMerke((verdi));
-        } else if (f.getFeltNavn().equals("pi")){
-            domene.setPersonInntekt(Integer.parseInt(verdi));
-        } else if (f.getFeltNavn().equals("kommune")){
-            domene.setKommune((verdi));
-        } else if (f.getFeltNavn().equals("rappdato")){
-            domene.setRapporteringsDato(Integer.parseInt(verdi));
-        }
     }
 
 

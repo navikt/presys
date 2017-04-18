@@ -1,19 +1,20 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 /**
  * Created by d132988 on 11.04.2017.
  */
-public class Felt {
+public abstract class Felt<Domeneklasse> {
     private String feltNavn;
     private int byteLength;
-    private boolean packed;
-    private int unpackedLength;
+    private BiConsumer<Domeneklasse, String> feltSetter;
 
-    public Felt(String feltNavn, int byteLength, boolean packed, int unpackedLength) {
+    public Felt(String feltNavn, int byteLength, BiConsumer<Domeneklasse, String> feltSetter ) {
         this.feltNavn = feltNavn;
         this.byteLength = byteLength;
-        this.packed = packed;
-        this.unpackedLength = unpackedLength;
+        this.feltSetter = feltSetter;
     }
 
     public String getFeltNavn() {
@@ -32,19 +33,9 @@ public class Felt {
         this.byteLength = byteLength;
     }
 
-    public boolean isPacked() {
-        return packed;
-    }
+    public abstract String parse(byte[]value);
 
-    public void setPacked(boolean packed) {
-        this.packed = packed;
-    }
-
-    public int getUnpackedLength() {
-        return unpackedLength;
-    }
-
-    public void setUnpackedLength(int unpackedLength) {
-        this.unpackedLength = unpackedLength;
+    public void setVerdiPaaDomene(Domeneklasse domene, byte[] value){
+        feltSetter.accept(domene, parse(value));
     }
 }

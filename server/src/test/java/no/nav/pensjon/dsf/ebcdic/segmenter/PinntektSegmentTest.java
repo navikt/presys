@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
+import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.web.EbcdicReader;
 import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
