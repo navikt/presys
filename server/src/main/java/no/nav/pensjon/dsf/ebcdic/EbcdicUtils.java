@@ -10,6 +10,8 @@ import java.math.BigDecimal;
  */
 public class EbcdicUtils {
 
+    public static final String EBCDIC_CHARSET = "Cp1142";
+
     public static byte[] read(DataInput data, int length) throws IOException {
         byte[] kdgex = new byte[length];
         data.readFully(kdgex);
@@ -23,7 +25,7 @@ public class EbcdicUtils {
 
     public static void writePlus(byte value, DataOutput out) throws IOException {
         byte stringbytes[] = {value};
-        out.write(new String(stringbytes, "Cp1047").getBytes("UTF-8"));
+        out.write(new String(stringbytes, EBCDIC_CHARSET).getBytes("UTF-8"));
         int unsignedByte = value & 0xFF;
         System.out.print(":" + String.format("%02X ", value) /*+ ":" + value */+ "\n");
     }
@@ -38,8 +40,16 @@ public class EbcdicUtils {
         return  packedDecimal.toBytes(unpacked);
     }
 
+    public static String getString(byte[] Cp1047bytes){
+        try {
+            return new String(Cp1047bytes, EBCDIC_CHARSET);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static int search(byte[]value, String seearchString) throws UnsupportedEncodingException {
-        return search(value, seearchString.getBytes("Cp1047"));
+        return search(value, seearchString.getBytes(EBCDIC_CHARSET));
     }
 
     public static int search(byte[]value, byte[] pattern){

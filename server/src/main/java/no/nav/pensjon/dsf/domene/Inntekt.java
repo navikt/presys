@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.ebcdic.segmenter;
+package no.nav.pensjon.dsf.domene;
 
 /**
  * Created by d132988 on 11.04.2017.

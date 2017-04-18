@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
+import no.nav.pensjon.dsf.domene.Inntekt;
+
 import java.util.ArrayList;
 import java.util.List;
 

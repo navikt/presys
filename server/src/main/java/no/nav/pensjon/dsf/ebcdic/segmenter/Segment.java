@@ -1,11 +1,7 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
-import com.ibm.as400.access.AS400PackedDecimal;
-import org.jvnet.hk2.config.Dom;
+import no.nav.pensjon.dsf.ebcdic.EbcdicUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,22 +24,11 @@ public abstract class Segment<DomeneKlasse> {
         for(Felt f : getFelter()){
             byte[] feltBytes = Arrays.copyOfRange(data, position,f.getByteLength() + position);
             position += f.getByteLength();
-            setFeltVerdi(domene, f, f.isPacked() ? deCompress(feltBytes, f.getUnpackedLength()): getString(feltBytes));
+            setFeltVerdi(domene, f, f.isPacked() ? EbcdicUtils.deCompress(feltBytes, f.getUnpackedLength(), 0): EbcdicUtils.getString(feltBytes));
         }
 
         return domene;
     }
 
-    public String deCompress(byte[] packed, int length){
-        BigDecimal komprimertEntry = (BigDecimal) new AS400PackedDecimal(length, 0).toObject(packed);
-        return komprimertEntry.toString();
-    }
 
-    public String getString(byte[] Cp1047bytes){
-        try {
-            return new String(Cp1047bytes, "Cp1047");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
