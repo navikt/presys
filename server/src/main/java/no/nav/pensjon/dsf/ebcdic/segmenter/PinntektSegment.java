@@ -14,16 +14,16 @@ public class PinntektSegment extends Segment<Inntekt> {
     PinntektSegment() {
         BiConsumer<Inntekt, String> devNull = (inntekt, verdi)-> {};
 
-        felter.add(Characters.on(Inntekt.class, "start", 6, devNull ));
-        felter.add(Characters.on(Inntekt.class, "segmentNavn", 8, devNull ));
-        felter.add(Characters.on(Inntekt.class, "ukjent1", 21, devNull ));
-        felter.add(PackedDecimal.tall(Inntekt.class, "pi_aar", 3, 5, Inntekt::setPersonInntektAar));
-        felter.add(Characters.on(Inntekt.class, "pi_type", 1, Inntekt::setPersonInntektType));
-        felter.add(Characters.on(Inntekt.class, "pi_merke", 1, Inntekt::setPersonInntektMerke));
-        felter.add(PackedDecimal.tall(Inntekt.class, "pi", 5, 9, Inntekt::setPersonInntekt));
-        felter.add(PackedDecimal.tekst(Inntekt.class, "kommune", 3, 5, Inntekt::setKommune));
-        felter.add(PackedDecimal.tall(Inntekt.class, "rappdato", 4, 7, Inntekt::setRapporteringsDato));
-        felter.add(Characters.on(Inntekt.class, "reserve", 4, devNull ));
+        felter.add(Characters.tekst("start", 6, devNull ));
+        felter.add(Characters.tekst("segmentNavn", 8, devNull ));
+        felter.add(Characters.tekst("ukjent1", 21, devNull ));
+        felter.add(PackedDecimal.tall("pi_aar", 3, 5, Inntekt::setPersonInntektAar));
+        felter.add(Characters.tekst("pi_type", 1, Inntekt::setPersonInntektType));
+        felter.add(Characters.tekst("pi_merke", 1, Inntekt::setPersonInntektMerke));
+        felter.add(PackedDecimal.tall("pi", 5, 9, Inntekt::setPersonInntekt));
+        felter.add(PackedDecimal.tekst("kommune", 3, 5, Inntekt::setKommune));
+        felter.add(PackedDecimal.tall("rappdato", 4, 7, Inntekt::setRapporteringsDato));
+        felter.add(Characters.tekst("reserve", 4, devNull ));
     }
 
     @Override

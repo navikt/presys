@@ -15,7 +15,7 @@ public class Characters<Domeneklasse> extends Felt<Domeneklasse>{
         return EbcdicUtils.getString(value);
     }
 
-    public static <Domeneklasse> Characters<Domeneklasse> on (Class<Domeneklasse> clazz, String feltNavn, int byteLength, BiConsumer<Domeneklasse, String> feltSetter){
+    public static <Domeneklasse> Characters<Domeneklasse> tekst (String feltNavn, int byteLength, BiConsumer<Domeneklasse, String> feltSetter){
         return new Characters<>(feltNavn, byteLength, feltSetter);
     }
 
