@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.ebcdic.segmenter;
+package no.nav.pensjon.dsf.ebcdic.felter;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

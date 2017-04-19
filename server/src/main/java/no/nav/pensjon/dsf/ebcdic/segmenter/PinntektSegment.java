@@ -1,15 +1,16 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
 import no.nav.pensjon.dsf.domene.Inntekt;
+import no.nav.pensjon.dsf.ebcdic.felter.Felt;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static no.nav.pensjon.dsf.ebcdic.segmenter.Characters.plaintext;
-import static no.nav.pensjon.dsf.ebcdic.segmenter.PackedDecimal.pakketHeltall;
-import static no.nav.pensjon.dsf.ebcdic.segmenter.PackedDecimal.pakketTekst;
-import static no.nav.pensjon.dsf.ebcdic.segmenter.SegmentNavnFelt.segmentNavn;
+import static no.nav.pensjon.dsf.ebcdic.felter.Characters.plaintext;
+import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.pakketHeltall;
+import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.pakketTekst;
+import static no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt.segmentNavn;
 
 public class PinntektSegment extends Segment<Inntekt> {
 

@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.ebcdic.segmenter;
+package no.nav.pensjon.dsf.ebcdic.felter;
 
 import no.nav.pensjon.dsf.ebcdic.EbcdicUtils;
 

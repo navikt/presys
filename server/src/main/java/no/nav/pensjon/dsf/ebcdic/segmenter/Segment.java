@@ -1,6 +1,8 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
 import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
+import no.nav.pensjon.dsf.ebcdic.felter.Felt;
+import no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt;
 
 import java.util.List;
 

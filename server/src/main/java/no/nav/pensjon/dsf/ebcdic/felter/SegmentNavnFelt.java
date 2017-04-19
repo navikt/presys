@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.ebcdic.segmenter;
+package no.nav.pensjon.dsf.ebcdic.felter;
 
 /**
  * Created by d132988 on 19.04.2017.
