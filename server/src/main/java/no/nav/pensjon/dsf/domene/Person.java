@@ -10,10 +10,7 @@ public class Person {
 
     private String fnr;
     private String navn;
-    private String tknr;
-    private String sprak;
     private int ai67;
-    private String sperre;
     private List<Inntekt> inntekter = new ArrayList<>();
 
     public List<Inntekt> getInntekter() {
@@ -36,35 +33,11 @@ public class Person {
         this.navn = navn;
     }
 
-    public String getTknr() {
-        return tknr;
-    }
-
-    public void setTknr(String tknr) {
-        this.tknr = tknr;
-    }
-
-    public String getSprak() {
-        return sprak;
-    }
-
-    public void setSprak(String sprak) {
-        this.sprak = sprak;
-    }
-
     public int getAi67() {
         return ai67;
     }
 
     public void setAi67(int ai67) {
         this.ai67 = ai67;
-    }
-
-    public String getSperre() {
-        return sperre;
-    }
-
-    public void setSperre(String sperre) {
-        this.sperre = sperre;
     }
 }

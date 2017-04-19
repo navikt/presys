@@ -1,31 +1,27 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
-import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.domene.Person;
-import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
 
-
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import static no.nav.pensjon.dsf.ebcdic.felter.Characters.plaintext;
 import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.pakketHeltall;
 import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.pakketTekst;
+import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.pakketZeroFilled;
 import static no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt.segmentNavn;
 
 public class RF0PersonSegment extends  Segment<Person> {
 
-    RF0PersonSegment() {
+    public RF0PersonSegment() {
         super("RF0PERSN", Person::new);
         BiConsumer<Person, String> settesIkke = (person, verdi)-> {}; //Brukes for felter som ikke skal settes på domeneobjektet
 
         getFelter().add(plaintext("start", 6, settesIkke ));
         getFelter().add(segmentNavn());
         getFelter().add(plaintext("ukjent1", 21, settesIkke ));
-        getFelter().add(pakketTekst("fnr", 6, 11, Person::setFnr));
+        getFelter().add(pakketZeroFilled("fnr", 6, 11, Person::setFnr));
         getFelter().add(plaintext("navn", 25, Person::setNavn));
-        getFelter().add(pakketTekst("tknr", 3, 5, Person::setTknr));
+        getFelter().add(pakketTekst("tknr", 3, 5, settesIkke));
         getFelter().add(plaintext("spraak", 1, settesIkke));
         getFelter().add(pakketHeltall("AI67", 3, 5, Person::setAi67)); //ANTATT INNTEKT I 1967, IKKE DET SAMME SOM PGI DETTE ÅRET.
         getFelter().add(plaintext("SPERRE", 1, settesIkke));

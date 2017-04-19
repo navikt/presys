@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
-import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
 import no.nav.pensjon.dsf.ebcdic.felter.Felt;
 import no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt;
