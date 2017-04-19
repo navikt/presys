@@ -5,12 +5,20 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
+import no.nav.pensjon.dsf.ebcdic.segmenter.RF0PersonSegment;
+import no.nav.pensjon.dsf.ebcdic.segmenter.Segment;
+import no.nav.pensjon.dsf.repository.PersonRepository;
+import no.nav.pensjon.dsf.web.EbcdicReader;
 import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,32 +32,22 @@ import java.util.function.Supplier;
 @RequestMapping("api/person")
 public class PersonEndpoint {
 
-    private final List<Person> repo = new ArrayList<>();
+    private PersonRepository repo = new PersonRepository();
 
-    private static final Function<String, Predicate<Person>> fnrMatcher = fnr -> person -> fnr.equals(person.getFnr());
-
-    PersonEndpoint(){
-        repo.add(new Person("123", "Lars", 31, Person.Kjonn.MANN, Person.SivilStatus.PARTNER));
-        repo.add(new Person("321", "Bernt", 78, Person.Kjonn.KVINNE, Person.SivilStatus.SAMBOER));
-
-    }
-
-    private static Predicate<Person> fnrMatcher(String fnr){
-        return person -> fnr.equals(person.getFnr());
-    }
-
-
-
+    //@RequestMapping("/test")
     @RequestMapping("/{fnr}")
-    public Person findOne(@PathVariable String fnr, @RequestHeader(value="X-Jwt") String jwtToken) throws UnsupportedEncodingException {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("dsf")
-                    .withClaim("saksbehandler", true)
-                    .build(); //Reusable verifier instance
-            verifier.verify(jwtToken);
+    public no.nav.pensjon.dsf.domene.Person findOne(@PathVariable Long fnr, @RequestHeader(value="X-Jwt") String jwtToken) throws IOException {
+        sikkerhet(jwtToken);
+        return repo.findPerson(fnr.toString());
+    }
 
-        return repo.stream().filter(fnrMatcher(fnr)).findAny().orElseThrow(ResourceNotFound::new);
+    public void sikkerhet(String jwtToken) throws UnsupportedEncodingException {
+        Algorithm algorithm = Algorithm.HMAC256("secret");
+        JWTVerifier verifier = JWT.require(algorithm)
+                .withIssuer("dsf")
+                .withClaim("saksbehandler", true)
+                .build(); //Reusable verifier instance
+        verifier.verify(jwtToken);
     }
 
 

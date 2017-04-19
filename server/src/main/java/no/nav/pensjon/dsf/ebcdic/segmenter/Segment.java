@@ -47,7 +47,6 @@ public abstract class Segment<DomeneKlasse> {
         int position = 0;
         for(Felt f : getFelter()){
             if(SegmentNavnFelt.NAVN.equals(f.getFeltNavn())){
-                System.out.println(getNavn() + ":" + f.parse(data.peekAhead(position, f.getByteLength())));
                 return f.parse(data.peekAhead(position, f.getByteLength())).equals(getNavn());
             }
             position += f.getByteLength();
