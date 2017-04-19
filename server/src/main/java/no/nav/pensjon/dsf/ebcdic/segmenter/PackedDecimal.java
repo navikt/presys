@@ -21,11 +21,11 @@ public class PackedDecimal<Domeneklasse> extends Felt<Domeneklasse> {
         return EbcdicUtils.deCompress(value, unpackedLength, 0);
     }
 
-    public static <Domeneklasse> PackedDecimal<Domeneklasse> tekst (String feltNavn, int byteLength, int unpackedLength, BiConsumer<Domeneklasse, String> feltSetter){
+    public static <Domeneklasse> PackedDecimal<Domeneklasse> pakketTekst (String feltNavn, int byteLength, int unpackedLength, BiConsumer<Domeneklasse, String> feltSetter){
         return new PackedDecimal<>(feltNavn, byteLength, unpackedLength, feltSetter);
     }
 
-    public static <Domeneklasse> PackedDecimal<Domeneklasse> tall (String feltNavn, int byteLength, int unpackedLength, BiConsumer<Domeneklasse, Integer> feltSetter){
+    public static <Domeneklasse> PackedDecimal<Domeneklasse> pakketHeltall (String feltNavn, int byteLength, int unpackedLength, BiConsumer<Domeneklasse, Integer> feltSetter){
         return new PackedDecimal<>(feltNavn, byteLength, unpackedLength, (d, f)->feltSetter.accept(d, Integer.parseInt(f)));
     }
 }
