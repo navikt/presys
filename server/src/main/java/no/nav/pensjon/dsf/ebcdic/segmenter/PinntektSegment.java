@@ -14,38 +14,20 @@ import static no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt.segmentNavn;
 
 public class PinntektSegment extends Segment<Inntekt> {
 
-    private List<Felt<Inntekt>> felter = new ArrayList<>();
-
     PinntektSegment() {
+        super("PINNTEKT", Inntekt::new);
+
         BiConsumer<Inntekt, String> settesIkke = (inntekt, verdi)-> {}; //Brukes for felter som ikke skal settes på domeneobjektet
 
-        felter.add(plaintext("start", 6, settesIkke ));
-        felter.add(segmentNavn());
-        felter.add(plaintext("ukjent1", 21, settesIkke ));
-        felter.add(pakketHeltall("pi_aar", 3, 5, Inntekt::setPersonInntektAar));
-        felter.add(plaintext("pi_type", 1, Inntekt::setPersonInntektType));
-        felter.add(plaintext("pi_merke", 1, Inntekt::setPersonInntektMerke));
-        felter.add(pakketHeltall("pi", 5, 9, Inntekt::setPersonInntekt));
-        felter.add(pakketTekst("kommune", 3, 5, Inntekt::setKommune));
-        felter.add(pakketHeltall("rappdato", 4, 7, Inntekt::setRapporteringsDato));
-        felter.add(plaintext("reserve", 4, settesIkke ));
+        getFelter().add(plaintext("start", 6, settesIkke ));
+        getFelter().add(segmentNavn());
+        getFelter().add(plaintext("ukjent1", 21, settesIkke ));
+        getFelter().add(pakketHeltall("pi_aar", 3, 5, Inntekt::setPersonInntektAar));
+        getFelter().add(plaintext("pi_type", 1, Inntekt::setPersonInntektType));
+        getFelter().add(plaintext("pi_merke", 1, Inntekt::setPersonInntektMerke));
+        getFelter().add(pakketHeltall("pi", 5, 9, Inntekt::setPersonInntekt));
+        getFelter().add(pakketTekst("kommune", 3, 5, Inntekt::setKommune));
+        getFelter().add(pakketHeltall("rappdato", 4, 7, Inntekt::setRapporteringsDato));
+        getFelter().add(plaintext("reserve", 4, settesIkke ));
     }
-
-
-    @Override
-    public String getNavn() {
-        return "PINNTEKT";
-    }
-
-    @Override
-    public List<Felt<Inntekt>> getFelter() {
-        return felter;
-    }
-
-    @Override
-    public Inntekt initDomene() {
-        return new Inntekt();
-    }
-
-
 }
