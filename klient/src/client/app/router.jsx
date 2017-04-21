@@ -5,9 +5,9 @@ import { Router as ReactRouter, IndexRoute, Route, hashHistory } from 'react-rou
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from 'containers/app/App';
-import FagsakSearchIndex from 'containers/fagsak/FagsakSearchIndex';
+import PersonsokIndex from 'containers/person/PersonsokIndex';
 import MissingPage from 'components/app/MissingPage';
-import Person from 'components/person/Personfrafnr';
+import Person from 'containers/person/Personfrafnr';
 
 import configureStore from './store/store';
 
@@ -18,7 +18,7 @@ const history = syncHistoryWithStore(hashHistory, store);
 
 const routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={FagsakSearchIndex} />
+    <IndexRoute component={PersonsokIndex} />
     <Route path="person/:fnr" component={Person} />
     <Route path="*" component={MissingPage} />
   </Route>

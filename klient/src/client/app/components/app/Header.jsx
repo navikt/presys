@@ -7,14 +7,10 @@ import saksbehandlerIkonUrl from 'images/saksbehandler.svg';
 import Label from 'elements/Label';
 import LoginManager from 'containers/app/LoginManager';
 
-
 import MessagePanel from './MessagePanel';
-
-
 import styles from './header.less';
 
 const Header = ({
-  saksbehandlerName,
   errorMessage,
 }) => (
   <header className={styles.container}>
@@ -30,7 +26,6 @@ const Header = ({
       <Label textCode="Header.Foreldrepenger" className={styles.text} />
       <div className={styles.saksbehandler}>
         <img src={saksbehandlerIkonUrl} className={styles.saksbehandlerIkon} alt={<FormattedMessage id="Header.Saksbehandler" />} />
-        <div className={styles.saksbehandlerTekst}>{saksbehandlerName}</div>
       </div>
       <div className={styles.saksbehandlerTekst} >
         <LoginManager />
@@ -43,7 +38,6 @@ const Header = ({
 );
 
 Header.propTypes = {
-  saksbehandlerName: React.PropTypes.string.isRequired,
   errorMessage: React.PropTypes.string,
 };
 

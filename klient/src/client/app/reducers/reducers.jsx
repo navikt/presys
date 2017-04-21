@@ -3,8 +3,8 @@ import { routerReducer } from 'react-router-redux';
 
 import errorHandlingContext from './errorHandlingReducer';
 import saksbehandlerContext from './saksbehandlerReducer';
+import personsok from './personsokReducer';
 import formContext from './formReducer';
-import fagsakContext from './fagsakReducer';
 import person from './personReducer';
 
 
@@ -13,6 +13,6 @@ export default combineReducers({
   errorHandlingContext,
   saksbehandlerContext,
   formContext,
-  fagsakContext,
+  personsok,
   person,
 });

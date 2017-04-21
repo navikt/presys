@@ -6,7 +6,7 @@ import Column from 'components/elements/Column';
 import { connect } from 'react-redux';
 
 
-import Person from './Person';
+import Person from 'components/person/Person';
 
 class PersonFraFnr extends Component {
 
