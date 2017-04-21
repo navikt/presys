@@ -1,8 +1,11 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
 import no.nav.pensjon.dsf.domene.Person;
+import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
 
+import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import static no.nav.pensjon.dsf.ebcdic.felter.Characters.plaintext;
 import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.pakketHeltall;
@@ -40,6 +43,5 @@ public class RF0PersonSegment extends  Segment<Person> {
         return undersegmenter;
 
     }
-
 
 }

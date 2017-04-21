@@ -4,28 +4,35 @@ import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
 import no.nav.pensjon.dsf.ebcdic.segmenter.RF0PersonSegment;
 import no.nav.pensjon.dsf.ebcdic.segmenter.Segment;
-import no.nav.pensjon.dsf.web.EbcdicReader;
+import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
-import java.io.DataInputStream;
-import java.io.File;
+import javax.inject.Inject;
 import java.io.IOException;
+import java.util.Base64;
+import java.util.List;
+import java.util.Optional;
 
+@Component
 public class PersonRepository {
 
+    @Inject
+    private DbRepo repo;
+
+    @Inject
+    private JdbcTemplate db;
+
+    private Segment<Person> personsegment = new RF0PersonSegment();
+
     public Person findPerson(String fnr) throws IOException {
-        String fileName = "database/" +fnr +".txt";
-        DataInputStream isPinntekt = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream(fileName));
-        File f = new File("src/main/resources/"+ fileName);
-        long lengthOfFile = f.length();
+        return personsegment.readSegment(new ScrollableArray(
+                        Base64.getDecoder().decode(
+                                Optional.ofNullable(repo.findOne(fnr)).orElseThrow(ResourceNotFound::new).getData()
+                        )));
+    }
 
-        if(lengthOfFile > Integer.MAX_VALUE)
-            throw new IllegalArgumentException();
-
-        Segment<Person> personsegment = new RF0PersonSegment();
-        byte[] file = new byte[(int) lengthOfFile];
-        isPinntekt.readFully(file);
-
-        isPinntekt.close();
-        return personsegment.readSegment(new ScrollableArray(file));
+    public List<String> personer(){
+        return db.queryForList("select fnr from Db_Person", String.class);
     }
 }

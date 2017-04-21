@@ -19,5 +19,9 @@ public class ScrollableArray {
     public byte[] peekAhead(int offset, int length){
         return Arrays.copyOfRange(data, pointer + offset, length + pointer + offset);
     }
+
+    public byte[] getData(){
+        return data;
+    }
 }
 

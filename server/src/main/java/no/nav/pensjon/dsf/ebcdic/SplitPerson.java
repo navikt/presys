@@ -4,7 +4,7 @@ import no.nav.pensjon.dsf.web.EbcdicReader;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.Base64;
+import java.util.function.Consumer;
 
 import static no.nav.pensjon.dsf.ebcdic.EbcdicUtils.EBCDIC_CHARSET;
 
@@ -14,17 +14,27 @@ import static no.nav.pensjon.dsf.ebcdic.EbcdicUtils.EBCDIC_CHARSET;
 public class SplitPerson {
 
     public static void main(String[]args) throws IOException {
-        split();
-    }
-
-    public static void split() throws IOException {
-        DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
-        String seearchString = new String("RF0PERSN");
-
-        byte [] pattern = seearchString.getBytes(EBCDIC_CHARSET);
-        byte [] value = EbcdicUtils.read(is, 500000);
         File mappe = new File("src/main/resources/database");
         mappe.mkdir();
+        Consumer<ScrollableArray>  fileWriter = data ->{
+            DataOutputStream osFil = null;
+            try {
+                osFil = new DataOutputStream(new FileOutputStream(mappe.getAbsolutePath() + "/" + EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6+29, 6+29+6),11,0).toString() + ".txt"));
+                osFil.write(data.getData());
+                osFil.close();
+            } catch (IOException  e) {
+                e.printStackTrace();
+            }
+        } ;
+
+        split(fileWriter);
+    }
+
+    public static void split(Consumer<ScrollableArray> writer) throws IOException {
+        DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
+        String seearchString = new String("RF0PERSN");
+        byte [] pattern = seearchString.getBytes(EBCDIC_CHARSET);
+        byte [] value = EbcdicUtils.read(is, 40000);
         int segmentStart = 0;
         int antall = -2;
         forvalue:
@@ -35,22 +45,12 @@ public class SplitPerson {
                 }
             }
             antall++;
-
             if(antall<=0){
                 segmentStart = i-6;
                 continue;
             }
-
-            DataOutputStream osFil = new DataOutputStream(new FileOutputStream(mappe.getAbsolutePath() + "/" +EbcdicUtils.deCompress(Arrays.copyOfRange(value, segmentStart+6+29, segmentStart+6+29+6),11,0).toString() + ".txt"));
-            osFil.write(Arrays.copyOfRange(value, segmentStart, i-6));
-            osFil.close();
-            /*System.out.print(EbcdicUtils.deCompress(Arrays.copyOfRange(value, segmentStart+6+29, segmentStart+6+29+6),11,0));
-            System.out.print(":" +Arrays.copyOfRange(value, segmentStart, i-6).length + ":" );
-            System.out.print(":" +Base64.getEncoder().encode(Arrays.copyOfRange(value, segmentStart, i-6)).length +":" );
-            System.out.println(new String(Base64.getEncoder().encode(Arrays.copyOfRange(value, segmentStart, i-6))));*/
+            writer.accept(new ScrollableArray(Arrays.copyOfRange(value, segmentStart, i-6)));
             segmentStart = i-6;
-
         }
-        System.out.println("Fant " + antall + " personer");
     }
 }

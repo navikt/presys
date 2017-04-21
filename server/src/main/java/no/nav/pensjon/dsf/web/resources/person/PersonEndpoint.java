@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.web.resources;
+package no.nav.pensjon.dsf.web.resources.person;
 
 
 import com.auth0.jwt.JWT;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Inject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -32,13 +33,13 @@ import java.util.function.Supplier;
 @RequestMapping("api/person")
 public class PersonEndpoint {
 
-    private PersonRepository repo = new PersonRepository();
+    @Inject
+    private PersonRepository repo;
 
-    //@RequestMapping("/test")
     @RequestMapping("/{fnr}")
-    public no.nav.pensjon.dsf.domene.Person findOne(@PathVariable Long fnr, @RequestHeader(value="X-Jwt") String jwtToken) throws IOException {
+    public no.nav.pensjon.dsf.domene.Person findOne(@PathVariable String fnr, @RequestHeader(value="X-Jwt") String jwtToken) throws IOException {
         sikkerhet(jwtToken);
-        return repo.findPerson(fnr.toString());
+        return repo.findPerson(fnr);
     }
 
     public void sikkerhet(String jwtToken) throws UnsupportedEncodingException {

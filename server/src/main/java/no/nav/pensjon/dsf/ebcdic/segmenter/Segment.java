@@ -31,11 +31,13 @@ public abstract class Segment<DomeneKlasse> {
 
     public void lesBarn(ScrollableArray data, DomeneKlasse domene){
         Undersegment<?>[]undersegmenter = getUnderSegmentTyper(domene);
-        Optional<Undersegment<?>> o;
+
         try {
-            while ((o =  Arrays.stream(undersegmenter).filter(s->s.accept(data)).findAny()).isPresent()) {
-                o.ifPresent(us->us.read(data));
-            }
+            Optional<Undersegment<?>> o;
+            do {
+                o = Arrays.stream(undersegmenter).filter(s -> s.accept(data)).findAny();
+                o.ifPresent(us -> us.read(data));
+            }while (o.isPresent());
         }catch(ArrayIndexOutOfBoundsException ex){}
     }
 

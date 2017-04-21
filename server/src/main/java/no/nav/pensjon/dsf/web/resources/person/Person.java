@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.web.resources;
+package no.nav.pensjon.dsf.web.resources.person;
 
 
 public class Person {
