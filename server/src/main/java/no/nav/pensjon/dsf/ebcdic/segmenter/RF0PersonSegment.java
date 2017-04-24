@@ -35,9 +35,11 @@ public class RF0PersonSegment extends  Segment<Person> {
 
     @Override
     public Undersegment<?>[] getUnderSegmentTyper(Person domene) {
-        Undersegment<?>[] undersegmenter ={Undersegment.ofList(new PinntektSegment(),domene.getInntekter()::add, ()->domene.getInntekter()) };
+        Undersegment<?>[] undersegmenter ={
+                Undersegment.ofList(new PinntektSegment(),domene.getInntekter()::add, ()->domene.getInntekter()),
+                Undersegment.ofList(new EtteroppgjorAFPSegment(),domene.getEtteroppgjor()::add, ()->domene.getEtteroppgjor())
+        };
         return undersegmenter;
-
     }
 
 }

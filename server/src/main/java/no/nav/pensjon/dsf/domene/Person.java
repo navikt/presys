@@ -12,6 +12,11 @@ public class Person {
     private String navn;
     private int ai67;
     private List<Inntekt> inntekter = new ArrayList<>();
+    private List<EtteroppgjorAFP> etteroppgjor = new ArrayList<>();
+
+    public List<EtteroppgjorAFP> getEtteroppgjor() {
+        return etteroppgjor;
+    }
 
     public List<Inntekt> getInntekter() {
         return inntekter;
