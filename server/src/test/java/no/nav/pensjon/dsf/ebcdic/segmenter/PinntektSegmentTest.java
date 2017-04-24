@@ -22,7 +22,7 @@ public class PinntektSegmentTest {
         byte[] file = new byte[56];
         isPinntekt.readFully(file);
         Inntekt inntekt = inntektssegment.readSegment(new ScrollableArray(file));
-        assertThat(inntekt.getKommune(), is("623"));
+        assertThat(inntekt.getKommune(), is("00623"));
 
     }
 

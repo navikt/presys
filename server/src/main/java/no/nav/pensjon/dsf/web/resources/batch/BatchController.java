@@ -34,7 +34,7 @@ public class BatchController {
         SplitPerson.split(data->{
             DbPerson person = new DbPerson();
             person.setData(Base64.getEncoder().encodeToString(data.getData()));
-            person.setFnr(EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6+29, 6+29+6),11,0).toString());
+            person.setFnr(zeroFill(EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6+29, 6+29+6),11,0).toString(),11));
             repo.save(person);
             counter.getAndIncrement();
         });
@@ -45,5 +45,13 @@ public class BatchController {
     @RequestMapping("/vis")
     public List<String> vis() throws IOException {
         return pRepo.personer();
+    }
+
+    static String zeroFill(String tekst, int length){
+        StringBuilder sb = new StringBuilder();
+        for (int i = tekst.length(); i<length;i++)
+            sb.append(0);
+        sb.append(tekst);
+        return sb.toString();
     }
 }
