@@ -12,7 +12,7 @@ public class ScrollableArray {
 
     public byte[] read(int length){
         byte[] readValue = peekAhead(0, length);
-        pointer += length;
+        scroll(length);
         return readValue;
     }
 
@@ -20,8 +20,18 @@ public class ScrollableArray {
         return Arrays.copyOfRange(data, pointer + offset, length + pointer + offset);
     }
 
+    public void scroll(int length){
+        pointer += length;
+    }
+
     public byte[] getData(){
         return data;
+    }
+
+    public ScrollableArray getCopy(){
+        ScrollableArray copy = new ScrollableArray(data);
+        copy.scroll(pointer);
+        return copy;
     }
 }
 

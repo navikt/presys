@@ -5,9 +5,6 @@ import com.ibm.as400.access.AS400PackedDecimal;
 import java.io.*;
 import java.math.BigDecimal;
 
-/**
- * Created by d132988 on 18.04.2017.
- */
 public class EbcdicUtils {
 
     public static final String EBCDIC_CHARSET = "Cp1142";

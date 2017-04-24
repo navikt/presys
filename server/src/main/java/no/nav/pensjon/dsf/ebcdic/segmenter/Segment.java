@@ -1,14 +1,19 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
+import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
 import no.nav.pensjon.dsf.ebcdic.felter.Felt;
 import no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 
 public abstract class Segment<DomeneKlasse> {
@@ -45,6 +50,10 @@ public abstract class Segment<DomeneKlasse> {
         return new Undersegment<?>[0]; //ingen undersegment
     }
 
+    public Stream<Consumer<ScrollableArray>> getfelterLaastTilDomene(DomeneKlasse d){
+        return getFelter().stream().map(f -> array -> f.setVerdiPaaDomene(d, array.read(f.getByteLength())));
+    }
+
     public boolean accept(ScrollableArray data){
         int position = 0;
         for(Felt f : getFelter()){
@@ -56,13 +65,25 @@ public abstract class Segment<DomeneKlasse> {
         return false;
     }
 
-    public DomeneKlasse readSegment(ScrollableArray data){
+    public DomeneKlasse readShallow(ScrollableArray data){
         DomeneKlasse domene = domeneCreator.get();
-        for(Felt f : getFelter()){
-            f.setVerdiPaaDomene(domene, data.read(f.getByteLength()));
-        }
+        getfelterLaastTilDomene(domene).forEachOrdered(c->c.accept(data));
+        return domene;
+    }
+
+    public DomeneKlasse readSegment(ScrollableArray data){
+        DomeneKlasse domene = readShallow(data);
         lesBarn(data, domene);
         return domene;
+    }
+
+    public void writeSegment(DomeneKlasse p, OutputStream os){
+        writeShallow(p, os);
+        Arrays.stream(getUnderSegmentTyper(p)).forEachOrdered(seg -> seg.write(os));
+    }
+
+    public void writeShallow(DomeneKlasse p, OutputStream os){
+        getFelter().stream().forEachOrdered(f -> f.write(os, p));
     }
 
 

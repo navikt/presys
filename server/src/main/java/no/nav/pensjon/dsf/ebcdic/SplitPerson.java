@@ -1,7 +1,5 @@
 package no.nav.pensjon.dsf.ebcdic;
 
-import no.nav.pensjon.dsf.web.EbcdicReader;
-
 import java.io.*;
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -31,7 +29,7 @@ public class SplitPerson {
     }
 
     public static void split(Consumer<ScrollableArray> writer) throws IOException {
-        DataInputStream is = new DataInputStream(EbcdicReader.class.getClassLoader().getResourceAsStream("TEST3"));
+        DataInputStream is = new DataInputStream(SplitPerson.class.getClassLoader().getResourceAsStream("TEST3"));
         String seearchString = new String("RF0PERSN");
         byte [] pattern = seearchString.getBytes(EBCDIC_CHARSET);
         byte [] value = EbcdicUtils.read(is, 40000);
