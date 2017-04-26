@@ -4,7 +4,6 @@ import no.nav.pensjon.dsf.domene.Person;
 
 import java.util.function.BiConsumer;
 
-
 import static no.nav.pensjon.dsf.ebcdic.felter.Characters.filler;
 import static no.nav.pensjon.dsf.ebcdic.felter.Characters.plaintext;
 import static no.nav.pensjon.dsf.ebcdic.felter.PackedDecimal.*;

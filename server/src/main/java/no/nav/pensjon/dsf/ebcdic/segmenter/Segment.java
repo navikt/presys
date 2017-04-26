@@ -1,12 +1,14 @@
 package no.nav.pensjon.dsf.ebcdic.segmenter;
 
 import no.nav.pensjon.dsf.domene.Person;
+import no.nav.pensjon.dsf.ebcdic.EbcdicUtils;
 import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
 import no.nav.pensjon.dsf.ebcdic.felter.Felt;
 import no.nav.pensjon.dsf.ebcdic.felter.SegmentNavnFelt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,14 +38,16 @@ public abstract class Segment<DomeneKlasse> {
 
     public void lesBarn(ScrollableArray data, DomeneKlasse domene){
         Undersegment<?>[]undersegmenter = getUnderSegmentTyper(domene);
-
+        if (undersegmenter.length == 0) return;
         try {
             Optional<Undersegment<?>> o;
             do {
                 o = Arrays.stream(undersegmenter).filter(s -> s.accept(data)).findAny();
                 o.ifPresent(us -> us.read(data));
             }while (o.isPresent());
-        }catch(ArrayIndexOutOfBoundsException ex){}
+            System.out.println("fant ikke mapper for segment: " + new String(data.peekAhead(6, 8), EbcdicUtils.EBCDIC_CHARSET) + " i segment " + getNavn());
+        }catch(ArrayIndexOutOfBoundsException ex){} catch (UnsupportedEncodingException e) {
+        }
     }
 
     public Undersegment<?>[] getUnderSegmentTyper(DomeneKlasse domene) {
