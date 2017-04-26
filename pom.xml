@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>no.nav.pensjon.dsf</groupId>
-    <version>1.0.0-SNAPSHOT</version>
-    <artifactId>web</artifactId>
+    <groupId>no.nav.pensjon.presys</groupId>
+    <version>0.1-SNAPSHOT</version>
+    <artifactId>presys</artifactId>
     <packaging>pom</packaging>
     <name>DSF-WEB</name>
 

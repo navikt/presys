@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>no.nav.pensjon.dsf</groupId>
-        <artifactId>web</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>no.nav.pensjon.presys</groupId>
+        <artifactId>presys</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>web-klient</artifactId>
+    <artifactId>presys-web-klient</artifactId>
     <packaging>jar</packaging>
-    <name>DSF Web - Klient</name>
+    <name>PRESYS - Klient</name>
 
     <build>
         <outputDirectory>target/web</outputDirectory>
