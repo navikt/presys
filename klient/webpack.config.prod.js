@@ -15,7 +15,7 @@ const config = {
 	output : {
 		path : path.join(__dirname, 'target', 'public'),
 		filename : 'bundle.js',
-		publicPath : '/vedtak/public'
+		publicPath : '/public'
 	},
 	module : {
 		rules : [ {

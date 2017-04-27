@@ -2,10 +2,14 @@ package no.nav.pensjon.dsf;
 
 import no.nav.pensjon.dsf.repository.DbPerson;
 import no.nav.pensjon.dsf.repository.DbRepo;
+import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Scanner;
 
@@ -31,4 +35,19 @@ public class WebServerApplication {
 
 
 	}
+
+	@Bean
+    DataSource dataSource() throws SQLException {
+        /*spring.datasource.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))
+        spring.datasource.username=PRESYS_CDU1
+        spring.datasource.password=IWXAVIFEEofq
+        spring.jpa.hibernate.ddl-auto=update*/
+        OracleDataSource dataSource = new OracleDataSource();
+        dataSource.setUser("PRESYS_CDU1");
+        dataSource.setPassword("IWXAVIFEEofq");
+        dataSource.setURL("jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))");
+        dataSource.setImplicitCachingEnabled(true);
+        dataSource.setFastConnectionFailoverEnabled(true);
+        return dataSource;
+    }
 }
