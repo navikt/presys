@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://appconfig.aura.nav.no"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://appconfig.aura.nav.no http://maven.adeo.no/xsd/appconfig.xsd ">
+    <name>presys</name>
+    <artifacts>
+        <ear groupId="no.nav.pensjon.presys" artifactId="presys-web-ear"/>
+    </artifacts>
+</application>
