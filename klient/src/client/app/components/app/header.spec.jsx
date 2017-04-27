@@ -22,11 +22,4 @@ describe('<Header>', () => {
 
     expect(wrapper.find('MessagePanel')).to.have.length(0);
   });
-
-  it('skal sjekke at saksbehandlernavn blir vist', () => {
-    const wrapper = shallow(<Header saksbehandlerName="Per" />);
-
-    const lastDiv = wrapper.find('div').last();
-    expect(lastDiv.text()).to.eql('Per');
-  });
 });

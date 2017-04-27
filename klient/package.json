@@ -78,7 +78,7 @@
     "test:coverage": "cross-env NODE_ENV=coverage nyc mocha-webpack --colors  --webpack-config webpack.config.coverage.js  \"src/client/app/*/**/*.jsx\"",
     "dev": "cross-env NODE_ENV=development node webpack.dev.server.js --config webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production webpack --progress --colors --config webpack.config.prod.js",
-    "postinstall": "npm run build && npm test && npm run less:lint",
+    "postinstall": "npm run build && npm test",
     "less:lint": "lesshint --reporter ./_scripts/lesshint-reporter.js src/client/app -e *Source-Sans*.less"
   },
   "nyc": {

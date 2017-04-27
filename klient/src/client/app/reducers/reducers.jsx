@@ -4,7 +4,6 @@ import { routerReducer } from 'react-router-redux';
 import errorHandlingContext from './errorHandlingReducer';
 import saksbehandlerContext from './saksbehandlerReducer';
 import personsok from './personsokReducer';
-import formContext from './formReducer';
 import person from './personReducer';
 
 
@@ -12,7 +11,6 @@ export default combineReducers({
   routing: routerReducer,
   errorHandlingContext,
   saksbehandlerContext,
-  formContext,
   personsok,
   person,
 });
