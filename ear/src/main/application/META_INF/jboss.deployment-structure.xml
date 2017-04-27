@@ -1,0 +1,18 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <deployment>
+        <exclusions>
+            <module name="org.apache.commons.logging" />
+            <module name="org.slf4j" />
+            <module name="org.slf4j.impl" />
+            <module name="org.slf4j.jcl-over-slf4j" />
+        </exclusions>
+    </deployment>
+    <sub-deployment name="presys-web-war.war">
+        <exclusions>
+            <module name="org.apache.commons.logging" />
+            <module name="org.slf4j" />
+            <module name="org.slf4j.impl" />
+            <module name="org.slf4j.jcl-over-slf4j" />
+        </exclusions>
+    </sub-deployment>
+</jboss-deployment-structure>

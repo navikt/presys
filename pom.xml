@@ -11,6 +11,7 @@
     <modules>
         <module>klient</module>
 		<module>server</module>
+        <module>ear</module>
     </modules>
 
 </project>
