@@ -8,6 +8,8 @@ import App from 'containers/app/App';
 import PersonsokIndex from 'containers/person/PersonsokIndex';
 import MissingPage from 'components/app/MissingPage';
 import Person from 'containers/person/Personfrafnr';
+import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAFPfrafnr';
+
 
 import configureStore from './store/store';
 
@@ -19,7 +21,10 @@ const history = syncHistoryWithStore(hashHistory, store);
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={PersonsokIndex} />
-    <Route path="person/:fnr" component={Person} />
+    <Route path="person/:fnr">
+      <IndexRoute component={Person} />
+      <Route path="eoafp" component={EoAfp} />
+    </Route>
     <Route path="*" component={MissingPage} />
   </Route>
 );
