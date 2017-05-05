@@ -10,7 +10,7 @@ const createLogger = process.env.NODE_ENV === 'development' ? require('redux-log
 export default function configureStore(browserHistory) {
   const middleware = [thunkMiddleware, routerMiddleware(browserHistory)];
   if (process.env.NODE_ENV === 'development') {
-    middleware.push(createLogger());
+    middleware.push(createLogger.default);
   }
 
   const initialState = {};
