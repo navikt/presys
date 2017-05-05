@@ -1,19 +1,4 @@
 {
-  "BehandlingList.ZeroBhandlinger": "Ingen behandlinger opprettet",
-
-  "BehandlingListItem.Behandlinger": "Behandlinger",
-  "BehandlingListItem.Opprettet": "Opprettet",
-  "BehandlingListItem.Avsluttet": "Avsluttet",
-  "BehandlingListItem.Behandlingsstatus": "Behandlingsstatus",
-
-  "Fagsak.FagsakOnHold": "Sett sak på vent",
-  "Fagsak.CloseFagsak": "Lukk saken",
-
-  "FagsakList.Saksnummer": "Saksnummer",
-  "FagsakList.Sakstype": "Sakstype",
-  "FagsakList.Status": "Status",
-  "FagsakList.ChildBorn": "Barn født",
-
   "FagsakSearch.ZeroSearchResults": "Søket gav ingen treff",
 
   "Header.Foreldrepenger": "PRESYS",
@@ -34,20 +19,6 @@
   "InfoHeader.History": "Historikk",
   "InfoHeader.Messages": "Send melding",
   "InfoHeader.Documents": "Dokumenter",
-
-  "TermindatoForm.ApplicationInformation": "Opplysninger om termin i søknad",
-  "TermindatoForm.IssuedDate": "Utstedt dato",
-  "TermindatoForm.TermDate": "Termindato",
-  "TermindatoForm.NumberOfChildren": "Antall barn",
-  "TermindatoForm.ChangeOfInformationRequiresExplanation": "Ved endring av opplysninger er begrunnelse obligatorisk",
-
-  "AntallBarnForm.ApplicationInformation": "Opplysninger i søknad",
-  "AntallBarnForm.BornDate": "Fødselsdato",
-  "AntallBarnForm.NumberOfChildren": "Antall barn",
-  "AntallBarnForm.NumberOfChildrenInApplication": "Antall barn i søknaden",
-  "AntallBarnForm.NumberOfChildrenInTps": "Antall barn i TPS",
-  "AntallBarnForm.useNumberInApplication": "Bruk antall i søknaden",
-  "AntallBarnForm.useNumberInTps": "Bruk antall i TPS",
 
   "TpsOpplysninger.TpsInformation": "Opplysninger i TPS",
   "TpsOpplysninger.BornDate": "Fødselsdato",
@@ -72,13 +43,19 @@
   "SubmitButton.SaveAndConfirm": "Lagre og bekreft",
   "SubmitButton.Cancel": "Avbryt",
 
-  "DocumentList.Direction": "Inn/ut",
-  "DocumentList.DocumentType": "Dokument",
-  "DocumentList.DateTime": "Sendt/mottatt",
-  "DocumentList.NoDocuments": "Det finnes ingen dokumenter på saken",
-
   "Beregningsgrunnlag.Beregningsgrunnlag": "Beregningsgrunnlag",
   "Beregningsgrunnlag.BeregnetEngangsstonad": "Beregnet engangsstønad",
   "Beregningsgrunnlag.AntallBarn": "Antall barn",
-  "Beregningsgrunnlag.Sats": "Sats"
+  "Beregningsgrunnlag.Sats": "Sats",
+
+  "Inntekt.Aar" : "Inntektsår",
+  "Inntekt.Pensjonsgivende": "PGI",
+  "Kommune": "Kommune",
+  "Type": "Type",
+  "AFP.Inntekt_pre_Uttak" : "Inntekt før uttak av AFP",
+  "AFP.IFU.fraDsfInfotrygd":"Registert via DSF/Info IFU",
+  "AFP.IEO.fraDsfInfotrygd":"Registert via DSF/Info IEO",
+  "AFP.Inntekt_etter_opphor":"Inntekt etter opphør",
+  "AFP.Inntekt_i_perioden":"Inntekt i AFP Perioden",
+  "AFP.Infotrygd.Beregnet_eller_registrert":"Beregnet eller reg via Infotrygd"
 }

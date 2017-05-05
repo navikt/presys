@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.ebcdic;
 
+import no.nav.pensjon.dsf.domene.EtteroppgjorAFP;
 import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.ebcdic.segmenter.RF0PersonSegment;
@@ -11,10 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 public class TestdataGenerering {
 
@@ -22,8 +20,8 @@ public class TestdataGenerering {
         RF0PersonSegment pSeg = new RF0PersonSegment();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Person [] personer = {
-                person("1", "Donald Duck", 12, inntekt(999, 1991, "A", "B", 1234, "0231")),
-                person("2", "Fetter Anton", 12, inntekt(4558, 1992, "A", "B", 1234, "0231"))
+                person("1", "Donald Duck", 12, Arrays.asList(inntekt(999, 1991, "A", "B", 1234, "0231")), Arrays.asList(eoafp())),
+                person("2", "Fetter Anton", 12, Arrays.asList(inntekt(999, 1991, "A", "B", 1234, "0231")), Collections.emptyList())
         };
         List<String> lines = new ArrayList<>();
         for (Person p : personer){
@@ -39,13 +37,13 @@ public class TestdataGenerering {
    }
 
 
-    static Person person(String fnr, String navn, int ai67, Inntekt...inntekter){
+    static Person person(String fnr, String navn, int ai67, List<Inntekt> inntekter, List<EtteroppgjorAFP> etteroppgjorAFPs){
         Person p = new Person();
         p.setFnr(fnr);
         p.setNavn(navn);
         p.setAi67(ai67);
-        p.getInntekter().addAll(Arrays.asList(inntekter));
-
+        p.getInntekter().addAll(inntekter);
+        p.getEtteroppgjor().addAll(etteroppgjorAFPs);
         return p;
     }
 
@@ -58,5 +56,25 @@ public class TestdataGenerering {
         i.setRapporteringsDato(dato);
         i.setKommune(kommune);
         return i;
+    }
+
+    static EtteroppgjorAFP eoafp (){
+        EtteroppgjorAFP eoafp = new EtteroppgjorAFP();
+        eoafp.setBeregnetEllerRegistrertViaInfotrygd("N");
+        eoafp.setDifferanseForLiteUtbetalt(100);
+        eoafp.setDifferanseForMyeUtbetalt(0);
+        eoafp.setFaktiskUtbetalt(200);
+        eoafp.setFiller("");
+        eoafp.setFullAFPiAvregningsperioden(3);
+        eoafp.setInntektsAar(2001);
+        eoafp.setInntektEtterOpphor(122);
+        eoafp.setInntektForUttakAvAFP(123);
+        eoafp.setInntektIAFPPerioden(32);
+        eoafp.setOppgittFramtidigInntekt(234);
+        eoafp.setPensjonsgivendeInntekt(432);
+        eoafp.setRegistertViaDSFEllerInfotrygdIEO("d");
+        eoafp.setRegistertViaDSFEllerInfotrygdIFU("daw");
+        eoafp.setTidligereInntekt(6543);
+        return eoafp;
     }
 }
