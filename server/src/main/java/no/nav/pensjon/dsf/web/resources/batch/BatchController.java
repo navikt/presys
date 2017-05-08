@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 @RestController
@@ -30,14 +31,18 @@ public class BatchController {
     @RequestMapping("/last")
     public int last() throws IOException {
         AtomicInteger counter = new AtomicInteger();
-
-        SplitPerson.split(data->{
+        AtomicLong pos = new AtomicLong();
+        SplitPerson.RequestObject req = new SplitPerson.RequestObject();
+        req.setWriter((data, l)->{
+            pos.set(l);
             DbPerson person = new DbPerson();
             person.setData(Base64.getEncoder().encodeToString(data.getData()));
             person.setFnr(zeroFill(EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6+29, 6+29+6),11,0).toString(),11));
             repo.save(person);
             counter.getAndIncrement();
         });
+
+        SplitPerson.split(req);
 
         return counter.get();
     }
