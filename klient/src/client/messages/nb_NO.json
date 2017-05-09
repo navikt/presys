@@ -57,5 +57,9 @@
   "AFP.IEO.fraDsfInfotrygd":"Registert via DSF/Info IEO",
   "AFP.Inntekt_etter_opphor":"Inntekt etter opphør",
   "AFP.Inntekt_i_perioden":"Inntekt i AFP Perioden",
-  "AFP.Infotrygd.Beregnet_eller_registrert":"Beregnet eller reg via Infotrygd"
+  "AFP.Infotrygd.Beregnet_eller_registrert":"Beregnet eller reg via Infotrygd",
+
+  "link.to.eoafp": "Etteroppgjør AFP",
+  "link.to.inntekter": "Inntekter"
+
 }

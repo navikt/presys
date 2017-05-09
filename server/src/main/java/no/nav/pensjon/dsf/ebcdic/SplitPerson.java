@@ -52,7 +52,7 @@ public class SplitPerson {
             int navneLength = SEPERATOR_OFFSET + pattern.length;
             byte[] value = new byte[req.bufferSize];
             int bufferSize = 0;
-            req.reader.skipBytes(req.bytesToSkip);
+            skip(req);
             long bytesLest = req.bytesToSkip;
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -109,6 +109,15 @@ public class SplitPerson {
         return res;
     }
 
+    private static void skip(RequestObject req) throws IOException {
+        long leftToSkip = req.bytesToSkip;
+        while(leftToSkip > Integer.MAX_VALUE){
+            req.reader.skipBytes(Integer.MAX_VALUE);
+            leftToSkip -= Integer.MAX_VALUE;
+        }
+        req.reader.skipBytes((int)leftToSkip);
+    }
+
     static int write(byte[] value, ByteArrayOutputStream os, int length){
         os.write(value, 0, length);
         return length;
@@ -134,7 +143,7 @@ public class SplitPerson {
         private DataInputStream reader;
         private int maksAntall;
         private int bufferSize;
-        private int bytesToSkip;
+        private long bytesToSkip;
 
         public RequestObject(){
             this((a,l) ->{}, new DataInputStream(SplitPerson.class.getClassLoader().getResourceAsStream(DEFAULT_RESORCE_LOCATION)),  10, BUFFER_SIZE, START_SKIP);
