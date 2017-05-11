@@ -16,31 +16,44 @@ public class SplitPerson {
     private static final int START_SKIP = 1924; //I TEST3 er de første 1924 tegnene tull
     private static final String DEFAULT_RESORCE_LOCATION = "TEST3";
 
-
-    public static void main(String[]args) throws IOException {
+    public static void main(String [] args) throws IOException {
         File mappe = new File("server/src/main/resources/database");
-        mappe.mkdir();
+        File fil = new File("C:\\data\\dsf-web\\server\\test4");
+        splitFilOgSkrivTilMappe(fil, mappe);
+    }
+
+
+    public static void splitFilOgSkrivTilMappe(File innFil, File utMappe) throws IOException {
+        utMappe.mkdir();
         AtomicInteger integer = new AtomicInteger();
         RequestObject req = new RequestObject();
         req.writer = (data, position) -> {
             DataOutputStream osFil = null;
-            System.out.println("Fant segment på posisjon " + position);
             try {
-                String fnr = "";
-                try {
-                    fnr = EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6 + 29, 6 + 29 + 6), 11, 0).toString();
-                    fnr = "00000000000".substring(fnr.length()) + fnr;
-                }catch(NumberFormatException e){
-                    fnr += integer.incrementAndGet();
+                if(integer.incrementAndGet()% 100000 == 0){
+                  System.out.println("Fremdrift:" + integer.get());
                 }
-                osFil = new DataOutputStream(new FileOutputStream(mappe.getAbsolutePath() + "/" + fnr + ".txt"));
 
+                try {
+                    String fnr = EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6 + 29, 6 + 29 + 6), 11, 0).toString();
+                    fnr = "00000000000".substring(fnr.length()) + fnr;
+                    osFil = new DataOutputStream(new FileOutputStream(utMappe.getAbsolutePath() + "/" + fnr + ".txt"));
+                }catch(NumberFormatException e){
+                    osFil = new DataOutputStream(new FileOutputStream(utMappe.getAbsolutePath() + "/feilsegmen_" + integer.get() + ".txt"));
+                }
                 osFil.write(data.getData());
                 osFil.close();
+
             } catch (Exception  e) {
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         };
+        req.reader = new DataInputStream(
+                new BufferedInputStream(
+                        new FileInputStream(innFil)));
+        req.maksAntall = 20;
+        req.bufferSize = 100;
         ResponseObject res = split(req);
         System.out.println("Fant " + res.getAntall() + " segmenter");
     }
@@ -66,12 +79,12 @@ public class SplitPerson {
                 }
                 int pointer = 0;
                 readBuffer:
-                for (int i = 0; i < bufferSize - navneLength; i++) {
+                for (int i = 0; i < bufferSize - pattern.length; i++) {
                     if (!match(value, i, bufferSize, pattern)) {
                         continue readBuffer;
                     }
-
                     int segmentStart = i < SEPERATOR_OFFSET ? 0 : i - SEPERATOR_OFFSET;
+
                     bos.write(value, 0, segmentStart);
                     pointer += segmentStart;
 
@@ -92,7 +105,7 @@ public class SplitPerson {
 
                 if (pointer == 0) { //fant ingen segmentstart
                     if (bufferSize == value.length) {
-                        pointer += write(value, bos, bufferSize - navneLength);
+                        pointer = write(value, bos, bufferSize - navneLength);
                     } else { //Alt er lest inn
                         write(value, bos, bufferSize - navneLength);
                         req.writer.accept(new ScrollableArray(bos.toByteArray()), prevSegStart);
