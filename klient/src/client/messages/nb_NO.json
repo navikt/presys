@@ -60,6 +60,9 @@
   "AFP.Infotrygd.Beregnet_eller_registrert":"Beregnet eller reg via Infotrygd",
 
   "link.to.eoafp": "Etteroppgjør AFP",
-  "link.to.inntekter": "Inntekter"
+  "link.to.inntekter": "Inntekter",
+  "link.to.status": "Status",
+
+  "landkode.105": "Englang"
 
 }

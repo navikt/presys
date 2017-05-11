@@ -18,6 +18,17 @@ export const MenuItem = ({ link, textcode }) => <li>
   </Link>
 </li>;
 
+export const TextMenuItem = ({ link, text }) => <li>
+  <Link to={link} activeClassName={styles.active}>
+    <span>{text}</span>
+  </Link>
+</li>;
+
+TextMenuItem.propTypes = {
+  link: React.PropTypes.string.isRequired,
+  text: React.PropTypes.string.isRequired,
+};
+
 MenuItem.propTypes = {
   link: React.PropTypes.string.isRequired,
   textcode: React.PropTypes.string.isRequired,

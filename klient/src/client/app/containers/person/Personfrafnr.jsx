@@ -4,6 +4,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { connect } from 'react-redux';
 import Person from 'components/person/Person';
+import Eps from 'components/person/Eps';
 import { Menu, MenuItem } from 'components/app/Menu';
 
 class PersonFraFnr extends Component {
@@ -40,6 +41,13 @@ class PersonFraFnr extends Component {
       erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
       hasLargeFont={false}
     />
+      <Eps
+        navn="Donald Duck"
+        alder={person.alder}
+        personnummer="1"
+        erKvinne
+        hasLargeFont={false}
+      />
       <Menu>
         {menuItems}
       </Menu>
