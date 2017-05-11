@@ -10,8 +10,6 @@ import MissingPage from 'components/app/MissingPage';
 import Person from 'containers/person/Personfrafnr';
 import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
 import Inntekter from 'containers/inntekter/InntektListe';
-import Inntekt from 'containers/inntekter/Inntekt';
-
 
 import configureStore from './store/store';
 
@@ -26,8 +24,8 @@ const routes = (
     <Route path="person/:fnr" component={Person}>
       <Route path="eoafp" component={EoAfp} />
       <Route path="inntekter" component={Inntekter}>
-        <IndexRoute component={Inntekter} />
-        <Route path=":aar" component={Inntekt} />
+        <IndexRoute />
+        <Route path=":aar" />
       </Route>
       <Route path="status" component={Inntekter} />
     </Route>
