@@ -6,4 +6,7 @@
     <artifacts>
         <ear groupId="no.nav.pensjon.presys" artifactId="presys-web-ear"/>
     </artifacts>
+    <resources>
+        <credential alias="jwt" />
+    </resources>
 </application>

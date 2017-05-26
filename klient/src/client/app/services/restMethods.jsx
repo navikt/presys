@@ -2,8 +2,8 @@ import axios from 'axios';
 
 
 const addJwt = (headers) => {
-  const jwt = localStorage.getItem('jwt') || null;
-  return jwt ? { ...headers, 'X-Jwt': jwt } : headers;
+  const jwt = localStorage.getItem('jwt_token') || null;
+  return jwt ? { ...headers, Authorization: jwt } : headers;
 };
 
 export const get = function get(url, params, dispatch, successCallback, failedCallback) {
@@ -15,7 +15,7 @@ export const get = function get(url, params, dispatch, successCallback, failedCa
     headers: addJwt({}),
     responseType: 'json',
   }).then((response) => {
-    dispatch(successCallback(response.data));
+    dispatch(successCallback(response.data, response));
   }).catch((response) => {
     dispatch(failedCallback(response));
   });
@@ -32,7 +32,7 @@ export const post = function post(url, data, dispatch, successCallback, failedCa
     }),
     responseType: 'json',
   }).then((response) => {
-    dispatch(successCallback(response.data));
+    dispatch(successCallback(response.data, response));
   }).catch((response) => {
     dispatch(failedCallback(response));
   });

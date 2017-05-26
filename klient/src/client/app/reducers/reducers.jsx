@@ -6,7 +6,6 @@ import saksbehandlerContext from './saksbehandlerReducer';
 import personsok from './personsokReducer';
 import person from './personReducer';
 
-
 export default combineReducers({
   routing: routerReducer,
   errorHandlingContext,

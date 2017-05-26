@@ -12,10 +12,13 @@ export default function saksbehandlerReducer(state = defaultState,
     case LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        profile: { navn: action.data.navn },
+        profile: { navn: 'Test' },
       };
     case LOGOUT_SUCCESS:
-      return defaultState;
+      return {
+        loggedIn: false,
+        profile: null,
+      };
     default:
       return state;
   }
