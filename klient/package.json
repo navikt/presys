@@ -1,7 +1,7 @@
 {
-  "name": "engangsstonad-klient",
+  "name": "presys-klient",
   "version": "1.0.0",
-  "description": "Klient for engangsstønad",
+  "description": "Klient for Presys",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.16.1",
