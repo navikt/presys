@@ -1,18 +1,40 @@
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
+        <exclude-subsystems>
+            <subsystem name="jpa"/>
+            <subsystem name="webservices"/>
+            <subsystem name="jaxrs"/>
+        </exclude-subsystems>
         <exclusions>
             <module name="org.apache.commons.logging" />
             <module name="org.slf4j" />
             <module name="org.slf4j.impl" />
             <module name="org.slf4j.jcl-over-slf4j" />
+            <module name="javaee.api"/>
+            <module name="org.apache.log4j" />
+            <module name="org.jboss.logging" />
+            <module name="org.jboss.logging.jul-to-slf4j-stub" />
+            <module name="org.jboss.logmanager" />
+            <module name="org.jboss.logmanager.log4j" />
         </exclusions>
     </deployment>
     <sub-deployment name="presys-web-war.war">
+        <exclude-subsystems>
+            <subsystem name="jpa"/>
+            <subsystem name="webservices"/>
+            <subsystem name="jaxrs"/>
+        </exclude-subsystems>
         <exclusions>
             <module name="org.apache.commons.logging" />
             <module name="org.slf4j" />
             <module name="org.slf4j.impl" />
             <module name="org.slf4j.jcl-over-slf4j" />
+            <module name="javaee.api"/>
+            <module name="org.apache.log4j" />
+            <module name="org.jboss.logging" />
+            <module name="org.jboss.logging.jul-to-slf4j-stub" />
+            <module name="org.jboss.logmanager" />
+            <module name="org.jboss.logmanager.log4j" />
         </exclusions>
     </sub-deployment>
 </jboss-deployment-structure>
