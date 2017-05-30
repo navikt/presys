@@ -1,6 +1,6 @@
-import { get, post } from 'services/restMethods';
+import { post } from 'services/restMethods';
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS, LOGIN_FAILED } from 'constants/actionTypes';
-import { SAKSBEHANDLER_ENDPOINT, LOGIN_ENDPOINT } from 'constants/serverApi';
+import { LOGIN_ENDPOINT } from 'constants/serverApi';
 import { showErrorMessage, removeErrorMessage } from './errorActions';
 
 export function loginOk(token) {
@@ -39,21 +39,6 @@ export function login(username, password) {
           });
   };
 }
-
-export function refresh() {
-  return dispatch => (
-    get(`${SAKSBEHANDLER_ENDPOINT}/refreshlogin`,
-      { },
-      dispatch,
-      (json) => {
-        localStorage.setItem('jwt', json.jwt);
-        return { type: LOGIN_SUCCESS };
-      },
-      () => ({ type: 'REFRESH_FAILED' }),
-    )
-  );
-}
-
 
 export function logout() {
   return (dispatch) => {
