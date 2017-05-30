@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login, logout, refresh } from 'actions/saksbehandlerActions';
+import { login, logout } from 'actions/saksbehandlerActions';
 
 class LoginManager extends Component {
 
@@ -65,4 +65,4 @@ LoginManager.propTypes = {
 };
 
 
-export default connect(state => ({ loggedIn: state.saksbehandlerContext.loggedIn }), { login, logout, refresh })(LoginManager);
+export default connect(state => ({ loggedIn: state.saksbehandlerContext.loggedIn }), { login, logout })(LoginManager);
