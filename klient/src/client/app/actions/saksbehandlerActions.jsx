@@ -1,7 +1,7 @@
 import { get, post } from 'services/restMethods';
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS, LOGIN_FAILED } from 'constants/actionTypes';
 import { SAKSBEHANDLER_ENDPOINT, LOGIN_ENDPOINT } from 'constants/serverApi';
-import { showErrorMessage } from './errorActions';
+import { showErrorMessage, removeErrorMessage } from './errorActions';
 
 export function loginOk(token) {
   localStorage.setItem('jwt_token', token);
@@ -19,8 +19,8 @@ export function loginFeil(response) {
 
   return {
     type: LOGIN_FAILED,
-    payload: {
-      status: response.status,
+    error: {
+      statusCode: response.status,
       statusText: 'Feil brukernavn og eller passord',
     },
   };
@@ -29,9 +29,12 @@ export function loginFeil(response) {
 export function login(username, password) {
   return (dispatch) => {
     post(`${LOGIN_ENDPOINT}`, { username, password }, dispatch,
-          (json, response) => loginOk(response.headers.authorization),
+          (json, response) => {
+            dispatch(removeErrorMessage());
+            return loginOk(response.headers.authorization);
+          },
           (response) => {
-            showErrorMessage(response);
+            dispatch(showErrorMessage(response));
             return loginFeil(response);
           });
   };
