@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode';
+
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from 'constants/actionTypes';
 
 
@@ -12,7 +14,7 @@ export default function saksbehandlerReducer(state = defaultState,
     case LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        profile: { navn: 'Test' },
+        profile: jwtDecode(action.payload.token),
       };
     case LOGOUT_SUCCESS:
       return {
