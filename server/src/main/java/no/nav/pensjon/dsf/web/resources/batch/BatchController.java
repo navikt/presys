@@ -1,6 +1,6 @@
 package no.nav.pensjon.dsf.web.resources.batch;
 
-import no.nav.pensjon.dsf.ebcdic.EbcdicUtils;
+import no.nav.pensjon.presys.utils.ebcdic.EbcdicUtils;
 import no.nav.pensjon.dsf.ebcdic.SplitPerson;
 import no.nav.pensjon.dsf.repository.DbPerson;
 import no.nav.pensjon.dsf.repository.DbRepo;
@@ -29,12 +29,10 @@ public class BatchController {
 
 
     @RequestMapping("/last")
-    public int last() throws IOException {
+    public int last() throws Exception {
         AtomicInteger counter = new AtomicInteger();
-        AtomicLong pos = new AtomicLong();
         SplitPerson.RequestObject req = new SplitPerson.RequestObject();
-        req.setWriter((data, l)->{
-            pos.set(l);
+        req.setWriter(data->{
             DbPerson person = new DbPerson();
             person.setData(Base64.getEncoder().encodeToString(data.getData()));
             person.setFnr(zeroFill(EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6+29, 6+29+6),11,0).toString(),11));

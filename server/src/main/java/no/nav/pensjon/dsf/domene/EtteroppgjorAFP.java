@@ -1,25 +1,71 @@
 package no.nav.pensjon.dsf.domene;
 
-/**
- * Created by h141598 on 19.04.2017.
- */
+import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
+
+@Segment(name="EOAFP   ", length = 59)
 public class EtteroppgjorAFP {
 
+    /*
+    * Umappede felter:
+    * start, lengde, navn: beskrivelse
+    * 50, 9, Filler
+    *
+    * */
+
+    @Felt(name="INNTEKTSÅR", length = 3, start = 0)
+    @PackedDecimal
     private int inntektsAar;
+
+    @Felt(name="PGI", length = 5, start = 3)
+    @PackedDecimal
     private int pensjonsgivendeInntekt;
+
+    @Felt(name="IFU", length = 5, start = 8)
+    @PackedDecimal
     private int inntektForUttakAvAFP;
+
+    @Felt(name="IFU_merke", length = 1, start = 13)
     private String registertViaDSFEllerInfotrygdIFU;
+
+    @Felt(name="IEO", length = 5, start = 14)
+    @PackedDecimal
     private int inntektEtterOpphor;
+
+    @Felt(name="IEO_merke", length = 1, start = 19)
     private String registertViaDSFEllerInfotrygdIEO;
+
+    @Felt(name="IIAP", length = 5, start = 20)
+    @PackedDecimal
     private int inntektIAFPPerioden;
+
+    @Felt(name="IIAP_merke", length = 1, start = 25)
     private String beregnetEllerRegistrertViaInfotrygd;
+
+    @Felt(name="FAIP", length = 4, start = 26)
+    @PackedDecimal
     private int oppgittFramtidigInntekt;
+
+    @Felt(name="TEI_IAP", length = 4, start = 30)
+    @PackedDecimal
     private int tidligereInntekt;
+
+    @Felt(name="PFP", length = 4, start = 34)
+    @PackedDecimal
     private int fullAFPiAvregningsperioden;
+
+    @Felt(name="FPFP", length = 4, start = 38)
+    @PackedDecimal
     private int faktiskUtbetalt;
+
+    @Felt(name="DFMU", length = 4, start = 42)
+    @PackedDecimal
     private int differanseForMyeUtbetalt;
+
+    @Felt(name="DFLU", length = 4, start = 46)
+    @PackedDecimal
     private int differanseForLiteUtbetalt;
-    private String filler;
 
     public int getInntektsAar() {
         return inntektsAar;
@@ -133,11 +179,4 @@ public class EtteroppgjorAFP {
         this.differanseForLiteUtbetalt = differanseForLiteUtbetalt;
     }
 
-    public String getFiller() {
-        return filler;
-    }
-
-    public void setFiller(String filler) {
-        this.filler = filler;
-    }
 }

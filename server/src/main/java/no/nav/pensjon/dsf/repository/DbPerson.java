@@ -1,6 +1,7 @@
 package no.nav.pensjon.dsf.repository;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -12,7 +13,9 @@ public class DbPerson {
     private String fnr;
 
     @Lob
+    @Column
     private String data;
+
 
     public String getFnr() {
         return fnr;

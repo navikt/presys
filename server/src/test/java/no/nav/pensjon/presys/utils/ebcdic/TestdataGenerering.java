@@ -1,23 +1,20 @@
-package no.nav.pensjon.dsf.ebcdic;
+package no.nav.pensjon.presys.utils.ebcdic;
 
 import no.nav.pensjon.dsf.domene.EtteroppgjorAFP;
 import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.domene.Person;
-import no.nav.pensjon.dsf.ebcdic.segmenter.RF0PersonSegment;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class TestdataGenerering {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        RF0PersonSegment pSeg = new RF0PersonSegment();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Person [] personer = {
                 person("1", "Donald Duck", 12, Arrays.asList(inntekt(999, 1991, "A", "B", 1234, "0231")), Arrays.asList(eoafp())),
@@ -25,7 +22,7 @@ public class TestdataGenerering {
         };
         List<String> lines = new ArrayList<>();
         for (Person p : personer){
-            pSeg.writeSegment(p, bos);
+            //pSeg.writeSegment(p, bos);
             String fnr = p.getFnr();
             String data = new String(Base64.getEncoder().encode(bos.toByteArray()), Charset.forName("UTF-8"));
             bos.reset();
@@ -64,7 +61,6 @@ public class TestdataGenerering {
         eoafp.setDifferanseForLiteUtbetalt(100);
         eoafp.setDifferanseForMyeUtbetalt(0);
         eoafp.setFaktiskUtbetalt(200);
-        eoafp.setFiller("");
         eoafp.setFullAFPiAvregningsperioden(3);
         eoafp.setInntektsAar(2001);
         eoafp.setInntektEtterOpphor(122);

@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.ebcdic;
+package no.nav.pensjon.presys.utils.ebcdic;
 
 import com.ibm.as400.access.AS400PackedDecimal;
 
@@ -30,6 +30,9 @@ public class EbcdicUtils {
     public static String deCompress(byte[] packed, int length, int decimals){
         BigDecimal komprimertEntry = (BigDecimal) new AS400PackedDecimal(length, decimals).toObject(packed);
         return komprimertEntry.toString();
+    }
+    public static BigDecimal unPack(byte[] packed, int length, int decimals){
+        return (BigDecimal) new AS400PackedDecimal(length, decimals).toObject(packed);
     }
 
     public static byte[] compress(double unpacked, int length) throws IOException {

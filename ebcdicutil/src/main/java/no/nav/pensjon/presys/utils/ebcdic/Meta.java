@@ -1,0 +1,41 @@
+package no.nav.pensjon.presys.utils.ebcdic;
+
+import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
+
+public class Meta {
+    public final static int META_SIZE = 21 + 8 + 6;
+
+    @Felt(name="navn", length = 8, start = 6)
+    String segmentNavn;
+
+    @Felt(name="datalendge", length = 2, start = 4)
+    int datalengde;
+
+    @Felt(name="metalegde", length = 2, start = 2)
+    int metalengde;
+
+
+    public String getSegmentNavn() {
+        return segmentNavn;
+    }
+
+    public void setSegmentNavn(String segmentNavn) {
+        this.segmentNavn = segmentNavn;
+    }
+
+    public int getDatalengde() {
+        return datalengde;
+    }
+
+    public void setDatalengde(int datalengde) {
+        this.datalengde = datalengde;
+    }
+
+    public int getMetalengde() {
+        return metalengde;
+    }
+
+    public void setMetalengde(int metalengde) {
+        this.metalengde = metalengde;
+    }
+}

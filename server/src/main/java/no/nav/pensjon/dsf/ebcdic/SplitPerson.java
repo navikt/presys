@@ -1,33 +1,34 @@
 package no.nav.pensjon.dsf.ebcdic;
 
+import no.nav.pensjon.presys.utils.ebcdic.EbcdicUtils;
+import no.nav.pensjon.presys.utils.ebcdic.Meta;
+import no.nav.pensjon.presys.utils.ebcdic.ScrollableArray;
+import no.nav.pensjon.presys.utils.ebcdic.AnnotationMapper;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-
-import static no.nav.pensjon.dsf.ebcdic.EbcdicUtils.EBCDIC_CHARSET;
+import java.util.function.Consumer;
 
 
 public class SplitPerson {
 
-    private static final int BUFFER_SIZE = 100;
     private static final String SEARCH_STRING = new String("RF0PERSN"); //Segmentet det skal splittes på
-    private static final int SEPERATOR_OFFSET = 6; //Kolonne som alle segmentene starter med, før segmentnavnet
     private static final int START_SKIP = 1924; //I TEST3 er de første 1924 tegnene tull
     private static final String DEFAULT_RESORCE_LOCATION = "TEST3";
 
-    public static void main(String [] args) throws IOException {
+    public static void main(String [] args) throws Exception {
         File mappe = new File("server/src/main/resources/database");
-        File fil = new File("C:\\data\\dsf-web\\server\\test4");
+        File fil = new File("C:\\data\\dsf-web\\TEST3");
         splitFilOgSkrivTilMappe(fil, mappe);
     }
 
 
-    public static void splitFilOgSkrivTilMappe(File innFil, File utMappe) throws IOException {
+    public static void splitFilOgSkrivTilMappe(File innFil, File utMappe) throws Exception {
         utMappe.mkdir();
         AtomicInteger integer = new AtomicInteger();
         RequestObject req = new RequestObject();
-        req.writer = (data, position) -> {
+        req.writer = (data) -> {
             DataOutputStream osFil = null;
             try {
                 if(integer.incrementAndGet()% 100000 == 0){
@@ -53,72 +54,40 @@ public class SplitPerson {
                 new BufferedInputStream(
                         new FileInputStream(innFil)));
         req.maksAntall = 20;
-        req.bufferSize = 100;
         ResponseObject res = split(req);
         System.out.println("Fant " + res.getAntall() + " segmenter");
     }
 
 
-    public static ResponseObject split(RequestObject req) throws IOException {
+    public static ResponseObject split(RequestObject req) throws Exception {
         ResponseObject res = new ResponseObject();
-            byte[] pattern = SEARCH_STRING.getBytes(EBCDIC_CHARSET);
-            int navneLength = SEPERATOR_OFFSET + pattern.length;
-            byte[] value = new byte[req.bufferSize];
-            int bufferSize = 0;
-            skip(req);
-            long bytesLest = req.bytesToSkip;
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-            long prevSegStart = bytesLest;
-
+        skip(req);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] metaBytes = new byte[Meta.META_SIZE];
+        try {
             while (res.antall < req.maksAntall) {
-                {
-                    int antallLest = req.reader.read(value, bufferSize, value.length - bufferSize);
-                    bufferSize += antallLest;
-                    bytesLest += antallLest;
-                }
-                int pointer = 0;
-                readBuffer:
-                for (int i = 0; i < bufferSize - pattern.length; i++) {
-                    if (!match(value, i, bufferSize, pattern)) {
-                        continue readBuffer;
-                    }
-                    int segmentStart = i < SEPERATOR_OFFSET ? 0 : i - SEPERATOR_OFFSET;
-
-                    bos.write(value, 0, segmentStart);
-                    pointer += segmentStart;
-
-                    byte[] segmentRest = bos.toByteArray();
-
-                    if (segmentRest.length > 0) {
-                        req.writer.accept(new ScrollableArray(bos.toByteArray()), prevSegStart);
+                req.reader.readFully(metaBytes);
+                Meta meta = AnnotationMapper.mapData(metaBytes, Meta.class);
+                if (meta.getSegmentNavn().equals(SEARCH_STRING)) {
+                    if (bos.size() > 0) {
+                        req.writer.accept(new ScrollableArray(bos.toByteArray()));
                         res.antall++;
                         bos.reset();
                     }
-
-                    prevSegStart = bytesLest - bufferSize + segmentStart;
-                    bos.write(value, segmentStart, navneLength);
-                    pointer += navneLength;
-
-                    break readBuffer;
                 }
-
-                if (pointer == 0) { //fant ingen segmentstart
-                    if (bufferSize == value.length) {
-                        pointer = write(value, bos, bufferSize - navneLength);
-                    } else { //Alt er lest inn
-                        write(value, bos, bufferSize - navneLength);
-                        req.writer.accept(new ScrollableArray(bos.toByteArray()), prevSegStart);
-                        res.antall++;
-                        break;
-                    }
-                }
-
-                leftShift(value, pointer);
-                bufferSize = bufferSize - pointer;
+                bos.write(metaBytes);
+                byte[] data = new byte[meta.getDatalengde() + 1];
+                req.reader.readFully(data);
+                bos.write(data);
 
             }
-
+        }catch(EOFException ex){
+            if (bos.size() > 0) {
+                req.writer.accept(new ScrollableArray(bos.toByteArray()));
+                res.antall++;
+                bos.reset();
+            }
+        }
         return res;
     }
 
@@ -131,50 +100,28 @@ public class SplitPerson {
         req.reader.skipBytes((int)leftToSkip);
     }
 
-    static int write(byte[] value, ByteArrayOutputStream os, int length){
-        os.write(value, 0, length);
-        return length;
-    }
-
-    static boolean match(byte[]data, int start, int size, byte[]pattern){
-        for(int i = 0; i < pattern.length && i + start < size;i++){
-            if(data[i+start] != pattern[i] ){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    static void leftShift(byte [] data, int offset){
-        for(int i = 0; i+offset < data.length; i++){
-            data[i] = data[i+offset];
-        }
-    }
-
     public static class RequestObject{
-        private BiConsumer<ScrollableArray, Long> writer;
+        private Consumer<ScrollableArray> writer;
         private DataInputStream reader;
         private int maksAntall;
-        private int bufferSize;
         private long bytesToSkip;
 
         public RequestObject(){
-            this((a,l) ->{}, new DataInputStream(SplitPerson.class.getClassLoader().getResourceAsStream(DEFAULT_RESORCE_LOCATION)),  10, BUFFER_SIZE, START_SKIP);
+            this((a) ->{}, new DataInputStream(SplitPerson.class.getClassLoader().getResourceAsStream(DEFAULT_RESORCE_LOCATION)),  10, START_SKIP);
         }
 
-        public RequestObject(BiConsumer<ScrollableArray, Long> writer, DataInputStream reader) {
-            this(writer, reader, 10, BUFFER_SIZE, START_SKIP);
+        public RequestObject(Consumer<ScrollableArray> writer, DataInputStream reader) {
+            this(writer, reader, 10, START_SKIP);
         }
 
-        public RequestObject(BiConsumer<ScrollableArray, Long> writer, DataInputStream reader, int maksAntall, int bufferSize, int bytesToSkip) {
+        public RequestObject(Consumer<ScrollableArray> writer, DataInputStream reader, int maksAntall, int bytesToSkip) {
             this.writer = writer;
             this.reader = reader;
             this.maksAntall = maksAntall;
-            this.bufferSize = bufferSize;
             this.bytesToSkip = bytesToSkip;
         }
 
-        public void setWriter(BiConsumer<ScrollableArray, Long> writer) {
+        public void setWriter(Consumer<ScrollableArray> writer) {
             this.writer = writer;
         }
 
@@ -184,10 +131,6 @@ public class SplitPerson {
 
         public void setMaksAntall(int maksAntall) {
             this.maksAntall = maksAntall;
-        }
-
-        public void setBufferSize(int bufferSize) {
-            this.bufferSize = bufferSize;
         }
 
         public void setBytesToSkip(int bytesToSkip) {
