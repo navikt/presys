@@ -5,9 +5,11 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.SubSegment;
 
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
@@ -23,24 +25,94 @@ public class AnnotationMapper {
         for (Field f : fields) {
             if (f.isAnnotationPresent(Felt.class)) {
                 Felt ta = f.getAnnotation(Felt.class);
-
+                Object valueToSet = null;
                 byte[] feltData = Arrays.copyOfRange(values, ta.start(), ta.start() + ta.length());
                 if (f.isAnnotationPresent(PackedDecimal.class)) {
+                    int unpackedWith = (ta.length() * 2) - 1;
+                    BigDecimal unpacked = EbcdicUtils.unpack(feltData, unpackedWith, 0);
                     if (f.getType().equals(String.class)) {
-                        int unpackedWith = (ta.length() * 2) - 1;
-                        String unpadded = EbcdicUtils.deCompress(feltData, unpackedWith, 0);
-                        getSetter(f).invoke(o, padLeft(unpadded, unpackedWith, "0"));
+                        valueToSet = padLeft(unpacked.toString(), unpackedWith, "0");
                     } else if (f.getType().equals(Integer.TYPE)) {
-                        getSetter(f).invoke(o, EbcdicUtils.unPack(feltData, (ta.length() * 2) - 1, 0).intValue());
+                        valueToSet = unpacked.intValue();
                     }
                 } else if (f.getType().equals(String.class)) {
-                    getSetter(f).invoke(o, EbcdicUtils.getString(feltData));
+                    valueToSet = EbcdicUtils.getString(feltData);
                 } else if (f.getType().equals(Integer.TYPE)) {
-                    getSetter(f).invoke(o, ByteBuffer.wrap(feltData).getShort());
+                    valueToSet = ByteBuffer.wrap(feltData).getShort();
                 }
+                if(valueToSet != null) {
+                    getSetter(f).invoke(o, valueToSet);
+                }
+
             }
         }
         return o;
+    }
+
+    static void writeSegment(Object o, OutputStream os) throws Exception {
+        Meta m = new Meta();
+        m.setMetalengde(Meta.META_SIZE);
+
+        Segment seg = o.getClass().getAnnotation(Segment.class);
+        m.setDatalengde(seg.length());
+        m.setSegmentNavn(seg.name());
+
+        os.write(asByte(m));
+        os.write(asByte(o));
+        os.write(0);
+
+        Field[] fields = o.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            if (f.isAnnotationPresent(SubSegment.class)) {
+                List<Object> segments =  (List<Object>) getGetter(f).invoke(o);
+                for(Object segment : segments){
+                    writeSegment(segment, os);
+                }
+            }
+        }
+    }
+
+    static byte[] asByte(Object o) throws Exception {
+        Segment seg = o.getClass().getAnnotation(Segment.class);
+        byte[] segmentBytes = new byte[seg.length()];
+        Field[] fields = o.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            if (f.isAnnotationPresent(Felt.class)) {
+                Felt ta = f.getAnnotation(Felt.class);
+
+                byte[] feltData = new byte[ta.length()];
+
+                if (f.isAnnotationPresent(PackedDecimal.class)) {
+                    if (f.getType().equals(String.class)) {
+                        feltData =  EbcdicUtils.pack(new BigDecimal(Double.parseDouble(getGetter(f).invoke(o).toString())), ta.length() * 2 - 1);
+
+                    } else if (f.getType().equals(Integer.TYPE)) {
+                        feltData =  EbcdicUtils.pack(new BigDecimal((int) getGetter(f).invoke(o)), ta.length() * 2 - 1);
+                    }
+                } else if (f.getType().equals(String.class)) {
+                    byte[] tmp = getGetter(f).invoke(o).toString().getBytes(EbcdicUtils.EBCDIC_CHARSET);
+                    for(int i = 0; i<feltData.length && i< tmp.length;i++){
+                        feltData[i] = tmp[i];
+                    }
+                } else if (f.getType().equals(Integer.TYPE)) {
+                    ByteBuffer buf = ByteBuffer.allocate(2);
+                    int tmp = (int)getGetter(f).invoke(o);
+                    buf.putShort((short)tmp);
+                    feltData = buf.array();
+                }
+                for(int i = 0; i< feltData.length; i++){
+
+                    segmentBytes[i+ta.start()] = feltData[i];
+                }
+            }
+        }
+
+        return segmentBytes;
+    }
+
+    private static Method getGetter(Field f) throws Exception {
+        String getterName = "get" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
+        return f.getDeclaringClass().getMethod(getterName);
     }
 
     private static String padLeft(String oldString, int newLength, String padding){
