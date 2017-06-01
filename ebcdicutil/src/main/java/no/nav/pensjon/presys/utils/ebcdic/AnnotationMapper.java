@@ -27,7 +27,9 @@ public class AnnotationMapper {
                 byte[] feltData = Arrays.copyOfRange(values, ta.start(), ta.start() + ta.length());
                 if (f.isAnnotationPresent(PackedDecimal.class)) {
                     if (f.getType().equals(String.class)) {
-                        getSetter(f).invoke(o, EbcdicUtils.deCompress(feltData, (ta.length() * 2) - 1, 0));
+                        int unpackedWith = (ta.length() * 2) - 1;
+                        String unpadded = EbcdicUtils.deCompress(feltData, unpackedWith, 0);
+                        getSetter(f).invoke(o, padLeft(unpadded, unpackedWith, "0"));
                     } else if (f.getType().equals(Integer.TYPE)) {
                         getSetter(f).invoke(o, EbcdicUtils.unPack(feltData, (ta.length() * 2) - 1, 0).intValue());
                     }
@@ -39,6 +41,13 @@ public class AnnotationMapper {
             }
         }
         return o;
+    }
+
+    private static String padLeft(String oldString, int newLength, String padding){
+        while(oldString.length()<newLength){
+            oldString = padding+oldString;
+        }
+        return oldString;
     }
 
     private static Method getSetter(Field f) throws Exception {

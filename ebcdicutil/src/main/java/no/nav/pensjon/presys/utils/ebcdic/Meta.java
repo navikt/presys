@@ -1,7 +1,9 @@
 package no.nav.pensjon.presys.utils.ebcdic;
 
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 
+@Segment(name="meta", length = Meta.META_SIZE)
 public class Meta {
     public final static int META_SIZE = 21 + 8 + 6;
 

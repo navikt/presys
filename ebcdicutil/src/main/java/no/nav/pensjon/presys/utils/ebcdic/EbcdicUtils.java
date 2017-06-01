@@ -37,7 +37,11 @@ public class EbcdicUtils {
 
     public static byte[] compress(double unpacked, int length) throws IOException {
         AS400PackedDecimal packedDecimal = new AS400PackedDecimal(length, 0);
-        return  packedDecimal.toBytes(unpacked);
+        try {
+            return packedDecimal.toBytes(unpacked);
+        }catch(Exception e){
+            throw e;
+        }
     }
 
     public static String getString(byte[] Cp1047bytes){
