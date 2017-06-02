@@ -1,41 +1,84 @@
 package no.nav.pensjon.dsf.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private TokenAuthenticationService tokenService;
+    @Value("${ldap.url}")
+    private String ldapUrl;
+
+    @Value("${ldap.basedn}")
+    private String ldapBase;
+
+    @Value("${ldap.domain}")
+    private String ldapDomain;
+
+    @Value("${jwt.password}")
+    private String jwtSecret;
+
+    private AuthenticationProvider ldapAuthenticationProvider() {
+        ActiveDirectoryLdapAuthenticationProvider provider = new ActiveDirectoryLdapAuthenticationProvider(
+                ldapDomain, ldapUrl, ldapBase
+        );
+
+        provider.setUserDetailsContextMapper(new NAVLdapUserDetailsMapper());
+        provider.setUseAuthenticationRequestCredentials(true);
+        provider.setConvertSubErrorCodesToExceptions(true);
+        return provider;
+    }
+
+    private LdapAuthenticationProcessingFilter ldapAuthenticationProcessingFilter() throws Exception {
+        LdapAuthenticationProcessingFilter filter = new LdapAuthenticationProcessingFilter(
+                new AntPathRequestMatcher("/api/login")
+        );
+
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationSuccessHandler(new LdapAuthenticationSuccessHandler(jwtSecret));
+
+        return filter;
+    }
+
+    private AuthenticationProvider jwtAuthenticationProvider() {
+        return new JwtAuthenticationProvider(jwtSecret);
+    }
+
+    private JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() throws Exception {
+        JwtAuthenticationProcessingFilter filter = new JwtAuthenticationProcessingFilter(
+                new AntPathRequestMatcher("/api/**")
+        );
+
+        filter.setAuthenticationManager(authenticationManager());
+
+        return filter;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable().authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/public/**").permitAll()
-                    .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .addFilterBefore(new JWTLoginFilter("/api/login", authenticationManager(), tokenService),
-                        UsernamePasswordAuthenticationFilter.class)
-                // And filter other requests to check the presence of JWT in header
-                .addFilterBefore(new JWTAuthenticationFilter(tokenService),
-                        UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                    .antMatchers(HttpMethod.GET, "/", "/public/**").permitAll()
+                    .anyRequest().authenticated().and()
+                .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(ldapAuthenticationProvider());
+        auth.authenticationProvider(jwtAuthenticationProvider());
     }
 }

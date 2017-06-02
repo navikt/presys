@@ -9,5 +9,6 @@
     <resources>
         <datasource jndi="java:/jdbc/presysDB" alias="presysDB" />
         <credential alias="jwt" />
+        <ldap alias="ldap" mapToProperty="ldap" />
     </resources>
 </application>
