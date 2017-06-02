@@ -1,15 +1,33 @@
 package no.nav.pensjon.dsf.domene;
 
-/**
- * Created by d132988 on 11.04.2017.
- */
+import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
+
+
+@Segment(name="PINNTEKT", length = 20)
 public class Inntekt {
 
+    @Felt(name="pi_aar", length = 3, start = 0)
+    @PackedDecimal
     private int personInntektAar;
+
+    @Felt(name="pi_type", length = 1, start = 3)
     private String personInntektType;
+
+    @Felt(name="pi_merke", length = 1, start = 4)
     private String personInntektMerke;
+
+    @Felt(name="pi", length = 5, start = 5)
+    @PackedDecimal
     private int personInntekt;
+
+    @Felt(name="kommune", length = 3, start = 10)
+    @PackedDecimal
     private String kommune;
+
+    @Felt(name="rappdato", length = 4, start = 13)
+    @PackedDecimal
     private int rapporteringsDato;
 
     public int getPersonInntektAar() {

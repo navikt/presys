@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.ebcdic;
+package no.nav.pensjon.presys.utils.ebcdic;
 
 import java.util.Arrays;
 
@@ -26,6 +26,10 @@ public class ScrollableArray {
 
     public byte[] getData(){
         return data;
+    }
+
+    public int bytesLeft(){
+        return data.length - pointer;
     }
 
     public ScrollableArray getCopy(){

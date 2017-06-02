@@ -1,9 +1,8 @@
 package no.nav.pensjon.dsf.repository;
 
 import no.nav.pensjon.dsf.domene.Person;
-import no.nav.pensjon.dsf.ebcdic.ScrollableArray;
-import no.nav.pensjon.dsf.ebcdic.segmenter.RF0PersonSegment;
-import no.nav.pensjon.dsf.ebcdic.segmenter.Segment;
+import no.nav.pensjon.presys.utils.ebcdic.ScrollableArray;
+import no.nav.pensjon.presys.utils.ebcdic.AnnotationMapper;
 import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -23,13 +22,15 @@ public class PersonRepository {
     @Inject
     private JdbcTemplate db;
 
-    private Segment<Person> personsegment = new RF0PersonSegment();
-
     public Person findPerson(String fnr) throws IOException {
-        return personsegment.readSegment(new ScrollableArray(
-                        Base64.getDecoder().decode(
-                                Optional.ofNullable(repo.findOne(fnr)).orElseThrow(ResourceNotFound::new).getData()
-                        )));
+        try {
+            return AnnotationMapper.les(new ScrollableArray(
+                            Base64.getDecoder().decode(
+                                    Optional.ofNullable(repo.findOne(fnr)).orElseThrow(ResourceNotFound::new).getData()
+                            )), Person.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String> personer(){

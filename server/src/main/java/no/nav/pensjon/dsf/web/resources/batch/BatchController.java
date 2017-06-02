@@ -1,20 +1,22 @@
 package no.nav.pensjon.dsf.web.resources.batch;
 
-import no.nav.pensjon.dsf.ebcdic.EbcdicUtils;
+import no.nav.pensjon.presys.utils.ebcdic.EbcdicUtils;
 import no.nav.pensjon.dsf.ebcdic.SplitPerson;
 import no.nav.pensjon.dsf.repository.DbPerson;
 import no.nav.pensjon.dsf.repository.DbRepo;
 import no.nav.pensjon.dsf.repository.PersonRepository;
+import no.nav.pensjon.presys.utils.ebcdic.Meta;
+import no.nav.pensjon.presys.utils.ebcdic.ScrollableArray;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 
 @RestController
@@ -29,21 +31,22 @@ public class BatchController {
 
 
     @RequestMapping("/last")
-    public int last() throws IOException {
+    public int last() throws Exception {
         AtomicInteger counter = new AtomicInteger();
-        AtomicLong pos = new AtomicLong();
-        SplitPerson.RequestObject req = new SplitPerson.RequestObject();
-        req.setWriter((data, l)->{
-            pos.set(l);
+        Consumer<ScrollableArray> writer = data-> {
             DbPerson person = new DbPerson();
             person.setData(Base64.getEncoder().encodeToString(data.getData()));
-            person.setFnr(zeroFill(EbcdicUtils.deCompress(Arrays.copyOfRange(data.getData(), 6+29, 6+29+6),11,0).toString(),11));
+            person.setFnr(zeroFill(EbcdicUtils.unpack(Arrays.copyOfRange(data.getData(), Meta.META_SIZE, Meta.META_SIZE + 6), 11, 0).toString(), 11));
             repo.save(person);
             counter.getAndIncrement();
-        });
+        };
 
-        SplitPerson.split(req);
-
+        File fil = new File("C:\\data\\dsf-web\\TEST3");
+        DataInputStream reader = new DataInputStream(
+                new BufferedInputStream(
+                        new FileInputStream(fil)));
+        int maksAntall = 20;
+        SplitPerson.split(reader, writer, maksAntall, SplitPerson.START_SKIP );
         return counter.get();
     }
 
