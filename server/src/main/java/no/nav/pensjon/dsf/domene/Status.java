@@ -13,39 +13,6 @@ import java.util.List;
  */
 @Segment(name = "STATUS  ", length = 94)
 public class Status {
-/*
-    private int virkDato;
-    private String statusKode;
-    private String statusKodeHistorie;
-    private String pensjonsType1;
-    private String pensjonsType2;
-    private String pensjonsType3;
-    private String sivilstand;
-    private int trygdetidFoer1967;
-    private int trygdetidEtter1966;
-    private int trygdetidFramTil;
-    private int trygdetid1967Til1970;
-    private int trygdetidAnvendt;
-    private String foersteGangReg;
-    private int sumYtelse;
-    private int antallBarn;
-    private int dodsddato;
-    private String dodAvYrkesskade;
-    private String vilkar8_4_3a;
-    private int trygdetidGaranti;
-    private int grunnbelopsDato;
-    private int poengtilleggsDato;
-    private String poengtilleggsKode;
-    private String pensjonsrettFoer91;
-    private int trygdetid16_66;
-    private String garantertTilleggsPensjonKode;
-    private String gammelSammenstotsRegel;
-    private String ektefelleInntektOver2g;
-    private String pensjonFoer9802;
-    private String red_grunnPensjon_3_2_1;
-    private String grunnPensjonReduksjonsKode;
-    private int friinntektDato;
-*/
        /*
     * Umappede felter:
     * start, lengde, navn: beskrivelse
