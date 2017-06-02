@@ -76,7 +76,7 @@ public class Person {
         return etteroppgjor;
     }
 
-    public List<Inntekt> getInntekter() {
+        public List<Inntekt> getInntekter() {
         return inntekter;
     }
 
