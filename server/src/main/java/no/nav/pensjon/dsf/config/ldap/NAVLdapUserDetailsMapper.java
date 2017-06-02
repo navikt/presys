@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.ldap;
 
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;

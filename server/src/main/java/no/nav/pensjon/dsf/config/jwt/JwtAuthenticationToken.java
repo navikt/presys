@@ -1,7 +1,8 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import no.nav.pensjon.dsf.config.PresysUserDetails;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 

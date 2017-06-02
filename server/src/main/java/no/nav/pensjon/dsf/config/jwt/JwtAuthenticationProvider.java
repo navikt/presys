@@ -1,6 +1,7 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.jwt;
 
 import io.jsonwebtoken.*;
+import no.nav.pensjon.dsf.config.JwtService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -17,10 +18,10 @@ import java.util.stream.Collectors;
  */
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
-    private byte[] secret;
+    private JwtService jwtService;
 
-    public JwtAuthenticationProvider(String secret) {
-        this.secret = secret.getBytes();
+    public JwtAuthenticationProvider(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -30,9 +31,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         String rawToken = (String)jwtToken.getCredentials();
 
         try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(rawToken);
+            Jws<Claims> claims = jwtService.parseToken(rawToken);
 
             List<String> scopes = claims.getBody().get("scopes", List.class);
             if (scopes == null) {

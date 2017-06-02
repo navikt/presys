@@ -1,5 +1,11 @@
 package no.nav.pensjon.dsf.config;
 
+import no.nav.pensjon.dsf.config.jwt.JwtAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.config.jwt.JwtAuthenticationProvider;
+import no.nav.pensjon.dsf.config.ldap.LdapAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.config.ldap.LdapAuthenticationSuccessHandler;
+import no.nav.pensjon.dsf.config.ldap.NAVLdapUserDetailsMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,8 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${ldap.domain}")
     private String ldapDomain;
 
-    @Value("${jwt.password}")
-    private String jwtSecret;
+    @Autowired
+    private JwtService jwtService;
 
     private AuthenticationProvider ldapAuthenticationProvider() {
         ActiveDirectoryLdapAuthenticationProvider provider = new ActiveDirectoryLdapAuthenticationProvider(
@@ -46,13 +52,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         );
 
         filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler(new LdapAuthenticationSuccessHandler(jwtSecret));
+        filter.setAuthenticationSuccessHandler(new LdapAuthenticationSuccessHandler(jwtService));
 
         return filter;
     }
 
     private AuthenticationProvider jwtAuthenticationProvider() {
-        return new JwtAuthenticationProvider(jwtSecret);
+        return new JwtAuthenticationProvider(jwtService);
     }
 
     private JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() throws Exception {

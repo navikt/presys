@@ -1,7 +1,6 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,32 +13,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by s150563 on 01.06.2017.
- */
-public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
+public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    protected LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    public JwtAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException, ServletException {
-        AccountCredentials creds = new ObjectMapper()
-                .readValue(req.getInputStream(), AccountCredentials.class);
+        String rawToken = req.getHeader("Authorization");
 
-        return getAuthenticationManager().authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        creds.getUsername(),
-                        creds.getPassword()
-                )
-        );
+        if (rawToken == null) {
+            throw new BadCredentialsException("Missing Authorization");
+        }
+
+        if (!rawToken.startsWith("Bearer ")) {
+            throw new BadCredentialsException("Missing Bearer");
+        }
+
+        rawToken = rawToken.replace("Bearer ", "");
+        return getAuthenticationManager().authenticate(new JwtAuthenticationToken(rawToken));
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authResult);
-        getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+        /* continue with the request processing */
+        chain.doFilter(request, response);
     }
 }
