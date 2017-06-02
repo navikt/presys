@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.GET, "/", "/public/**", "/api/internal/isAlive").permitAll()
+                    .antMatchers(HttpMethod.GET, "/", "/public/**").permitAll()
                     .anyRequest().authenticated().and()
                 .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -89,10 +89,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(jwtAuthenticationProvider());
     }
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/internal/isAlive");
+        web.ignoring().antMatchers("/api/internal/**");
 
     }
 }
