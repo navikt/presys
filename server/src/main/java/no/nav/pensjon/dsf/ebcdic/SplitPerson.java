@@ -8,6 +8,8 @@ import no.nav.pensjon.presys.utils.ebcdic.AnnotationMapper;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
@@ -17,9 +19,13 @@ public class SplitPerson {
     private static final String SEARCH_STRING = new String("RF0PERSN"); //Segmentet det skal splittes på
     public static final int START_SKIP = 1924; //I TEST3 er de første 1924 tegnene tull
 
+    private static String[] segmenterSomIkkeHarSkilletegnEtterSeg = {"GRUNNEES", "VENTØVR ", "YRKEGRAD", "RKEHIST "};
+
     public static void main(String [] args) throws Exception {
-        File mappe = new File("server/src/main/resources/database");
-        File fil = new File("C:\\data\\dsf-web\\TEST3");
+        File mappe = new File("server/src/main/resources/database2");
+        //File fil = new File("C:\\data\\dsf-web\\TEST3");
+        File fil = new File("W:\\RFINNT.UNL");
+        //File fil = new File("C:\\data\\dsf-web\\server\\src\\main\\resources\\database2\\28073236012.txt");
         splitFilOgSkrivTilMappe(fil, mappe);
     }
 
@@ -31,6 +37,7 @@ public class SplitPerson {
         Consumer<ScrollableArray> writer = (data) -> {
             DataOutputStream osFil = null;
             try {
+                System.out.println("erros");
                 if(integer.incrementAndGet()% 100000 == 0){
                   System.out.println("Fremdrift:" + integer.get());
                 }
@@ -50,11 +57,16 @@ public class SplitPerson {
                 throw new RuntimeException(e);
             }
         };
+        writer = data ->{
+            if(integer.incrementAndGet()% 10000 == 0){
+                System.out.println("Fremdrift:" + integer.get());
+            }
+        };
 
         DataInputStream reader = new DataInputStream(
                 new BufferedInputStream(
                         new FileInputStream(innFil)));
-        int maksAntall = 20;
+        int maksAntall = 100000;
         int antallLest = split(reader, writer, maksAntall, START_SKIP );
 
         System.out.println("Fant " + antallLest + " segmenter");
@@ -66,10 +78,14 @@ public class SplitPerson {
         skip(reader, bytesToSkip);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] metaBytes = new byte[Meta.META_SIZE];
+
         try {
             while (antall < maksAntall) {
                 reader.readFully(metaBytes);
                 Meta meta = AnnotationMapper.mapData(metaBytes, Meta.class);
+                if(metaBytes[0] == 0){
+                    throw new RuntimeException();
+                }
                 if (meta.getSegmentNavn().equals(SEARCH_STRING)) {
                     if (bos.size() > 0) {
                         writer.accept(new ScrollableArray(bos.toByteArray()));
@@ -78,12 +94,12 @@ public class SplitPerson {
                     }
                 }
                 bos.write(metaBytes);
-                byte[] data = new byte[meta.getDatalengde() + 1];
-                reader.readFully(data);
-                bos.write(data);
+                    byte[] data = new byte[meta.getDatalengde() + (1 -(meta.getDatalengde() % 2 ))];
+                    reader.readFully(data);
 
+                    bos.write(data);
             }
-        }catch(EOFException ex){
+        }catch(Exception ex){
             if (bos.size() > 0) {
                 writer.accept(new ScrollableArray(bos.toByteArray()));
                 antall++;

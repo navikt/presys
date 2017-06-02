@@ -59,7 +59,9 @@ public class AnnotationMapper {
 
         os.write(asByte(m));
         os.write(asByte(o));
-        os.write(0);
+        if((m.metalengde + m.datalengde) % 2 == 1){
+            os.write(0);
+        }
 
         Field[] fields = o.getClass().getDeclaredFields();
         for (Field f : fields) {
@@ -132,9 +134,12 @@ public class AnnotationMapper {
     }
 
     public static <T> T les(ScrollableArray data, Class<T> segmentToMap) throws Exception {
+
         Meta m = lesMetadata(data, true);
         T o = mapData(data.read(m.getDatalengde()), segmentToMap);
-        data.read(1);
+        if((m.metalengde + m.datalengde) % 2 == 1){
+            data.read(1);
+        }
 
         List<Class<?>> subSegments = Arrays.stream(segmentToMap.getDeclaredFields())
                 .filter(f -> f.isAnnotationPresent(SubSegment.class))
