@@ -31,7 +31,7 @@ export function login(username, password) {
     post(`${LOGIN_ENDPOINT}`, { username, password }, dispatch,
           (json, response) => {
             dispatch(removeErrorMessage());
-            return loginOk(response.headers.authorization);
+            return loginOk(response.data.token);
           },
           (response) => {
             dispatch(showErrorMessage(response));

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const addJwt = (headers) => {
   const jwt = localStorage.getItem('jwt_token') || null;
-  return jwt ? { ...headers, Authorization: jwt } : headers;
+  return jwt ? { ...headers, Authorization: `Bearer ${jwt}` } : headers;
 };
 
 export const get = function get(url, params, dispatch, successCallback, failedCallback) {
