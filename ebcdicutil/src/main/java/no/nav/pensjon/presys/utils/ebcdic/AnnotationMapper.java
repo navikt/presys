@@ -155,7 +155,10 @@ public class AnnotationMapper {
             Meta mNext = lesMetadata(data, false);
             Optional<Class<?>> nextClass = subSegments.stream()
                     .filter(seg -> seg.getAnnotation(Segment.class).name().equals(mNext.getSegmentNavn())).findAny();
-            if (!nextClass.isPresent()) break;
+            if (!nextClass.isPresent()){
+                System.out.println(m.getSegmentNavn() + ": Next segment is " + mNext.getSegmentNavn()  );
+                break;
+            }
 
             Field[] fields = segmentToMap.getDeclaredFields();
 

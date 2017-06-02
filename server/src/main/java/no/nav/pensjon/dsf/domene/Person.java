@@ -44,6 +44,34 @@ public class Person {
     @SubSegment
     private List<EtteroppgjorAFP> etteroppgjor = new ArrayList<>();
 
+    @SubSegment
+    private List<Tilberpo> tilberpo = new ArrayList<>();
+
+    @SubSegment
+    private List<Status> status = new ArrayList<>();
+
+    @SubSegment
+    private List<TranHist> tranHister = new ArrayList<>();
+
+    @SubSegment
+    private List<Grunnbup> grunnbuper = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBKF> grunnbkfer = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBU3> grunnbu3er = new ArrayList<>();
+
+    @SubSegment
+    private List<OPPHBL1> opphbl1er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
+
+    @SubSegment
+    private List<ENBLAN1> enblan1er = new ArrayList<>();
+
+
     public List<EtteroppgjorAFP> getEtteroppgjor() {
         return etteroppgjor;
     }
@@ -74,5 +102,42 @@ public class Person {
 
     public void setAi67(int ai67) {
         this.ai67 = ai67;
+    }
+
+    public List<Tilberpo> getTilberpo() {
+        return tilberpo;
+    }
+
+    public List<Status> getStatus() {
+        return status;
+    }
+
+    public List<TranHist> getTranHister() {
+        return tranHister;
+    }
+
+    public List<Grunnbup> getGrunnbuper() {
+        return grunnbuper;
+    }
+
+    public List<GRUNNBKF> getGrunnbkfer() {
+        return grunnbkfer;
+    }
+
+    public List<GRUNNBU3> getGrunnbu3er() {
+        return grunnbu3er;
+    }
+
+    public List<OPPHBL1> getOpphbl1er() {
+        return opphbl1er;
+    }
+
+
+    public List<GRUNNBE3> getGrunnbe3er() {
+        return grunnbe3er;
+    }
+
+    public List<ENBLAN1> getEnblan1er() {
+        return enblan1er;
     }
 }
