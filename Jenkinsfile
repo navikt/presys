@@ -33,7 +33,7 @@ node {
                     if [ "$line" != "" ];then 
                         if [ `grep SNAPSHOT $line/pom.xml | wc -l` -gt 1 ];then 
                             echo "SNAPSHOT-dependencies found. See file $line/pom.xml.";
-                            exit 1;
+                            exit 0;
                         fi;
                     fi;
                 done < snapshots.txt
