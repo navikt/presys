@@ -59,11 +59,11 @@ node {
             println("Would deploy to U")
         }
 
-        hipchatSend  color: 'GREEN', message: "Hoi!\nJeg deployet akkurat ${application}:${releaseVersion} til U.\n\nCommitter: ${committer}\nNy versjon: ${nextVersion}\nHilsen Jenkins", textFormat: true, room: 'Team Peon', v2enabled: true
-
-
+        // hipchatSend  color: 'GREEN', message: "Hoi!\nJeg deployet akkurat ${application}:${releaseVersion} til U.\n\nCommitter: ${committer}\nNy versjon: ${nextVersion}\nHilsen Jenkins", textFormat: true, room: 'Team Peon', v2enabled: true
     } catch (e) {
         currentBuild.result='FAILURE'
-        hipchatSend color: 'RED', message: "@all ${env.JOB_NAME} failed :(\nSe "  + e.getMessage() + " for mer informasjon.\n\nCommitter: ${committer}" , textFormat: true, notify: true, room: 'Team Peon', v2enabled: true
+        // hipchatSend color: 'RED', message: "@all ${env.JOB_NAME} failed :(\nSe "  + e.getMessage() + " for mer informasjon.\n\nCommitter: ${committer}" , textFormat: true, notify: true, room: 'Team Peon', v2enabled: true
+
+        println(e.getMessage())
     }
 }
