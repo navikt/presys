@@ -64,6 +64,6 @@ node {
         currentBuild.result='FAILURE'
         // hipchatSend color: 'RED', message: "@all ${env.JOB_NAME} failed :(\nSe "  + e.getMessage() + " for mer informasjon.\n\nCommitter: ${committer}" , textFormat: true, notify: true, room: 'Team Peon', v2enabled: true
 
-        println(e.getMessage())
+        throw e
     }
 }
