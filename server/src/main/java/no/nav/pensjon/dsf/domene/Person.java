@@ -1,32 +1,22 @@
 package no.nav.pensjon.dsf.domene;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.SubSegment;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by d132988 on 19.04.2017.
- */
-
 @Segment(name = "RF0PERSN", length = 58)
+@UnmappedField(name = "tknr", length = 3, start = 31) //pakket
+@UnmappedField(name = "spraak", length = 1, start = 34)
+@UnmappedField(name = "sperre", length = 1, start = 38)
+@UnmappedField(name = "SB_DATO_ÅMD", length = 5, start = 39) // SISTE STØNADSBREV DATO
+@UnmappedField(name = "PI_66_65", length = 1, start = 44) //1 karakter i Rotsegment.  J = inntekt i 66. år skal sette lik inntekt i 65. år frem til P70.
+@UnmappedField(name = "EØS_GARANTI", length = 1, start = 45) //Litt usikker på om dette er i bruk…, evnt kun en kode A,B,eller C
+@UnmappedField(name = "BRUKER_ID", length = 8, start = 46) // BRUKERIDENT FOR DEN SOM SIST VAR INNE OG REGISTRERTE PÅ DENNE PERSONEN
+@UnmappedField(name = "PERSN_KODE", length = 1, start = 54) //KODE FOR SKJERMET PERSONER (KODE 6/7/EGNE ANSATTE)
+@UnmappedField(name = "filler", length = 3, start = 55)
 public class Person {
-    /*
-    * Umappede felter:
-    * start, lengde, navn: beskrivelse
-    * 31, 3, tknr: packed heltall
-    * 34, 1, spraak: tekst
-    * 38, 1, sperre: tekst
-    * 39, 5,SB_DATO_ÅMD : packed decimal, SISTE STØNADSBREV DATO
-    * 44, 1, PI_66_65 : tekst, 1 karakter i Rotsegment.  J = inntekt i 66. år skal sette lik inntekt i 65. år frem til P70.
-    * 45, 1, EØS_GARANTI: Litt usikker på om dette er i bruk…, evnt kun en kode A,B,eller C
-    * 46, 8, BRUKER_ID: BRUKERIDENT FOR DEN SOM SIST VAR INNE OG REGISTRERTE PÅ DENNE PERSONEN
-    * 54, 1, PERSN_KODE: KODE FOR SKJERMET PERSONER (KODE 6/7/EGNE ANSATTE)
-    * 55, 3, filler
-    * */
+
     @Felt(name="fnr", length = 6, start = 0)
     @PackedDecimal
     private String fnr;

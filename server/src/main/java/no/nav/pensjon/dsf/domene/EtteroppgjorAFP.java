@@ -3,16 +3,11 @@ package no.nav.pensjon.dsf.domene;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
-@Segment(name="EOAFP   ", length = 59)
+@Segment(name="EOAFP   ", length = 60)
+@UnmappedField(name = "filler", length = 10, start = 50)
 public class EtteroppgjorAFP {
-
-    /*
-    * Umappede felter:
-    * start, lengde, navn: beskrivelse
-    * 50, 9, Filler
-    *
-    * */
 
     @Felt(name="INNTEKTSÅR", length = 3, start = 0)
     @PackedDecimal

@@ -3,9 +3,11 @@ package no.nav.pensjon.dsf.domene;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
 
 @Segment(name="PINNTEKT", length = 20)
+@UnmappedField(name = "filler", length = 3, start = 17)
 public class Inntekt {
 
     @Felt(name="pi_aar", length = 3, start = 0)
