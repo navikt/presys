@@ -46,7 +46,8 @@ node {
 
         stage("release") {
             if (isSnapshot) {
-                sh "${mvn} clean deploy -DskipTests -B -e"
+                /* deploy appconfig og ear */
+                /*sh "${mvn} clean deploy -DskipTests -B -e"*/
             } else {
                 println("POM version is not a SNAPSHOT, it is ${pom.version}. Skipping publishing!")
             }
