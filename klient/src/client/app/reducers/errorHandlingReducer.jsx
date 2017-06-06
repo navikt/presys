@@ -21,6 +21,12 @@ export default function errorHandlingReducer(state = {
     case types.REMOVE_ERROR_MESSAGE:
       return Object.assign({ }, state, { errorMessage: '' });
     default:
+      if (typeof action.error !== 'undefined') {
+        return {
+          ...state,
+          errorMessage: action.error.statusText,
+        };
+      }
       return state;
   }
 }

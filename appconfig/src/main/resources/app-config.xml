@@ -3,10 +3,16 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://appconfig.aura.nav.no http://maven.adeo.no/xsd/appconfig.xsd ">
     <name>presys</name>
-    <resources>
-        <datasource type="ORACLE" cmpEnabled="true" jtaEnabled="true" xaEnabled="false" jndi="java:/jdbc/presysDB" alias="presysDB" />
-    </resources>
+    <selftest>
+        <path>/api/internal/selftest</path>
+        <humanReadablePath>/api/internal/selftest</humanReadablePath>
+    </selftest>
     <artifacts>
         <ear groupId="no.nav.pensjon.presys" artifactId="presys-web-ear"/>
     </artifacts>
+    <resources>
+        <datasource jndi="java:/jdbc/presysDB" alias="presysDB" />
+        <credential alias="jwt" />
+        <ldap alias="ldap" mapToProperty="ldap" />
+    </resources>
 </application>

@@ -9,6 +9,7 @@
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "history": "^3.3.0",
+    "jwt-decode": "^2.2.0",
     "nav-frontend-core": "^3.0.4",
     "nav-frontend-knapper": "^0.1.10",
     "react": "15.4.2",

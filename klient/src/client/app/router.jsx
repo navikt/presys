@@ -11,7 +11,8 @@ import Person from 'containers/person/Personfrafnr';
 import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
 import Inntekter from 'containers/inntekter/InntektListe';
 import Status from 'containers/status/StatusListe';
-
+import LoginManager from 'containers/app/LoginManager';
+import { loginOk } from 'actions/saksbehandlerActions';
 import configureStore from './store/store';
 
 injectTapEventPlugin();
@@ -19,9 +20,16 @@ injectTapEventPlugin();
 const store = configureStore(hashHistory);
 const history = syncHistoryWithStore(hashHistory, store);
 
+/* sjekk initiell tilstand */
+const token = localStorage.getItem('jwt_token');
+if (token) {
+  store.dispatch(loginOk(token));
+}
+
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={PersonsokIndex} />
+    <Route path="login" component={LoginManager} />
     <Route path="person/:fnr" component={Person}>
       <Route path="eoafp" component={EoAfp} />
       <Route path="inntekter" component={Inntekter}>
