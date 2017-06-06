@@ -24,11 +24,20 @@ node {
             /* ... same as above but only email */
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
 
-            sh 'echo "Verifying that no snapshot dependencies is being used."'
-            sh 'grep module pom.xml | cut -d">" -f2 | cut -d"<" -f1 > snapshots.txt'
-            sh 'echo "./" >> snapshots.txt'
-            sh 'while read line;do if [ "$line" != "" ];then if [ `grep SNAPSHOT $line/pom.xml | wc -l` -gt 1 ];then echo "SNAPSHOT-dependencies found. See file $line/pom.xml.";exit 1;fi;fi;done < snapshots.txt'
-
+            sh '''
+                echo "Verifying that no snapshot dependencies is being used."
+                grep module pom.xml | cut -d">" -f2 | cut -d"<" -f1 > snapshots.txt
+                echo "./" >> snapshots.txt
+                
+                while read line;do 
+                    if [ "$line" != "" ];then 
+                        if [ `grep SNAPSHOT $line/pom.xml | wc -l` -gt 1 ];then 
+                            echo "SNAPSHOT-dependencies found. See file $line/pom.xml.";
+                            exit 1;
+                        fi;
+                    fi;
+                done < snapshots.txt
+            '''
         }
 
         stage("build") {
