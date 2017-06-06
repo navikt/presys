@@ -52,7 +52,8 @@ node {
                 println("POM version is not a SNAPSHOT, it is ${pom.version}. Skipping publishing!")
             }
 
-            nextVersion = (releaseVersion.toInteger() + 1) + "-SNAPSHOT"
+            println("Release versjon: " + releaseVersion)
+            // nextVersion = (releaseVersion.toInteger() + 1) + "-SNAPSHOT"
         }
 
         stage("deploy") {
