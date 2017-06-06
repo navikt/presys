@@ -5,8 +5,11 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.SubSegment;
 
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
 public class AnnotationMapper {
 
 
-    public static <E> E mapData(byte[] values, Class<E> clazz) throws Exception {
+    public static <E> E mapData(byte[] values, Class<E> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         E o = clazz.newInstance();
         Field[] fields = clazz.getDeclaredFields();
         for (Field f : fields) {
@@ -43,13 +46,13 @@ public class AnnotationMapper {
                 if(valueToSet != null) {
                     getSetter(f).invoke(o, valueToSet);
                 }
-
             }
         }
         return o;
     }
 
-    static void writeSegment(Object o, OutputStream os) throws Exception {
+
+    static void writeSegment(Object o, OutputStream os) throws IOException, InvocationTargetException, IllegalAccessException {
         Meta m = new Meta();
         m.setMetalengde(Meta.META_SIZE);
 
@@ -74,7 +77,7 @@ public class AnnotationMapper {
         }
     }
 
-    static byte[] asByte(Object o) throws Exception {
+    static byte[] asByte(Object o) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         Segment seg = o.getClass().getAnnotation(Segment.class);
         byte[] segmentBytes = new byte[seg.length()];
         Field[] fields = o.getClass().getDeclaredFields();
@@ -112,9 +115,13 @@ public class AnnotationMapper {
         return segmentBytes;
     }
 
-    private static Method getGetter(Field f) throws Exception {
+    private static Method getGetter(Field f) {
         String getterName = "get" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
-        return f.getDeclaringClass().getMethod(getterName);
+        try {
+            return f.getDeclaringClass().getMethod(getterName);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException("Fant ikke getter for felt " + f.getName() +  "på segment "  + f.getDeclaringClass().getSimpleName(), e);
+        }
     }
 
     private static String padLeft(String oldString, int newLength, String padding){
@@ -124,12 +131,16 @@ public class AnnotationMapper {
         return oldString;
     }
 
-    private static Method getSetter(Field f) throws Exception {
+    private static Method getSetter(Field f) {
         String setterName = "set" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
-        return f.getDeclaringClass().getMethod(setterName, f.getType());
+        try {
+            return f.getDeclaringClass().getMethod(setterName, f.getType());
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException("Fant ikke setter for felt " + f.getName() +  "på segment "  + f.getDeclaringClass().getSimpleName(), e);
+        }
     }
 
-    public static Meta lesMetadata(ScrollableArray data, boolean consume) throws Exception {
+    public static Meta lesMetadata(ScrollableArray data, boolean consume) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         return consume ? mapData(data.read(Meta.META_SIZE), Meta.class):mapData(data.peekAhead(0, Meta.META_SIZE), Meta.class);
     }
 
@@ -137,6 +148,11 @@ public class AnnotationMapper {
 
         Meta m = lesMetadata(data, true);
         T o = mapData(data.read(m.getDatalengde()), segmentToMap);
+        Segment seg = segmentToMap.getAnnotation(Segment.class);
+        if(seg.length() != m.getDatalengde()){
+            System.out.println("Avvik på datalengde i Segment:" + seg.name() + ". Metadata:" + m.getDatalengde() + " Segmentbeskrivelse:" + seg.length());
+        }
+
         if((m.metalengde + m.datalengde) % 2 == 1){
             data.read(1);
         }
@@ -154,7 +170,7 @@ public class AnnotationMapper {
         while (data.bytesLeft() > Meta.META_SIZE) {
             Meta mNext = lesMetadata(data, false);
             Optional<Class<?>> nextClass = subSegments.stream()
-                    .filter(seg -> seg.getAnnotation(Segment.class).name().equals(mNext.getSegmentNavn())).findAny();
+                    .filter(subseg -> subseg.getAnnotation(Segment.class).name().equals(mNext.getSegmentNavn())).findAny();
             if (!nextClass.isPresent()){
                 System.out.println(m.getSegmentNavn() + ": Next segment is " + mNext.getSegmentNavn()  );
                 break;

@@ -1,9 +1,6 @@
 package no.nav.pensjon.dsf.domene;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.SubSegment;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +9,18 @@ import java.util.List;
  * Created by h141598 on 19.04.2017.
  */
 @Segment(name = "STATUS  ", length = 94)
+@UnmappedField(name = "garanti_tp", length = 3, start = 52)
+@UnmappedField(name = "garanti_dato_md", length = 5, start = 55)
+@UnmappedField(name = "gt_lov92", length = 3, start = 60)
+@UnmappedField(name = "gt_tillegg_lov92", length = 3, start = 63)
+@UnmappedField(name = "gammel_ft_kode", length = 1, start = 66)
+@UnmappedField(name = "yrkeskode", length = 2, start = 67)
+@UnmappedField(name = "frysdato", length = 5, start = 70)
+@UnmappedField(name = "frysdato", length = 1, start = 75)
+@UnmappedField(name = "filler", length = 10, start = 84)
+
 public class Status {
-       /*
-    * Umappede felter:
-    * start, lengde, navn: beskrivelse
-       * 52, 3, garanti_tp: packed heltall
-    * 55, 5, garanti_dato_md", 5));
-            * 60, 3, gt_lov92", 3));
-            * 63, 3, gt_tillegg_lov92",3));
-            * 66, 1, gammel_ft_kode", 1));
-            * 67, 2, yrkeskode", 2));
-            * 70, 5, frysdato", 5));
-            * 75, 1, fryskode",1));
-            * 84, 10, filler",10));
-     */
+
     @Felt(name="virkDato", length = 5, start = 0)
     @PackedDecimal
     private int virkDato;
@@ -91,6 +86,7 @@ public class Status {
     private String garantertTilleggsPensjonKode;
     @Felt(name="gammelSammenstotsRegel", length = 1, start = 51)
     private String gammelSammenstotsRegel;
+
     @Felt(name="ektefelleInntektOver2g", length = 1, start = 69)
     private String ektefelleInntektOver2g;
     @Felt(name="pensjonFor9802", length = 1, start = 76)
