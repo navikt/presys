@@ -53,7 +53,7 @@ node {
         stage("deploy") {
             /* deploy to U environment. later we would want to deploy to T also */
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "${mvn} aura:deploy -Dapps=${application}>:${releaseVersion} -Denv=${environmentMap.dev} -Dusername=${USERNAME} -Dpassword=${USERNAME}"
+                sh "${mvn} aura:deploy -Dapps=${application}>:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
             }
         }
 
