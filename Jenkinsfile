@@ -10,7 +10,7 @@ node {
 
     /* environment mappings */
     def environmentMap =  [
-            "dev": "cd-u11"
+            "dev": "cd-u1"
     ]
 
     /* metadata */
