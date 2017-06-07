@@ -42,7 +42,9 @@ node {
         }
 
         stage("build") {
-            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            withEnv(['APPDATA=klient/node/node_modules/npm/bin']) {
+                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            }
         }
 
         stage("release") {
