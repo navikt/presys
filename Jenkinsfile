@@ -42,7 +42,7 @@ node {
         }
 
         stage("build") {
-            withEnv(['APPDATA=klient/node/node_modules/npm/bin']) {
+            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                 sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e -X"
             }
         }
