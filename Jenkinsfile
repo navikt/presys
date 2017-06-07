@@ -9,8 +9,11 @@ node {
     def application = "presys"
 
     /* environment mappings */
-    def environmentMap =  [
+    def environmentMap = [
             "dev": "cd-u1"
+    ]
+    def environmentUrlMap = [
+            "dev": "https://e34jbsl01778.devillo.no:8443"
     ]
 
     /* metadata */
@@ -57,11 +60,20 @@ node {
             }
         }
 
-        hipchatSend color: 'GREEN', message: "Deployet ${application}:${releaseVersion} til U.\nCommitter: ${committer}", textFormat: true, v2enabled: true
+        hipchatSend (
+                color: 'GREEN',
+                message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}",
+                textFormat: true,
+                v2enabled: true
+        )
     } catch (e) {
-        currentBuild.result='FAILURE'
-        hipchatSend color: 'RED', message: "@all ${env.JOB_NAME} failed:(\nSe "  + e.getMessage() + " for mer informasjon.\n\nCommitter: ${committer}" , textFormat: true, notify: true, v2enabled: true
-
+        hipchatSend (
+                color: 'RED',
+                message: "@all ${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\nFeilmelding: "  + e.getMessage() + "\n\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}" ,
+                textFormat: true,
+                notify: true,
+                v2enabled: true
+        )
         throw e
     }
 }
