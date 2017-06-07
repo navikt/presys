@@ -17,7 +17,7 @@ node {
     ]
 
     /* metadata */
-    def committer, committerEmail, pom, releaseVersion, isSnapshot
+    def commitHash, commitUrl, committer, committerEmail, pom, releaseVersion, isSnapshot
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
@@ -32,10 +32,20 @@ node {
             releaseVersion = pom.version
             isSnapshot = pom.version.contains("-SNAPSHOT")
 
+            commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+            commitUrl = "http://stash.devillo.no/projects/${project}/repos/${repoName}/commits/${commitHash}"
+
             /* gets the person who committed last as "Surname, First name (email@domain.tld) */
             committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
             /* ... same as above but only email */
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
+
+            println("CHANGE_ID: ${CHANGE_ID}")
+            println("CHANGE_URL: ${CHANGE_URL}")
+            println("CHANGE_TITLE: ${CHANGE_TITLE}")
+            println("CHANGE_AUTHOR: ${CHANGE_AUTHOR}")
+            println("CHANGE_AUTHOR_EMAIL: ${CHANGE_AUTHOR_EMAIL}")
+            println("CHANGE_TARGET: ${CHANGE_TARGET}")
         }
 
         stage("build") {
@@ -62,14 +72,14 @@ node {
 
         hipchatSend (
                 color: 'GREEN',
-                message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}",
+                message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
                 textFormat: true,
                 v2enabled: true
         )
     } catch (e) {
         hipchatSend (
                 color: 'RED',
-                message: "@all ${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\nFeilmelding: "  + e.getMessage() + "\n\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}" ,
+                message: "@all ${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\nFeilmelding: "  + e.getMessage() + "\n\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}" ,
                 textFormat: true,
                 notify: true,
                 v2enabled: true
