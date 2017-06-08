@@ -11,7 +11,7 @@
 
     <artifactId>presys-web-klient</artifactId>
     <packaging>jar</packaging>
-    <name>PRESYS - Klient</name>
+    <name>presys-klient</name>
 
     <build>
         <outputDirectory>target/web</outputDirectory>

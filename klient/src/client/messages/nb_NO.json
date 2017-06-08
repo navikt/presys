@@ -99,14 +99,19 @@
   "UforeHistorikk.opphørsdatoMaaned" : "Opphørsdato måned",
   "UforeHistorikk.opphørsdatoKode" : "Opphørsdato Kode",
   "UforeHistorikk.redusertAntallBupAar" : "Redusert antall beregnet uføregrad år",
-  "UforeHistorikk.foedselsaarYngsteBarn" : "fødselsår yngste barn",
-  "UforeHistorikk.virkningsdatoUfrHistorie" : "virkningsdato ufr-historie",
+  "UforeHistorikk.foedselsaarYngsteBarn" : "Fødselsår yngste barn",
+  "UforeHistorikk.virkningsdatoUfrHistorie" : "Virkningsdato ufr-historie",
 
+  "Uforegrad.uforegradDato" : "Uføregradsdato",
+  "Uforegrad.uforegradOvrige" : "Uføregrad øvrige",
+  "Uforegrad.yngsteBarnFoerGrad" : "Yngste barn før grad",
+  "Uforegrad.virkningsdatoUforegrad" : "Virkningsdato",
 
   "link.to.eoafp": "Etteroppgjør AFP",
   "link.to.inntekter": "Inntekter",
   "link.to.status": "Status",
   "link.to.uforehistorikk": "Uførehistorikk",
+  "link.to.uforegrad": "Uføregrad",
 
   "landkode.105": "Englang"
 

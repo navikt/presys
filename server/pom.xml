@@ -8,7 +8,7 @@
     <version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>PRESYS - WEB</name>
+	<name>presys-war</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

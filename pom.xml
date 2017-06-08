@@ -6,7 +6,7 @@
     <version>0.1-SNAPSHOT</version>
     <artifactId>presys</artifactId>
     <packaging>pom</packaging>
-    <name>DSF-WEB</name>
+    <name>presys-root</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

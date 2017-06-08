@@ -12,6 +12,7 @@ import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
 import Inntekter from 'containers/inntekter/InntektListe';
 import Status from 'containers/status/StatusListe';
 import UforeHistorikk from 'containers/UforeHistorikk/UforeHistorikkListe';
+import Uforegrad from 'containers/Uforegrad/UforegradListe';
 
 import LoginManager from 'containers/app/LoginManager';
 import { loginOk } from 'actions/saksbehandlerActions';
@@ -41,6 +42,7 @@ const routes = (
       <Route path="status" component={Status} />
 
       <Route path="uforehistorikk" component={UforeHistorikk} />
+      <Route path="uforegrad" component={Uforegrad} />
     </Route>
     <Route path="*" component={MissingPage} />
   </Route>
