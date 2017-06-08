@@ -62,25 +62,30 @@ node {
             }
         }
 
-        stage("deploy") {
-            /* deploy to U environment. later we would want to deploy to T also */
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+        /* vi har en egen pipeline for master-branch,
+            og da er env.BRANCH_NAME null */
+        if (env.BRANCH_NAME == null) {
+            stage("deploy") {
+                /* deploy to U environment. later we would want to deploy to T also */
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                    sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+                }
             }
 
-            /* vi har en egen pipeline for master-branch,
-                 og da er env.BRANCH_NAME null */
-            if (env.BRANCH_NAME == null) {
-                println("DEPLOY TO T")
-            }
+            hipchatSend(
+                    color: 'GREEN',
+                    message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
+                    textFormat: true,
+                    v2enabled: true
+            )
+        } else {
+            hipchatSend(
+                    color: 'GREEN',
+                    message: "Bygget ${application}:${releaseVersion} uten problem\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
+                    textFormat: true,
+                    v2enabled: true
+            )
         }
-
-        hipchatSend (
-                color: 'GREEN',
-                message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
-                textFormat: true,
-                v2enabled: true
-        )
     } catch (e) {
         hipchatSend (
                 color: 'RED',
