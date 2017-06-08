@@ -16,7 +16,6 @@
 
     <modules>
         <module>ebcdicutil</module>
-        <module>klient</module>
 		<module>server</module>
         <module>ear</module>
         <module>appconfig</module>

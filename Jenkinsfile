@@ -1,8 +1,3 @@
-@Library('deploy')
-import deploy
-
-def deployLib = new deploy()
-
 node {
     def project = "teampesys"
     def repoName = "dsf-web"
@@ -21,10 +16,13 @@ node {
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
+    def nodeHome = tool "nodejs-6.6.0"
+    def npm = "${nodeHome}/npm"
+    def node = "${nodeHome}/node"
 
     try {
         stage("checkout") {
-            git url: "ssh://git@stash.devillo.no:7999/${project}/${repoName}.git"
+            checkout scm
         }
 
         stage("initialize") {
@@ -41,10 +39,16 @@ node {
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
         }
 
-        stage("build") {
-            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e -X"
+        stage("build frontend") {
+            dir('klient') {
+                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                    sh "${npm} install"
+                }
             }
+        }
+
+        stage("build backend") {
+            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
         }
 
         stage("release") {
@@ -62,6 +66,12 @@ node {
             /* deploy to U environment. later we would want to deploy to T also */
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+            }
+
+            /* vi har en egen pipeline for master-branch,
+                 og da er env.BRANCH_NAME null */
+            if (env.BRANCH_NAME == null) {
+                println("DEPLOY TO T")
             }
         }
 

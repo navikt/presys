@@ -5,4 +5,7 @@ Innsyn i DFS
 Delt inn i klientkode og serverkode. Pr nå må disse kjøres hver for seg
 
 ### Kjøre applikasjonene lokalt
-Se readme i modulene
+
+Frontend/klienten må bygges før en bygger serverkoden.
+
+Se for øvrig README i modulene.
