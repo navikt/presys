@@ -74,7 +74,7 @@ node {
 
             hipchatSend(
                     color: 'GREEN',
-                    message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
+                    message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
                     textFormat: true,
                     v2enabled: true
             )
