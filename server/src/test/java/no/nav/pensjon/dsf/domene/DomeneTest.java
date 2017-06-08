@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.not;
 public class DomeneTest {
 
 
-    public void validerSegment(Class<?> clazz) throws NoSuchMethodException {
+    void validerSegment(Class<?> clazz) throws NoSuchMethodException {
 
         Segment seg = clazz.getAnnotation(Segment.class);
         clazz.getConstructor();
