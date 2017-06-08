@@ -65,8 +65,7 @@ node {
         /* vi har en egen pipeline for master-branch,
             og da er env.BRANCH_NAME null */
         if (env.BRANCH_NAME == null) {
-            stage("deploy") {
-                /* deploy to U environment. later we would want to deploy to T also */
+            stage("deploy til U") {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                     sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
                 }
