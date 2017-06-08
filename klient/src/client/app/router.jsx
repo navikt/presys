@@ -11,6 +11,8 @@ import Person from 'containers/person/Personfrafnr';
 import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
 import Inntekter from 'containers/inntekter/InntektListe';
 import Status from 'containers/status/StatusListe';
+import UforeHistorikk from 'containers/UforeHistorikk/UforeHistorikkListe';
+
 import LoginManager from 'containers/app/LoginManager';
 import { loginOk } from 'actions/saksbehandlerActions';
 import configureStore from './store/store';
@@ -37,6 +39,8 @@ const routes = (
         <Route path=":aar" />
       </Route>
       <Route path="status" component={Status} />
+
+      <Route path="uforehistorikk" component={UforeHistorikk} />
     </Route>
     <Route path="*" component={MissingPage} />
   </Route>

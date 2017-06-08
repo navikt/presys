@@ -91,9 +91,22 @@
   "Status.grunnPensjonReduksjonsKode" : "Grunnpensjonreduksjonskode",
   "Status.friinntektDato" : "Friintekstsdato",
 
+  "UforeHistorikk.uftMaaned" : "Uføretrygd måned",
+  "UforeHistorikk.ufg" : "Uføregrad",
+  "UforeHistorikk.ufKriterie" : "Uføre kriterie",
+  "UforeHistorikk.bup" : "Beregnet uføregrad",
+  "UforeHistorikk.bupGarantiKode" : "Beregnet uføregrad garantikode",
+  "UforeHistorikk.opphørsdatoMaaned" : "Opphørsdato måned",
+  "UforeHistorikk.opphørsdatoKode" : "Opphørsdato Kode",
+  "UforeHistorikk.redusertAntallBupAar" : "Redusert antall beregnet uføregrad år",
+  "UforeHistorikk.foedselsaarYngsteBarn" : "fødselsår yngste barn",
+  "UforeHistorikk.virkningsdatoUfrHistorie" : "virkningsdato ufr-historie",
+
+
   "link.to.eoafp": "Etteroppgjør AFP",
   "link.to.inntekter": "Inntekter",
   "link.to.status": "Status",
+  "link.to.uforehistorikk": "Uførehistorikk",
 
   "landkode.105": "Englang"
 
