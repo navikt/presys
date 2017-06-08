@@ -7,15 +7,13 @@ const UforegradListe = ({ uforegrad }) => <Table
   headerTextCodes={['Uforegrad.uforegradDato',
     'Uforegrad.uforegradOvrige',
     'Uforegrad.yngsteBarnFoerGrad',
-    'Uforegrad.virkningsdatoUforegrad',
-    'Uforegrad.uforegradDato']}
+    'Uforegrad.virkningsdatoUforegrad']}
   data={uforegrad.map(row => ({ key: row.virkDato,
     columns: [
           { key: 'a', value: row.uforegradDato },
           { key: 'b', value: row.uforegradOvrige },
           { key: 'c', value: row.yngsteBarnFoerGrad },
           { key: 'd', value: row.virkningsdatoUforegrad },
-          { key: 'e', value: row.uforegradDato },
     ] }))}
 />;
 
@@ -28,5 +26,5 @@ UforegradListe.defaultProps = {
 };
 
 export default connect(state => ({
-  uforegrad: state.person.status[0].uforegrad,
+  uforegrad: state.person.status[0].uforehistorikk[1].uforegrader,
 }), { })(UforegradListe);
