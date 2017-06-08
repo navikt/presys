@@ -23,11 +23,11 @@ public class AlderspSegmentTest {
 
         isTilkn.readFully(file);
         Alderspensjon alderspensjon = AnnotationMapper.les(new ScrollableArray(file), Alderspensjon.class);
-        assertThat(alderspensjon.getGrunnpensjon(), is("04898"));
-        assertThat(alderspensjon.getSaertillegg(), is("00307"));
-        assertThat(alderspensjon.getTilleggspensjon(), is("03553"));
+        assertThat(alderspensjon.getGrunnpensjon(), is(4898));
+        assertThat(alderspensjon.getSaertillegg(), is(307));
+        assertThat(alderspensjon.getTilleggspensjon(), is(3553));
         assertThat(alderspensjon.getSluttpoengtall(), is("2.48"));
         assertThat(alderspensjon.getOverkompensasjonPoengtall(), is("3.41"));
-        assertThat(alderspensjon.getPoengaar(), is("013"));
+        assertThat(alderspensjon.getPoengaar(), is(13));
     }
 }

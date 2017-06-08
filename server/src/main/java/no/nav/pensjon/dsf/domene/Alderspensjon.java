@@ -51,21 +51,21 @@ public class Alderspensjon {
      */
     @Felt(name = "grunnpensjon", start = 0, length = 3)
     @PackedDecimal
-    private String grunnpensjon;
+    private int grunnpensjon;
 
     /**
      * Særtillegg
      */
     @Felt(name = "saertillegg", start = 3, length = 3)
     @PackedDecimal
-    private String saertillegg;
+    private int saertillegg;
 
     /**
      * Tilleggspensjon
      */
     @Felt(name = "tilleggspensjon", start = 15, length = 3)
     @PackedDecimal
-    private String tilleggspensjon;
+    private int tilleggspensjon;
 
     /**
      * Sluttpoengtall
@@ -86,22 +86,22 @@ public class Alderspensjon {
      */
     @Felt(name = "poengaar", start = 22, length = 2)
     @PackedDecimal
-    private String poengaar;
+    private int poengaar;
 
     @SubSegment
     private List<Venteperioder> venteperioder = new ArrayList<>();
 
-    public String getGrunnpensjon() { return grunnpensjon; }
+    public int getGrunnpensjon() { return grunnpensjon; }
 
-    public void setGrunnpensjon(String grunnpensjon) { this.grunnpensjon = grunnpensjon; }
+    public void setGrunnpensjon(int grunnpensjon) { this.grunnpensjon = grunnpensjon; }
 
-    public String getSaertillegg() { return saertillegg; }
+    public int getSaertillegg() { return saertillegg; }
 
-    public void setSaertillegg(String saertillegg) { this.saertillegg = saertillegg; }
+    public void setSaertillegg(int saertillegg) { this.saertillegg = saertillegg; }
 
-    public String getTilleggspensjon() { return tilleggspensjon; }
+    public int getTilleggspensjon() { return tilleggspensjon; }
 
-    public void setTilleggspensjon(String tilleggspensjon) { this.tilleggspensjon = tilleggspensjon; }
+    public void setTilleggspensjon(int tilleggspensjon) { this.tilleggspensjon = tilleggspensjon; }
 
     public String getSluttpoengtall() { return sluttpoengtall; }
 
@@ -111,9 +111,9 @@ public class Alderspensjon {
 
     public void setOverkompensasjonPoengtall(String overkompensasjonPoengtall) { this.overkompensasjonPoengtall = overkompensasjonPoengtall; }
 
-    public String getPoengaar() { return poengaar; }
+    public int getPoengaar() { return poengaar; }
 
-    public void setPoengaar(String poengaar) { this.poengaar = poengaar; }
+    public void setPoengaar(int poengaar) { this.poengaar = poengaar; }
 
     public List<Venteperioder> getVenteperioder() { return venteperioder; }
 }
