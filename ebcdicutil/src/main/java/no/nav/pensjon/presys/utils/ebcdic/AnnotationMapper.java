@@ -31,8 +31,9 @@ public class AnnotationMapper {
                 Object valueToSet = null;
                 byte[] feltData = Arrays.copyOfRange(values, ta.start(), ta.start() + ta.length());
                 if (f.isAnnotationPresent(PackedDecimal.class)) {
+                    PackedDecimal pda = f.getAnnotation(PackedDecimal.class);
                     int unpackedWith = (ta.length() * 2) - 1;
-                    BigDecimal unpacked = EbcdicUtils.unpack(feltData, unpackedWith, 0);
+                    BigDecimal unpacked = EbcdicUtils.unpack(feltData, unpackedWith, pda.decimals());
                     if (f.getType().equals(String.class)) {
                         valueToSet = padLeft(unpacked.toString(), unpackedWith, "0");
                     } else if (f.getType().equals(Integer.TYPE)) {
