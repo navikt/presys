@@ -120,6 +120,9 @@ public class Status {
     @SubSegment
     private List<EtterlattEktefelle> etterlattEktefeller = new ArrayList<>();
 
+    @SubSegment
+    private List<EtterlattBarn> etterlattBarn = new ArrayList<>();
+
     public List<Tilknytning> getTilknytninger() {
         return tilknytninger;
     }
@@ -147,6 +150,8 @@ public class Status {
     public List<EtterlattEktefelle> getEtterlattEktefeller() {
         return etterlattEktefeller;
     }
+
+    public List<EtterlattBarn> getEtterlattBarn() { return etterlattBarn; }
 
     public int getVirkDato() {
         return virkDato;
