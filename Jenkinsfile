@@ -29,16 +29,10 @@ node {
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
         }
 
-        stage("build frontend") {
-            dir('klient') {
-                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "${npm} install"
-                }
+        stage("build") {
+            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
-        }
-
-        stage("build backend") {
-            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
         }
 
         hipchatSend(

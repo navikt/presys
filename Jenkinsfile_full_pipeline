@@ -39,20 +39,14 @@ node {
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
         }
 
-        stage("build frontend") {
-            dir('klient') {
-                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "${npm} install"
-                }
+        stage("build") {
+            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
         }
 
-        stage("build backend") {
-            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
-        }
-
         stage("release") {
-            sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
+            sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
             sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${commiter}'"
 
             /* deploy appconfig og ear */
@@ -66,7 +60,7 @@ node {
         }
 
         stage("new dev version") {
-            sh "mvn versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
+            sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
             sh "git commit -am 'Updated version after release by ${commiter}'"
             sh "git push origin master"
         }
@@ -86,7 +80,7 @@ node {
     } catch (e) {
         hipchatSend (
                 color: 'RED',
-                message: "${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\nFeilmelding: "  + e.getMessage() + "\n\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}" ,
+                message: "${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\nFeilmelding: "  + e.getMessage() + "\n\nBranch: master\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}" ,
                 textFormat: true,
                 notify: true,
                 v2enabled: true
