@@ -78,7 +78,7 @@ public class AnnotationMapper {
         }
     }
 
-    static byte[] asByte(Object o) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
+    private static byte[] asByte(Object o) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         Segment seg = o.getClass().getAnnotation(Segment.class);
         byte[] segmentBytes = new byte[seg.length()];
         Field[] fields = o.getClass().getDeclaredFields();
@@ -141,7 +141,7 @@ public class AnnotationMapper {
         }
     }
 
-    public static Meta lesMetadata(ScrollableArray data, boolean consume) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    private static Meta lesMetadata(ScrollableArray data, boolean consume) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         return consume ? mapData(data.read(Meta.META_SIZE), Meta.class):mapData(data.peekAhead(0, Meta.META_SIZE), Meta.class);
     }
 
@@ -173,7 +173,6 @@ public class AnnotationMapper {
             Optional<Class<?>> nextClass = subSegments.stream()
                     .filter(subseg -> subseg.getAnnotation(Segment.class).name().equals(mNext.getSegmentNavn())).findAny();
             if (!nextClass.isPresent()){
-                System.out.println(m.getSegmentNavn() + ": Next segment is " + mNext.getSegmentNavn()  );
                 break;
             }
 
