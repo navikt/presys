@@ -3,8 +3,16 @@ node {
     def repoName = "dsf-web"
     def application = "presys"
 
+    /* environment mappings */
+    def environmentMap = [
+            "dev": "cd-u1"
+    ]
+    def environmentUrlMap = [
+            "dev": "https://e34jbsl01778.devillo.no:8443"
+    ]
+
     /* metadata */
-    def commitHash, commitUrl, committer, committerEmail, pom, currentVersion
+    def commitHash, commitUrl, committer, committerEmail, pom, currentVersion, releaseVersion
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
@@ -19,6 +27,8 @@ node {
         stage("initialize") {
             pom = readMavenPom file: 'pom.xml'
             currentVersion = pom.version
+            releaseVersion = pom.version.tokenize("-")[0]
+            nextVersion = (releaseVersion.toInteger() + 1) + "-SNAPSHOT"
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
             commitUrl = "http://stash.devillo.no/projects/${project}/repos/${repoName}/commits/${commitHash}"
@@ -41,9 +51,35 @@ node {
             sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
         }
 
+        stage("release") {
+            sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
+            sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${commiter}'"
+
+            /* deploy appconfig og ear */
+            dir('appconfig') {
+                sh "${mvn} clean deploy -DskipTests -B -e"
+            }
+
+            dir('ear') {
+                sh "${mvn} clean deploy -DskipTests -B -e"
+            }
+        }
+
+        stage("new dev version") {
+            sh "mvn versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
+            sh "git commit -am 'Updated version after release by ${commiter}'"
+            sh "git push origin master"
+        }
+
+        stage("deploy til U") {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+            }
+        }
+
         hipchatSend(
                 color: 'GREEN',
-                message: "Bygget ${application}:${currentVersion} uten problem\nBranch: ${env.BRANCH_NAME}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
+                message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
                 textFormat: true,
                 v2enabled: true
         )

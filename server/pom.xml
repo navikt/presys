@@ -5,7 +5,7 @@
 
     <groupId>no.nav.pensjon.presys</groupId>
     <artifactId>presys-web-war</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>presys-war</name>
@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>0.1-SNAPSHOT</version>		</dependency>
+			<version>${project.version}</version>		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
