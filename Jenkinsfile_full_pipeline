@@ -71,13 +71,15 @@ node {
 
         stage("deploy til U") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+                // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
+                sh "${mvn} aura:deploy -Dapps=${application}:${currentVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
             }
         }
 
+        // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
         hipchatSend(
                 color: 'GREEN',
-                message: "Deployet ${application}:${releaseVersion} til U: ${environmentUrlMap['dev']}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
+                message: "Deployet ${application}:${currentVersion} til U: ${environmentUrlMap['dev']}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
                 textFormat: true,
                 v2enabled: true
         )
