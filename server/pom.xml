@@ -5,16 +5,14 @@
 
     <groupId>no.nav.pensjon.presys</groupId>
     <artifactId>presys-web-war</artifactId>
-    <version>1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>presys-war</name>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>no.nav.pensjon.presys</groupId>
+		<artifactId>presys</artifactId>
+		<version>1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -89,7 +87,8 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>${project.version}</version>		</dependency>
+			<version>1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
