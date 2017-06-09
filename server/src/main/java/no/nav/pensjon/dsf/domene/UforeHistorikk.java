@@ -135,7 +135,6 @@ public class UforeHistorikk {
     @SubSegment
     private List<Uforegrad> uforegrader = new ArrayList<>();
 
-    @SubSegment
     public List<Uforegrad> getUforegrader() {
         return uforegrader;
     }
