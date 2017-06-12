@@ -8,6 +8,6 @@ import org.junit.Test;
 public class EtterlattBarnTest extends DomeneTest {
     @Test
     public void validerEtterlattBarn() throws NoSuchMethodException {
-        validerSegment(EtterlattBarn.class);
+        validerEnkeltSegment(EtterlattBarn.class);
     }
 }

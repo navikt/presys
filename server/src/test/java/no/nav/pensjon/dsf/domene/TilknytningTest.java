@@ -9,6 +9,6 @@ public class TilknytningTest extends DomeneTest {
 
     @Test
     public void validerTilknytning() throws NoSuchMethodException {
-        validerSegment(Tilknytning.class);
+        validerEnkeltSegment(Tilknytning.class);
     }
 }

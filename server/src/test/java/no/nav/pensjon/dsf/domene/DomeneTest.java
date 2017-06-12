@@ -17,8 +17,29 @@ import static org.hamcrest.Matchers.not;
  */
 public class DomeneTest {
 
+    /**
+     * Validerer at domene-entity, med felter, gettere og settere er satt rett.
+     * Alle definerte undersegmenter blir også validert
+     *
+     * @param clazz Domene-entity som valideres
+     * @throws NoSuchMethodException Kastes om en get/set'er ikke er satt
+     */
+    void validerSegmentHierarkisk(Class<?> clazz) throws NoSuchMethodException {
+        validerSegment(clazz, true);
+    }
 
-    void validerSegment(Class<?> clazz) throws NoSuchMethodException {
+    /**
+     * Validerer at domene-entity, med felter, gettere og settere er satt rett.
+     * Definerte undersegmenter blir ignoreres
+     *
+     * @param clazz Domene-entity som valideres
+     * @throws NoSuchMethodException Kastes om en get/set'er ikke er satt
+     */
+    void validerEnkeltSegment(Class<?> clazz) throws NoSuchMethodException {
+        validerSegment(clazz, false);
+    }
+
+    private void validerSegment(Class<?> clazz, boolean validerUndersegment) throws NoSuchMethodException {
 
         Segment seg = clazz.getAnnotation(Segment.class);
         clazz.getConstructor();
@@ -38,7 +59,9 @@ public class DomeneTest {
                 Class<?> subTypeClass = (Class<?>) subType.getActualTypeArguments()[0];
                 String getterName = "get" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
                 f.getDeclaringClass().getMethod(getterName).getReturnType().equals(List.class);
-                validerSegment(subTypeClass);
+                if(validerUndersegment) {
+                    validerSegment(subTypeClass, validerUndersegment);
+                }
             }
         }
         if (clazz.isAnnotationPresent(UnmappedFields.class)) {

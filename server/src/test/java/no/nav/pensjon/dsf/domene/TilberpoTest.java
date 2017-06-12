@@ -9,6 +9,6 @@ public class TilberpoTest extends DomeneTest {
 
     @Test
     public void validerTilberpo() throws NoSuchMethodException {
-        validerSegment(Tilberpo.class);
+        validerEnkeltSegment(Tilberpo.class);
     }
 }

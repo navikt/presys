@@ -9,6 +9,6 @@ public class AlderspensjonTest extends DomeneTest {
 
     @Test
     public void validerAlderspensjon() throws NoSuchMethodException {
-        validerSegment(Alderspensjon.class);
+        validerEnkeltSegment(Alderspensjon.class);
     }
 }

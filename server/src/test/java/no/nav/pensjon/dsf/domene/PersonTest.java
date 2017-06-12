@@ -8,6 +8,6 @@ public class PersonTest extends DomeneTest {
 
     @Test
     public void validerPerson() throws NoSuchMethodException {
-        validerSegment(Person.class);
+        validerSegmentHierarkisk(Person.class);
     }
 }
