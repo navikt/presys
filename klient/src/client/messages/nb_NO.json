@@ -91,7 +91,7 @@
   "Status.grunnPensjonReduksjonsKode" : "Grunnpensjonreduksjonskode",
   "Status.friinntektDato" : "Friintekstsdato",
 
-  "UforeHistorikk.uftMaaned" : "Uføretrygd måned",
+  "UforeHistorikk.maaned" : "Uføretrygd måned",
   "UforeHistorikk.ufg" : "Uføregrad",
   "UforeHistorikk.ufKriterie" : "Uføre kriterie",
   "UforeHistorikk.bup" : "Beregnet uføregrad",

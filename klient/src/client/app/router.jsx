@@ -40,8 +40,11 @@ const routes = (
         <Route path=":aar" />
       </Route>
       <Route path="status" component={Status} />
+      <Route path="uforehistorikk" component={UforeHistorikk} >
+        <IndexRoute />
+        <Route path=":maaned" />
+      </Route>
 
-      <Route path="uforehistorikk" component={UforeHistorikk} />
       <Route path="uforegrad" component={Uforegrad} />
     </Route>
     <Route path="*" component={MissingPage} />
