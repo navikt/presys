@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "/", "/public/**").permitAll()
-                    .anyRequest().authenticated().and()
+                    .anyRequest().hasAuthority("0000-GA-PENSJON_SAKSBEHANDLER").and()
                 .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
