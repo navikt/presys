@@ -22,34 +22,43 @@ import java.util.stream.Collectors;
 public class AnnotationMapper {
 
 
-    public static <E> E mapData(byte[] values, Class<E> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    public static <E> E mapData(byte[] values, Class<E> clazz) throws IllegalAccessException, InstantiationException {
         E o = clazz.newInstance();
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field f : fields) {
-            if (f.isAnnotationPresent(Felt.class)) {
-                Felt ta = f.getAnnotation(Felt.class);
-                Object valueToSet = null;
-                byte[] feltData = Arrays.copyOfRange(values, ta.start(), ta.start() + ta.length());
-                if (f.isAnnotationPresent(PackedDecimal.class)) {
-                    PackedDecimal pda = f.getAnnotation(PackedDecimal.class);
-                    int unpackedWith = (ta.length() * 2) - 1;
-                    BigDecimal unpacked = EbcdicUtils.unpack(feltData, unpackedWith, pda.decimals());
-                    if (f.getType().equals(String.class)) {
-                        valueToSet = padLeft(unpacked.toString(), unpackedWith, "0");
-                    } else if (f.getType().equals(Integer.TYPE)) {
-                        valueToSet = unpacked.intValue();
-                    }
-                } else if (f.getType().equals(String.class)) {
-                    valueToSet = EbcdicUtils.getString(feltData);
-                } else if (f.getType().equals(Integer.TYPE)) {
-                    valueToSet = ByteBuffer.wrap(feltData).getShort();
-                }
-                if(valueToSet != null) {
-                    getSetter(f).invoke(o, valueToSet);
-                }
-            }
-        }
+        Arrays.stream(clazz.getDeclaredFields())
+                .filter(f->f.isAnnotationPresent(Felt.class))
+                .forEach(f->{
+                        Felt ta = f.getAnnotation(Felt.class);
+                        Object valueToSet = null;
+                        byte[] feltData = Arrays.copyOfRange(values, ta.start(), ta.start() + ta.length());
+                        if (f.isAnnotationPresent(PackedDecimal.class)) {
+                            valueToSet = mapPackedDecimalToObject(feltData, ta, f.getAnnotation(PackedDecimal.class), f.getType());
+                        } else if (f.getType().equals(String.class)) {
+                            valueToSet = EbcdicUtils.getString(feltData);
+                        } else if (f.getType().equals(Integer.TYPE)) {
+                            valueToSet = ByteBuffer.wrap(feltData).getShort();
+                        }
+                        if(valueToSet != null) {
+                            try {
+                                getSetter(f).invoke(o, valueToSet);
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+        });
+
         return o;
+    }
+
+    private static Object mapPackedDecimalToObject(byte[] feltData, Felt ta, PackedDecimal pda, Class<?> type) {
+        int unpackedWith = (ta.length() * 2) - 1;
+        BigDecimal unpacked = EbcdicUtils.unpack(feltData, unpackedWith, pda.decimals());
+        if (type.equals(String.class)) {
+            return padLeft(unpacked.toString(), unpackedWith, "0");
+        } else if (type.equals(Integer.TYPE)) {
+            return unpacked.intValue();
+        }
+        return null;
     }
 
 
@@ -63,7 +72,7 @@ public class AnnotationMapper {
 
         os.write(asByte(m));
         os.write(asByte(o));
-        if((m.metalengde + m.datalengde) % 2 == 1){
+        if((m.getMetalengde() + m.getDatalengde()) % 2 == 1){
             os.write(0);
         }
 
@@ -117,7 +126,7 @@ public class AnnotationMapper {
     }
 
     private static Method getGetter(Field f) {
-        String getterName = "get" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
+        String getterName = prefixFieldName(f, "get");
         try {
             return f.getDeclaringClass().getMethod(getterName);
         } catch (NoSuchMethodException e) {
@@ -133,7 +142,7 @@ public class AnnotationMapper {
     }
 
     private static Method getSetter(Field f) {
-        String setterName = "set" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
+        String setterName = prefixFieldName(f, "set");
         try {
             return f.getDeclaringClass().getMethod(setterName, f.getType());
         } catch (NoSuchMethodException e) {
@@ -141,11 +150,11 @@ public class AnnotationMapper {
         }
     }
 
-    private static Meta lesMetadata(ScrollableArray data, boolean consume) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    private static Meta lesMetadata(ScrollableArray data, boolean consume) throws IllegalAccessException, InstantiationException {
         return consume ? mapData(data.read(Meta.META_SIZE), Meta.class):mapData(data.peekAhead(0, Meta.META_SIZE), Meta.class);
     }
 
-    public static <T> T les(ScrollableArray data, Class<T> segmentToMap) throws Exception {
+    public static <T> T les(ScrollableArray data, Class<T> segmentToMap) throws IllegalAccessException, InstantiationException, InvocationTargetException {
 
         Meta m = lesMetadata(data, true);
         T o = mapData(data.read(m.getDatalengde()), segmentToMap);
@@ -154,7 +163,7 @@ public class AnnotationMapper {
             System.out.println("Avvik på datalengde i Segment:" + seg.name() + ". Metadata:" + m.getDatalengde() + " Segmentbeskrivelse:" + seg.length());
         }
 
-        if((m.metalengde + m.datalengde) % 2 == 1){
+        if((m.getMetalengde() + m.getDatalengde()) % 2 == 1){
             data.read(1);
         }
 
@@ -176,22 +185,30 @@ public class AnnotationMapper {
                 break;
             }
 
-            Field[] fields = segmentToMap.getDeclaredFields();
+            Arrays.stream(segmentToMap.getDeclaredFields())
+                    .filter(f -> f.isAnnotationPresent(SubSegment.class) && f.getType().equals(List.class))
+                    .forEach(f -> {
+                                ParameterizedType subType = (ParameterizedType) f.getGenericType();
+                                Class<?> subTypeClass = (Class<?>) subType.getActualTypeArguments()[0];
+                                if (nextClass.get().equals(subTypeClass)) {
+                                    try {
+                                        List l = (List) getGetter(f).invoke(o);
+                                        l.add(les(data, nextClass.get()));
+                                    } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                    );
 
-            for (Field f : fields) {
-                if (f.isAnnotationPresent(SubSegment.class) && f.getType().equals(List.class)) {
-                    ParameterizedType subType = (ParameterizedType) f.getGenericType();
-                    Class<?> subTypeClass = (Class<?>) subType.getActualTypeArguments()[0];
-                    if (nextClass.get().equals(subTypeClass)) {
-                        String getterName = "get" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
-                        List l = (List) f.getDeclaringClass().getMethod(getterName).invoke(o);
-                        l.add(les(data, nextClass.get()));
-                    }
-                }
-            }
+
         }
         return o;
 
+    }
+
+    private static String prefixFieldName(Field f, String prefix){
+        return prefix + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
     }
 
 
