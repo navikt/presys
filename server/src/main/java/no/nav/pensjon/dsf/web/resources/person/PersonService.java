@@ -1,12 +1,9 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
-/**
- * Created by s150563 on 13.06.2017.
- */
-
 import no.nav.pensjon.dsf.domene.*;
 import no.nav.pensjon.dsf.dto.*;
 import no.nav.pensjon.dsf.repository.PersonRepository;
+import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,10 +53,19 @@ public class PersonService {
     }
 
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
+    public StatusDto hentSisteStatus(String fnr) throws IOException {
+        return repo.findPerson(fnr).getStatus().stream()
+                .filter(Status::erSiste)
+                .map(status -> modelMapper.map(status, StatusDto.class))
+                .findAny()
+                .orElseThrow(ResourceNotFound::new);
+    }
+
+    @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
     public List<UforeHistorikkDto> hentUforehistorikk(String fnr) throws IOException {
         /* finn siste status og returner uførehistorikken knyttet til denne */
         return repo.findPerson(fnr).getStatus().stream()
-                .filter(status -> "S".equals(status.getStatusKode()))
+                .filter(Status::erSiste)
                 .map(Status::getUforehistorikk)
                 .flatMap(List::stream)
                 .map(uforeHistorikk -> modelMapper.map(uforeHistorikk, UforeHistorikkDto.class))

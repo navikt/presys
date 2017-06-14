@@ -4,7 +4,9 @@ import no.nav.pensjon.dsf.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -16,37 +18,42 @@ public class PersonEndpoint {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public PersonDto findOne(@PathVariable String fnr) throws IOException {
         return personService.hentPerson(fnr);
     }
 
-    @RequestMapping("/inntekter")
+    @RequestMapping(value = "/inntekter", method = RequestMethod.GET)
     public List<InntektDto> findInntekter(@PathVariable String fnr) throws IOException {
         return personService.hentInntekter(fnr);
     }
 
-    @RequestMapping("/etteroppgjor")
+    @RequestMapping(value = "/etteroppgjor", method = RequestMethod.GET)
     public List<EtteroppgjorAFPDto> findEtteroppgjor(@PathVariable String fnr) throws IOException {
         return personService.hentEtteroppgjor(fnr);
     }
 
-    @RequestMapping("/tilberpo")
+    @RequestMapping(value = "/tilberpo", method = RequestMethod.GET)
     public List<TilberpoDto> findTilberpo(@PathVariable String fnr) throws IOException {
         return personService.hentTilberpo(fnr);
     }
 
-    @RequestMapping("/status")
+    @RequestMapping(value = "/status", method = RequestMethod.GET)
     public List<StatusDto> findStatus(@PathVariable String fnr) throws IOException {
         return personService.hentStatus(fnr);
     }
 
-    @RequestMapping("/uforeHistorikk")
+    @RequestMapping(value = "/status/siste", method = RequestMethod.GET)
+    public StatusDto findSisteStatus(@PathVariable String fnr) throws IOException {
+        return personService.hentSisteStatus(fnr);
+    }
+
+    @RequestMapping(value = "/uforeHistorikk", method = RequestMethod.GET)
     public List<UforeHistorikkDto> findUforeHistorikk(@PathVariable String fnr) throws IOException {
         return personService.hentUforehistorikk(fnr);
     }
 
-    @RequestMapping("/tranHister")
+    @RequestMapping(value = "/tranHister", method = RequestMethod.GET)
     public List<TranHistDto> findTranhister(@PathVariable String fnr) throws IOException {
         return personService.hentTranhister(fnr);
     }

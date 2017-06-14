@@ -123,6 +123,10 @@ public class Status {
     @SubSegment
     private List<EtterlattBarn> etterlattBarn = new ArrayList<>();
 
+    public boolean erSiste() {
+        return getStatusKode().equals("S");
+    }
+
     public List<Tilknytning> getTilknytninger() {
         return tilknytninger;
     }
