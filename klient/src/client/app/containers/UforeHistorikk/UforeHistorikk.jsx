@@ -1,20 +1,34 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import Row from 'components/elements/Row';
+import Column from 'components/elements/Column';
+import styles from './UforeHistorikk.less';
 
 
 const UforeHistorikk = ({ uftMaaned, ufg, ufKriterie, bup, bupGarantiKode, opphørsdatoMaaned,
- opphørsdatoKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistorie }) => <ul>
-   <li><FormattedMessage id="UforeHistorikk.maaned" />:{uftMaaned}</li>
-   <li><FormattedMessage id="UforeHistorikk.ufg" />:{ufg}</li>
-   <li><FormattedMessage id="UforeHistorikk.ufKriterie" />:{ufKriterie}</li>
-   <li><FormattedMessage id="UforeHistorikk.bup" />:{bup}</li>
-   <li><FormattedMessage id="UforeHistorikk.bupGarantiKode" />:{bupGarantiKode}</li>
-   <li><FormattedMessage id="UforeHistorikk.opphørsdatoMaaned" />:{opphørsdatoMaaned}</li>
-   <li><FormattedMessage id="UforeHistorikk.opphørsdatoKode" />:{opphørsdatoKode}</li>
-   <li><FormattedMessage id="UforeHistorikk.redusertAntallBupAar" />:{redusertAntallBupAar}</li>
-   <li><FormattedMessage id="UforeHistorikk.foedselsaarYngsteBarn" />:{foedselsaarYngsteBarn}</li>
-   <li><FormattedMessage id="UforeHistorikk.virkningsdatoUfrHistorie" />:{virkningsdatoUfrHistorie}</li>
- </ul>;
+ opphørsdatoKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistorie, uforegrader }) => (
+   <Row>
+     <Column size={8}>
+       <table className={styles.infotable}>
+         <tr><td><b>Historikk</b></td><td /></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.maaned" /></td><td>{uftMaaned}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.ufKriterie" /></td><td>{ufKriterie}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.bup" /></td><td>{bup}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.bupGarantiKode" /></td><td>{bupGarantiKode}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.opphørsdatoMaaned" /></td><td>{opphørsdatoMaaned}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.opphørsdatoKode" /></td><td>{opphørsdatoKode}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.redusertAntallBupAar" /></td><td>{redusertAntallBupAar}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.foedselsaarYngsteBarn" /></td><td>{foedselsaarYngsteBarn}</td></tr>
+         <tr><td><FormattedMessage id="UforeHistorikk.virkningsdatoUfrHistorie" /></td><td>{virkningsdatoUfrHistorie}</td></tr>
+       </table>
+     </Column><Column size={4}>
+       <table className={styles.infotable}>
+         <tr><td><b>Dato</b></td><td><b>Grad</b></td></tr>
+         <tr><td>{uftMaaned}</td><td>{ufg}</td></tr>
+         {uforegrader.map(grad => <tr><td>{grad.uforegradDato}</td><td>{grad.uforegradOvrige}</td></tr>)}
+       </table>
+     </Column>
+   </Row>);
 
 UforeHistorikk.propTypes = {
   uftMaaned: React.PropTypes.number.isRequired,
@@ -27,6 +41,7 @@ UforeHistorikk.propTypes = {
   redusertAntallBupAar: React.PropTypes.number.isRequired,
   foedselsaarYngsteBarn: React.PropTypes.number.isRequired,
   virkningsdatoUfrHistorie: React.PropTypes.number.isRequired,
+  uforegrader: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };
 
 UforeHistorikk.defaultProps = {
