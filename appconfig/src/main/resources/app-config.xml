@@ -15,4 +15,5 @@
         <credential alias="jwt" />
         <ldap alias="ldap" mapToProperty="ldap" />
     </resources>
+    <loadBalancer isAlive="/api/internal/isAlive" />
 </application>
