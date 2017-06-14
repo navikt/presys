@@ -1,7 +1,6 @@
 package no.nav.pensjon.dsf.config.ldap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.pensjon.dsf.config.AccountCredentials;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -15,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by s150563 on 01.06.2017.
- */
 public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
     public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
@@ -27,13 +23,14 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException, ServletException {
-        AccountCredentials creds = new ObjectMapper()
-                .readValue(req.getInputStream(), AccountCredentials.class);
+
+        LoginRequest loginRequest = new ObjectMapper()
+                .readValue(req.getInputStream(), LoginRequest.class);
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        creds.getUsername(),
-                        creds.getPassword()
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
                 )
         );
     }

@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private LdapAuthenticationProcessingFilter ldapAuthenticationProcessingFilter() throws Exception {
         LdapAuthenticationProcessingFilter filter = new LdapAuthenticationProcessingFilter(
-                new AntPathRequestMatcher("/api/login")
+                new AntPathRequestMatcher("/api/login", "POST")
         );
 
         filter.setAuthenticationManager(authenticationManager());
