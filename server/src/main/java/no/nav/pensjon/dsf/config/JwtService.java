@@ -1,11 +1,9 @@
 package no.nav.pensjon.dsf.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +32,7 @@ public class JwtService {
         Claims claims = Jwts.claims();
         claims.setSubject(details.getUsername());
         claims.setIssuer("presys");
+        claims.setNotBefore(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
         claims.setIssuedAt(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
         claims.setExpiration(Date.from(dateTime.plusDays(7).atZone(ZoneId.systemDefault()).toInstant()));
 
@@ -42,7 +41,9 @@ public class JwtService {
         claims.put("accountNonExpired", details.isAccountNonExpired());
         claims.put("credentialsNonExpired", details.isCredentialsNonExpired());
         claims.put("accountNonLocked", details.isAccountNonLocked());
-        claims.put("scopes", token.getAuthorities().stream().map(a -> a.toString()).collect(Collectors.toList()));
+        claims.put("scopes", token.getAuthorities().stream()
+                .map(GrantedAuthority::toString)
+                .collect(Collectors.toList()));
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -50,9 +51,11 @@ public class JwtService {
                 .compact();
     }
 
-    public Jws<Claims> parseToken(String rawToken) {
+    public Claims parseToken(String rawToken) throws ExpiredJwtException, MalformedJwtException, SignatureException {
         return Jwts.parser()
+                .requireIssuer("presys")
                 .setSigningKey(secret)
-                .parseClaimsJws(rawToken);
+                .parseClaimsJws(rawToken)
+                .getBody();
     }
 }
