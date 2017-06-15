@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { injectIntl, intlShape } from 'react-intl';
@@ -13,6 +14,7 @@ class UforeHistorikkListe extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.urlForHistorikk = this.urlForHistorikk.bind(this);
   }
 
 
@@ -30,16 +32,24 @@ class UforeHistorikkListe extends Component {
   }
 
   handleChange(event) {
-    this.props.router.push(this.props.location.pathname.replace(`uforehistorikk/${this.props.params.maaned}`, `uforehistorikk/${event.target.value}`));
+    this.props.router.push(this.urlForHistorikk(event.target.value));
   }
+
+  urlForHistorikk(uforeHistDato) {
+    return this.props.location.pathname.replace(`${this.props.params.maaned}`, `${uforeHistDato}`);
+  }
+
 
   render() {
     const { uforehistorikker, params: { maaned }, intl } = this.props;
     const selectedMonth = maaned || uforehistorikker[uforehistorikker.length - 1].uftMaaned.toString();
-    return (<Row>
+    const maanedliste = uniqe(uforehistorikker.map(i => i.uftMaaned)).sort((a, b) => b - a);
+    const selectedIndex = maanedliste.findIndex(i => i.toString() === selectedMonth);
+
+    return (<div><Row>
       <Column size={2}>
         <select value={selectedMonth} onChange={this.handleChange}>
-          {uniqe(uforehistorikker.map(i => i.uftMaaned)).sort((a, b) => b - a).map(i => <option
+          {maanedliste.map(i => <option
             key={i}
             value={i.toString()}
           >
@@ -48,11 +58,26 @@ class UforeHistorikkListe extends Component {
           }
         </select>
       </Column>
-      <Column size={8}>
-        {uforehistorikker.filter(i => i.uftMaaned === parseInt(maaned, 10)).map(uforehistorikk =>
-          <UforeHistorikk {...uforehistorikk} key={uforehistorikk.uftMaaned} />) }
-      </Column>
-    </Row>);
+    </Row>
+      <Row>
+        <Column size={1}>
+          {selectedIndex > 0 ? <Link
+            href={`#${this.urlForHistorikk(maanedliste[selectedIndex - 1].toString())}`}
+          > &lt;nyere</Link> : null}
+        </Column>
+        <Column size={1}>
+          {selectedIndex < maanedliste.length - 1 ? <Link
+            href={`#${
+                   this.urlForHistorikk(maanedliste[selectedIndex + 1].toString())}`}
+          > eldre&gt;</Link> : null}
+        </Column>
+        <Column size={10}>
+          {uforehistorikker.filter(i => i.uftMaaned === parseInt(maaned, 10)).map(uforehistorikk =>
+            <UforeHistorikk {...uforehistorikk} key={uforehistorikk.uftMaaned} />) }
+        </Column>
+
+
+      </Row></div>);
   }
 }
 
