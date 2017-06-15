@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
+import { injectIntl, intlShape } from 'react-intl';
+
 import UforeHistorikk from './UforeHistorikk';
 
 const uniqe = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
@@ -32,7 +34,7 @@ class UforeHistorikkListe extends Component {
   }
 
   render() {
-    const { uforehistorikker, params: { maaned } } = this.props;
+    const { uforehistorikker, params: { maaned }, intl } = this.props;
     const selectedMonth = maaned || uforehistorikker[uforehistorikker.length - 1].uftMaaned.toString();
     return (<Row>
       <Column size={2}>
@@ -41,8 +43,9 @@ class UforeHistorikkListe extends Component {
             key={i}
             value={i.toString()}
           >
-            {i.toString()}
-          </option>)}
+            {intl.formatDate(new Date(i / 10000, ((i % 10000) / 100) - 1), { year: 'numeric', month: 'long' })}
+          </option>)
+          }
         </select>
       </Column>
       <Column size={8}>
@@ -61,7 +64,7 @@ UforeHistorikkListe.propTypes = {
   }).isRequired,
   location: React.PropTypes.shape({ pathname: React.PropTypes.string.isRequired }).isRequired,
   router: React.PropTypes.shape({ push: React.PropTypes.func.isRequired, replace: React.PropTypes.func.isRequired }).isRequired,
-
+  intl: intlShape.isRequired,
 };
 
 UforeHistorikkListe.defaultProps = {
@@ -73,4 +76,4 @@ UforeHistorikkListe.defaultProps = {
 
 export default connect(state => ({
   uforehistorikker: state.person.status[0].uforehistorikk,
-}), { })(UforeHistorikkListe);
+}), { })(injectIntl(UforeHistorikkListe));
