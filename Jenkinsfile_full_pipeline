@@ -4,11 +4,9 @@ node {
     def application = "presys"
 
     /* environment mappings */
-    def environmentMap = [
-            "dev": "cd-u1"
-    ]
     def environmentUrlMap = [
-            "dev": "https://e34jbsl01778.devillo.no:8443"
+            "cd-u1": "https://e34jbsl01778.devillo.no:8443",
+            "t0": "https://d26jbsl01175.test.local:8443"
     ]
 
     /* metadata */
@@ -37,6 +35,17 @@ node {
             committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
             /* ... same as above but only email */
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
+
+            // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
+            hipchatSend(
+                    color: 'YELLOW',
+                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Begynner å bygge ${application}:${currentVersion} ...\n" +
+                            "Bygg URL: ${env.BUILD_URL}\n" +
+                            "Committer: ${committer}\n" +
+                            "Commit URL: ${commitUrl}",
+                    textFormat: true,
+                    v2enabled: true
+            )
         }
 
         stage("build") {
@@ -69,28 +78,78 @@ node {
             sh "git push origin master"
         }*/
 
-        stage("deploy til U") {
+        stage("deploy til cd-u1") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
-                sh "${mvn} aura:deploy -Dapps=${application}:${currentVersion} -Denv=${environmentMap['dev']} -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+                sh "${mvn} aura:deploy -Dapps=${application}:${currentVersion} -Denv=cd-u1 -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+            }
+        }
+
+        stage("deploy til t0") {
+            callback = "${env.BUILD_URL}input/Deploy/"
+
+            // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
+            def deploy = deployApp(application, currentVersion, "t0", callback, committer)
+
+            println("Issue: https://jira.adeo.no/browse/" + deploy.key);
+
+            timeout(time: 15, unit: 'MINUTES') {
+                input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
             }
         }
 
         // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
         hipchatSend(
                 color: 'GREEN',
-                message: "Deployet ${application}:${currentVersion} til U: ${environmentUrlMap['dev']}\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}",
+                message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Deployet ${application}:${currentVersion} til t0: ${environmentUrlMap['t0']}",
                 textFormat: true,
                 v2enabled: true
         )
     } catch (e) {
         hipchatSend (
                 color: 'RED',
-                message: "${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\nFeilmelding: "  + e.getMessage() + "\n\nBranch: master\nBygg URL: ${env.BUILD_URL}\nCommitter: ${committer}\nCommit URL: ${commitUrl}" ,
+                message: "${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\n" +
+                        "Feilmelding: "  + e.getMessage() + "\n\n" +
+                        "Bygg URL: ${env.BUILD_URL}\n" +
+                        "Committer: ${committer}\n" +
+                        "Commit URL: ${commitUrl}" ,
                 textFormat: true,
                 notify: true,
                 v2enabled: true
         )
         throw e
+    }
+}
+
+def deployApp(app, version, environment, callback, reporter) {
+    def environmentId = [
+            "t0": "16556"
+    ]
+
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+        def postBody = [
+                fields: [
+                        project          : [key: 'DEPLOY'],
+                        issuetype        : [id: '10902'],
+                        customfield_14811: [id: environmentId[environment], value: environmentId[environment]],
+                        customfield_14812: "${app}:${version}",
+                        customfield_17410: callback,
+                        summary          : "Automatisk deploy på vegne av ${reporter}"
+                ]
+        ]
+
+        def postBodyString = groovy.json.JsonOutput.toJson(postBody)
+        def base64encoded = "${env.USERNAME}:${env.PASSWORD}".bytes.encodeBase64().toString()
+
+        def response = httpRequest (
+                url: 'https://jira.adeo.no/rest/api/2/issue/',
+                customHeaders: [[name: "Authorization", value: "Basic ${base64encoded}"]],
+                consoleLogResponseBody: true,
+                contentType: 'APPLICATION_JSON',
+                httpMode: 'POST',
+                requestBody: postBodyString
+        )
+        def slurper = new groovy.json.JsonSlurperClassic()
+        return slurper.parseText(response.content);
     }
 }
