@@ -50,7 +50,7 @@
                         <webModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>presys-web-war</artifactId>
-                            <contextRoot>/</contextRoot>
+                            <contextRoot>/presys/</contextRoot>
                             <bundleFileName>presys-web-war.war</bundleFileName>
                         </webModule>
                     </modules>

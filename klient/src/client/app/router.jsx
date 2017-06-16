@@ -8,11 +8,10 @@ import App from 'containers/app/App';
 import PersonsokIndex from 'containers/person/PersonsokIndex';
 import MissingPage from 'components/app/MissingPage';
 import Person from 'containers/person/Personfrafnr';
-import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
+/* import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
 import Inntekter from 'containers/inntekter/InntektListe';
-import Status from 'containers/status/StatusListe';
+import Status from 'containers/status/StatusListe';*/
 import UforeHistorikk from 'containers/UforeHistorikk/UforeHistorikkListe';
-import Uforegrad from 'containers/Uforegrad/UforegradListe';
 
 import LoginManager from 'containers/app/LoginManager';
 import { loginOk } from 'actions/saksbehandlerActions';
@@ -34,18 +33,18 @@ const routes = (
     <IndexRoute component={PersonsokIndex} />
     <Route path="login" component={LoginManager} />
     <Route path="person/:fnr" component={Person}>
-      <Route path="eoafp" component={EoAfp} />
+      <IndexRoute component={UforeHistorikk} />
+      <Route path=":maaned" component={UforeHistorikk} />
+      {/* <Route path="eoafp" component={EoAfp} />
       <Route path="inntekter" component={Inntekter}>
         <IndexRoute />
         <Route path=":aar" />
       </Route>
-      <Route path="status" component={Status} />
+      <Route path="status" component={Status} />*/}
       <Route path="uforehistorikk" component={UforeHistorikk} >
         <IndexRoute />
         <Route path=":maaned" />
       </Route>
-
-      <Route path="uforegrad" component={Uforegrad} />
     </Route>
     <Route path="*" component={MissingPage} />
   </Route>

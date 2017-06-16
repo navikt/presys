@@ -4,8 +4,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { connect } from 'react-redux';
 import Person from 'components/person/Person';
-import Eps from 'components/person/Eps';
-import { Menu, MenuItem } from 'components/app/Menu';
+// import { Menu, MenuItem } from 'components/app/Menu';
 
 class PersonFraFnr extends Component {
 
@@ -20,19 +19,19 @@ class PersonFraFnr extends Component {
   }
 
   render() {
-    const { person, children, params: { fnr } } = this.props;
+    const { person, children /* , params: { fnr }*/ } = this.props;
     if (!person.fnr) {
       return null;
     } else if (person.loading) {
       return <div>loading</div>;
     }
-    const pageRoot = `/${this.props.route.path.replace(':fnr', fnr)}`;
-    const menuItems = this.props.route.childRoutes
+    /* const pageRoot = `/${this.props.route.path.replace(':fnr', fnr)}`;
+     const menuItems = this.props.route.childRoutes
     .map(({ path }) => <MenuItem
       key={`${pageRoot}/${path}`}
       link={`${pageRoot}/${path}`}
       textcode={`link.to.${path}`}
-    />);
+    />);*/
 
     return (<div><Row><Column size={3}><Person
       navn={person.navn}
@@ -41,16 +40,10 @@ class PersonFraFnr extends Component {
       erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
       hasLargeFont={false}
     />
-      <Eps
-        navn="Donald Duck"
-        alder={person.alder}
-        personnummer="1"
-        erKvinne
-        hasLargeFont={false}
-      />
-      <Menu>
+
+      {/* <Menu>
         {menuItems}
-      </Menu>
+      </Menu>*/}
     </Column>
       <Column size={9}>
         {children}
@@ -65,12 +58,12 @@ PersonFraFnr.propTypes = {
   fetchPerson: React.PropTypes.func.isRequired,
   params: React.PropTypes.shape({ fnr: React.PropTypes.string.isRequired }).isRequired,
   children: React.PropTypes.element,
-  route: React.PropTypes.shape({
+ /* route: React.PropTypes.shape({
     path: React.PropTypes.string.isRequired,
     childRoutes: React.PropTypes.arrayOf(React.PropTypes.shape({
       path: React.PropTypes.string.isRequired,
     })).isRequired,
-  }).isRequired,
+  }).isRequired,*/
 };
 
 
