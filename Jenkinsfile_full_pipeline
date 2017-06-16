@@ -5,8 +5,8 @@ node {
 
     /* environment mappings */
     def environmentUrlMap = [
-            "cd-u1": "https://e34jbsl01778.devillo.no:8443",
-            "t0": "https://d26jbsl01175.test.local:8443"
+            "cd-u1": "https://e34jbsl01778.devillo.no:8443/presys",
+            "t0": "https://app-t0.adeo.no/presys"
     ]
 
     /* metadata */
