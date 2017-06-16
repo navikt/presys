@@ -4,8 +4,8 @@
              xsi:schemaLocation="http://appconfig.aura.nav.no http://maven.adeo.no/xsd/appconfig.xsd ">
     <name>presys</name>
     <selftest>
-        <path>/api/internal/selftest</path>
-        <humanReadablePath>/api/internal/selftest</humanReadablePath>
+        <path>/presys/api/internal/selftest</path>
+        <humanReadablePath>/presys/api/internal/selftest</humanReadablePath>
     </selftest>
     <artifacts>
         <ear groupId="no.nav.pensjon.presys" artifactId="presys-web-ear"/>
@@ -15,5 +15,5 @@
         <credential alias="jwt" />
         <ldap alias="ldap" mapToProperty="ldap" />
     </resources>
-    <loadBalancer isAlive="/api/internal/isAlive" />
+    <loadBalancer isAlive="/presys/api/internal/isAlive" />
 </application>
