@@ -21,7 +21,7 @@ const config = {
 	output : {
 		path : path.join(__dirname, 'src/client/public'),
 		filename : 'bundle.js',
-		publicPath : '/public'
+		publicPath : '/presys/public/'
 	},
 	module : {
 		rules : [{
