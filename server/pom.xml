@@ -105,6 +105,11 @@
 					<profiles>
 						<profile>dev</profile>
 					</profiles>
+					<folders>
+						<!-- Adds src/test/resources to classpath so that
+							profile-specific properties files may be loaded from there -->
+						<folder>src/test/resources</folder>
+					</folders>
 				</configuration>
 			</plugin>
 			<plugin>
