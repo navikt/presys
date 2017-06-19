@@ -5,7 +5,7 @@ var config = require('./webpack.config.dev');
 var options = {
 	contentBase : "src/client",
 	proxy : {
-		"**/api/**" : {
+		"/presys/api/**" : {
 			target : "http://localhost:8080",
 			secure : false
 		}
