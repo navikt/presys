@@ -27,9 +27,6 @@ class LoginManager extends Component {
 
     return (
       <div>
-        <p>
-          <strong>Bruk user:password for å få tilgang.</strong>
-        </p>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">
             Brukernavn:
