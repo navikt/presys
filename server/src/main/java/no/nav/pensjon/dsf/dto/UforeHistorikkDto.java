@@ -1,5 +1,8 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UforeHistorikkDto {
 
     private int uftMaaned;
@@ -12,6 +15,15 @@ public class UforeHistorikkDto {
     private int redusertAntallBupAar;
     private int foedselsaarYngsteBarn;
     private int virkningsdatoUfrHistorie;
+    private List<UforegradDto> uforegrader = new ArrayList<>();
+
+    public List<UforegradDto> getUforegrader() {
+        return uforegrader;
+    }
+
+    public void setUforegrader(List<UforegradDto> uforegrader) {
+        this.uforegrader = uforegrader;
+    }
 
     public int getUftMaaned() {
         return uftMaaned;

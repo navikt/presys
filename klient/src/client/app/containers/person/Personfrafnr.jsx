@@ -9,29 +9,27 @@ import Person from 'components/person/Person';
 class PersonFraFnr extends Component {
 
   componentDidMount() {
-    this.props.fetchPerson(this.props.params.fnr);
+    if (this.props.params.fnr && this.props.params.fnr !== this.props.person.fnr && !this.props.person.loading) {
+      this.props.fetchPerson(this.props.params.fnr);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.fnr !== this.props.params.fnr) {
-      this.props.fetchPerson(nextProps.params.fnr);
+    if (nextProps.params.fnr && nextProps.params.fnr !== nextProps.person.fnr && !nextProps.person.loading) {
+      nextProps.fetchPerson(nextProps.params.fnr);
     }
   }
 
   render() {
-    const { person, children /* , params: { fnr }*/ } = this.props;
+    const { person, children, params: { fnr }, route: { path } } = this.props;
+
     if (!person.fnr) {
       return null;
     } else if (person.loading) {
       return <div>loading</div>;
     }
-    /* const pageRoot = `/${this.props.route.path.replace(':fnr', fnr)}`;
-     const menuItems = this.props.route.childRoutes
-    .map(({ path }) => <MenuItem
-      key={`${pageRoot}/${path}`}
-      link={`${pageRoot}/${path}`}
-      textcode={`link.to.${path}`}
-    />);*/
+
+    const personLocation = path.replace(':fnr', fnr);
 
     return (<div><Row><Column size={3}><Person
       navn={person.navn}
@@ -40,13 +38,13 @@ class PersonFraFnr extends Component {
       erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
       hasLargeFont={false}
     />
-
-      {/* <Menu>
-        {menuItems}
-      </Menu>*/}
     </Column>
       <Column size={9}>
-        {children}
+        {React.Children.map(children,
+              child => React.cloneElement(child, {
+                person, parentLocation: personLocation,
+              }),
+             )}
       </Column></Row></div>);
   }
 }
@@ -54,16 +52,14 @@ class PersonFraFnr extends Component {
 PersonFraFnr.propTypes = {
   person: React.PropTypes.shape({
     loading: React.PropTypes.bool.isRequired,
+    fnr: React.PropTypes.string,
   }).isRequired,
   fetchPerson: React.PropTypes.func.isRequired,
   params: React.PropTypes.shape({ fnr: React.PropTypes.string.isRequired }).isRequired,
   children: React.PropTypes.element,
- /* route: React.PropTypes.shape({
+  route: React.PropTypes.shape({
     path: React.PropTypes.string.isRequired,
-    childRoutes: React.PropTypes.arrayOf(React.PropTypes.shape({
-      path: React.PropTypes.string.isRequired,
-    })).isRequired,
-  }).isRequired,*/
+  }).isRequired,
 };
 
 

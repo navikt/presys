@@ -11,7 +11,7 @@ import Person from 'containers/person/Personfrafnr';
 /* import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
 import Inntekter from 'containers/inntekter/InntektListe';
 import Status from 'containers/status/StatusListe';*/
-import UforeHistorikk from 'containers/UforeHistorikk/UforeHistorikkListe';
+import UforeHistorikk from 'containers/UforeHistorikk/LastUforeHistorikk';
 
 import LoginManager from 'containers/app/LoginManager';
 import { loginOk } from 'actions/saksbehandlerActions';
