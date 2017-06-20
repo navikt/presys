@@ -2,9 +2,9 @@ package no.nav.pensjon.dsf.config.ldap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.pensjon.dsf.config.JwtService;
+import no.nav.pensjon.dsf.config.PresysUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -28,7 +28,8 @@ public class LdapAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
-        String rawToken = jwtService.issueToken((UsernamePasswordAuthenticationToken)authResult);
+        PresysUser details = (PresysUser) authResult.getPrincipal();
+        String rawToken = jwtService.issueToken(details);
 
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

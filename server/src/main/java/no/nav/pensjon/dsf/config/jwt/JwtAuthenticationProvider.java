@@ -5,17 +5,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import no.nav.pensjon.dsf.config.JwtService;
+import no.nav.pensjon.dsf.config.PresysUser;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
@@ -44,20 +39,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             /* update authentication object with claims, so we can fetch it later */
             authentication.setDetails(claims);
 
-            List<String> scopes = claims.get("scopes", List.class);
-            List<GrantedAuthority> authorities = scopes.stream()
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
-
-            return new User(
-                claims.getSubject(),
-                rawToken,
-                (boolean)claims.get("enabled"),
-                (boolean)claims.get("accountNonExpired"),
-                (boolean)claims.get("credentialsNonExpired"),
-                (boolean)claims.get("accountNonLocked"),
-                authorities
-            );
+            return PresysUser.fromClaims(rawToken, claims);
         } catch (ExpiredJwtException | SignatureException | MalformedJwtException e) {
             throw new BadCredentialsException(e.getMessage());
         }
