@@ -8,13 +8,13 @@ public class Meta {
     public final static int META_SIZE = 21 + 8 + 6;
 
     @Felt(name="navn", length = 8, start = 6)
-    String segmentNavn;
+    private String segmentNavn;
 
     @Felt(name="datalendge", length = 2, start = 4)
-    int datalengde;
+    private int datalengde;
 
     @Felt(name="metalegde", length = 2, start = 2)
-    int metalengde;
+    private int metalengde;
 
 
     public String getSegmentNavn() {
