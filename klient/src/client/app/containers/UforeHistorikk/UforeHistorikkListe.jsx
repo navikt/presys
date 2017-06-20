@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
@@ -15,19 +14,25 @@ class UforeHistorikkListe extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.urlForHistorikk = this.urlForHistorikk.bind(this);
+    this.syncUrlWithState = this.syncUrlWithState.bind(this);
   }
 
-
   componentDidMount() {
-    const { uforehistorikker, router: { replace }, params: { maaned }, location: { pathname } } = this.props;
-    if (!maaned && uforehistorikker.length > 0) {
-      replace(`${pathname}/${uforehistorikker[uforehistorikker.length - 1].uftMaaned.toString()}`);
-    }
+    this.syncUrlWithState(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.params.maaned && nextProps.uforehistorikker.length > 0) {
-      nextProps.router.replace(`${nextProps.location.pathname}/${nextProps.uforehistorikker[nextProps.uforehistorikker.length - 1].uftMaaned.toString()}`);
+    this.syncUrlWithState(nextProps);
+  }
+
+  syncUrlWithState(props) {
+    const { uforehistorikker, router: { replace }, params: { maaned } } = props;
+    if (uforehistorikker.length > 0) {
+      if (!maaned || !uforehistorikker.find(i => i.uftMaaned.toString() === maaned)) {
+        replace(this.urlForHistorikk(uforehistorikker[uforehistorikker.length - 1].uftMaaned.toString()));
+      }
+    } else if (maaned) {
+      replace(this.urlForHistorikk(null));
     }
   }
 
@@ -36,12 +41,15 @@ class UforeHistorikkListe extends Component {
   }
 
   urlForHistorikk(uforeHistDato) {
-    return this.props.location.pathname.replace(`${this.props.params.maaned}`, `${uforeHistDato}`);
+    return uforeHistDato ? `${this.props.parentLocation}/${uforeHistDato}` : this.props.parentLocation;
   }
 
 
   render() {
     const { uforehistorikker, params: { maaned }, intl } = this.props;
+    if (!uforehistorikker || uforehistorikker.length === 0) {
+      return <p>Finner ingen uførehistorikker</p>;
+    }
     const selectedMonth = maaned || uforehistorikker[uforehistorikker.length - 1].uftMaaned.toString();
     const maanedliste = uniqe(uforehistorikker.map(i => i.uftMaaned)).sort((a, b) => b - a);
     const selectedIndex = maanedliste.findIndex(i => i.toString() === selectedMonth);
@@ -87,9 +95,9 @@ UforeHistorikkListe.propTypes = {
   params: React.PropTypes.shape({
     maaned: React.PropTypes.string,
   }).isRequired,
-  location: React.PropTypes.shape({ pathname: React.PropTypes.string.isRequired }).isRequired,
   router: React.PropTypes.shape({ push: React.PropTypes.func.isRequired, replace: React.PropTypes.func.isRequired }).isRequired,
   intl: intlShape.isRequired,
+  parentLocation: React.PropTypes.string.isRequired,
 };
 
 UforeHistorikkListe.defaultProps = {
@@ -99,6 +107,4 @@ UforeHistorikkListe.defaultProps = {
   uforehistorikker: [],
 };
 
-export default connect(state => ({
-  uforehistorikker: state.person.status[0].uforehistorikk,
-}), { })(injectIntl(UforeHistorikkListe));
+export default injectIntl(UforeHistorikkListe);

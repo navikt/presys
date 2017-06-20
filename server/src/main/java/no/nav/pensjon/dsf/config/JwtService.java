@@ -1,58 +1,51 @@
 package no.nav.pensjon.dsf.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.stream.Collectors;
 
-/**
- * Created by s150563 on 02.06.2017.
- */
 @Service
 public class JwtService {
 
     private final byte[] secret;
 
+    private static final int EXPIRATION_DAYS = 7;
+
     public JwtService(@Value("${jwt.password}") byte[] secret) {
         this.secret = secret;
     }
 
-    public String issueToken(UsernamePasswordAuthenticationToken token) {
-        LdapUserDetails details = (LdapUserDetails)token.getPrincipal();
-
+    public String issueToken(PresysUser user) {
         LocalDateTime dateTime = LocalDateTime.now();
+        Date now  = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        Date expiration = Date.from(dateTime.plusDays(EXPIRATION_DAYS).atZone(ZoneId.systemDefault()).toInstant());
 
-        Claims claims = Jwts.claims();
-        claims.setSubject(details.getUsername());
+        Claims claims = user.getClaims();
+
         claims.setIssuer("presys");
-        claims.setIssuedAt(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
-        claims.setExpiration(Date.from(dateTime.plusDays(7).atZone(ZoneId.systemDefault()).toInstant()));
+        claims.setNotBefore(now);
+        claims.setIssuedAt(now);
+        claims.setExpiration(expiration);
 
-        claims.put("name", details.getDn());
-        claims.put("enabled", details.isEnabled());
-        claims.put("accountNonExpired", details.isAccountNonExpired());
-        claims.put("credentialsNonExpired", details.isCredentialsNonExpired());
-        claims.put("accountNonLocked", details.isAccountNonLocked());
-        claims.put("scopes", token.getAuthorities().stream().map(a -> a.toString()).collect(Collectors.toList()));
+        return issueToken(claims);
+    }
 
+    public String issueToken(Claims claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
-    public Jws<Claims> parseToken(String rawToken) {
+    public Claims parseToken(String rawToken) throws ExpiredJwtException, MalformedJwtException, SignatureException {
         return Jwts.parser()
+                .requireIssuer("presys")
                 .setSigningKey(secret)
-                .parseClaimsJws(rawToken);
+                .parseClaimsJws(rawToken)
+                .getBody();
     }
 }

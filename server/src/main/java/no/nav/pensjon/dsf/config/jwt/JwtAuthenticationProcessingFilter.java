@@ -1,6 +1,7 @@
 package no.nav.pensjon.dsf.config.jwt;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,7 +34,7 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
         }
 
         rawToken = rawToken.replace("Bearer ", "");
-        return getAuthenticationManager().authenticate(new JwtAuthenticationToken(rawToken));
+        return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(null, rawToken));
     }
 
     @Override

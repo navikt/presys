@@ -8,9 +8,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by s150563 on 02.06.2017.
- */
 @RestController
 @RequestMapping("api/internal")
 public class PresysController {

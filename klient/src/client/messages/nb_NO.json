@@ -113,6 +113,8 @@
   "link.to.uforehistorikk": "Uførehistorikk",
   "link.to.uforegrad": "Uføregrad",
 
-  "kodeverk.opphorsdato.J": "Opphørt"
+  "kodeverk.opphorsdato.J": "J",
+  "kodeverk.opphorsdato.A": "Alder/AFP"
+
 
 }

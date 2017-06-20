@@ -1,6 +1,6 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.ldap;
 
-public class AccountCredentials {
+public class LoginRequest {
 
     private String username;
     private String password;
