@@ -92,6 +92,10 @@ node {
             )
         }
 
+        /*
+            deploy til Q krever manuell godkjenning, slik at vi ikke
+            er i stand til å deploye automatisk ennå
+
         stage("deploy til q1") {
             callback = "${env.BUILD_URL}input/Deploy/"
 
@@ -109,7 +113,7 @@ node {
                     textFormat: true,
                     v2enabled: true
             )
-        }
+        }*/
     } catch (e) {
         hipchatSend (
                 color: 'RED',
