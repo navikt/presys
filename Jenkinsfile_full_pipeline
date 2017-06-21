@@ -19,7 +19,7 @@ node {
 
     try {
         stage("checkout") {
-            checkout scm
+            git url: "ssh://git@stash.devillo.no:7999/${project}/${repoName}.git"
         }
 
         stage("initialize") {
@@ -36,10 +36,9 @@ node {
             /* ... same as above but only email */
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
 
-            // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
             hipchatSend(
                     color: 'YELLOW',
-                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Begynner å bygge ${application}:${currentVersion} ...\n" +
+                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Begynner å bygge ${application}:${releaseVersion} ...\n" +
                             "Bygg URL: ${env.BUILD_URL}\n" +
                             "Committer: ${committer}\n" +
                             "Commit URL: ${commitUrl}",
@@ -58,7 +57,7 @@ node {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
             sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${committer}'"
             sh "git push origin master"
-            sh "${mvn} clean deploy scm:tag -DskipTests '!ebcdicutil,!klient' -B -e"
+            sh "${mvn} clean deploy scm:tag -DskipTests -pl '!ebcdicutil,!klient' -B -e"
         }
 
         stage("new dev version") {
