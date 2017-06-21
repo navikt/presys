@@ -34,4 +34,22 @@
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.8.1</version>
+                <configuration>
+                    <tag>${project.artifactId}-${project.version}</tag>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <connection>scm:git:ssh://git@stash.devillo.no:7999/teampesys/dsf-web.git</connection>
+        <developerConnection>scm:git:ssh://git@stash.devillo.no:7999/teampesys/dsf-web.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 </project>
