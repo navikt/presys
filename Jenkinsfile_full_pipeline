@@ -55,41 +55,31 @@ node {
         }
 
         stage("release") {
-            /* vi har ikke tilgang til hovedrepository enda, så vi
-                kjører på med SNAPSHOTS enn så lenge */
-            // sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-            // sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${committer}'"
+            sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
+            sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${committer}'"
+            sh "git push origin master"
+            sh "git tag -a ${application}-${releaseVersion} -m ${application}-${releaseVersion}"
+            sh "git push --tags"
 
-            /* deploy appconfig og ear */
-            dir('appconfig') {
-                sh "${mvn} clean deploy -DskipTests -B -e"
-            }
-
-            dir('ear') {
-                sh "${mvn} clean deploy -DskipTests -B -e"
-            }
+            //sh "${mvn} clean deploy -DskipTests '!ebcdicutil' -B -e"
         }
 
-        /* vi har ikke tilgang til hovedrepository enda, så vi
-                kjører på med SNAPSHOTS enn så lenge */
-        /*stage("new dev version") {
+        stage("new dev version") {
             sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
             sh "git commit -am 'Updated version after release by ${committer}'"
             sh "git push origin master"
-        }*/
+        }
 
         stage("deploy til cd-u1") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
-                sh "${mvn} aura:deploy -Dapps=${application}:${currentVersion} -Denv=cd-u1 -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
+                sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=cd-u1 -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
             }
         }
 
         stage("deploy til t0") {
             callback = "${env.BUILD_URL}input/Deploy/"
 
-            // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
-            def deploy = deployApp(application, currentVersion, "t0", callback, committer)
+            def deploy = deployApp(application, releaseVersion, "t0", callback, committer)
 
             println("Issue: https://jira.adeo.no/browse/" + deploy.key);
 
@@ -98,10 +88,9 @@ node {
             }
         }
 
-        // TODO: endre currentVersion til releaseVersion når vi har lov å deploye ikke-snapshots
         hipchatSend(
                 color: 'GREEN',
-                message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Deployet ${application}:${currentVersion} til t0: ${environmentUrlMap['t0']}",
+                message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Deployet ${application}:${releaseVersion} til t0: ${environmentUrlMap['t0']}",
                 textFormat: true,
                 v2enabled: true
         )

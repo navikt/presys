@@ -24,13 +24,14 @@
     <distributionManagement>
         <repository>
             <id>m2internal</id>
-            <name>NAV Internal Repository</name>
-            <url>dav:http://maven.adeo.no/nexus/content/repositories/m2internal</url>
+            <name>NAV Maven2 Internal Repository</name>
+            <url>http://maven.adeo.no/nexus/content/repositories/m2internal</url>
         </repository>
         <snapshotRepository>
             <id>m2snapshot</id>
-            <name>NAV Snapshot Repository</name>
+            <name>NAV Maven2 Snapshot Repository</name>
             <url>http://maven.adeo.no/nexus/content/repositories/m2snapshot</url>
+            <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
 </project>
