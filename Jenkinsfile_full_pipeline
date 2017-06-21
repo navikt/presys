@@ -6,7 +6,8 @@ node {
     /* environment mappings */
     def environmentUrlMap = [
             "cd-u1": "https://e34jbsl01778.devillo.no:8443/presys",
-            "t0": "https://app-t0.adeo.no/presys"
+            "t0": "https://app-t0.adeo.no/presys",
+            "q1": "https://app-q1.adeo.no/presys"
     ]
 
     /* metadata */
@@ -82,14 +83,33 @@ node {
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
             }
+
+            hipchatSend(
+                    color: 'GREEN',
+                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Deployet ${application}:${releaseVersion} til t0: ${environmentUrlMap['t0']}",
+                    textFormat: true,
+                    v2enabled: true
+            )
         }
 
-        hipchatSend(
-                color: 'GREEN',
-                message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Deployet ${application}:${releaseVersion} til t0: ${environmentUrlMap['t0']}",
-                textFormat: true,
-                v2enabled: true
-        )
+        stage("deploy til q1") {
+            callback = "${env.BUILD_URL}input/Deploy/"
+
+            def deploy = deployApp(application, releaseVersion, "q1", callback, committer)
+
+            println("Issue: https://jira.adeo.no/browse/" + deploy.key);
+
+            timeout(time: 15, unit: 'MINUTES') {
+                input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
+            }
+
+            hipchatSend(
+                    color: 'GREEN',
+                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Deployet ${application}:${releaseVersion} til q1: ${environmentUrlMap['q1']}",
+                    textFormat: true,
+                    v2enabled: true
+            )
+        }
     } catch (e) {
         hipchatSend (
                 color: 'RED',
@@ -108,7 +128,8 @@ node {
 
 def deployApp(app, version, environment, callback, reporter) {
     def environmentId = [
-            "t0": "16556"
+            "t0": "16556",
+            "q1": "16825"
     ]
 
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
