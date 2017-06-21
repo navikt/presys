@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.ldap;
+package no.nav.pensjon.dsf.config.auth.ldap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

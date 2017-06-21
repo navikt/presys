@@ -1,15 +1,12 @@
 package no.nav.pensjon.dsf.config;
 
-import no.nav.pensjon.dsf.config.jwt.JwtAuthenticationProcessingFilter;
-import no.nav.pensjon.dsf.config.jwt.JwtAuthenticationProvider;
-import no.nav.pensjon.dsf.config.ldap.LdapAuthenticationProcessingFilter;
-import no.nav.pensjon.dsf.config.ldap.LdapAuthenticationSuccessHandler;
-import no.nav.pensjon.dsf.config.ldap.NAVLdapUserDetailsMapper;
+import no.nav.pensjon.dsf.config.auth.jwt.JwtAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.config.auth.jwt.JwtAuthenticationProvider;
+import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,28 +23,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${ldap.url}")
-    private String ldapUrl;
-
-    @Value("${ldap.basedn}")
-    private String ldapBase;
-
-    @Value("${ldap.domain}")
-    private String ldapDomain;
+    @Autowired
+    private ActiveDirectoryLdapAuthenticationProvider ldapProvider;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtAuthenticationProvider jwtProvider;
 
-    private AuthenticationProvider ldapAuthenticationProvider() {
-        ActiveDirectoryLdapAuthenticationProvider provider = new ActiveDirectoryLdapAuthenticationProvider(
-                ldapDomain, ldapUrl, ldapBase
-        );
-
-        provider.setUserDetailsContextMapper(new NAVLdapUserDetailsMapper());
-        provider.setUseAuthenticationRequestCredentials(true);
-        provider.setConvertSubErrorCodesToExceptions(true);
-        return provider;
-    }
+    @Autowired
+    private LdapAuthenticationSuccessHandler ldapSuccessHandler;
 
     private LdapAuthenticationProcessingFilter ldapAuthenticationProcessingFilter() throws Exception {
         LdapAuthenticationProcessingFilter filter = new LdapAuthenticationProcessingFilter(
@@ -55,13 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         );
 
         filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler(new LdapAuthenticationSuccessHandler(jwtService));
+        filter.setAuthenticationSuccessHandler(ldapSuccessHandler);
 
         return filter;
-    }
-
-    private AuthenticationProvider jwtAuthenticationProvider() {
-        return new JwtAuthenticationProvider(jwtService);
     }
 
     private JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() throws Exception {
@@ -87,8 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(ldapAuthenticationProvider());
-        auth.authenticationProvider(jwtAuthenticationProvider());
+        auth.authenticationProvider(ldapProvider);
+        auth.authenticationProvider(jwtProvider);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.auth;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;

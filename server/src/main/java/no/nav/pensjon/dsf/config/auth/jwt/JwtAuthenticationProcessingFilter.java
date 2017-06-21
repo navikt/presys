@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.jwt;
+package no.nav.pensjon.dsf.config.auth.jwt;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

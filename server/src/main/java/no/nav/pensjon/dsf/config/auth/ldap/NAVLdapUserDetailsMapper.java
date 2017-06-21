@@ -1,14 +1,16 @@
-package no.nav.pensjon.dsf.config.ldap;
+package no.nav.pensjon.dsf.config.auth.ldap;
 
-import no.nav.pensjon.dsf.config.PresysUser;
+import no.nav.pensjon.dsf.config.auth.PresysUser;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-public class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
+@Component
+class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
 
     @Override
     public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {

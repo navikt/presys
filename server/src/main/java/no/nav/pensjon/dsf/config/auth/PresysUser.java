@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.jsonwebtoken.Claims;
