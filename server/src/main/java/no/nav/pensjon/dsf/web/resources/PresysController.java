@@ -1,5 +1,8 @@
 package no.nav.pensjon.dsf.web.resources;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +15,12 @@ import java.util.List;
 @RequestMapping("api/internal")
 public class PresysController {
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Value("${application.version}")
+    private String applicationVersion;
+
     @RequestMapping(method = {RequestMethod.GET}, value="/isAlive")
     public String isAlive() {
         return "OK";
@@ -20,7 +29,7 @@ public class PresysController {
     @RequestMapping(method = {RequestMethod.GET}, value="/selftest")
     public Selftest selftest() {
         /* see https://confluence.adeo.no/display/AURA/Selftest */
-        Selftest test = new Selftest("presys");
+        Selftest test = new Selftest(applicationContext.getId(), applicationVersion);
 
         test.setAggregateResult(0);
         test.addCheck(new SelfCheck("dummy endpoint", "dummy description").setResult(0));
@@ -31,14 +40,17 @@ public class PresysController {
     private static class Selftest {
         private String application;
 
+        private String version;
+
         private int aggregateResult;
 
         private Instant timestamp;
 
         private List<SelfCheck> checks = new ArrayList<>();
 
-        public Selftest(String application) {
+        public Selftest(String application, String version) {
             this.application = application;
+            this.version = version;
             this.timestamp = Instant.now();
         }
 
@@ -54,6 +66,10 @@ public class PresysController {
 
         public String getApplication() {
             return application;
+        }
+
+        public String getVersion() {
+            return version;
         }
 
         public String getTimestamp() {
