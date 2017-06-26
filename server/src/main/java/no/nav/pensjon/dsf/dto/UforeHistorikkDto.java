@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class UforeHistorikkDto {
     private int uftMaaned;
     private int ufg;
     private int ufKriterie;
-    private int bup;
+    private BigDecimal bup;
     private String bupGarantiKode;
     private int opphørsdatoMaaned;
     private String opphørsdatoKode;
@@ -49,11 +50,11 @@ public class UforeHistorikkDto {
         this.ufKriterie = ufKriterie;
     }
 
-    public int getBup() {
+    public BigDecimal getBup() {
         return bup;
     }
 
-    public void setBup(int bup) {
+    public void setBup(BigDecimal bup) {
         this.bup = bup;
     }
 

@@ -2,6 +2,7 @@ package no.nav.pensjon.dsf.domene;
 
 import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @UnmappedField(name = "bup_garanti", length = 2, start = 10) //Pakket desimal med 2 desimaler
@@ -24,7 +25,7 @@ public class UforeHistorikk {
 
     @Felt(name="bup", length = 2, start = 8)
     @PackedDecimal(decimals = 2)
-    private int bup;
+    private BigDecimal bup;
 
     @Felt(name="bup_gar_kode", length = 1, start = 12)
     private String bupGarantiKode;
@@ -72,11 +73,11 @@ public class UforeHistorikk {
         this.ufKriterie = ufKriterie;
     }
 
-    public int getBup() {
+    public BigDecimal getBup() {
         return bup;
     }
 
-    public void setBup(int bup) {
+    public void setBup(BigDecimal bup) {
         this.bup = bup;
     }
 
