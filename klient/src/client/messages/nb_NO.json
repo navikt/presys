@@ -91,20 +91,20 @@
   "Status.grunnPensjonReduksjonsKode" : "Grunnpensjonreduksjonskode",
   "Status.friinntektDato" : "Friintekstsdato",
 
-  "UforeHistorikk.maaned" : "Uføretrygd måned",
+  "UforeHistorikk.maaned" : "Uføretidspunkt",
   "UforeHistorikk.ufg" : "Uføregrad",
-  "UforeHistorikk.ufKriterie" : "Uføre kriterie",
-  "UforeHistorikk.bup" : "Beregnet uføregrad",
-  "UforeHistorikk.bupGarantiKode" : "Beregnet uføregrad garantikode",
-  "UforeHistorikk.opphørsdatoMaaned" : "Opphørsdato måned",
-  "UforeHistorikk.opphørsdatoKode" : "Opphørsdato Kode",
-  "UforeHistorikk.redusertAntallBupAar" : "Redusert antall beregnet uføregrad år",
+  "UforeHistorikk.ufKriterie" : "Uførekriterier",
+  "UforeHistorikk.bup" : "Fremtidige pensjonspoeng",
+  "UforeHistorikk.bupGarantiKode" : "Poenggaranti kode",
+  "UforeHistorikk.opphørsdatoMaaned" : "Opphørsdato",
+  "UforeHistorikk.opphørsdatoKode" : "Opphørskode",
+  "UforeHistorikk.redusertAntallBupAar" : "Redusert fremtidig poengår",
   "UforeHistorikk.foedselsaarYngsteBarn" : "Fødselsår yngste barn",
-  "UforeHistorikk.virkningsdatoUfrHistorie" : "Virkningsdato ufr-historie",
+  "UforeHistorikk.virkningsdatoUfrHistorie" : "Virkningsdato ufr-historikk",
 
   "Uforegrad.uforegradDato" : "Uføregradsdato",
-  "Uforegrad.uforegradOvrige" : "Uføregrad øvrige",
-  "Uforegrad.yngsteBarnFoerGrad" : "Yngste barn før grad",
+  "Uforegrad.uforegradOvrige" : "Uføregrad",
+  "Uforegrad.yngsteBarnFoerGrad" : "Yngste barns fødselsår",
   "Uforegrad.virkningsdatoUforegrad" : "Virkningsdato",
 
   "link.to.eoafp": "Etteroppgjør AFP",
@@ -113,8 +113,28 @@
   "link.to.uforehistorikk": "Uførehistorikk",
   "link.to.uforegrad": "Uføregrad",
 
-  "kodeverk.opphorsdato.J": "J",
-  "kodeverk.opphorsdato.A": "Alder/AFP"
+  "kodeverk.ufKriterie.1": "Inntekt >= G etter 1966 (19-6A)",
+  "kodeverk.ufKriterie.2": "Inntekt >= G ved uførhet (8-4-3A)",
+  "kodeverk.ufKriterie.3": "Inntekt >= G etter 1966(19-6A) og ved uførhet(8-4-3A) ",
+  "kodeverk.ufKriterie.4": "Løpende yrkesskade-pensjon",
+  "kodeverk.ufKriterie.5": "Engangsutløst yrkesskade-pensjon ",
+  "kodeverk.ufKriterie.6": "AFP",
 
+  "kodeverk.opphorsdato.A": "Alder/AFP",
+  "kodeverk.opphorsdato.B": "Uførepensjon",
+  "kodeverk.opphorsdato.C": "Grunnstønad",
+  "kodeverk.opphorsdato.D": "Hjelpestønad",
+  "kodeverk.opphorsdato.E": "Etterlattepensjon/Overgangsstønad",
+  "kodeverk.opphorsdato.F": "Barnepensjon",
+  "kodeverk.opphorsdato.G": "Kompensasjonstillegg til barnepensjon",
+  "kodeverk.opphorsdato.H": "Attføringspenger i ventetid",
+  "kodeverk.opphorsdato.I": "Koden PI_66_65 skal blankes",
+  "kodeverk.opphorsdato.J": "Opphørt pga andre årsaker",
+
+  "kodeverk.bupGarantiKode.A": "Ung ufør som venter på rett til 3.3 pensjonspoeng",
+  "kodeverk.bupGarantiKode.B": "Ung ufør med rett til 3.5 pensjonspoeng",
+  "kodeverk.bupGarantiKode.C": "Ung ufør som venter, og som ble ufør 20 år gammel",
+  "kodeverk.bupGarantiKode.D": "Ung ufør med rett til 3.3 poeng fra 0592",
+  "kodeverk.bupGarantiKode.E": "Unge uføre før 1967"
 
 }

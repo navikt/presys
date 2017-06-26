@@ -55,7 +55,7 @@ class UforeHistorikkListe extends Component {
     const selectedIndex = maanedliste.findIndex(i => i.toString() === selectedMonth);
 
     return (<div><Row>
-      <Column size={2}>
+      <Column size={12}>
         <select value={selectedMonth} onChange={this.handleChange}>
           {maanedliste.map(i => <option
             key={i}
@@ -67,24 +67,26 @@ class UforeHistorikkListe extends Component {
         </select>
       </Column>
     </Row>
-      <Row>
-        <Column size={1}>
-          {selectedIndex > 0 ? <Link
-            href={`#${this.urlForHistorikk(maanedliste[selectedIndex - 1].toString())}`}
-          > &lt;nyere</Link> : null}
-        </Column>
-        <Column size={1}>
-          {selectedIndex < maanedliste.length - 1 ? <Link
-            href={`#${
+      <Column size={12}>
+        <Row>
+          <Column size={1}>
+            {selectedIndex > 0 ? <Link
+              href={`#${this.urlForHistorikk(maanedliste[selectedIndex - 1].toString())}`}
+            > &lt;nyere</Link> : null}
+          </Column>
+          <Column size={1}>
+            {selectedIndex < maanedliste.length - 1 ? <Link
+              href={`#${
                    this.urlForHistorikk(maanedliste[selectedIndex + 1].toString())}`}
-          > eldre&gt;</Link> : null}
-        </Column>
-        <Column size={10}>
+            > eldre&gt;</Link> : null}
+          </Column>
+        </Row>
+      </Column>
+      <Row>
+        <Column size={12}>
           {uforehistorikker.filter(i => i.uftMaaned === parseInt(maaned, 10)).map(uforehistorikk =>
             <UforeHistorikk {...uforehistorikk} key={uforehistorikk.uftMaaned} />) }
         </Column>
-
-
       </Row></div>);
   }
 }
