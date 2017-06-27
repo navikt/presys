@@ -5,7 +5,7 @@
     <parent>
         <groupId>no.nav.pensjon.presys</groupId>
         <artifactId>presys</artifactId>
-        <version>10</version>
+        <version>11-SNAPSHOT</version>
     </parent>
     <groupId>no.nav.pensjon</groupId>
     <artifactId>presys-appconfig</artifactId>
