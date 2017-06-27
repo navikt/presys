@@ -5,16 +5,16 @@ import Column from 'components/elements/Column';
 import YyyyMmDd from 'components/elements/YyyyMmDd2MonthInYear';
 import styles from './UforeHistorikk.less';
 
-const UforeHistorikk = ({ uftMaaned, ufg, ufKriterie, bup, bupGarantiKode, opphørsdatoMaaned,
- opphørsdatoKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistorie, uforegrader }) => (
+const UforeHistorikk = ({ uftMaaned, ufg, ufKriterier, bup, bupGarantiKode, opphørsdatoMaaned,
+ opphørsKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistorie, uforegrader }) => (
    <Row>
      <Column size={7}>
        <table className={styles.infotable}><tbody>
          <tr><td><b>Uførehistorikk</b></td><td /></tr>
          <tr><td><FormattedMessage id="UforeHistorikk.maaned" /></td><td><YyyyMmDd value={uftMaaned} /></td></tr>
          <tr>
-           <td><FormattedMessage id="UforeHistorikk.ufKriterie" /></td>
-           <td>{ufKriterie !== ' ' ? <FormattedMessage id={`kodeverk.ufKriterie.${ufKriterie}`} /> : ''}</td>
+           <td><FormattedMessage id="UforeHistorikk.ufKriterier" /></td>
+           <td>{ufKriterier !== ' ' ? <FormattedMessage id={`kodeverk.ufKriterier.${ufKriterier}`} /> : ''}</td>
          </tr>
          <tr><td><FormattedMessage id="UforeHistorikk.bup" /></td><td>{bup}</td></tr>
          <tr>
@@ -23,11 +23,11 @@ const UforeHistorikk = ({ uftMaaned, ufg, ufKriterie, bup, bupGarantiKode, opph�
          </tr>
          <tr>
            <td><FormattedMessage id="UforeHistorikk.opphørsdatoMaaned" /></td>
-           <td>{opphørsdatoKode !== ' ' ? <YyyyMmDd value={opphørsdatoMaaned} /> : '' }</td>
+           <td>{opphørsKode !== ' ' ? <YyyyMmDd value={opphørsdatoMaaned} /> : '' }</td>
          </tr>
          <tr>
-           <td><FormattedMessage id="UforeHistorikk.opphørsdatoKode" /></td>
-           <td>{opphørsdatoKode !== ' ' ? <FormattedMessage id={`kodeverk.opphorsdato.${opphørsdatoKode}`} /> : ''}</td>
+           <td><FormattedMessage id="UforeHistorikk.opphørsKode" /></td>
+           <td>{opphørsKode !== ' ' ? <FormattedMessage id={`kodeverk.opphorsdato.${opphørsKode}`} /> : ''}</td>
          </tr>
          <tr><td><FormattedMessage id="UforeHistorikk.redusertAntallBupAar" /></td><td>{redusertAntallBupAar}</td></tr>
          <tr><td><FormattedMessage id="UforeHistorikk.foedselsaarYngsteBarn" /></td><td>{foedselsaarYngsteBarn}</td></tr>
@@ -61,11 +61,11 @@ const UforeHistorikk = ({ uftMaaned, ufg, ufKriterie, bup, bupGarantiKode, opph�
 UforeHistorikk.propTypes = {
   uftMaaned: React.PropTypes.number.isRequired,
   ufg: React.PropTypes.number.isRequired,
-  ufKriterie: React.PropTypes.number.isRequired,
+  ufKriterier: React.PropTypes.number.isRequired,
   bup: React.PropTypes.number.isRequired,
   bupGarantiKode: React.PropTypes.string.isRequired,
   opphørsdatoMaaned: React.PropTypes.number.isRequired,
-  opphørsdatoKode: React.PropTypes.string.isRequired,
+  opphørsKode: React.PropTypes.string.isRequired,
   redusertAntallBupAar: React.PropTypes.number.isRequired,
   foedselsaarYngsteBarn: React.PropTypes.number.isRequired,
   virkningsdatoUfrHistorie: React.PropTypes.number.isRequired,

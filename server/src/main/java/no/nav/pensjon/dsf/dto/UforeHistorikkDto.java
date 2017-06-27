@@ -8,11 +8,11 @@ public class UforeHistorikkDto {
 
     private int uftMaaned;
     private int ufg;
-    private int ufKriterie;
+    private int ufKriterier;
     private BigDecimal bup;
     private String bupGarantiKode;
     private int opphørsdatoMaaned;
-    private String opphørsdatoKode;
+    private String opphørsKode;
     private int redusertAntallBupAar;
     private int foedselsaarYngsteBarn;
     private int virkningsdatoUfrHistorie;
@@ -42,12 +42,12 @@ public class UforeHistorikkDto {
         this.ufg = ufg;
     }
 
-    public int getUfKriterie() {
-        return ufKriterie;
+    public int getUfKriterier() {
+        return ufKriterier;
     }
 
-    public void setUfKriterie(int ufKriterie) {
-        this.ufKriterie = ufKriterie;
+    public void setUfKriterier(int ufKriterier) {
+        this.ufKriterier = ufKriterier;
     }
 
     public BigDecimal getBup() {
@@ -74,12 +74,12 @@ public class UforeHistorikkDto {
         this.opphørsdatoMaaned = opphørsdatoMaaned;
     }
 
-    public String getOpphørsdatoKode() {
-        return opphørsdatoKode;
+    public String getOpphørsKode() {
+        return opphørsKode;
     }
 
-    public void setOpphørsdatoKode(String opphørsdatoKode) {
-        this.opphørsdatoKode = opphørsdatoKode;
+    public void setOpphørsKode(String opphørsKode) {
+        this.opphørsKode = opphørsKode;
     }
 
     public int getRedusertAntallBupAar() {

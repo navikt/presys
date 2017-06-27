@@ -19,9 +19,9 @@ public class UforeHistorikk {
     @PackedDecimal
     private int ufg;
 
-    @Felt(name="ufkriterie", length = 1, start = 7)
+    @Felt(name="ufkriterier", length = 1, start = 7)
     @PackedDecimal
-    private int ufKriterie;
+    private int ufKriterier;
 
     @Felt(name="bup", length = 2, start = 8)
     @PackedDecimal(decimals = 2)
@@ -34,8 +34,8 @@ public class UforeHistorikk {
     @PackedDecimal
     private int opphørsdatoMaaned;
 
-    @Felt(name="opphørsdato_kode", length = 1, start = 18)
-    private String opphørsdatoKode;
+    @Felt(name="opphørs_kode", length = 1, start = 18)
+    private String opphørsKode;
 
     @Felt(name="redusert_ant_bup_r", length = 2, start = 19)
     @PackedDecimal
@@ -65,12 +65,12 @@ public class UforeHistorikk {
         this.ufg = ufg;
     }
 
-    public int getUfKriterie() {
-        return ufKriterie;
+    public int getUfKriterier() {
+        return ufKriterier;
     }
 
-    public void setUfKriterie(int ufKriterie) {
-        this.ufKriterie = ufKriterie;
+    public void setUfKriterier(int ufKriterier) {
+        this.ufKriterier = ufKriterier;
     }
 
     public BigDecimal getBup() {
@@ -97,12 +97,12 @@ public class UforeHistorikk {
         this.opphørsdatoMaaned = opphørsdatoMaaned;
     }
 
-    public String getOpphørsdatoKode() {
-        return opphørsdatoKode;
+    public String getOpphørsKode() {
+        return opphørsKode;
     }
 
-    public void setOpphørsdatoKode(String opphørsdatoKode) {
-        this.opphørsdatoKode = opphørsdatoKode;
+    public void setOpphørsKode(String opphørsKode) {
+        this.opphørsKode = opphørsKode;
     }
 
     public int getRedusertAntallBupAar() {
