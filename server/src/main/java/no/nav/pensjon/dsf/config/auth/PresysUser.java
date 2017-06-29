@@ -50,6 +50,7 @@ public class PresysUser extends User {
     public static PresysUser fromClaims(String rawToken, Claims claims) {
         List<String> scopes = claims.get("scopes", List.class);
         List<GrantedAuthority> authorities = scopes.stream()
+                .map(String::toUpperCase)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
