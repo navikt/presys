@@ -107,6 +107,18 @@
   "Uforegrad.yngsteBarnFoerGrad" : "Yngste barns fødselsår",
   "Uforegrad.virkningsdatoUforegrad" : "Virkningsdato",
 
+  "Transaksjonshistorie.vtp_key" : "vtp_key",
+  "Transaksjonshistorie.grunnblankettkode" : "Grunnblankettkode",
+  "Transaksjonshistorie.prioritetskode" : "Prioritetskode",
+  "Transaksjonshistorie.virkningsdato" : "Virkningsdato",
+  "Transaksjonshistorie.registreringsdato" : "Registreringsdato",
+  "Transaksjonshistorie.trygdekontornummer" : "Trygdekontornummer",
+  "Transaksjonshistorie.sivilstand" : "Sivilstand",
+  "Transaksjonshistorie.spraak" : "Språk",
+  "Transaksjonshistorie.transaksjonsreturkode" : "Transaksjonsreturkode",
+  "Transaksjonshistorie.terminalId" : "Terminal-id",
+  "Transaksjonshistorie.autoTerminalId" : "Auto terminal-id",
+
   "link.to.eoafp": "Etteroppgjør AFP",
   "link.to.inntekter": "Inntekter",
   "link.to.status": "Status",
@@ -135,6 +147,13 @@
   "kodeverk.bupGarantiKode.B": "Ung ufør med rett til 3.5 pensjonspoeng",
   "kodeverk.bupGarantiKode.C": "Ung ufør som venter, og som ble ufør 20 år gammel",
   "kodeverk.bupGarantiKode.D": "Ung ufør med rett til 3.3 poeng fra 0592",
-  "kodeverk.bupGarantiKode.E": "Unge uføre før 1967"
+  "kodeverk.bupGarantiKode.E": "Unge uføre før 1967",
 
+  "kodeverk.sivilstand.U": "Ugift",
+  "kodeverk.sivilstand.G": "Gift",
+  "kodeverk.sivilstand.A": "Gift, men lever atskilt (Separert / Institusjonsopphold)",
+  "kodeverk.sivilstand.E": "Etterlatt ektefelle / Partner / W-Samboer",
+  "kodeverk.sivilstand.S": "Skilt",
+  "kodeverk.sivilstand.W": "Samboer etter § 1-5",
+  "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner"
 }
