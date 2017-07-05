@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>1-SNAPSHOT</version>
+			<version>3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
