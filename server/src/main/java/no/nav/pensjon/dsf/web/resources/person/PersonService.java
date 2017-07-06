@@ -1,6 +1,6 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
-import no.nav.pensjon.dsf.domene.*;
+import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.dsf.dto.*;
 import no.nav.pensjon.dsf.repository.PersonRepository;
 import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;

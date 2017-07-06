@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.domene;
+package no.nav.pensjon.dsf.domene.status;
 
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;

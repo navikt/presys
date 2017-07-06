@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.web.resources.batch;
 
+import no.nav.pensjon.dsf.domene.Person;
+import no.nav.pensjon.dsf.dto.PersonDto;
 import no.nav.pensjon.presys.utils.ebcdic.EbcdicUtils;
 import no.nav.pensjon.dsf.ebcdic.SplitPerson;
 import no.nav.pensjon.dsf.repository.DbPerson;
@@ -7,7 +9,9 @@ import no.nav.pensjon.dsf.repository.DbRepo;
 import no.nav.pensjon.dsf.repository.PersonRepository;
 import no.nav.pensjon.presys.utils.ebcdic.Meta;
 import no.nav.pensjon.presys.utils.ebcdic.ScrollableArray;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
@@ -20,7 +24,7 @@ import java.util.function.Consumer;
 
 
 @RestController
-@RequestMapping("api/batch")
+@RequestMapping("api/internal")
 public class BatchController {
 
     @Inject
@@ -50,9 +54,14 @@ public class BatchController {
         return counter.get();
     }
 
-    @RequestMapping("/vis")
+    @RequestMapping("/vis/")
     public List<String> vis() throws IOException {
         return pRepo.personer();
+    }
+
+    @RequestMapping(value = "/vis/{fnr}", method = RequestMethod.GET)
+    public Person findOne(@PathVariable String fnr) throws IOException {
+        return pRepo.findPerson(fnr);
     }
 
     static String zeroFill(String tekst, int length){

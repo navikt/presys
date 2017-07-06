@@ -1,39 +1,77 @@
-package no.nav.pensjon.dsf.domene;
+package no.nav.pensjon.dsf.domene.grunnblanketter;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Segment(name = "TRANHIST", length = 38)
 @UnmappedField(name = "filler", length = 3, start = 35)
 public class TranHist {
+
     @Felt(name="vtp_key", length = 5, start = 0)
     @PackedDecimal
     private int vtp_key;
+
     @Felt(name="grblkode", length = 2, start = 5)
     private String grunnblankettkode;
+
     @Felt(name="prioritets_kode", length = 1, start = 7)
     private String prioritetskode;
+
     @Felt(name="virk_dato_åmd", length = 5, start = 8)
     @PackedDecimal
     private int virkningsdato;
+
     @Felt(name="regdato_åmd", length = 5, start = 13)
     @PackedDecimal
     private int registreringsdato;
+
     @Felt(name="tknr", length = 3, start = 18)
     @PackedDecimal
     private int trygdekontornummer;
+
     @Felt(name="sivilstand", length = 1, start = 21)
     private String sivilstand;
+
     @Felt(name="språk", length = 1, start = 22)
     private String spraak;
+
     @Felt(name="trans_returkode", length = 4, start = 23)
     private String transaksjonsreturkode;
+
     @Felt(name="termid", length = 4, start = 27)
     private String terminalId;
+
     @Felt(name="auto", length = 4, start = 31)
     private String autoTerminalId;
+
+    @SubSegment
+    private List<Grunnbup> grunnbuper = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBKF> grunnbkfer = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBU3> grunnbu3er = new ArrayList<>();
+
+    @SubSegment
+    private List<OPPHBL1> opphbl1er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
+
+    @SubSegment
+    private List<ENBLAN1> enblan1er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBIF> grunnbif = new ArrayList<>();
+
+    @SubSegment
+    private List<ENDRBLAN> endringsblankett = new ArrayList<>();
+
+    @SubSegment
+    private List<Barn> barn = new ArrayList<>();
 
     public int getVtp_key() {
         return vtp_key;
@@ -121,5 +159,41 @@ public class TranHist {
 
     public void setAutoTerminalId(String autoTerminalId) {
         this.autoTerminalId = autoTerminalId;
+    }
+
+    public List<Grunnbup> getGrunnbuper() {
+        return grunnbuper;
+    }
+
+    public List<GRUNNBKF> getGrunnbkfer() {
+        return grunnbkfer;
+    }
+
+    public List<GRUNNBU3> getGrunnbu3er() {
+        return grunnbu3er;
+    }
+
+    public List<OPPHBL1> getOpphbl1er() {
+        return opphbl1er;
+    }
+
+    public List<GRUNNBE3> getGrunnbe3er() {
+        return grunnbe3er;
+    }
+
+    public List<ENBLAN1> getEnblan1er() {
+        return enblan1er;
+    }
+
+    public List<GRUNNBIF> getGrunnbif() {
+        return grunnbif;
+    }
+
+    public List<Barn> getBarn() {
+        return barn;
+    }
+
+    public List<ENDRBLAN> getEndringsblankett() {
+        return endringsblankett;
     }
 }
