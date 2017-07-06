@@ -41,7 +41,7 @@ class UforeHistorikkListe extends Component {
   }
 
   urlForHistorikk(uforeHistDato) {
-    return uforeHistDato ? `${this.props.parentLocation}/${uforeHistDato}` : this.props.parentLocation;
+    return uforeHistDato ? `${this.props.parentLocation}/uforehistorikk/${uforeHistDato}` : this.props.parentLocation;
   }
 
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import Table from 'components/elements/Table';
-import { connect } from 'react-redux';
 
 const EtteroppgjorAfpListe = ({ etteroppgjor }) => <Table
   headerTextCodes={['Inntekt.Aar',
@@ -44,6 +43,4 @@ EtteroppgjorAfpListe.defaultProps = {
   etteroppgjor: [],
 };
 
-export default connect(state => ({
-  etteroppgjor: state.person.etteroppgjor,
-}), { })(EtteroppgjorAfpListe);
+export default EtteroppgjorAfpListe;

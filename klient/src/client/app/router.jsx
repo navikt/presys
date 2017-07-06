@@ -8,10 +8,11 @@ import App from 'containers/app/App';
 import PersonsokIndex from 'containers/person/PersonsokIndex';
 import MissingPage from 'components/app/MissingPage';
 import Person from 'containers/person/Personfrafnr';
-/* import EoAfp from 'containers/etteroppgorAFP/EtteroppgjorAfpListe';
-import Inntekter from 'containers/inntekter/InntektListe';
-import Status from 'containers/status/StatusListe';*/
-import UforeHistorikk from 'containers/UforeHistorikk/LastUforeHistorikk';
+import EoAfp from 'ducks/etteroppgjorAFP/LastEtteroppgjorAfp';
+import Inntekter from 'ducks/inntekt/LastInntekter';
+import Status from 'ducks/status/LastStatus';
+import UforeHistorikk from 'ducks/uforehistorikk/LastUforeHistorikk';
+import Transhist from 'ducks/transaksjonshistorikk/LastTransaksjonsHistorikk';
 
 import LoginManager from 'containers/app/LoginManager';
 import { loginOk } from 'actions/saksbehandlerActions';
@@ -33,14 +34,13 @@ const routes = (
     <IndexRoute component={PersonsokIndex} />
     <Route path="login" component={LoginManager} />
     <Route path="person/:fnr" component={Person}>
-      <IndexRoute component={UforeHistorikk} />
-      <Route path=":maaned" component={UforeHistorikk} />
-      {/* <Route path="eoafp" component={EoAfp} />
+      <Route path="eoafp" component={EoAfp} />
+      <Route path="transaksjonshistorikk" component={Transhist} />
       <Route path="inntekter" component={Inntekter}>
         <IndexRoute />
         <Route path=":aar" />
       </Route>
-      <Route path="status" component={Status} />*/}
+      <Route path="status" component={Status} />
       <Route path="uforehistorikk" component={UforeHistorikk} >
         <IndexRoute />
         <Route path=":maaned" />

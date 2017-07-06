@@ -1,6 +1,5 @@
 import React from 'react';
 import Table from 'components/elements/Table';
-import { connect } from 'react-redux';
 
 const StatusListe = ({ status }) => <Table
   headerTextCodes={['Status.virkDato',
@@ -78,6 +77,4 @@ StatusListe.defaultProps = {
   status: [],
 };
 
-export default connect(state => ({
-  status: state.person.status,
-}), { })(StatusListe);
+export default StatusListe;

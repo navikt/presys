@@ -1,20 +1,18 @@
 import Table from 'components/elements/Table';
-
 import React from 'react';
-import { connect } from 'react-redux';
 
 export const TransaksjonshistorieListe = ({ transaksjonshistorie }) => <div>{!transaksjonshistorie ? null : <Table
   headerTextCodes={['Transaksjonshistorie.vtp_key',
-                    'Transaksjonshistorie.grunnblankettkode',
-                    'Transaksjonshistorie.prioritetskode',
-                    'Transaksjonshistorie.virkningsdato',
-                    'Transaksjonshistorie.registreringsdato',
-                    'Transaksjonshistorie.trygdekontornummer',
-                    'Transaksjonshistorie.sivilstand',
-                    'Transaksjonshistorie.spraak',
-                    'Transaksjonshistorie.transaksjonsreturkode',
-                    'Transaksjonshistorie.terminalId',
-                    'Transaksjonshistorie.autoTerminalId']}
+    'Transaksjonshistorie.grunnblankettkode',
+    'Transaksjonshistorie.prioritetskode',
+    'Transaksjonshistorie.virkningsdato',
+    'Transaksjonshistorie.registreringsdato',
+    'Transaksjonshistorie.trygdekontornummer',
+    'Transaksjonshistorie.sivilstand',
+    'Transaksjonshistorie.spraak',
+    'Transaksjonshistorie.transaksjonsreturkode',
+    'Transaksjonshistorie.terminalId',
+    'Transaksjonshistorie.autoTerminalId']}
   data={transaksjonshistorie.map(row => ({ key: row.vtp_key,
     columns: [
           { key: 'a', value: row.vtp_key },
@@ -32,15 +30,13 @@ export const TransaksjonshistorieListe = ({ transaksjonshistorie }) => <div>{!tr
 />
         }</div>;
 
-InntektListe.propTypes = {
-  inntekter: React.PropTypes.arrayOf(React.PropTypes.object),
+TransaksjonshistorieListe.propTypes = {
+  transaksjonshistorie: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
-InntektListe.defaultProps = {
-  inntekter: [],
+TransaksjonshistorieListe.defaultProps = {
+  transaksjonshistorie: [],
 };
 
+export default TransaksjonshistorieListe;
 
-export default connect(state => ({
-  inntekter: state.person.inntekter,
-}), { })(TransaksjonshistorieListe);

@@ -1,7 +1,5 @@
 import Table from 'components/elements/Table';
-
 import React from 'react';
-import { connect } from 'react-redux';
 
 export const InntektListe = ({ inntekter }) => <div>{!inntekter ? null : <Table
   headerTextCodes={['Inntekt.Aar', 'Kommune', 'Type', 'Inntekt.Pensjonsgivende']}
@@ -23,7 +21,4 @@ InntektListe.defaultProps = {
   inntekter: [],
 };
 
-
-export default connect(state => ({
-  inntekter: state.person.inntekter,
-}), { })(InntektListe);
+export default InntektListe;
