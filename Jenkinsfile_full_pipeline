@@ -15,13 +15,14 @@ node {
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
-    def nodeHome = tool "nodejs-6.6.0"
-    def npm = "${nodeHome}/npm"
 
     try {
         stage("checkout") {
             git url: "ssh://git@stash.devillo.no:7999/${project}/${repoName}.git"
         }
+
+        // Notifies the Stash Instance of an INPROGRESS build
+        step([$class: 'StashNotifier'])
 
         stage("initialize") {
             pom = readMavenPom file: 'pom.xml'
@@ -36,16 +37,6 @@ node {
             committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
             /* ... same as above but only email */
             committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
-
-            hipchatSend(
-                    color: 'YELLOW',
-                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: Begynner å bygge ${application}:${releaseVersion} ...\n" +
-                            "Bygg URL: ${env.BUILD_URL}\n" +
-                            "Committer: ${committer}\n" +
-                            "Commit URL: ${commitUrl}",
-                    textFormat: true,
-                    v2enabled: true
-            )
         }
 
         stage("build") {
@@ -97,7 +88,6 @@ node {
             )
         }
 
-
         stage("deploy til q1") {
             callback = "${env.BUILD_URL}input/Deploy/"
 
@@ -116,7 +106,13 @@ node {
                     v2enabled: true
             )
         }
+
+        currentBuild.result = 'SUCCESS'
+        step([$class: 'StashNotifier'])
     } catch (e) {
+        currentBuild.result = 'FAILED'
+        step([$class: 'StashNotifier'])
+
         hipchatSend (
                 color: 'RED',
                 message: "${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\n" +
