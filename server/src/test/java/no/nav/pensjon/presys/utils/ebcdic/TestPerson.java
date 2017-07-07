@@ -3,7 +3,6 @@ package no.nav.pensjon.presys.utils.ebcdic;
 import no.nav.pensjon.dsf.domene.EtteroppgjorAFP;
 import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.domene.Person;
-import no.nav.pensjon.dsf.domene.Status;
 
 import static no.nav.pensjon.presys.utils.ebcdic.TestStatus.createStatus;
 

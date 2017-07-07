@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.domene;
 
+import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
+import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 import java.util.ArrayList;
@@ -43,30 +45,13 @@ public class Person {
     @SubSegment
     private List<TranHist> tranHister = new ArrayList<>();
 
-    @SubSegment
-    private List<Grunnbup> grunnbuper = new ArrayList<>();
-
-    @SubSegment
-    private List<GRUNNBKF> grunnbkfer = new ArrayList<>();
-
-    @SubSegment
-    private List<GRUNNBU3> grunnbu3er = new ArrayList<>();
-
-    @SubSegment
-    private List<OPPHBL1> opphbl1er = new ArrayList<>();
-
-    @SubSegment
-    private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
-
-    @SubSegment
-    private List<ENBLAN1> enblan1er = new ArrayList<>();
 
 
     public List<EtteroppgjorAFP> getEtteroppgjor() {
         return etteroppgjor;
     }
 
-        public List<Inntekt> getInntekter() {
+    public List<Inntekt> getInntekter() {
         return inntekter;
     }
 
@@ -106,28 +91,5 @@ public class Person {
         return tranHister;
     }
 
-    public List<Grunnbup> getGrunnbuper() {
-        return grunnbuper;
-    }
 
-    public List<GRUNNBKF> getGrunnbkfer() {
-        return grunnbkfer;
-    }
-
-    public List<GRUNNBU3> getGrunnbu3er() {
-        return grunnbu3er;
-    }
-
-    public List<OPPHBL1> getOpphbl1er() {
-        return opphbl1er;
-    }
-
-
-    public List<GRUNNBE3> getGrunnbe3er() {
-        return grunnbe3er;
-    }
-
-    public List<ENBLAN1> getEnblan1er() {
-        return enblan1er;
-    }
 }
