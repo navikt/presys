@@ -1,6 +1,7 @@
 package no.nav.pensjon.presys.metrics;
 
 import no.nav.pensjon.presys.metrics.proxy.EventProxy;
+import no.nav.pensjon.presys.metrics.proxy.ExceptionEventProxy;
 import no.nav.pensjon.presys.metrics.proxy.TimerProxy;
 
 import static java.lang.reflect.Proxy.newProxyInstance;
@@ -16,6 +17,8 @@ public class MetricsFactory {
     public static Event createEvent(String name) {
         return new Event(metricsClient, name);
     }
+
+    public static ExceptionEvent createExceptionEvent(String name) { return new ExceptionEvent(metricsClient, name); }
 
     public static <T> T createTimerProxy(String name, T object, Class<T> type) {
         return createTimerProxyInstance(name, object, type);
@@ -41,5 +44,14 @@ public class MetricsFactory {
         EventProxy eventProxy = new EventProxy(name, object);
 
         return (T) newProxyInstance(classLoader, classes, eventProxy);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T createExceptionEventProxy(String name, T object, Class<T> type) {
+        ClassLoader classLoader = ExceptionEventProxy.class.getClassLoader();
+        Class[] classes = {type};
+        ExceptionEventProxy exceptionEventProxy = new ExceptionEventProxy(name, object);
+
+        return (T) newProxyInstance(classLoader, classes, exceptionEventProxy);
     }
 }

@@ -28,6 +28,8 @@ public class PersonRepository {
                             Base64.getDecoder().decode(
                                     Optional.ofNullable(repo.findOne(fnr)).orElseThrow(ResourceNotFound::new).getData()
                             )), Person.class);
+        } catch (RuntimeException rte) {
+            throw rte;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

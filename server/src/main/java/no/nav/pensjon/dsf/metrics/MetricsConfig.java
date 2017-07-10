@@ -19,9 +19,13 @@ public class MetricsConfig extends MetricsConfigurerAdapter {
 */
 package no.nav.pensjon.dsf.metrics;
 
+import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationSuccessHandler;
 import no.nav.pensjon.presys.metrics.aspects.CountAspect;
+import no.nav.pensjon.presys.metrics.aspects.ExceptionMeteredAspect;
 import no.nav.pensjon.presys.metrics.aspects.TimerAspect;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 public class MetricsConfig {
 
@@ -33,5 +37,10 @@ public class MetricsConfig {
     @Bean
     public CountAspect countAspect() {
         return new CountAspect();
+    }
+
+    @Bean
+    public ExceptionMeteredAspect exceptionMeteredAspect() {
+        return new ExceptionMeteredAspect();
     }
 }
