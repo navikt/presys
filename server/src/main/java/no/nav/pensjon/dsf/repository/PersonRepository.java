@@ -36,4 +36,8 @@ public class PersonRepository {
     public List<String> personer(){
         return db.queryForList("select fnr from Db_Person", String.class);
     }
+
+    public boolean exists(String fnr){
+        return repo.exists(fnr);
+    }
 }

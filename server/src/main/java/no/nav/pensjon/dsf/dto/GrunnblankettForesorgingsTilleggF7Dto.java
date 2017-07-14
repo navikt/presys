@@ -1,41 +1,15 @@
-package no.nav.pensjon.dsf.domene.grunnblanketter;
+package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
+public class GrunnblankettForesorgingsTilleggF7Dto extends GrunnblankettDto {
 
-@Segment(name = "GRUNNBIF", length = 50)
-public class GRUNNBIF {
 
-    @Felt(name = "EKTEFELLE_TILL", length = 1, start = 0)
     private String ektefelletillegg;
-
-    @Felt(name = "ARBEIDSINNTEKT", length = 4, start = 1)
-    @PackedDecimal
     private int arbeidsinntekt;
-
-    @Felt(name = "PENSJONSINNTEKT", length = 4, start = 5)
-    @PackedDecimal
     private int pensjonsinntekt;
-
-    @Felt(name = "ARBEIDSINNTEKT_EK", length = 4, start = 9)
-    @PackedDecimal
     private int arbeidsinntektEktefelle;
-
-    @Felt(name = "PENSJONSINNTEKT_EK", length = 4, start = 13)
-    @PackedDecimal
     private int pensjonsinntektEktefelle;
-
-    @Felt(name = "BT_ANT", length = 2, start = 17)
-    @PackedDecimal
     private int antallBarnetillegg;
-
-    @Felt(name = "FNR_EK", length = 6, start = 19)
-    @PackedDecimal
-    private String fnrEktefelle;
-
-    @Felt(name = "NAVN_EK", length = 25, start = 25)
-    private String navnEktefelle;
+    private PersonDto ektefelle;
 
     public String getEktefelletillegg() {
         return ektefelletillegg;
@@ -85,19 +59,11 @@ public class GRUNNBIF {
         this.antallBarnetillegg = antallBarnetillegg;
     }
 
-    public String getFnrEktefelle() {
-        return fnrEktefelle;
+    public PersonDto getEktefelle() {
+        return ektefelle;
     }
 
-    public void setFnrEktefelle(String fnrEktefelle) {
-        this.fnrEktefelle = fnrEktefelle;
-    }
-
-    public String getNavnEktefelle() {
-        return navnEktefelle;
-    }
-
-    public void setNavnEktefelle(String navnEktefelle) {
-        this.navnEktefelle = navnEktefelle;
+    public void setEktefelle(PersonDto ektefelle) {
+        this.ektefelle = ektefelle;
     }
 }

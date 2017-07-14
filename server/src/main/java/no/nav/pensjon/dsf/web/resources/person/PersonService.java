@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
+import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
 import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.dsf.dto.*;
 import no.nav.pensjon.dsf.repository.PersonRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,8 +75,24 @@ public class PersonService {
     }
 
     public List<TranHistDto> hentTranhister(String fnr) throws IOException {
+        Function<TranHist, TranHistDto> mapper = tranhist ->{
+            TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
+            switch (tranhist.getGrunnblankettkode()){
+                case "F7":
+                    GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
+                    PersonDto ektefelle = new PersonDto();
+                    ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
+                    ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
+                    ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
+                    grunnblankett.setEktefelle(ektefelle);
+                    dto.setGrunnblankett(grunnblankett);
+            }
+            return dto;
+        };
+
+
         return repo.findPerson(fnr).getTranHister().stream()
-                .map(tranhist -> modelMapper.map(tranhist, TranHistDto.class))
+                .map(mapper )
                 .collect(Collectors.toList());
     }
 }

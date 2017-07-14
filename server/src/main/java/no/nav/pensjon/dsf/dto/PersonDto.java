@@ -6,6 +6,8 @@ public class PersonDto {
 
     private String navn;
 
+    private boolean availableForLookup;
+
     public String getFnr() {
         return fnr;
     }
@@ -20,5 +22,13 @@ public class PersonDto {
 
     public void setNavn(String navn) {
         this.navn = navn;
+    }
+
+    public boolean isAvailableForLookup() {
+        return availableForLookup;
+    }
+
+    public void setAvailableForLookup(boolean availableForLookup) {
+        this.availableForLookup = availableForLookup;
     }
 }

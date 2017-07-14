@@ -34,17 +34,21 @@ const routes = (
     <IndexRoute component={PersonsokIndex} />
     <Route path="login" component={LoginManager} />
     <Route path="person/:fnr" component={Person}>
-      <Route path="eoafp" component={EoAfp} />
-      <Route path="transaksjonshistorikk" component={Transhist} />
-      <Route path="inntekter" component={Inntekter}>
-        <IndexRoute />
-        <Route path=":aar" />
-      </Route>
-      <Route path="status" component={Status} />
       <Route path="uforehistorikk" component={UforeHistorikk} >
         <IndexRoute />
         <Route path=":maaned" />
       </Route>
+      <Route path="transaksjonshistorikk" component={Transhist}>
+        <IndexRoute />
+        <Route path=":vtpkey" />
+      </Route>
+      <Route path="inntekter" component={Inntekter}>
+        <IndexRoute />
+        <Route path=":aar" />
+      </Route>
+      <Route path="eoafp" component={EoAfp} />
+
+      <Route path="status" component={Status} />
     </Route>
     <Route path="*" component={MissingPage} />
   </Route>
