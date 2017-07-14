@@ -52,9 +52,15 @@ public class CountAspect {
     @Around("publicMethod() && @annotation(count)")
     public Object countPaMetode(ProceedingJoinPoint joinPoint, Count count) throws Throwable {
         AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
-        String eventNavn = lagMetodeTimernavn(joinPoint, count.name());
+        boolean logMethodAsUniqueMeasurement = count.logMethodAsUniqueMeasurement();
+        String eventNavn = lagMetodeTimernavn(joinPoint, count.name(), logMethodAsUniqueMeasurement);
+        Map<String, String> felt = finnArgumentVerdier(joinPoint, count);
+        Map<String, String> tags = new HashMap<>();
+        if(!logMethodAsUniqueMeasurement) {
+            tags = leggPaaMetodeNavnSomTag(joinPoint, tags);
+        }
 
-        return MetodeEvent.eventForMetode(metodekall, eventNavn, finnArgumentVerdier(joinPoint, count));
+        return MetodeEvent.eventForMetode(metodekall, eventNavn, felt, tags);
     }
 
     @Around("publicMethod() && @within(count)")
@@ -63,10 +69,17 @@ public class CountAspect {
             return joinPoint.proceed();
         }
 
-        AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
-        String eventNavn = lagKlasseTimernavn(joinPoint, count.name());
+        boolean logMethodAsUniqueMeasurement = count.logMethodAsUniqueMeasurement();
 
-        return MetodeEvent.eventForMetode(metodekall, eventNavn);
+        AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
+        String eventNavn = lagKlasseTimernavn(joinPoint, count.name(), logMethodAsUniqueMeasurement);
+
+        Map<String, String> tags = new HashMap<>();
+        if(!logMethodAsUniqueMeasurement) {
+            tags = leggPaaMetodeNavnSomTag(joinPoint, tags);
+        }
+
+        return MetodeEvent.eventForMetode(metodekall, eventNavn, null, tags);
     }
 
     private Map<String, String> finnArgumentVerdier(JoinPoint joinPoint, Count count) {

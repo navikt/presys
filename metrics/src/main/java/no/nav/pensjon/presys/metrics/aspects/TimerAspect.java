@@ -5,6 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static no.nav.pensjon.presys.metrics.aspects.AspectUtil.*;
 
 /**
@@ -25,9 +28,14 @@ public class TimerAspect {
     @Around("publicMethod() && @annotation(timed)")
     public Object timerPaMetode(final ProceedingJoinPoint joinPoint, final Timed timed) throws Throwable {
         AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
-        String timerName = lagMetodeTimernavn(joinPoint, timed.name());
+        boolean logMethodAsUniqueMeasurement = timed.logMethodAsUniqueMeasurement();
+        String timerName = lagMetodeTimernavn(joinPoint, timed.name(), logMethodAsUniqueMeasurement);
+        Map<String, String> felt = new HashMap<>();
+        if(!logMethodAsUniqueMeasurement) {
+            felt = leggPaaMetodeNavnSomTag(joinPoint, felt);
+        }
 
-        return MetodeTimer.timeMetode(metodekall, timerName);
+        return MetodeTimer.timeMetode(metodekall, timerName, felt); // test metode feiler fordi metode med 2 parametre blir ikke lenger kalt.
     }
 
     @SuppressWarnings("ProhibitedExceptionThrown")
@@ -38,8 +46,14 @@ public class TimerAspect {
         }
 
         AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
-        String timerNavn = lagKlasseTimernavn(joinPoint, timed.name());
+        boolean logMethodAsUniqueMeasurement = timed.logMethodAsUniqueMeasurement();
 
-        return MetodeTimer.timeMetode(metodekall, timerNavn);
+        String timerNavn = lagKlasseTimernavn(joinPoint, timed.name(), logMethodAsUniqueMeasurement);
+        Map<String, String> felt = new HashMap<>();
+        if(!logMethodAsUniqueMeasurement) {
+            felt = leggPaaMetodeNavnSomTag(joinPoint, felt);
+        }
+
+        return MetodeTimer.timeMetode(metodekall, timerNavn, felt);
     }
 }

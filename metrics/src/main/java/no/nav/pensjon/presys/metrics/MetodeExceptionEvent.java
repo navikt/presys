@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class MetodeExceptionEvent {
-    public static Object exceptionEventForMetode(Metodekall metodekall, String exceptionEventNavn, Class<? extends Throwable> cause, boolean logCause, Class<? extends Throwable>[] ignoreExceptions, Map<String, String> verdier) throws Throwable {
+    public static Object exceptionEventForMetode(Metodekall metodekall, String exceptionEventNavn, Class<? extends Throwable> cause, boolean logCause, Class<? extends Throwable>[] ignoreExceptions, Map<String, String> verdier, Map<String, String> tags) throws Throwable {
         try {
             return metodekall.kallMetode();
         } catch (Throwable throwable) {
@@ -19,8 +19,13 @@ public class MetodeExceptionEvent {
                             exceptionEvent.addFieldToReport(verdi.getKey(), verdi.getValue());
                         }
                     }
+                    if (tags != null) {
+                        for (Map.Entry<String, String> tag : tags.entrySet()) {
+                            exceptionEvent.addTagToReport(tag.getKey(), tag.getValue());
+                        }
+                    }
                     if (logCause) {
-                        exceptionEvent.addFieldToReport("cause", throwable.getClass().getName());
+                        exceptionEvent.addTagToReport("cause", throwable.getClass().getName());
                     }
                     exceptionEvent.report();
                 }
@@ -30,7 +35,7 @@ public class MetodeExceptionEvent {
     }
 
     public static Object exceptionEventForMetode(Metodekall metodekall, String exceptionEventNavn, Class<? extends Throwable> cause, boolean logCause, Class<? extends Throwable>[] ignoreExceptions) throws Throwable {
-        return exceptionEventForMetode(metodekall, exceptionEventNavn, cause, logCause, ignoreExceptions, null);
+        return exceptionEventForMetode(metodekall, exceptionEventNavn, cause, logCause, ignoreExceptions, null, null);
     }
 
     // TODO trøbbel?

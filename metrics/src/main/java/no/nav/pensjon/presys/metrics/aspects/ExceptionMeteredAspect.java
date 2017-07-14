@@ -53,12 +53,19 @@ public class ExceptionMeteredAspect {
     @Around("publicMethod() && @annotation(exceptionmetered)")
     public Object exceptionmeteredPaMetode(ProceedingJoinPoint joinPoint, ExceptionMetered exceptionmetered) throws Throwable {
         AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
-        String exceptionEventNavn = lagMetodeTimernavn(joinPoint, exceptionmetered.name());
+        boolean logMethodAsUniqueMeasurement = exceptionmetered.logMethodAsUniqueMeasurement();
+        String exceptionEventNavn = lagMetodeTimernavn(joinPoint, exceptionmetered.name(), logMethodAsUniqueMeasurement);
+        Map<String, String> felt = finnArgumentVerdier(joinPoint, exceptionmetered);
+        Map<String, String> tags = new HashMap<>();
+        if(!logMethodAsUniqueMeasurement) {
+            tags = leggPaaMetodeNavnSomTag(joinPoint, tags);
+        }
+
         Class<? extends Throwable> cause = exceptionmetered.cause();
         boolean logCause = exceptionmetered.logCause();
         Class<? extends Throwable>[] ignoreExceptions = exceptionmetered.ignoreExceptions();
 
-        return MetodeExceptionEvent.exceptionEventForMetode(metodekall, exceptionEventNavn, cause, logCause, ignoreExceptions, finnArgumentVerdier(joinPoint, exceptionmetered));
+        return MetodeExceptionEvent.exceptionEventForMetode(metodekall, exceptionEventNavn, cause, logCause, ignoreExceptions, felt, tags);
     }
 
     @Around("publicMethod() && @within(exceptionmetered)")
@@ -67,13 +74,21 @@ public class ExceptionMeteredAspect {
             return joinPoint.proceed();
         }
 
+        boolean logMethodAsUniqueMeasurement = exceptionmetered.logMethodAsUniqueMeasurement();
+
         AspectMetodekall metodekall = new AspectMetodekall(joinPoint);
-        String exceptionEventNavn = lagKlasseTimernavn(joinPoint, exceptionmetered.name());
+        String exceptionEventNavn = lagKlasseTimernavn(joinPoint, exceptionmetered.name(), logMethodAsUniqueMeasurement);
+
+        Map<String, String> tag = new HashMap<>();
+        if(!logMethodAsUniqueMeasurement) {
+            tag = leggPaaMetodeNavnSomTag(joinPoint, tag);
+        }
+
         Class<? extends Throwable> cause = exceptionmetered.cause();
         boolean logCause = exceptionmetered.logCause();
         Class<? extends Throwable>[] ignoreExceptions = exceptionmetered.ignoreExceptions();
 
-        return MetodeExceptionEvent.exceptionEventForMetode(metodekall, exceptionEventNavn, cause, logCause, ignoreExceptions);
+        return MetodeExceptionEvent.exceptionEventForMetode(metodekall, exceptionEventNavn, cause, logCause, ignoreExceptions, new HashMap<>(), tag);
     }
 
     private Map<String, String> finnArgumentVerdier(JoinPoint joinPoint, ExceptionMetered exceptionMetered) {

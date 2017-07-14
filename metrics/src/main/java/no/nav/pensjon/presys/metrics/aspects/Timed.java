@@ -25,4 +25,9 @@ public @interface Timed {
      * sett i stedet da annotasjonen direkte kun på de metodene som ønskes
      */
     String[] ignoredMethods() default {};
+
+    /**
+     * Kan settes til false for ikke å logge metodenavn som egen measurement, men heller logge metodenavn som et felt i en felles measurement.
+     */
+    boolean logMethodAsUniqueMeasurement() default true;
 }

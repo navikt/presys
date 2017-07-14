@@ -5,6 +5,8 @@ import no.nav.pensjon.presys.metrics.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static no.nav.pensjon.presys.metrics.TestUtil.lagAspectProxy;
 import static org.junit.Assert.assertEquals;
 
@@ -39,7 +41,7 @@ public class CountAspectTest {
     @Test
     public void metoderPaKlasseMedAnnotasjonBlirRiktigIgnorert(@Mocked final MetodeEvent event) throws Throwable {
         new Expectations() {{
-            MetodeEvent.eventForMetode((Metodekall) any, anyString);
+            MetodeEvent.eventForMetode((Metodekall) any, anyString, (Map<String, String>) any, (Map<String, String>) any);
             result = "eventMetode";
         }};
 

@@ -19,9 +19,9 @@ import java.io.IOException;
 
 public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    Event eventAttempt = MetricsFactory.createEvent("login.attemptAuthentication");
-    Event eventSuccess = MetricsFactory.createEvent("login.successfulAuthentication");
-    Event eventFailure = MetricsFactory.createEvent("login.unsuccessfulAuthentication");
+    Event eventAttempt = createLoginEvent("attempt");
+    Event eventSuccess = createLoginEvent("success");
+    Event eventFailure = createLoginEvent("failure");
 
     public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
@@ -55,5 +55,11 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         eventFailure.report();
         super.unsuccessfulAuthentication(request, response, failed);
+    }
+
+    private Event createLoginEvent(String type) {
+        Event event = MetricsFactory.createEvent("Presys.loginevent");
+        event.addTagToReport("loginEventType", type);
+        return event;
     }
 }

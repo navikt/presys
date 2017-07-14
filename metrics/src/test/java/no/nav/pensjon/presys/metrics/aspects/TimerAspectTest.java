@@ -6,6 +6,8 @@ import no.nav.pensjon.presys.metrics.Metodekall;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static no.nav.pensjon.presys.metrics.TestUtil.lagAspectProxy;
 import static org.junit.Assert.assertEquals;
 
@@ -41,7 +43,7 @@ public class TimerAspectTest {
     @Test
     public void metoderPaKlasseMedAnnotasjonBlirIgnorert(@Mocked final MetodeTimer metodeTimer) throws Throwable {
         new Expectations() {{
-            MetodeTimer.timeMetode((Metodekall) any, anyString);
+            MetodeTimer.timeMetode((Metodekall) any, anyString, (Map<String, String>) any);
             result = "timedMetode";
         }};
 
@@ -71,13 +73,13 @@ public class TimerAspectTest {
 
 
         new Verifications() {{
-            MetodeTimer.timeMetode((Metodekall) any, "TimedKlasse.timed1");
-            MetodeTimer.timeMetode((Metodekall) any, "TimedKlasse.timed2");
+            MetodeTimer.timeMetode((Metodekall) any, "TimedKlasse.timed1", (Map<String, String>) any);
+            MetodeTimer.timeMetode((Metodekall) any, "TimedKlasse.timed2", (Map<String, String>) any);
 
-            MetodeTimer.timeMetode((Metodekall) any, "TimedMetoder.timed");
-            MetodeTimer.timeMetode((Metodekall) any, "customTimerNavn");
+            MetodeTimer.timeMetode((Metodekall) any, "TimedMetoder.timed", (Map<String, String>) any);
+            MetodeTimer.timeMetode((Metodekall) any, "customTimerNavn", (Map<String, String>) any);
 
-            MetodeTimer.timeMetode((Metodekall) any, "customKlasseTimer.timed1");
+            MetodeTimer.timeMetode((Metodekall) any, "customKlasseTimer.timed1", (Map<String, String>) any);
         }};
     }
 

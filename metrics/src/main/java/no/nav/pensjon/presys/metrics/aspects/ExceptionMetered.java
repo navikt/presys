@@ -46,4 +46,9 @@ public @interface ExceptionMetered {
      * En array av throwables som skal ignoreres.
      */
     Class<? extends Throwable>[] ignoreExceptions() default {};
+
+    /**
+     * Kan settes til false for ikke å logge metodenavn som egen measurement, men heller logge metodenavn som et felt i en felles measurement.
+     */
+    boolean logMethodAsUniqueMeasurement() default true;
 }
