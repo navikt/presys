@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.List;
+
 public class TranHistDto {
     private int vtp_key;
     private String grunnblankettkode;
@@ -12,6 +14,7 @@ public class TranHistDto {
     private String transaksjonsreturkode;
     private String terminalId;
     private String autoTerminalId;
+    private GrunnblankettDto grunnblankett;
 
     public int getVtp_key() {
         return vtp_key;
@@ -99,5 +102,13 @@ public class TranHistDto {
 
     public void setAutoTerminalId(String autoTerminalId) {
         this.autoTerminalId = autoTerminalId;
+    }
+
+    public GrunnblankettDto getGrunnblankett() {
+        return grunnblankett;
+    }
+
+    public void setGrunnblankett(GrunnblankettDto grunnblankett) {
+        this.grunnblankett = grunnblankett;
     }
 }
