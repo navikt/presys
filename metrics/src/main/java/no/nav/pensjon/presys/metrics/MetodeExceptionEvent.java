@@ -25,7 +25,7 @@ public class MetodeExceptionEvent {
                         }
                     }
                     if (logCause) {
-                        exceptionEvent.addTagToReport("cause", throwable.getClass().getName());
+                        exceptionEvent.addTagToReport("causeTag", throwable.getClass().getName());
                     }
                     exceptionEvent.report();
                 }

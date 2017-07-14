@@ -9,7 +9,7 @@ import java.util.Map;
 public class AspectUtil {
 
     public static  Map<String, String> leggPaaMetodeNavnSomTag(JoinPoint joinPoint, Map<String, String> felt) {
-        felt.put("metodenavn", getMetodenavn(joinPoint));
+        felt.put("metodenavnTag", getMetodenavn(joinPoint));
         return felt;
     }
 
