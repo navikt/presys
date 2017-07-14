@@ -6,6 +6,8 @@ import no.nav.pensjon.dsf.dto.*;
 import no.nav.pensjon.dsf.repository.PersonRepository;
 import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(PersonService.class);
+
     @Inject
     private PersonRepository repo;
 
@@ -26,6 +30,7 @@ public class PersonService {
     private ModelMapper modelMapper;
 
     public PersonDto hentPerson(String fnr) throws IOException {
+        LOG.info("Presys er bedt om å hente person: {}",  fnr);
         return modelMapper.map(repo.findPerson(fnr), PersonDto.class);
     }
 
