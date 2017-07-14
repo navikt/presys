@@ -19,7 +19,7 @@ const Person = ({
         {navn}
       </h2>
       <p className={hasLargeFont ? styles.personnummerLarge : styles.personnummer}>
-        {personnummer}
+        {`${personnummer.substring(0, 6)} ${personnummer.substring(6)}`}
       </p>
     </div>
   </div>

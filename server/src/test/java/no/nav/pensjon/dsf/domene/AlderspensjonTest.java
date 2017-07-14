@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.domene;
 
+import no.nav.pensjon.dsf.domene.status.Alderspensjon;
 import org.junit.Test;
 
 /**

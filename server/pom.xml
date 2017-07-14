@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>13-SNAPSHOT</version>
+		<version>18-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -107,7 +107,7 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>1-SNAPSHOT</version>
+			<version>4</version>
 		</dependency>
 		<dependency>
 			<groupId>no.nav.pensjon</groupId>
@@ -118,6 +118,11 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

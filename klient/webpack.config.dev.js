@@ -97,6 +97,7 @@ const config = {
 			reducers: APP_DIR + '/reducers',
 			services: APP_DIR + '/services',
 			helpers: APP_DIR + '/helpers',
+			ducks: APP_DIR + '/ducks',
 		},
 		extensions : [ '.json', '.js', '.jsx' ]
 	},

@@ -1,6 +1,6 @@
 package no.nav.pensjon.presys.utils.ebcdic.segmenter;
 
-import no.nav.pensjon.dsf.domene.EtterlattEktefelle;
+import no.nav.pensjon.dsf.domene.status.EtterlattEktefelle;
 import no.nav.pensjon.presys.utils.ebcdic.AnnotationMapper;
 import no.nav.pensjon.presys.utils.ebcdic.ScrollableArray;
 import org.junit.Test;

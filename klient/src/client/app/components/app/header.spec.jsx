@@ -8,10 +8,6 @@ describe('<Header>', () => {
   it('skal vise MessagePanel når det finnes feilmelding', () => {
     const wrapper = shallow(<Header saksbehandlerName="Per" errorMessage="Error!" />);
 
-    expect(wrapper.find('Link')).to.have.length(1);
-    expect(wrapper.find('Label')).to.have.length(1);
-    expect(wrapper.find('img')).to.have.length(2);
-
     const messagePanel = wrapper.find('MessagePanel');
     expect(messagePanel).to.have.length(1);
     expect(messagePanel.prop('errorMessage')).to.eql('Error!');

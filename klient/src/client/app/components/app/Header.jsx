@@ -24,7 +24,9 @@ const Header = ({
       </div>
       <Label textCode="Header.Foreldrepenger" className={styles.text} />
       <div className={styles.saksbehandler}>
-        <img src={saksbehandlerIkonUrl} className={styles.saksbehandlerIkon} alt={<FormattedMessage id="Header.Saksbehandler" />} />
+        <Link to="/login" >
+          <img src={saksbehandlerIkonUrl} className={styles.saksbehandlerIkon} alt={<FormattedMessage id="Header.Saksbehandler" />} />
+        </Link>
       </div>
       <div className={styles.saksbehandlerTekst} />
     </div>
