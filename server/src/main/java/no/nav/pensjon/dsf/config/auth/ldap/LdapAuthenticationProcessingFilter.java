@@ -59,7 +59,7 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
 
     private Event createLoginEvent(String type) {
         Event event = MetricsFactory.createEvent("Presys.loginevent");
-        event.addTagToReport("loginEventType", type);
+        event.addTagToReport("loginEventTypeTag", type);
         return event;
     }
 }
