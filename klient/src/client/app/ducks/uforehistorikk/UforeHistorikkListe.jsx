@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
-// import { injectIntl, intlShape } from 'react-intl';
-import { dateYyMm } from 'components/elements/YyyyMmDd2MonthInYear';
+import { toDate } from 'components/elements/ParseDate';
+import { formatDate } from 'components/elements/FormattedDate';
 import UforeHistorikk from './UforeHistorikk';
 
 const uniqe = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
@@ -61,7 +61,7 @@ class UforeHistorikkListe extends Component {
             key={i}
             value={i.toString()}
           >
-            {dateYyMm(i)}
+            {formatDate(toDate(i, 'yyyymmdd'), 'yyyy/mm')}
           </option>)
           }
         </select>

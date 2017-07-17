@@ -1,10 +1,13 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
+import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
 import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.dsf.dto.*;
 import no.nav.pensjon.dsf.repository.PersonRepository;
 import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,13 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PersonService.class);
 
     @Inject
     private PersonRepository repo;
@@ -24,6 +30,7 @@ public class PersonService {
     private ModelMapper modelMapper;
 
     public PersonDto hentPerson(String fnr) throws IOException {
+        LOG.info("Presys er bedt om å hente person: {}",  fnr);
         return modelMapper.map(repo.findPerson(fnr), PersonDto.class);
     }
 
@@ -73,8 +80,24 @@ public class PersonService {
     }
 
     public List<TranHistDto> hentTranhister(String fnr) throws IOException {
+        Function<TranHist, TranHistDto> mapper = tranhist ->{
+            TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
+            switch (tranhist.getGrunnblankettkode()){
+                case "F7":
+                    GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
+                    PersonDto ektefelle = new PersonDto();
+                    ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
+                    ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
+                    ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
+                    grunnblankett.setEktefelle(ektefelle);
+                    dto.setGrunnblankett(grunnblankett);
+            }
+            return dto;
+        };
+
+
         return repo.findPerson(fnr).getTranHister().stream()
-                .map(tranhist -> modelMapper.map(tranhist, TranHistDto.class))
+                .map(mapper )
                 .collect(Collectors.toList());
     }
 }

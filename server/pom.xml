@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>18-SNAPSHOT</version>
+		<version>21-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -22,10 +22,25 @@
 	</properties>
 
 	<dependencies>
+		<!--dependency>
+			<groupId>com.ryantenney.metrics</groupId>
+			<artifactId>metrics-spring</artifactId>
+			<version>3.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-servlets</artifactId>
+			<version>3.2.3</version>
+		</dependency-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>presys-metrics</artifactId>
+			<version>21-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -93,6 +108,11 @@
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
 			<version>4</version>
+		</dependency>
+		<dependency>
+			<groupId>no.nav.pensjon</groupId>
+			<artifactId>presys-appconfig</artifactId>
+			<version>13-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>

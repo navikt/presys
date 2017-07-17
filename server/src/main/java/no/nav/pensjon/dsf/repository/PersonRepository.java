@@ -28,6 +28,8 @@ public class PersonRepository {
                             Base64.getDecoder().decode(
                                     Optional.ofNullable(repo.findOne(fnr)).orElseThrow(ResourceNotFound::new).getData()
                             )), Person.class);
+        } catch (RuntimeException rte) {
+            throw rte;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -35,5 +37,9 @@ public class PersonRepository {
 
     public List<String> personer(){
         return db.queryForList("select fnr from Db_Person", String.class);
+    }
+
+    public boolean exists(String fnr){
+        return repo.exists(fnr);
     }
 }

@@ -124,7 +124,7 @@
   "link.to.status": "Status",
   "link.to.uforehistorikk": "Uførehistorikk",
   "link.to.uforegrad": "Uføregrad",
-  "link.to.transaksjonshistorikk": "Transaksjonshistorikk",
+  "link.to.transaksjonshistorikk": "Grunnblanketter",
 
   "kodeverk.ufKriterier.1": "Inntekt >= G etter 1966 (19-6A)",
   "kodeverk.ufKriterier.2": "Inntekt >= G ved uførhet (8-4-3A)",
@@ -156,5 +156,7 @@
   "kodeverk.sivilstand.E": "Etterlatt ektefelle / Partner / W-Samboer",
   "kodeverk.sivilstand.S": "Skilt",
   "kodeverk.sivilstand.W": "Samboer etter § 1-5",
-  "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner"
+  "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner",
+
+  "kodeverk.grunnblankettType.F7": "FOLKETRYGDEN - FORSØRGINGSTILLEGG EKTEFELLE OG/ELLER BARN"
 }

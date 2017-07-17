@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetch } from './duck';
-import Dataview from './TransaksjonshistorieTabell';
+import Dataview from './TransaksjonshistorieListe';
 import LastData from '../common/LastData';
 
 const ConnectedLastData = connect(state => ({ idShowing: state.transaksjonshistorikk.fnr, loading: state.transaksjonshistorikk.loading }),

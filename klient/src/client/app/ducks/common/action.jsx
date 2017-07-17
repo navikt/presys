@@ -12,22 +12,19 @@ export const actionsFor = type => ({
   },
 });
 
-function dataReceived(datatype, fnr = null) {
+
+function action(type, fnr) {
+  return { type, fnr };
+}
+function dataReceived(datatype, fnr) {
   return json => ({
-    type: datatype,
+    ...action(datatype, fnr),
     data: json,
-    fnr,
   });
 }
 
-function action(actionType) {
-  return {
-    type: actionType,
-  };
-}
-
-const handleError = (dispatch, fetchTypes) => (ajax) => {
-  dispatch(action(fetchTypes.failed));
+const handleError = (dispatch, fetchTypes, fnr) => (ajax) => {
+  dispatch(action(fetchTypes.failed, fnr));
   switch (ajax.response.status) {
     case 404:
       dispatch(replace('/'));
@@ -38,8 +35,8 @@ const handleError = (dispatch, fetchTypes) => (ajax) => {
 };
 
 const actionCreator = (url, fetchTypes) => fnr => (dispatch) => {
-  dispatch(action(fetchTypes.started));
-  return get(`${PERSON_ENDPOINT}/${fnr}/${url}`, {}, dispatch, dataReceived(fetchTypes.received, fnr), handleError(dispatch, fetchTypes));
+  dispatch(action(fetchTypes.started, fnr));
+  return get(`${PERSON_ENDPOINT}/${fnr}/${url}`, {}, dispatch, dataReceived(fetchTypes.received, fnr), handleError(dispatch, fetchTypes, fnr));
 };
 
 export default actionCreator;
