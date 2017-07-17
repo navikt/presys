@@ -3,6 +3,9 @@ node {
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
+    def nodeHome = tool "nodejs-6.6.0"
+    def node = "${nodeHome}/node"
+    def npm = "${nodeHome}/npm"
 
     def committer, releaseVersion
 
@@ -50,6 +53,21 @@ node {
 
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
+            }
+        }
+
+        stage("integration tests") {
+            dir ("qa") {
+                withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                    // install manually using local distribution, as the chromedriver package will
+                    // try to download from Internet if else
+                    sh "${npm} install chromedriver --chromedriver_filepath=/usr/local/chromedriver/chromedriver_linux64.zip"
+                    sh "${npm} install"
+
+                    // firefox and chrome (when not in headless more) require a display,
+                    // and we are therefore using xvfb-run to spin up an ad-hoc Xvfb server
+                    sh "xvfb-run -e logs/xvfb-run.log ./node_modules/.bin/nightwatch --env jenkins"
+                }
             }
         }
 

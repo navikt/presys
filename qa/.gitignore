@@ -1,0 +1,4 @@
+/node_modules/
+/logs/*.log
+/tests_output/*.xml
+/screenshots/*/*.png

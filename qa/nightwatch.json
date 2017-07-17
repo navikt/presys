@@ -1,0 +1,44 @@
+{
+  "src_folders" : ["tests"],
+
+  "selenium" : {
+    "start_process" : true,
+    "server_path": "./node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.4.0.jar",
+    "log_path" : "logs",
+    "host": "127.0.0.1",
+    "port" : 4444,
+    "cli_args": {
+      "webdriver.chrome.logfile": "logs/chrome.log",
+      "webdriver.chrome.verboseLogging": "true"
+    }
+  },
+
+  "test_settings" : {
+    "default" : {
+      "launch_url" : "https://localhost:8080/presys",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : true,
+        "on_error": true,
+        "on_failure": true,
+        "path" : "screenshots"
+      },
+      "cli_args": {
+        "webdriver.chrome.driver": "./node_modules/chromedriver/lib/chromedriver/chromedriver.exe"
+      },
+      "desiredCapabilities": {
+        "browserName": "chrome"
+      }
+    },
+    "jenkins": {
+      "launch_url" : "https://app-t0.adeo.no/presys",
+      "cli_args": {
+        "webdriver.gecko.driver": "/usr/local/bin/geckodriver",
+        "webdriver.chrome.driver": "/usr/local/bin/chromedriver"
+      },
+      "desiredCapabilities": {
+        "browserName": "firefox"
+      }
+    }
+  }
+}
