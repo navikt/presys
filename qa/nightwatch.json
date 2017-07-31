@@ -33,11 +33,12 @@
     "jenkins": {
       "launch_url" : "https://app-t0.adeo.no/presys",
       "cli_args": {
-        "webdriver.gecko.driver": "/usr/local/bin/geckodriver",
         "webdriver.chrome.driver": "/usr/local/bin/chromedriver"
       },
       "desiredCapabilities": {
-        "browserName": "firefox"
+        "chromeOptions" : {
+          "args" : ["--headless", "--disable-gpu"]
+        }
       }
     }
   }

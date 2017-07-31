@@ -64,9 +64,7 @@ node {
                     sh "${npm} install chromedriver --chromedriver_filepath=/usr/local/chromedriver/chromedriver_linux64.zip"
                     sh "${npm} install"
 
-                    // firefox and chrome (when not in headless more) require a display,
-                    // and we are therefore using xvfb-run to spin up an ad-hoc Xvfb server
-                    sh "xvfb-run -e logs/xvfb-run.log ./node_modules/.bin/nightwatch --env jenkins"
+                    sh "./node_modules/.bin/nightwatch --env jenkins"
                 }
             }
         }
