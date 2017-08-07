@@ -14,9 +14,6 @@ node {
             checkout scm
         }
 
-        // Notifies the Stash Instance of an INPROGRESS build
-        step([$class: 'StashNotifier'])
-
         stage("initialize") {
             pom = readMavenPom file: 'pom.xml'
 
@@ -70,10 +67,8 @@ node {
         }
 
         currentBuild.result = 'SUCCESS'
-        step([$class: 'StashNotifier'])
     } catch (e) {
         currentBuild.result = 'FAILED'
-        step([$class: 'StashNotifier'])
         throw e
     }
 }

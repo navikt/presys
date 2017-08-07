@@ -1,6 +1,6 @@
 node {
-    def project = "teampesys"
-    def repoName = "dsf-web"
+    def project = "navikt"
+    def repoName = "presys"
     def application = "presys"
 
     /* environment mappings */
@@ -23,11 +23,8 @@ node {
 
     try {
         stage("checkout") {
-            git url: "ssh://git@stash.devillo.no:7999/${project}/${repoName}.git"
+            git url: "https://github.com/${project}/${repoName}.git"
         }
-
-        // Notifies the Stash Instance of an INPROGRESS build
-        step([$class: 'StashNotifier'])
 
         stage("initialize") {
             pom = readMavenPom file: 'pom.xml'
@@ -36,7 +33,7 @@ node {
             nextVersion = (releaseVersion.toInteger() + 1) + "-SNAPSHOT"
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-            commitUrl = "http://stash.devillo.no/projects/${project}/repos/${repoName}/commits/${commitHash}"
+            commitUrl = "https://github.com/${project}/${repoName}/commit/${commitHash}"
 
             /* gets the person who committed last as "Surname, First name (email@domain.tld) */
             committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
@@ -53,9 +50,15 @@ node {
         stage("release") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
             sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${committer}'"
-            sh "git push origin master"
+            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
+                }
+            }
 
-            sh "${mvn} clean deploy scm:tag -DskipTests -pl '!klient' -B -e"
+            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+                sh "${mvn} clean deploy scm:tag -DskipTests -pl '!klient' -B -e"
+            }
 
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
@@ -65,7 +68,11 @@ node {
         stage("new dev version") {
             sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
             sh "git commit -am 'Updated version after release by ${committer}'"
-            sh "git push origin master"
+            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
+                }
+            }
         }
 
         stage("deploy til cd-u1") {
@@ -148,10 +155,7 @@ node {
         }
 
         currentBuild.result = 'SUCCESS'
-        step([$class: 'StashNotifier'])
     } catch (e) {
-        currentBuild.result = 'FAILED'
-        step([$class: 'StashNotifier'])
 
         hipchatSend (
                 color: 'RED',
