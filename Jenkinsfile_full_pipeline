@@ -49,7 +49,7 @@ node {
 
         stage("release") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-            sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}, by ${committer}'"
+            sh "git commit -am 'Commit before creating tag ${application}-${releaseVersion}'"
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
                     sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
@@ -67,7 +67,7 @@ node {
 
         stage("new dev version") {
             sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
-            sh "git commit -am 'Updated version after release by ${committer}'"
+            sh "git commit -am 'Updated version after release'"
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
                     sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
@@ -188,7 +188,7 @@ def deployApp(app, version, environment, callback, reporter) {
                         customfield_14811: [id: environmentId[environment], value: environmentId[environment]],
                         customfield_14812: "${app}:${version}",
                         customfield_17410: callback,
-                        summary          : "Automatisk deploy på vegne av ${reporter}"
+                        summary          : "Automatisk deploy p? vegne av ${reporter}"
                 ]
         ]
 
