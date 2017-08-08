@@ -23,7 +23,10 @@ node {
 
     try {
         stage("checkout") {
-            git url: "https://github.com/${project}/${repoName}.git"
+            git([
+		url: "https://github.com/${project}/${repoName}.git",
+		poll: false
+	    ])
         }
 
         stage("initialize") {
