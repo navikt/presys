@@ -29,8 +29,8 @@ node {
             // rewrite XX-SNAPSHOT to XX.YY-SNAPSHOT, where YY is the commit sha
             releaseVersion = pom.version.tokenize("-")[0] + "." + commitHashShort + "-SNAPSHOT"
 
-            /* gets the person who committed last as "Surname, First name (email@domain.tld) */
-            committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
+            /* gets the person who committed last as "Surname, First name" */
+            committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
         }
 
         stage("build") {

@@ -13,7 +13,7 @@ node {
     ]
 
     /* metadata */
-    def commitHash, commitHashShort, commitUrl, committer, committerEmail, pom, currentVersion, releaseVersion
+    def commitHash, commitHashShort, commitUrl, committer, pom, currentVersion, releaseVersion
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
@@ -39,10 +39,8 @@ node {
             commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             commitUrl = "https://github.com/${project}/${repoName}/commit/${commitHash}"
 
-            /* gets the person who committed last as "Surname, First name (email@domain.tld) */
-            committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
-            /* ... same as above but only email */
-            committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
+            /* gets the person who committed last as "Surname, First name" */
+            committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
 
             notifyGithub("${project}", "${repoName}", "${commitHash}", 'pending', "Build #${env.BUILD_NUMBER} has started")
         }
