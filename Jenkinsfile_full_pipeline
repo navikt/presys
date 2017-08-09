@@ -212,7 +212,7 @@ def deployApp(app, version, environment, callback, reporter) {
                         customfield_14811: [id: environmentId[environment], value: environmentId[environment]],
                         customfield_14812: "${app}:${version}",
                         customfield_17410: callback,
-                        summary          : "Automatisk deploy p? vegne av ${reporter}"
+                        summary          : "Automatisk deploy på vegne av ${reporter}"
                 ]
         ]
 
