@@ -13,7 +13,7 @@ node {
     ]
 
     /* metadata */
-    def commitHash, commitUrl, committer, committerEmail, pom, currentVersion, releaseVersion
+    def commitHash, commitHashShort, commitUrl, committer, committerEmail, pom, currentVersion, releaseVersion
 
     def mvnHome = tool "maven-3.3.9"
     def mvn = "${mvnHome}/bin/mvn"
@@ -36,6 +36,7 @@ node {
             }
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+            commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             commitUrl = "https://github.com/${project}/${repoName}/commit/${commitHash}"
 
             /* gets the person who committed last as "Surname, First name (email@domain.tld) */
@@ -168,8 +169,17 @@ node {
 
         currentBuild.result = 'SUCCESS'
         notifyGithub("${project}", "${repoName}", "${commitHash}", 'success', "Build #${env.BUILD_NUMBER} has finished")
+        slackSend([
+            color: 'good',
+            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} passed"
+        ])
     } catch (e) {
         notifyGithub("${project}", "${repoName}", "${commitHash}", 'failure', "Build #${env.BUILD_NUMBER} has failed")
+
+        slackSend([
+            color: 'danger',
+            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} failed"
+        ])
 
         hipchatSend (
                 color: 'RED',
@@ -202,7 +212,7 @@ def deployApp(app, version, environment, callback, reporter) {
                         customfield_14811: [id: environmentId[environment], value: environmentId[environment]],
                         customfield_14812: "${app}:${version}",
                         customfield_17410: callback,
-                        summary          : "Automatisk deploy på vegne av ${reporter}"
+                        summary          : "Automatisk deploy p? vegne av ${reporter}"
                 ]
         ]
 
