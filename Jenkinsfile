@@ -1,4 +1,5 @@
 node {
+    def project = "navikt"
     def application = "presys"
 
     def mvnHome = tool "maven-3.3.9"
@@ -7,7 +8,7 @@ node {
     def node = "${nodeHome}/node"
     def npm = "${nodeHome}/npm"
 
-    def committer, releaseVersion
+    def commitHash, commitHashShort, commitUrl, committer, releaseVersion
 
     try {
         stage("checkout") {
@@ -21,10 +22,12 @@ node {
                 error("Expected a SNAPSHOT version")
             }
 
-            commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+            commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+            commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+            commitUrl = "https://github.com/${project}/${application}/commit/${commitHash}"
 
             // rewrite XX-SNAPSHOT to XX.YY-SNAPSHOT, where YY is the commit sha
-            releaseVersion = pom.version.tokenize("-")[0] + "." + commitHash + "-SNAPSHOT"
+            releaseVersion = pom.version.tokenize("-")[0] + "." + commitHashShort + "-SNAPSHOT"
 
             /* gets the person who committed last as "Surname, First name (email@domain.tld) */
             committer = sh(script: 'git log -1 --pretty=format:"%an (%ae)"', returnStdout: true).trim()
@@ -66,8 +69,18 @@ node {
             }
         }
 
+        slackSend([
+            color: 'good',
+            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${application}@${env.BRANCH_NAME} by ${committer} passed"
+        ])
+
         currentBuild.result = 'SUCCESS'
     } catch (e) {
+        slackSend([
+            color: 'danger',
+            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${application}@${env.BRANCH_NAME} by ${committer} failed"
+        ])
+
         currentBuild.result = 'FAILED'
         throw e
     }
