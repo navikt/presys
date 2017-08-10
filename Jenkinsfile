@@ -45,18 +45,16 @@ node {
             sh "${mvn} clean deploy -DskipTests -pl '!klient' -B -e"
         }
 
-        stage("deploy til t0") {
-            def callback = "${env.BUILD_URL}input/Deploy/"
-            def deploy = deployApp(application, releaseVersion, "t0", callback, committer)
-
-            println("Issue: https://jira.adeo.no/browse/" + deploy.key);
-
-            timeout(time: 15, unit: 'MINUTES') {
-                input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
-            }
-        }
-
         stage("integration tests") {
+            build([
+                job: 'presys-deploy-pipeline',
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: releaseVersion),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 't0')
+                ]
+            ])
+
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     // install manually using local distribution, as the chromedriver package will
@@ -83,39 +81,5 @@ node {
 
         currentBuild.result = 'FAILED'
         throw e
-    }
-}
-
-def deployApp(app, version, environment, callback, reporter) {
-    def environmentId = [
-            "t0": "16556",
-            "q1": "16825"
-    ]
-
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-        def postBody = [
-                fields: [
-                        project          : [key: 'DEPLOY'],
-                        issuetype        : [id: '10902'],
-                        customfield_14811: [id: environmentId[environment], value: environmentId[environment]],
-                        customfield_14812: "${app}:${version}",
-                        customfield_17410: callback,
-                        summary          : "Automatisk deploy på vegne av ${reporter}"
-                ]
-        ]
-
-        def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-        def base64encoded = "${env.USERNAME}:${env.PASSWORD}".bytes.encodeBase64().toString()
-
-        def response = httpRequest (
-                url: 'https://jira.adeo.no/rest/api/2/issue/',
-                customHeaders: [[name: "Authorization", value: "Basic ${base64encoded}"]],
-                consoleLogResponseBody: true,
-                contentType: 'APPLICATION_JSON',
-                httpMode: 'POST',
-                requestBody: postBodyString
-        )
-        def slurper = new groovy.json.JsonSlurperClassic()
-        return slurper.parseText(response.content);
     }
 }
