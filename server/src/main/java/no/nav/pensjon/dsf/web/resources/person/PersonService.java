@@ -33,30 +33,26 @@ public class PersonService {
     private ModelMapper modelMapper;
 
     public PersonDto hentPerson(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet person-objekt");
+        auditlog(fnr, "Hentet person-objekt");
         return modelMapper.map(repo.findPerson(fnr), PersonDto.class);
     }
 
     public List<InntektDto> hentInntekter(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet inntekter for person");
+        auditlog(fnr, "Hentet inntekter for person");
         return repo.findPerson(fnr).getInntekter().stream()
                 .map(inntekt -> modelMapper.map(inntekt, InntektDto.class))
                 .collect(Collectors.toList());
     }
 
     public List<EtteroppgjorAFPDto> hentEtteroppgjor(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet etteroppgjør for person");
+        auditlog(fnr, "Hentet etteroppgjør for person");
         return repo.findPerson(fnr).getEtteroppgjor().stream()
                 .map(etteroppgjorAFP -> modelMapper.map(etteroppgjorAFP, EtteroppgjorAFPDto.class))
                 .collect(Collectors.toList());
     }
 
     public List<TilberpoDto> hentTilberpo(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet tilhørigheter for person");
+        auditlog(fnr, "Hentet tilhørigheter for person");
         return repo.findPerson(fnr).getTilberpo().stream()
                 .map(tilberpo -> modelMapper.map(tilberpo, TilberpoDto.class))
                 .collect(Collectors.toList());
@@ -64,8 +60,7 @@ public class PersonService {
 
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
     public List<StatusDto> hentStatus(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet statuser for person");
+        auditlog(fnr, "Hentet statuser for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .map(status -> modelMapper.map(status, StatusDto.class))
                 .collect(Collectors.toList());
@@ -73,8 +68,7 @@ public class PersonService {
 
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
     public StatusDto hentSisteStatus(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet den siste statusen for person");
+        auditlog(fnr, "Hentet den siste statusen for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .filter(Status::erSiste)
                 .map(status -> modelMapper.map(status, StatusDto.class))
@@ -85,8 +79,7 @@ public class PersonService {
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
     public List<UforeHistorikkDto> hentUforehistorikk(String fnr) throws IOException {
         /* finn siste status og returner uførehistorikken knyttet til denne */
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet uførehistorikken for siste status for person");
+        auditlog(fnr, "Hentet uførehistorikken for siste status for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .filter(Status::erSiste)
                 .map(Status::getUforehistorikk)
@@ -96,8 +89,7 @@ public class PersonService {
     }
 
     public List<TranHistDto> hentTranhister(String fnr) throws IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        auditlog(userDetails.getUsername(), fnr, "Hentet tranhist-objekt for person");
+        auditlog(fnr, "Hentet tranhist-objekt for person");
         Function<TranHist, TranHistDto> mapper = tranhist ->{
             TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
             switch (tranhist.getGrunnblankettkode()){
@@ -122,11 +114,12 @@ public class PersonService {
     /**
      * Hjelpe-metode for å gjøre audit-logging
      *
-     * @param user NAV-ident som har aksessert person
      * @param target fodselsnummer til den som har blitt aksessert
      * @param grunn Grunnen til at (hvilke opplysninger om) personen har blitt aksessert.
      */
-    private void auditlog(String user, String target, String grunn) {
+    private void auditlog(String target, String grunn) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String user = userDetails.getUsername();
         MDC.put("user", user);
         MDC.put("target", target);
         LOG.info("Presys gjorde en aksess av (" + target + ") på oppdrag av <" + user + ">. Grunnen var (" + grunn + ")");
