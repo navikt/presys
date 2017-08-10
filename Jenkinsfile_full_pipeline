@@ -62,14 +62,16 @@ node {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
             sh "git add '*pom.xml'"
             sh "git commit -m 'Commit before creating tag ${application}-${releaseVersion}'"
+            sh "git tag -a '${application}-${releaseVersion}' -m '${application}-${releaseVersion}'"
+
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
+                    sh("git push --tags https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
                 }
             }
 
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                sh "${mvn} clean scm:tag deploy -DskipTests -pl '!klient' -B -e"
+                sh "${mvn} clean deploy -DskipTests -pl '!klient' -B -e"
             }
 
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -80,7 +82,7 @@ node {
         stage("new dev version") {
             sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
             sh "git add '*pom.xml'"
-            sh "git commit -m 'Updated version after release'"
+            sh "git commit -m 'Updated version to ${nextVersion} after release'"
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
                     sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
