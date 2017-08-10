@@ -3,15 +3,6 @@ node {
     def repoName = "presys"
     def application = "presys"
 
-    /* environment mappings */
-    def environmentUrlMap = [
-            "cd-u1": "https://e34jbsl01778.devillo.no:8443/presys",
-            "t0": "https://app-t0.adeo.no/presys",
-            "q0": "https://app-q0.adeo.no/presys",
-            "q1": "https://app-q1.adeo.no/presys",
-            "p": "https://app.adeo.no/presys"
-    ]
-
     /* metadata */
     def commitHash, commitHashShort, commitUrl, committer, pom, currentVersion, releaseVersion
 
@@ -90,33 +81,16 @@ node {
             }
         }
 
-        stage("deploy til cd-u1") {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "${mvn} aura:deploy -Dapps=${application}:${releaseVersion} -Denv=cd-u1 -Dusername=${USERNAME} -Dpassword=${PASSWORD}"
-            }
-        }
-
-        stage("deploy til t0") {
-            callback = "${env.BUILD_URL}input/Deploy/"
-
-            def deploy = deployApp(application, releaseVersion, "t0", callback, committer)
-
-            println("Issue: https://jira.adeo.no/browse/" + deploy.key);
-
-            timeout(time: 15, unit: 'MINUTES') {
-                input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
-            }
-
-            hipchatSend(
-                    color: 'GREEN',
-                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: " +
-                            "Deployet ${application}:${releaseVersion} til t0: ${environmentUrlMap['t0']}",
-                    textFormat: true,
-                    v2enabled: true
-            )
-        }
-
         stage("integration tests") {
+            build([
+                job: 'presys-deploy-pipeline',
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: releaseVersion),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 't0')
+                ]
+            ])
+
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     // install manually using local distribution, as the chromedriver package will
@@ -129,44 +103,24 @@ node {
             }
         }
 
-        stage("deploy til q1") {
-            callback = "${env.BUILD_URL}input/Deploy/"
+        stage("deploy") {
+            build([
+                job: 'presys-deploy-pipeline',
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: releaseVersion),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 'q1')
+                ]
+            ])
 
-            def deploy = deployApp(application, releaseVersion, "q1", callback, committer)
-
-            println("Issue: https://jira.adeo.no/browse/" + deploy.key);
-
-            timeout(time: 15, unit: 'MINUTES') {
-                input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
-            }
-
-            hipchatSend(
-                    color: 'GREEN',
-                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: " +
-                        "Deployet ${application}:${releaseVersion} til q1: ${environmentUrlMap['q1']}",
-                    textFormat: true,
-                    v2enabled: true
-            )
-        }
-
-        stage("deploy til q0") {
-            callback = "${env.BUILD_URL}input/Deploy/"
-
-            def deploy = deployApp(application, releaseVersion, "q0", callback, committer)
-
-            println("Issue: https://jira.adeo.no/browse/" + deploy.key);
-
-            timeout(time: 15, unit: 'MINUTES') {
-                input id: 'deploy', message: "deployer ${deploy.key}, deploy OK?"
-            }
-
-            hipchatSend(
-                    color: 'GREEN',
-                    message: "${env.JOB_NAME} #${env.BUILD_NUMBER}: " +
-                            "Deployet ${application}:${releaseVersion} til q0: ${environmentUrlMap['q1']}",
-                    textFormat: true,
-                    v2enabled: true
-            )
+            build([
+                job: 'presys-deploy-pipeline',
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: releaseVersion),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 'q0')
+                ]
+            ])
         }
 
         currentBuild.result = 'SUCCESS'
@@ -183,61 +137,14 @@ node {
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} failed"
         ])
 
-        hipchatSend (
-                color: 'RED',
-                message: "${env.JOB_NAME} #${env.BUILD_NUMBER} failed:(\n" +
-                        "Feilmelding: "  + e.getMessage() + "\n\n" +
-                        "Bygg URL: ${env.BUILD_URL}\n" +
-                        "Committer: ${committer}\n" +
-                        "Commit URL: ${commitUrl}" ,
-                textFormat: true,
-                notify: true,
-                v2enabled: true
-        )
         throw e
-    }
-}
-
-def deployApp(app, version, environment, callback, reporter) {
-    def environmentId = [
-            "t0": "16556",
-            "q0": "16824",
-            "q1": "16825",
-            "p": "17658"
-    ]
-
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-        def postBody = [
-                fields: [
-                        project          : [key: 'DEPLOY'],
-                        issuetype        : [id: '10902'],
-                        customfield_14811: [id: environmentId[environment], value: environmentId[environment]],
-                        customfield_14812: "${app}:${version}",
-                        customfield_17410: callback,
-                        summary          : "Automatisk deploy på vegne av ${reporter}"
-                ]
-        ]
-
-        def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-        def base64encoded = "${env.USERNAME}:${env.PASSWORD}".bytes.encodeBase64().toString()
-
-        def response = httpRequest (
-                url: 'https://jira.adeo.no/rest/api/2/issue/',
-                customHeaders: [[name: "Authorization", value: "Basic ${base64encoded}"]],
-                consoleLogResponseBody: true,
-                contentType: 'APPLICATION_JSON',
-                httpMode: 'POST',
-                requestBody: postBodyString
-        )
-        def slurper = new groovy.json.JsonSlurperClassic()
-        return slurper.parseText(response.content);
     }
 }
 
 def notifyGithub(owner, repo, sha, state, description) {
     def postBody = [
         state: "${state}",
-        context: 'ci/jenkins',
+        context: 'continuous-integration/jenkins',
         description: "${description}",
         target_url: "${env.BUILD_URL}"
     ]
