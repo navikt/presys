@@ -117,7 +117,7 @@ public class PersonService {
      * @param target fodselsnummer til den som har blitt aksessert
      * @param grunn Grunnen til at (hvilke opplysninger om) personen har blitt aksessert.
      */
-    private void auditlog(String target, String grunn) {
+    private static void auditlog(String target, String grunn) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String user = userDetails.getUsername();
         MDC.put("user", user);
