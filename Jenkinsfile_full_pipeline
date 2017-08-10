@@ -144,7 +144,7 @@ node {
 def notifyGithub(owner, repo, sha, state, description) {
     def postBody = [
         state: "${state}",
-        context: 'ci/jenkins',
+        context: 'continuous-integration/jenkins',
         description: "${description}",
         target_url: "${env.BUILD_URL}"
     ]
