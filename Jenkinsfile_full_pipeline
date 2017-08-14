@@ -121,6 +121,15 @@ node {
                     string(name: 'DEPLOY_ENV', value: 'q0')
                 ]
             ])
+
+            build([
+                job: 'presys-deploy-pipeline',
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: releaseVersion),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 'p')
+                ]
+            ])
         }
 
         currentBuild.result = 'SUCCESS'
