@@ -68,12 +68,11 @@ node {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
             }
-        }
 
-        stage("new dev version") {
             sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
             sh "git add '*pom.xml'"
             sh "git commit -m 'Updated version to ${nextVersion} after release'"
+
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
                     sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
