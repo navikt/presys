@@ -40,8 +40,9 @@ node {
         }
 
         stage("sonar analysis") {
+            def scannerHome = tool 'sonarqube-scanner';
             withSonarQubeEnv('Presys Sonar') {
-                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+                sh "${scannerHome}/bin/sonar-scanner"
             }
         }
 
