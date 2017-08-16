@@ -39,6 +39,12 @@ node {
             }
         }
 
+        stage("sonar analysis") {
+            withSonarQubeEnv('Presys Sonar') {
+                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+            }
+        }
+
         stage("release snapshot") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
