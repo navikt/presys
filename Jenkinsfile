@@ -1,6 +1,4 @@
 node {
-    echo sh(returnStdout: true, script: 'env')
-
     def project = "navikt"
     def application = "presys"
 
@@ -47,16 +45,35 @@ node {
             // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
             // so we don't have to set them as cli args to sonar-scanner
             withSonarQubeEnv('Presys Sonar') {
-                // NOTE: we are only specifying "metrics" and "server", because the other
-                // modules does not contain any Java code ("klient" and "appconfig")
-                sh "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=no.nav.pensjon.presys:persys \
-                    -Dsonar.projectName=Presys \
-                    -Dsonar.projectVersion=${pom.version} \
-                    -Dsonar.sources=src \
-                    -Dsonar.modules=metrics,server \
-                    -Dsonar.links.scm=https://github.com/${project}/${application}.git \
-                    -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git"
+                // when using "GitHub Branch Source" plugin with pull request support,
+                // the PR number is available in the CHANGE_ID environment variable
+                if (env.CHANGE_ID) {
+                    withCredentials([string(credentialsId: 'navikt-jenkins-sonarqube', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=no.nav.pensjon.presys:persys \
+                            -Dsonar.projectName=Presys \
+                            -Dsonar.projectVersion=${pom.version} \
+                            -Dsonar.sources=src \
+                            -Dsonar.modules=appconfig,klient,metrics,server \
+                            -Dsonar.links.scm=https://github.com/${project}/${application}.git \
+                            -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git \
+                            -Dsonar.analysis.mode=preview \
+                            -Dsonar.github.pullRequest=${env.CHANGE_ID} \
+                            -Dsonar.github.repository=${project}/${application} \
+                            -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}"
+                    }
+                } else {
+                    // NOTE: we are only specifying "metrics" and "server", because the other
+                    // modules does not contain any Java code ("klient" and "appconfig")
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=no.nav.pensjon.presys:persys \
+                        -Dsonar.projectName=Presys \
+                        -Dsonar.projectVersion=${pom.version} \
+                        -Dsonar.sources=src \
+                        -Dsonar.modules=metrics,server \
+                        -Dsonar.links.scm=https://github.com/${project}/${application}.git \
+                        -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git"
+                }
             }
         }
 
