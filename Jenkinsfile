@@ -39,6 +39,37 @@ node {
             }
         }
 
+        stage("sonar analysis") {
+            // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
+            // the PR number is available in the CHANGE_ID environment variable.
+            // because the same Jenkinsfile is used for both PR builds and branch builds,
+            // we have to check for the existence of CHANGE_ID
+            if (env.CHANGE_ID) {
+                def scannerHome = tool 'sonarqube-scanner';
+
+                // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
+                // so we don't have to set them as cli args to sonar-scanner
+                withSonarQubeEnv('Presys Sonar') {
+                    withCredentials([string(credentialsId: 'navikt-jenkins-sonarqube', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                        withEnv(['SONAR_SCANNER_OPTS=-Dhttps.proxyHost=webproxy-utvikler.nav.no -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=adeo.no']) {
+                            sh "${scannerHome}/bin/sonar-scanner \
+                                -Dsonar.projectKey=no.nav.pensjon.presys:persys \
+                                -Dsonar.projectName=Presys \
+                                -Dsonar.projectVersion=${pom.version} \
+                                -Dsonar.sources=src \
+                                -Dsonar.modules=appconfig,klient,metrics,server \
+                                -Dsonar.links.scm=https://github.com/${project}/${application}.git \
+                                -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git \
+                                -Dsonar.analysis.mode=preview \
+                                -Dsonar.github.pullRequest=${env.CHANGE_ID} \
+                                -Dsonar.github.repository=${project}/${application} \
+                                -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}"
+                        }
+                    }
+                }
+            }
+        }
+
         stage("release snapshot") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
