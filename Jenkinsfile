@@ -1,4 +1,6 @@
 node {
+    echo sh(returnStdout: true, script: 'env')
+
     def project = "navikt"
     def application = "presys"
 
