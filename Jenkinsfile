@@ -49,18 +49,20 @@ node {
                 // the PR number is available in the CHANGE_ID environment variable
                 if (env.CHANGE_ID) {
                     withCredentials([string(credentialsId: 'navikt-jenkins-sonarqube', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=no.nav.pensjon.presys:persys \
-                            -Dsonar.projectName=Presys \
-                            -Dsonar.projectVersion=${pom.version} \
-                            -Dsonar.sources=src \
-                            -Dsonar.modules=appconfig,klient,metrics,server \
-                            -Dsonar.links.scm=https://github.com/${project}/${application}.git \
-                            -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git \
-                            -Dsonar.analysis.mode=preview \
-                            -Dsonar.github.pullRequest=${env.CHANGE_ID} \
-                            -Dsonar.github.repository=${project}/${application} \
-                            -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}"
+                        withEnv(['SONAR_SCANNER_OPTS=-Dhttps.proxyHost=webproxy-utvikler.nav.no -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=adeo.no']) {
+                            sh "${scannerHome}/bin/sonar-scanner \
+                                -Dsonar.projectKey=no.nav.pensjon.presys:persys \
+                                -Dsonar.projectName=Presys \
+                                -Dsonar.projectVersion=${pom.version} \
+                                -Dsonar.sources=src \
+                                -Dsonar.modules=appconfig,klient,metrics,server \
+                                -Dsonar.links.scm=https://github.com/${project}/${application}.git \
+                                -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git \
+                                -Dsonar.analysis.mode=preview \
+                                -Dsonar.github.pullRequest=${env.CHANGE_ID} \
+                                -Dsonar.github.repository=${project}/${application} \
+                                -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}"
+                        }
                     }
                 } else {
                     // NOTE: we are only specifying "metrics" and "server", because the other
