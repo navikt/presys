@@ -50,7 +50,7 @@ node {
                 // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
                 // so we don't have to set them as cli args to sonar-scanner
                 withSonarQubeEnv('Presys Sonar') {
-                    withCredentials([string(credentialsId: 'navikt-jenkins-sonarqube', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
                         withEnv(['SONAR_SCANNER_OPTS=-Dhttps.proxyHost=webproxy-utvikler.nav.no -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=adeo.no']) {
                             sh "${scannerHome}/bin/sonar-scanner \
                                 -Dsonar.projectKey=no.nav.pensjon.presys:persys \
