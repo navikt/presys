@@ -60,6 +60,7 @@ node {
                     -Dsonar.projectName=Presys \
                     -Dsonar.projectVersion=${pom.version} \
                     -Dsonar.sources=src \
+                    -Dsonar.java.binaries=target \
                     -Dsonar.modules=appconfig,klient,metrics,server \
                     -Dsonar.links.scm=https://github.com/${project}/${repoName}.git \
                     -Dsonar.links.scm_dev=https://github.com/${project}/${repoName}.git"
