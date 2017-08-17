@@ -41,8 +41,20 @@ node {
 
         stage("sonar analysis") {
             def scannerHome = tool 'sonarqube-scanner';
+
+            // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
+            // so we don't have to set them as cli args to sonar-scanner
             withSonarQubeEnv('Presys Sonar') {
-                sh "${scannerHome}/bin/sonar-scanner"
+                // NOTE: we are only specifying "metrics" and "server", because the other
+                // modules does not contain any Java code ("klient" and "appconfig")
+                sh "${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=no.nav.pensjon.presys:persys \
+                    -Dsonar.projectName=Presys \
+                    -Dsonar.projectVersion=${pom.version} \
+                    -Dsonar.sources=src \
+                    -Dsonar.modules=metrics,server \
+                    -Dsonar.links.scm=https://github.com/${project}/${application}.git \
+                    -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git"
             }
         }
 
