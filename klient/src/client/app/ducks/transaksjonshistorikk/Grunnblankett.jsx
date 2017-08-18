@@ -11,7 +11,7 @@ const Grunnblankett = ({ type, ...rest }) => {
     default: return (<Row>
       <Column size={6}>
         <table className={styles.infotable}><tbody>
-          {Object.keys(rest)/* .filter(key => rest[key]) */.map(key => <tr><td>{key}</td><td>{rest[key]}</td></tr>)}
+          {Object.keys(rest).map(key => <tr><td>{key}</td><td>{rest[key]}</td></tr>)}
         </tbody></table>
       </Column>
     </Row>);
