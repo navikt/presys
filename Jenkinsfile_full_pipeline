@@ -56,11 +56,13 @@ node {
             // so we don't have to set them as cli args to sonar-scanner
             withSonarQubeEnv('Presys Sonar') {
                 sh "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=no.nav.pensjon.presys:persys \
+                    -Dsonar.projectKey=no.nav.pensjon.presys:presys \
                     -Dsonar.projectName=Presys \
                     -Dsonar.projectVersion=${pom.version} \
                     -Dsonar.sources=src \
-                    -Dsonar.java.binaries=target \
+                    -Dsonar.sourceEncoding=UTF-8 \
+                    -Dsonar.java.binaries=target/classes \
+                    -Dsonar.java.test.binaries=target/test-classes \
                     -Dsonar.modules=appconfig,klient,metrics,server \
                     -Dsonar.links.scm=https://github.com/${project}/${repoName}.git \
                     -Dsonar.links.scm_dev=https://github.com/${project}/${repoName}.git"
@@ -74,8 +76,8 @@ node {
             sh "git tag -a '${application}-${releaseVersion}' -m '${application}-${releaseVersion}'"
 
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                    sh("git push --tags https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
+                withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                    sh("git push --tags https://navikt-jenkins:${GITHUB_OAUTH_TOKEN}@github.com/navikt/presys.git master")
                 }
             }
 
@@ -92,8 +94,8 @@ node {
             sh "git commit -m 'Updated version to ${nextVersion} after release'"
 
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'navikt-jenkins-github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-                    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/navikt/presys.git master")
+                withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                    sh("git push https://navikt-jenkins:${GITHUB_OAUTH_TOKEN}@github.com/navikt/presys.git master")
                 }
             }
         }
