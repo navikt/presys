@@ -27,7 +27,7 @@ public class StatusDto {
 
     private int dodsddato;
     private String dodAvYrkesskade;
-    private String vilkar8_4_3a;
+    private String vilkar843A;
 
     private int trygdetidGaranti;
 
@@ -37,9 +37,17 @@ public class StatusDto {
     private String poengtilleggsKode;
     private String pensjonsrettFoer91;
 
-    private int trygdetid16_66;
+    private int trygdetid1666;
     private String garantertTilleggsPensjonKode;
     private String gammelSammenstotsRegel;
+
+    private String ektefelleInntektOver2g;
+    private String pensjonFoer9802;
+    private String redGrunnPensjon321;
+
+    private String grunnPensjonReduksjonsKode;
+
+    private int friinntektDato;
 
     public int getVirkDato() {
         return virkDato;
@@ -177,12 +185,12 @@ public class StatusDto {
         this.dodAvYrkesskade = dodAvYrkesskade;
     }
 
-    public String getVilkar8_4_3a() {
-        return vilkar8_4_3a;
+    public String getVilkar843A() {
+        return vilkar843A;
     }
 
-    public void setVilkar8_4_3a(String vilkar8_4_3a) {
-        this.vilkar8_4_3a = vilkar8_4_3a;
+    public void setVilkar843A(String vilkar843A) {
+        this.vilkar843A = vilkar843A;
     }
 
     public int getTrygdetidGaranti() {
@@ -225,12 +233,12 @@ public class StatusDto {
         this.pensjonsrettFoer91 = pensjonsrettFoer91;
     }
 
-    public int getTrygdetid16_66() {
-        return trygdetid16_66;
+    public int getTrygdetid1666() {
+        return trygdetid1666;
     }
 
-    public void setTrygdetid16_66(int trygdetid16_66) {
-        this.trygdetid16_66 = trygdetid16_66;
+    public void setTrygdetid1666(int trygdetid1666) {
+        this.trygdetid1666 = trygdetid1666;
     }
 
     public String getGarantertTilleggsPensjonKode() {
@@ -265,12 +273,12 @@ public class StatusDto {
         this.pensjonFoer9802 = pensjonFoer9802;
     }
 
-    public String getRed_grunnPensjon_3_2_1() {
-        return red_grunnPensjon_3_2_1;
+    public String getRedGrunnPensjon321() {
+        return redGrunnPensjon321;
     }
 
-    public void setRed_grunnPensjon_3_2_1(String red_grunnPensjon_3_2_1) {
-        this.red_grunnPensjon_3_2_1 = red_grunnPensjon_3_2_1;
+    public void setRedGrunnPensjon321(String redGrunnPensjon321) {
+        this.redGrunnPensjon321 = redGrunnPensjon321;
     }
 
     public String getGrunnPensjonReduksjonsKode() {
@@ -288,12 +296,4 @@ public class StatusDto {
     public void setFriinntektDato(int friinntektDato) {
         this.friinntektDato = friinntektDato;
     }
-
-    private String ektefelleInntektOver2g;
-    private String pensjonFoer9802;
-    private String red_grunnPensjon_3_2_1;
-
-    private String grunnPensjonReduksjonsKode;
-
-    private int friinntektDato;
 }

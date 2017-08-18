@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,11 +25,15 @@ public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
 
-    @Inject
     private PersonRepository repo;
 
-    @Autowired
     private ModelMapper modelMapper;
+
+    @Inject
+    public PersonService(PersonRepository repository, ModelMapper mapper) {
+        repo = repository;
+        modelMapper = mapper;
+    }
 
     public PersonDto hentPerson(String fnr) throws IOException {
         auditlog(fnr, "Hentet person-objekt");
@@ -92,15 +95,14 @@ public class PersonService {
         auditlog(fnr, "Hentet tranhist-objekt for person");
         Function<TranHist, TranHistDto> mapper = tranhist ->{
             TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
-            switch (tranhist.getGrunnblankettkode()){
-                case "F7":
-                    GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
-                    PersonDto ektefelle = new PersonDto();
-                    ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
-                    ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
-                    ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
-                    grunnblankett.setEktefelle(ektefelle);
-                    dto.setGrunnblankett(grunnblankett);
+            if ("F7".equals(tranhist.getGrunnblankettkode())) {
+                GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
+                PersonDto ektefelle = new PersonDto();
+                ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
+                ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
+                ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
+                grunnblankett.setEktefelle(ektefelle);
+                dto.setGrunnblankett(grunnblankett);
             }
             return dto;
         };

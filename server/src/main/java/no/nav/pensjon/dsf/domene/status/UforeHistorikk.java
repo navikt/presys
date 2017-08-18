@@ -33,10 +33,10 @@ public class UforeHistorikk {
 
     @Felt(name="opphørsdato_md", length = 5, start = 13)
     @PackedDecimal
-    private int opphørsdatoMaaned;
+    private int opphorsdatoMaaned;
 
     @Felt(name="opphørs_kode", length = 1, start = 18)
-    private String opphørsKode;
+    private String opphorsKode;
 
     @Felt(name="redusert_ant_bup_r", length = 2, start = 19)
     @PackedDecimal
@@ -49,6 +49,9 @@ public class UforeHistorikk {
     @Felt(name="virk_uførhist_åmd", length = 5, start = 24)
     @PackedDecimal
     private int virkningsdatoUfrHistorie;
+
+    @SubSegment
+    private List<Uforegrad> uforegrader = new ArrayList<>();
 
     public int getUftMaaned() {
         return uftMaaned;
@@ -90,20 +93,20 @@ public class UforeHistorikk {
         this.bupGarantiKode = bupGarantiKode;
     }
 
-    public int getOpphørsdatoMaaned() {
-        return opphørsdatoMaaned;
+    public int getOpphorsdatoMaaned() {
+        return opphorsdatoMaaned;
     }
 
-    public void setOpphørsdatoMaaned(int opphørsdatoMaaned) {
-        this.opphørsdatoMaaned = opphørsdatoMaaned;
+    public void setOpphorsdatoMaaned(int opphorsdatoMaaned) {
+        this.opphorsdatoMaaned = opphorsdatoMaaned;
     }
 
-    public String getOpphørsKode() {
-        return opphørsKode;
+    public String getOpphorsKode() {
+        return opphorsKode;
     }
 
-    public void setOpphørsKode(String opphørsKode) {
-        this.opphørsKode = opphørsKode;
+    public void setOpphorsKode(String opphorsKode) {
+        this.opphorsKode = opphorsKode;
     }
 
     public int getRedusertAntallBupAar() {
@@ -133,9 +136,6 @@ public class UforeHistorikk {
     public void setUforegrader(List<Uforegrad> uforegrader) {
         this.uforegrader = uforegrader;
     }
-
-    @SubSegment
-    private List<Uforegrad> uforegrader = new ArrayList<>();
 
     public List<Uforegrad> getUforegrader() {
         return uforegrader;

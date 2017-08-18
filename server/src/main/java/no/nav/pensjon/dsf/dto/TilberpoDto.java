@@ -10,6 +10,16 @@ public class TilberpoDto {
 
     private int vernepliktaar4;
 
+    private int ai63;
+
+    private int ai64;
+
+    private int ai65;
+
+    private int ai66;
+
+    private int pi66;
+
     public int getVernepliktaar1() {
         return vernepliktaar1;
     }
@@ -81,14 +91,4 @@ public class TilberpoDto {
     public void setPi66(int pi66) {
         this.pi66 = pi66;
     }
-
-    private int ai63;
-
-    private int ai64;
-
-    private int ai65;
-
-    private int ai66;
-
-    private int pi66;
 }
