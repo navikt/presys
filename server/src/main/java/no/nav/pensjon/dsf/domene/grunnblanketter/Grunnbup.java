@@ -136,8 +136,8 @@ public class Grunnbup {
     @Felt(name="ikke_gp", length = 1, start = 103)
     private String ikkeGrunnpensjon;
 
-    @Felt(name="inntektMinst4g", length = 1, start = 104)
-    private String inntektMinst4g;
+    @Felt(name="inntektMinst4G", length = 1, start = 104)
+    private String inntektMinst4G;
 
     @Felt(name="att_uf", length = 1, start = 105)
     private String attforingUfore;
@@ -430,12 +430,12 @@ public class Grunnbup {
         this.ikkeGrunnpensjon = ikkeGrunnpensjon;
     }
 
-    public String getInntektMinst4g() {
-        return inntektMinst4g;
+    public String getInntektMinst4G() {
+        return inntektMinst4G;
     }
 
-    public void setInntektMinst4g(String inntektMinst4g) {
-        this.inntektMinst4g = inntektMinst4g;
+    public void setInntektMinst4G(String inntektMinst4G) {
+        this.inntektMinst4G = inntektMinst4G;
     }
 
     public String getAttforingUfore() {
