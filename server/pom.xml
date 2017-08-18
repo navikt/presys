@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>46-SNAPSHOT</version>
+		<version>46</version>
 	</parent>
 
 	<properties>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>presys-metrics</artifactId>
-			<version>46-SNAPSHOT</version>
+			<version>46</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
