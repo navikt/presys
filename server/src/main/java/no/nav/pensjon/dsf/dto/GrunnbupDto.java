@@ -1,154 +1,46 @@
-package no.nav.pensjon.dsf.domene.grunnblanketter;
+package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+public class GrunnbupDto extends GrunnblankettDto {
 
-@Segment(name = "GRUNNBUP", length = 118)
-@UnmappedField(name="primdiag", length = 6, start = 12)//primærdiagnose
-@UnmappedField(name="sekudiag", length = 6, start = 18)//sekundærdiagnose
-@UnmappedField(name = "filler", length = 7, start = 111)
-public class Grunnbup {
-
-    @Felt(name="Ektefelle_till", length = 1, start = 0)
     private String ektefelletillegg;
-
-    @Felt(name="bt_ant", length = 2, start = 1)
-    @PackedDecimal
     private int anntallBarn;
-
-    @Felt(name="ufg", length = 2, start = 3)
-    @PackedDecimal
     private int uforegrad;
-
-    @Felt(name="uft", length = 5, start = 5)
-    @PackedDecimal
     private int uforetidspunkt;
-
-    @Felt(name="yrke", length = 2, start = 10)
-    @PackedDecimal
     private int yrke;
-    // unmapped 12 - 23
-    @Felt(name="vilkaar_8_4_3A", length = 1, start = 24)
     private String vilkaar843A;
-
-    @Felt(name="vilkaar_8_1b", length = 1, start = 25)
     private String vilkaar81B;
-
-    @Felt(name="fnr_ek", length = 6, start = 26)
-    @PackedDecimal
     private int fodselsnummerEktefelle;
-
-    @Felt(name="navn_ek", length = 25, start = 32)
     private String navnEktefelle;
-
-    @Felt(name="nbosatt", length = 1, start = 57)
     private String norskINorgeMedlem;
-
-    @Felt(name="vernepliktr1", length = 3, start = 58)
-    @PackedDecimal
     private int vernepliktAar1;
-
-    @Felt(name="vernepliktr2", length = 3, start = 61)
-    @PackedDecimal
     private int vernepliktAar2;
-
-    @Felt(name="vernepliktr3", length = 3, start = 64)
-    @PackedDecimal
     private int vernepliktAar3;
-
-    @Felt(name="vernepliktr4", length = 3, start = 67)
-    @PackedDecimal
     private int vernepliktAar4;
-
-    @Felt(name="pi", length = 4, start = 70)
-    @PackedDecimal
     private int pensjonsgivendeInntekt;
-
-    @Felt(name="statsborger", length = 2, start = 74)
-    @PackedDecimal
     private int statsborgerskap;
-
-    @Felt(name="bosatt", length = 2, start = 76)
-    @PackedDecimal
     private int bosattLand;
-
-    @Felt(name="fravik_bosatt", length = 1, start = 78)
     private String fravikBosatt;
-
-    @Felt(name="trygd3", length = 1, start = 79)
     private String trygd3;
-
-    @Felt(name="fravik_trygdet_3aar", length = 1, start = 80)
     private String fravikTrygdet3Aar;
-
-    @Felt(name="fravik_8_1", length = 1, start = 81)
     private String fravik81;
-
-    @Felt(name="konvensjon", length = 1, start = 82)
     private String konvensjon;
-
-    @Felt(name="fravik_19_3", length = 1, start = 83)
     private String fravik193;
-
-    @Felt(name="fravik_flyktn", length = 1, start = 84)
     private String fravikFlyktning;
-
-    @Felt(name="overkompUtl", length = 1, start = 85)
     private String overkompUtl;
-
-    @Felt(name="ufor_under_botid", length = 1, start = 86)
     private String uforUnderBotid;
-
-    @Felt(name="tt_for_1967", length = 2, start = 87)
-    @PackedDecimal
     private int trygdetidFor1967;
-
-    @Felt(name="tt_etter_1966_aar", length = 2, start = 89)
-    @PackedDecimal
     private int trygdetidEtter1966Aar;
-
-    @Felt(name="tt_etter_1966_mm", length = 2, start = 91)
-    @PackedDecimal
     private int trygdetidEtter1966Maaneder;
-
-    @Felt(name="trygdetid_for_1967_ek", length = 2, start = 93)
-    @PackedDecimal
     private int trygdetidFor1967Ektefelle;
-
-    @Felt(name="tt_etter_1966_ek_aar", length = 2, start = 95)
-    @PackedDecimal
     private int trygdetidEtter1966AarEktefelle;
-
-    @Felt(name="tt_etter_1966_ek_mm", length = 2, start = 97)
-    @PackedDecimal
     private int trygdetidEtter1966MaanederEktefelle;
-
-    @Felt(name="ttfmt81", length = 2, start = 99)
-    @PackedDecimal
     private int ttfmt81;
-
-    @Felt(name="ttFramtUft", length = 2, start = 101)
-    @PackedDecimal
     private int ttFramtUft;
-
-    @Felt(name="ikke_gp", length = 1, start = 103)
     private String ikkeGrunnpensjon;
-
-    @Felt(name="inntektMinst4G", length = 1, start = 104)
     private String inntektMinst4G;
-
-    @Felt(name="att_uf", length = 1, start = 105)
     private String attforingUfore;
-
-    @Felt(name="yskade_tillegg", length = 1, start = 106)
     private String yrkesskadetillegg;
-
-    @Felt(name="inntekt_for_up", length = 4, start = 107)
-    @PackedDecimal
     private int inntektForUforepensjon;
-
 
     public String getEktefelletillegg() {
         return ektefelletillegg;

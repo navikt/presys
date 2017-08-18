@@ -59,6 +59,9 @@ public class TranHist {
     private List<OPPHBL1> opphbl1er = new ArrayList<>();
 
     @SubSegment
+    private List<OPPHBL2> opphbl2er = new ArrayList<>();
+
+    @SubSegment
     private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
 
     @SubSegment
@@ -175,6 +178,10 @@ public class TranHist {
 
     public List<OPPHBL1> getOpphbl1er() {
         return opphbl1er;
+    }
+
+    public List<OPPHBL2> getOpphbl2er() {
+        return opphbl2er;
     }
 
     public List<GRUNNBE3> getGrunnbe3er() {

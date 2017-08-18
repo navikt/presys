@@ -95,14 +95,25 @@ public class PersonService {
         auditlog(fnr, "Hentet tranhist-objekt for person");
         Function<TranHist, TranHistDto> mapper = tranhist ->{
             TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
-            if ("F7".equals(tranhist.getGrunnblankettkode())) {
-                GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
-                PersonDto ektefelle = new PersonDto();
-                ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
-                ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
-                ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
-                grunnblankett.setEktefelle(ektefelle);
-                dto.setGrunnblankett(grunnblankett);
+            switch (tranhist.getGrunnblankettkode()){
+                case "F7":
+                    GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
+                    PersonDto ektefelle = new PersonDto();
+                    ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
+                    ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
+                    ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
+                    grunnblankett.setEktefelle(ektefelle);
+                    dto.setGrunnblankett(grunnblankett);
+                    break;
+                case "UP":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbuper().get(0), GrunnbupDto.class));
+                    break;
+                case "O1":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getOpphbl1er().get(0), Opphorsblankett1Dto.class));
+                    break;
+                case "O2":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getOpphbl2er().get(0), Opphorsblankett2Dto.class));
+                    break;
             }
             return dto;
         };
