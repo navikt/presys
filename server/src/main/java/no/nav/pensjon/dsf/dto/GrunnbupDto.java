@@ -3,44 +3,44 @@ package no.nav.pensjon.dsf.dto;
 public class GrunnbupDto extends GrunnblankettDto {
 
     private String ektefelletillegg;
-    private int anntall_barn;
+    private int anntallBarn;
     private int uforegrad;
     private int uforetidspunkt;
     private int yrke;
-    private String vilkaar_8_4_3a;
-    private String vilkaar_8_1b;
-    private int fodselsnummer_ektefelle;
-    private String navn_ektefelle;
-    private String norsk_i_norge_medlem;
-    private int verneplikt_aar1;
-    private int verneplikt_aar2;
-    private int verneplikt_aar3;
-    private int verneplikt_aar4;
-    private int pensjonsgivende_inntekt;
+    private String vilkaar843A;
+    private String vilkaar81B;
+    private int fodselsnummerEktefelle;
+    private String navnEktefelle;
+    private String norskINorgeMedlem;
+    private int vernepliktAar1;
+    private int vernepliktAar2;
+    private int vernepliktAar3;
+    private int vernepliktAar4;
+    private int pensjonsgivendeInntekt;
     private int statsborgerskap;
-    private int bosatt_land;
-    private String fravik_bosatt;
+    private int bosattLand;
+    private String fravikBosatt;
     private String trygd3;
-    private String fravik_trygdet_3aar;
-    private String fravik_8_1;
+    private String fravikTrygdet3Aar;
+    private String fravik81;
     private String konvensjon;
-    private String fravik_19_3;
-    private String fravik_flyktning;
-    private String overkomp_utl;
-    private String ufor_under_botid;
-    private int trygdetid_for_1967;
-    private int trygdetid_etter_1966_aar;
-    private int trygdetid_etter_1966_maaneder;
-    private int trygdetid_for_1967_ektefelle;
-    private int trygdetid_etter_1966_aar_ektefelle;
-    private int trygdetid_etter_1966_maaneder_ektefelle;
+    private String fravik193;
+    private String fravikFlyktning;
+    private String overkompUtl;
+    private String uforUnderBotid;
+    private int trygdetidFor1967;
+    private int trygdetidEtter1966Aar;
+    private int trygdetidEtter1966Maaneder;
+    private int trygdetidFor1967Ektefelle;
+    private int trygdetidEtter1966AarEktefelle;
+    private int trygdetidEtter1966MaanederEktefelle;
     private int ttfmt81;
-    private int tt_framt_uft;
-    private String ikke_grunnpensjon;
-    private String innt_minst_4g;
-    private String attforing_ufore;
+    private int ttFramtUft;
+    private String ikkeGrunnpensjon;
+    private String inntektMinst4G;
+    private String attforingUfore;
     private String yrkesskadetillegg;
-    private int inntekt_for_uforepensjon;
+    private int inntektForUforepensjon;
 
     public String getEktefelletillegg() {
         return ektefelletillegg;
@@ -50,12 +50,12 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.ektefelletillegg = ektefelletillegg;
     }
 
-    public int getAnntall_barn() {
-        return anntall_barn;
+    public int getAnntallBarn() {
+        return anntallBarn;
     }
 
-    public void setAnntall_barn(int anntall_barn) {
-        this.anntall_barn = anntall_barn;
+    public void setAnntallBarn(int anntallBarn) {
+        this.anntallBarn = anntallBarn;
     }
 
     public int getUforegrad() {
@@ -82,84 +82,84 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.yrke = yrke;
     }
 
-    public String getVilkaar_8_4_3a() {
-        return vilkaar_8_4_3a;
+    public String getVilkaar843A() {
+        return vilkaar843A;
     }
 
-    public void setVilkaar_8_4_3a(String vilkaar_8_4_3a) {
-        this.vilkaar_8_4_3a = vilkaar_8_4_3a;
+    public void setVilkaar843A(String vilkaar843A) {
+        this.vilkaar843A = vilkaar843A;
     }
 
-    public String getVilkaar_8_1b() {
-        return vilkaar_8_1b;
+    public String getVilkaar81B() {
+        return vilkaar81B;
     }
 
-    public void setVilkaar_8_1b(String vilkaar_8_1b) {
-        this.vilkaar_8_1b = vilkaar_8_1b;
+    public void setVilkaar81B(String vilkaar81B) {
+        this.vilkaar81B = vilkaar81B;
     }
 
-    public int getFodselsnummer_ektefelle() {
-        return fodselsnummer_ektefelle;
+    public int getFodselsnummerEktefelle() {
+        return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummer_ektefelle(int fodselsnummer_ektefelle) {
-        this.fodselsnummer_ektefelle = fodselsnummer_ektefelle;
+    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+        this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 
-    public String getNavn_ektefelle() {
-        return navn_ektefelle;
+    public String getNavnEktefelle() {
+        return navnEktefelle;
     }
 
-    public void setNavn_ektefelle(String navn_ektefelle) {
-        this.navn_ektefelle = navn_ektefelle;
+    public void setNavnEktefelle(String navnEktefelle) {
+        this.navnEktefelle = navnEktefelle;
     }
 
-    public String getNorsk_i_norge_medlem() {
-        return norsk_i_norge_medlem;
+    public String getNorskINorgeMedlem() {
+        return norskINorgeMedlem;
     }
 
-    public void setNorsk_i_norge_medlem(String norsk_i_norge_medlem) {
-        this.norsk_i_norge_medlem = norsk_i_norge_medlem;
+    public void setNorskINorgeMedlem(String norskINorgeMedlem) {
+        this.norskINorgeMedlem = norskINorgeMedlem;
     }
 
-    public int getVerneplikt_aar1() {
-        return verneplikt_aar1;
+    public int getVernepliktAar1() {
+        return vernepliktAar1;
     }
 
-    public void setVerneplikt_aar1(int verneplikt_aar1) {
-        this.verneplikt_aar1 = verneplikt_aar1;
+    public void setVernepliktAar1(int vernepliktAar1) {
+        this.vernepliktAar1 = vernepliktAar1;
     }
 
-    public int getVerneplikt_aar2() {
-        return verneplikt_aar2;
+    public int getVernepliktAar2() {
+        return vernepliktAar2;
     }
 
-    public void setVerneplikt_aar2(int verneplikt_aar2) {
-        this.verneplikt_aar2 = verneplikt_aar2;
+    public void setVernepliktAar2(int vernepliktAar2) {
+        this.vernepliktAar2 = vernepliktAar2;
     }
 
-    public int getVerneplikt_aar3() {
-        return verneplikt_aar3;
+    public int getVernepliktAar3() {
+        return vernepliktAar3;
     }
 
-    public void setVerneplikt_aar3(int verneplikt_aar3) {
-        this.verneplikt_aar3 = verneplikt_aar3;
+    public void setVernepliktAar3(int vernepliktAar3) {
+        this.vernepliktAar3 = vernepliktAar3;
     }
 
-    public int getVerneplikt_aar4() {
-        return verneplikt_aar4;
+    public int getVernepliktAar4() {
+        return vernepliktAar4;
     }
 
-    public void setVerneplikt_aar4(int verneplikt_aar4) {
-        this.verneplikt_aar4 = verneplikt_aar4;
+    public void setVernepliktAar4(int vernepliktAar4) {
+        this.vernepliktAar4 = vernepliktAar4;
     }
 
-    public int getPensjonsgivende_inntekt() {
-        return pensjonsgivende_inntekt;
+    public int getPensjonsgivendeInntekt() {
+        return pensjonsgivendeInntekt;
     }
 
-    public void setPensjonsgivende_inntekt(int pensjonsgivende_inntekt) {
-        this.pensjonsgivende_inntekt = pensjonsgivende_inntekt;
+    public void setPensjonsgivendeInntekt(int pensjonsgivendeInntekt) {
+        this.pensjonsgivendeInntekt = pensjonsgivendeInntekt;
     }
 
     public int getStatsborgerskap() {
@@ -170,20 +170,20 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.statsborgerskap = statsborgerskap;
     }
 
-    public int getBosatt_land() {
-        return bosatt_land;
+    public int getBosattLand() {
+        return bosattLand;
     }
 
-    public void setBosatt_land(int bosatt_land) {
-        this.bosatt_land = bosatt_land;
+    public void setBosattLand(int bosattLand) {
+        this.bosattLand = bosattLand;
     }
 
-    public String getFravik_bosatt() {
-        return fravik_bosatt;
+    public String getFravikBosatt() {
+        return fravikBosatt;
     }
 
-    public void setFravik_bosatt(String fravik_bosatt) {
-        this.fravik_bosatt = fravik_bosatt;
+    public void setFravikBosatt(String fravikBosatt) {
+        this.fravikBosatt = fravikBosatt;
     }
 
     public String getTrygd3() {
@@ -194,20 +194,20 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.trygd3 = trygd3;
     }
 
-    public String getFravik_trygdet_3aar() {
-        return fravik_trygdet_3aar;
+    public String getFravikTrygdet3Aar() {
+        return fravikTrygdet3Aar;
     }
 
-    public void setFravik_trygdet_3aar(String fravik_trygdet_3aar) {
-        this.fravik_trygdet_3aar = fravik_trygdet_3aar;
+    public void setFravikTrygdet3Aar(String fravikTrygdet3Aar) {
+        this.fravikTrygdet3Aar = fravikTrygdet3Aar;
     }
 
-    public String getFravik_8_1() {
-        return fravik_8_1;
+    public String getFravik81() {
+        return fravik81;
     }
 
-    public void setFravik_8_1(String fravik_8_1) {
-        this.fravik_8_1 = fravik_8_1;
+    public void setFravik81(String fravik81) {
+        this.fravik81 = fravik81;
     }
 
     public String getKonvensjon() {
@@ -218,84 +218,84 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.konvensjon = konvensjon;
     }
 
-    public String getFravik_19_3() {
-        return fravik_19_3;
+    public String getFravik193() {
+        return fravik193;
     }
 
-    public void setFravik_19_3(String fravik_19_3) {
-        this.fravik_19_3 = fravik_19_3;
+    public void setFravik193(String fravik193) {
+        this.fravik193 = fravik193;
     }
 
-    public String getFravik_flyktning() {
-        return fravik_flyktning;
+    public String getFravikFlyktning() {
+        return fravikFlyktning;
     }
 
-    public void setFravik_flyktning(String fravik_flyktning) {
-        this.fravik_flyktning = fravik_flyktning;
+    public void setFravikFlyktning(String fravikFlyktning) {
+        this.fravikFlyktning = fravikFlyktning;
     }
 
-    public String getOverkomp_utl() {
-        return overkomp_utl;
+    public String getOverkompUtl() {
+        return overkompUtl;
     }
 
-    public void setOverkomp_utl(String overkomp_utl) {
-        this.overkomp_utl = overkomp_utl;
+    public void setOverkompUtl(String overkompUtl) {
+        this.overkompUtl = overkompUtl;
     }
 
-    public String getUfor_under_botid() {
-        return ufor_under_botid;
+    public String getUforUnderBotid() {
+        return uforUnderBotid;
     }
 
-    public void setUfor_under_botid(String ufor_under_botid) {
-        this.ufor_under_botid = ufor_under_botid;
+    public void setUforUnderBotid(String uforUnderBotid) {
+        this.uforUnderBotid = uforUnderBotid;
     }
 
-    public int getTrygdetid_for_1967() {
-        return trygdetid_for_1967;
+    public int getTrygdetidFor1967() {
+        return trygdetidFor1967;
     }
 
-    public void setTrygdetid_for_1967(int trygdetid_for_1967) {
-        this.trygdetid_for_1967 = trygdetid_for_1967;
+    public void setTrygdetidFor1967(int trygdetidFor1967) {
+        this.trygdetidFor1967 = trygdetidFor1967;
     }
 
-    public int getTrygdetid_etter_1966_aar() {
-        return trygdetid_etter_1966_aar;
+    public int getTrygdetidEtter1966Aar() {
+        return trygdetidEtter1966Aar;
     }
 
-    public void setTrygdetid_etter_1966_aar(int trygdetid_etter_1966_aar) {
-        this.trygdetid_etter_1966_aar = trygdetid_etter_1966_aar;
+    public void setTrygdetidEtter1966Aar(int trygdetidEtter1966Aar) {
+        this.trygdetidEtter1966Aar = trygdetidEtter1966Aar;
     }
 
-    public int getTrygdetid_etter_1966_maaneder() {
-        return trygdetid_etter_1966_maaneder;
+    public int getTrygdetidEtter1966Maaneder() {
+        return trygdetidEtter1966Maaneder;
     }
 
-    public void setTrygdetid_etter_1966_maaneder(int trygdetid_etter_1966_maaneder) {
-        this.trygdetid_etter_1966_maaneder = trygdetid_etter_1966_maaneder;
+    public void setTrygdetidEtter1966Maaneder(int trygdetidEtter1966Maaneder) {
+        this.trygdetidEtter1966Maaneder = trygdetidEtter1966Maaneder;
     }
 
-    public int getTrygdetid_for_1967_ektefelle() {
-        return trygdetid_for_1967_ektefelle;
+    public int getTrygdetidFor1967Ektefelle() {
+        return trygdetidFor1967Ektefelle;
     }
 
-    public void setTrygdetid_for_1967_ektefelle(int trygdetid_for_1967_ektefelle) {
-        this.trygdetid_for_1967_ektefelle = trygdetid_for_1967_ektefelle;
+    public void setTrygdetidFor1967Ektefelle(int trygdetidFor1967Ektefelle) {
+        this.trygdetidFor1967Ektefelle = trygdetidFor1967Ektefelle;
     }
 
-    public int getTrygdetid_etter_1966_aar_ektefelle() {
-        return trygdetid_etter_1966_aar_ektefelle;
+    public int getTrygdetidEtter1966AarEktefelle() {
+        return trygdetidEtter1966AarEktefelle;
     }
 
-    public void setTrygdetid_etter_1966_aar_ektefelle(int trygdetid_etter_1966_aar_ektefelle) {
-        this.trygdetid_etter_1966_aar_ektefelle = trygdetid_etter_1966_aar_ektefelle;
+    public void setTrygdetidEtter1966AarEktefelle(int trygdetidEtter1966AarEktefelle) {
+        this.trygdetidEtter1966AarEktefelle = trygdetidEtter1966AarEktefelle;
     }
 
-    public int getTrygdetid_etter_1966_maaneder_ektefelle() {
-        return trygdetid_etter_1966_maaneder_ektefelle;
+    public int getTrygdetidEtter1966MaanederEktefelle() {
+        return trygdetidEtter1966MaanederEktefelle;
     }
 
-    public void setTrygdetid_etter_1966_maaneder_ektefelle(int trygdetid_etter_1966_maaneder_ektefelle) {
-        this.trygdetid_etter_1966_maaneder_ektefelle = trygdetid_etter_1966_maaneder_ektefelle;
+    public void setTrygdetidEtter1966MaanederEktefelle(int trygdetidEtter1966MaanederEktefelle) {
+        this.trygdetidEtter1966MaanederEktefelle = trygdetidEtter1966MaanederEktefelle;
     }
 
     public int getTtfmt81() {
@@ -306,36 +306,36 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.ttfmt81 = ttfmt81;
     }
 
-    public int getTt_framt_uft() {
-        return tt_framt_uft;
+    public int getTtFramtUft() {
+        return ttFramtUft;
     }
 
-    public void setTt_framt_uft(int tt_framt_uft) {
-        this.tt_framt_uft = tt_framt_uft;
+    public void setTtFramtUft(int ttFramtUft) {
+        this.ttFramtUft = ttFramtUft;
     }
 
-    public String getIkke_grunnpensjon() {
-        return ikke_grunnpensjon;
+    public String getIkkeGrunnpensjon() {
+        return ikkeGrunnpensjon;
     }
 
-    public void setIkke_grunnpensjon(String ikke_grunnpensjon) {
-        this.ikke_grunnpensjon = ikke_grunnpensjon;
+    public void setIkkeGrunnpensjon(String ikkeGrunnpensjon) {
+        this.ikkeGrunnpensjon = ikkeGrunnpensjon;
     }
 
-    public String getInnt_minst_4g() {
-        return innt_minst_4g;
+    public String getInntektMinst4G() {
+        return inntektMinst4G;
     }
 
-    public void setInnt_minst_4g(String innt_minst_4g) {
-        this.innt_minst_4g = innt_minst_4g;
+    public void setInntektMinst4G(String inntektMinst4G) {
+        this.inntektMinst4G = inntektMinst4G;
     }
 
-    public String getAttforing_ufore() {
-        return attforing_ufore;
+    public String getAttforingUfore() {
+        return attforingUfore;
     }
 
-    public void setAttforing_ufore(String attforing_ufore) {
-        this.attforing_ufore = attforing_ufore;
+    public void setAttforingUfore(String attforingUfore) {
+        this.attforingUfore = attforingUfore;
     }
 
     public String getYrkesskadetillegg() {
@@ -346,11 +346,11 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.yrkesskadetillegg = yrkesskadetillegg;
     }
 
-    public int getInntekt_for_uforepensjon() {
-        return inntekt_for_uforepensjon;
+    public int getInntektForUforepensjon() {
+        return inntektForUforepensjon;
     }
 
-    public void setInntekt_for_uforepensjon(int inntekt_for_uforepensjon) {
-        this.inntekt_for_uforepensjon = inntekt_for_uforepensjon;
+    public void setInntektForUforepensjon(int inntektForUforepensjon) {
+        this.inntektForUforepensjon = inntektForUforepensjon;
     }
 }

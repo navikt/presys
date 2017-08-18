@@ -8,19 +8,19 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 @UnmappedField(name = "filler", length = 1, start = 3)
 public class OPPHBL2 {
 
-    @Felt(name="ektefelletillegg_stoppes", length = 1, start = 0)
-    private String ektefelletillegg_stoppes;
+    @Felt(name="ektefelletilleggStoppes", length = 1, start = 0)
+    private String ektefelletilleggStoppes;
 
-    @Felt(name="opphr_kode", length = 2, start = 1)
+    @Felt(name="opphrKode", length = 2, start = 1)
     private String opphorskode;
 
 
-    public String getEktefelletillegg_stoppes() {
-        return ektefelletillegg_stoppes;
+    public String getEktefelletilleggStoppes() {
+        return ektefelletilleggStoppes;
     }
 
-    public void setEktefelletillegg_stoppes(String ektefelletillegg_stoppes) {
-        this.ektefelletillegg_stoppes = ektefelletillegg_stoppes;
+    public void setEktefelletilleggStoppes(String ektefelletilleggStoppes) {
+        this.ektefelletilleggStoppes = ektefelletilleggStoppes;
     }
 
     public String getOpphorskode() {
