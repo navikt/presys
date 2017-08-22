@@ -61,7 +61,7 @@ node {
             // so we don't have to set them as cli args to sonar-scanner
             withSonarQubeEnv('Presys Sonar') {
                 sh "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=no.nav.pensjon.presys:presys \
+                    -Dsonar.projectKey=${pom.groupId}:${pom.artifactId} \
                     -Dsonar.projectName=Presys \
                     -Dsonar.projectVersion=${pom.version} \
                     -Dsonar.sources=src \
@@ -156,7 +156,6 @@ node {
             ])
         }
 
-        currentBuild.result = 'SUCCESS'
         githubNotify([
                 status: 'success',
                 description: "Build #${env.BUILD_NUMBER} has finished",
