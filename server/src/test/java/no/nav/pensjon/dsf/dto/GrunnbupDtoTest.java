@@ -21,7 +21,7 @@ public class GrunnbupDtoTest {
     private GrunnbupDto grunnbupDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         grunnbup = new Grunnbup();
         grunnbup.setAnntallBarn(1010);
         grunnbup.setAttforingUfore("??");
@@ -67,7 +67,7 @@ public class GrunnbupDtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         grunnbup = null;
         grunnbupDto = null;
     }

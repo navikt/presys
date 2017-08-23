@@ -21,7 +21,7 @@ public class Opphorsblankett1DtoTest {
     private Opphorsblankett1Dto opphorsblankettDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         opphorsblankett = new OPPHBL1();
         opphorsblankett.setAvdodesPensjonsgivendeInntekt(1010);
         opphorsblankett.setDodsDato(1111);
@@ -32,7 +32,7 @@ public class Opphorsblankett1DtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         opphorsblankett = null;
         opphorsblankettDto = null;
     }

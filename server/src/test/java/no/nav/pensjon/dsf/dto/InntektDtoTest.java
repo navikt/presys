@@ -21,7 +21,7 @@ public class InntektDtoTest {
     private InntektDto inntektDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         inntekt = new Inntekt();
         inntekt.setKommune("??");
         inntekt.setPersonInntekt(1010);
@@ -34,7 +34,7 @@ public class InntektDtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         inntekt = null;
         inntektDto = null;
     }

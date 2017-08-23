@@ -21,7 +21,7 @@ public class TilberpoDtoTest {
     private TilberpoDto tilberpoDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         tilberpo = new Tilberpo();
         tilberpo.setAi63(1010);
         tilberpo.setAi64(1111);
@@ -37,7 +37,7 @@ public class TilberpoDtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         tilberpo = null;
         tilberpoDto = null;
     }

@@ -22,7 +22,7 @@ public class UforegradDtoTest {
     private UforegradDto uforegradDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         uforegrad = new Uforegrad();
         uforegrad.setUforegradDato(1010);
         uforegrad.setUforegradOvrige(1111);
@@ -33,7 +33,7 @@ public class UforegradDtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         uforegrad = null;
         uforegradDto = null;
     }

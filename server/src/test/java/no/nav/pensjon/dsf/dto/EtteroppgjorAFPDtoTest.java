@@ -21,7 +21,7 @@ public class EtteroppgjorAFPDtoTest {
     private EtteroppgjorAFPDto etteroppgjorAFPDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         etteroppgjorAFP = new EtteroppgjorAFP();
         etteroppgjorAFP.setBeregnetEllerRegistrertViaInfotrygd("??");
         etteroppgjorAFP.setDifferanseForLiteUtbetalt(1010);
@@ -42,7 +42,7 @@ public class EtteroppgjorAFPDtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         etteroppgjorAFP = null;
         etteroppgjorAFPDto = null;
     }

@@ -21,7 +21,7 @@ public class GrunnblankettForesorgingsTilleggF7DtoTest {
     private GrunnblankettForesorgingsTilleggF7Dto grunnblankettDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         grunnbif = new GRUNNBIF();
         grunnbif.setAntallBarnetillegg(1010);
         grunnbif.setArbeidsinntekt(1111);
@@ -36,7 +36,7 @@ public class GrunnblankettForesorgingsTilleggF7DtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         grunnbif = null;
         grunnblankettDto = null;
     }

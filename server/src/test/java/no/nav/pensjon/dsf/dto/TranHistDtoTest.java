@@ -21,7 +21,7 @@ public class TranHistDtoTest {
     private TranHistDto tranHistDto;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         tranHist = new TranHist();
         tranHist.setAutoTerminalId("??");
         tranHist.setGrunnblankettkode("??");
@@ -39,7 +39,7 @@ public class TranHistDtoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         tranHist = null;
         tranHistDto = null;
     }
