@@ -64,7 +64,7 @@ public class StatusDtoTest {
     }
 
     @Test
-    public void thatStatusIsMappedCorrectlyToDto() throws Exception {
+    public void thatStatusIsMappedCorrectlyToDto() {
         StatusDto statusDto = modelMapper.map(status, StatusDto.class);
 
         assertEquals(status.getAntallBarn(), statusDto.getAntallBarn());
@@ -101,7 +101,7 @@ public class StatusDtoTest {
     }
 
     @Test
-    public void thatStatusDtoIsMappedCorrectlyToJson() throws Exception {
+    public void thatStatusDtoIsMappedCorrectlyToJson() {
         StatusDto statusDto = modelMapper.map(status, StatusDto.class);
         assertThatJson(statusDto).matches(IsMapWithSize.hasSize(31))
                 .matches(hasEntry("virkDato", BigDecimal.valueOf(1919)))

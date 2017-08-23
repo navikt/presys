@@ -45,7 +45,7 @@ public class UforeHistorikkDtoTest {
     }
 
     @Test
-    public void thatUforehistorikkIsMappedCorrectlyToDto() throws Exception {
+    public void thatUforehistorikkIsMappedCorrectlyToDto() {
         UforeHistorikkDto uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
 
         assertEquals(uforeHistorikk.getUfg(), uforeHistorikkDto.getUfg());
@@ -62,7 +62,7 @@ public class UforeHistorikkDtoTest {
     }
 
     @Test
-    public void thatUforehistorikkDtoIsMappedCorrectlyToJson() throws Exception {
+    public void thatUforehistorikkDtoIsMappedCorrectlyToJson() {
         UforeHistorikkDto uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
         assertThatJson(uforeHistorikkDto).matches(IsMapWithSize.hasSize(11))
                 .matches(hasEntry("uftMaaned", BigDecimal.valueOf(1111)))

@@ -1,7 +1,6 @@
 package no.nav.pensjon.test;
 
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import java.util.Map;
@@ -28,7 +27,7 @@ public class IsMapWithSize<K, V> extends TypeSafeMatcher<Map<? extends K, ? exte
         description.appendText(" has ").appendValue(size).appendText(" key/value pairs");
     }
 
-    public static <K, V> Matcher<Map<? extends K, ? extends V>> hasSize(final int size) {
-        return new IsMapWithSize<>(size);
+    public static <K, V> IsMapWithSize<K, V> hasSize(final int size) {
+        return new IsMapWithSize<K, V>(size);
     }
 }
