@@ -64,16 +64,17 @@ public class UforeHistorikkDtoTest {
     @Test
     public void thatUforehistorikkDtoIsMappedCorrectlyToJson() throws Exception {
         UforeHistorikkDto uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
-        assertThatJson(uforeHistorikkDto).matches(IsMapWithSize.hasSize(10))
+        assertThatJson(uforeHistorikkDto).matches(IsMapWithSize.hasSize(11))
                 .matches(hasEntry("uftMaaned", BigDecimal.valueOf(1111)))
                 .matches(hasEntry("ufg", BigDecimal.valueOf(1010)))
                 .matches(hasEntry("ufKriterier", BigDecimal.valueOf(1212)))
                 .matches(hasEntry("bup", BigDecimal.valueOf(1)))
                 .matches(hasEntry("bupGarantiKode", "??"))
-                .matches(hasEntry("buopphørsdatoMaanedp", BigDecimal.valueOf(1313)))
-                .matches(hasEntry("opphørsKode", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("redusertAntallBupAar", BigDecimal.valueOf(1515)))
-                .matches(hasEntry("foedselsaarYngsteBarn", BigDecimal.valueOf(1616)))
-                .matches(hasEntry("uforegrader", emptyCollectionOf(Uforegrad.class)));
+                .matches(hasEntry("opphørsdatoMaaned", BigDecimal.valueOf(1313)))
+                .matches(hasEntry("opphørsKode", "??"))
+                .matches(hasEntry("redusertAntallBupAar", BigDecimal.valueOf(1414)))
+                .matches(hasEntry("foedselsaarYngsteBarn", BigDecimal.valueOf(1515)))
+                .matches(hasEntry("virkningsdatoUfrHistorie", BigDecimal.valueOf(1616)))
+                .node("uforegrader").matches(emptyCollectionOf(Uforegrad.class));
     }
 }
