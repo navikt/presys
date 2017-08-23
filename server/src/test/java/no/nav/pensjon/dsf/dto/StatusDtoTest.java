@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
@@ -16,8 +15,6 @@ import static org.junit.Assert.assertEquals;
 
 public class StatusDtoTest {
     private ModelMapper modelMapper = new ModelMapper();
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     private Status status;
 

@@ -28,6 +28,6 @@ public class IsMapWithSize<K, V> extends TypeSafeMatcher<Map<? extends K, ? exte
     }
 
     public static <K, V> IsMapWithSize<K, V> hasSize(final int size) {
-        return new IsMapWithSize<K, V>(size);
+        return new IsMapWithSize<>(size);
     }
 }

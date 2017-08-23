@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.pensjon.dsf.domene.Uforegrad;
 import no.nav.pensjon.dsf.domene.status.UforeHistorikk;
 import no.nav.pensjon.test.IsMapWithSize;
@@ -19,8 +18,6 @@ import static org.junit.Assert.assertEquals;
 public class UforeHistorikkDtoTest {
 
     private ModelMapper modelMapper = new ModelMapper();
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     private UforeHistorikk uforeHistorikk;
 

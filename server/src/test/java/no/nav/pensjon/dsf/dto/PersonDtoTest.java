@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
@@ -14,8 +13,6 @@ import static org.junit.Assert.assertEquals;
 
 public class PersonDtoTest {
     private ModelMapper modelMapper = new ModelMapper();
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     private Person person;
 
