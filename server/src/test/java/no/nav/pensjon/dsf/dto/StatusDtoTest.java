@@ -2,11 +2,16 @@ package no.nav.pensjon.dsf.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.pensjon.dsf.domene.status.Status;
+import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
+import java.math.BigDecimal;
+
+import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class StatusDtoTest {
@@ -98,42 +103,37 @@ public class StatusDtoTest {
     @Test
     public void thatStatusDtoIsMappedCorrectlyToJson() throws Exception {
         StatusDto statusDto = modelMapper.map(status, StatusDto.class);
-        String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(statusDto);
-
-        String expected = "{\r\n" +
-                "  \"virkDato\" : 1919,\r\n" +
-                "  \"statusKode\" : \"??\",\r\n" +
-                "  \"statusKodeHistorie\" : \"??\",\r\n" +
-                "  \"pensjonsType1\" : \"??\",\r\n" +
-                "  \"pensjonsType2\" : \"??\",\r\n" +
-                "  \"pensjonsType3\" : \"??\",\r\n" +
-                "  \"sivilstand\" : \"??\",\r\n" +
-                "  \"trygdetidFoer1967\" : 1616,\r\n" +
-                "  \"trygdetidEtter1966\" : 1515,\r\n" +
-                "  \"trygdetidFramTil\" : 1717,\r\n" +
-                "  \"trygdetid1967Til1970\" : 1313,\r\n" +
-                "  \"trygdetidAnvendt\" : 1414,\r\n" +
-                "  \"foersteGangReg\" : \"J\",\r\n" +
-                "  \"sumYtelse\" : 1337,\r\n" +
-                "  \"antallBarn\" : 3,\r\n" +
-                "  \"dodsddato\" : 19990101,\r\n" +
-                "  \"dodAvYrkesskade\" : \"J\",\r\n" +
-                "  \"vilkar8_4_3a\" : \"??\",\r\n" +
-                "  \"trygdetidGaranti\" : 1818,\r\n" +
-                "  \"grunnbelopsDato\" : 19970101,\r\n" +
-                "  \"poengtilleggsDato\" : 1111,\r\n" +
-                "  \"poengtilleggsKode\" : \"??\",\r\n" +
-                "  \"pensjonsrettFoer91\" : \"??\",\r\n" +
-                "  \"trygdetid16_66\" : 1212,\r\n" +
-                "  \"garantertTilleggsPensjonKode\" : \"??\",\r\n" +
-                "  \"gammelSammenstotsRegel\" : \"??\",\r\n" +
-                "  \"ektefelleInntektOver2g\" : \"J\",\r\n" +
-                "  \"pensjonFoer9802\" : \"??\",\r\n" +
-                "  \"red_grunnPensjon_3_2_1\" : \"??\",\r\n" +
-                "  \"grunnPensjonReduksjonsKode\" : \"??\",\r\n" +
-                "  \"friinntektDato\" : 19980101\r\n" +
-                "}";
-        assertEquals(expected, json);
+        assertThatJson(statusDto).matches(IsMapWithSize.hasSize(31))
+                .matches(hasEntry("virkDato", BigDecimal.valueOf(1919)))
+                .matches(hasEntry("statusKode", "??"))
+                .matches(hasEntry("statusKodeHistorie", "??"))
+                .matches(hasEntry("pensjonsType1", "??"))
+                .matches(hasEntry("pensjonsType2", "??"))
+                .matches(hasEntry("pensjonsType3", "??"))
+                .matches(hasEntry("sivilstand", "??"))
+                .matches(hasEntry("trygdetidFoer1967", BigDecimal.valueOf(1616)))
+                .matches(hasEntry("trygdetidEtter1966", BigDecimal.valueOf(1515)))
+                .matches(hasEntry("trygdetidFramTil", BigDecimal.valueOf(1717)))
+                .matches(hasEntry("trygdetid1967Til1970", BigDecimal.valueOf(1313)))
+                .matches(hasEntry("trygdetidAnvendt", BigDecimal.valueOf(1414)))
+                .matches(hasEntry("foersteGangReg", "J"))
+                .matches(hasEntry("sumYtelse", BigDecimal.valueOf(1337)))
+                .matches(hasEntry("antallBarn", BigDecimal.valueOf(3)))
+                .matches(hasEntry("dodsddato", BigDecimal.valueOf(19990101)))
+                .matches(hasEntry("dodAvYrkesskade", "J"))
+                .matches(hasEntry("vilkar8_4_3a", "??"))
+                .matches(hasEntry("trygdetidGaranti", BigDecimal.valueOf(1818)))
+                .matches(hasEntry("grunnbelopsDato", BigDecimal.valueOf(19970101)))
+                .matches(hasEntry("poengtilleggsDato", BigDecimal.valueOf(1111)))
+                .matches(hasEntry("poengtilleggsKode", "??"))
+                .matches(hasEntry("pensjonsrettFoer91", "??"))
+                .matches(hasEntry("trygdetid16_66", BigDecimal.valueOf(1212)))
+                .matches(hasEntry("garantertTilleggsPensjonKode", "??"))
+                .matches(hasEntry("ektefelleInntektOver2g", "J"))
+                .matches(hasEntry("pensjonFoer9802", "??"))
+                .matches(hasEntry("red_grunnPensjon_3_2_1", "??"))
+                .matches(hasEntry("grunnPensjonReduksjonsKode", "??"))
+                .matches(hasEntry("friinntektDato", BigDecimal.valueOf(19980101)));
     }
 
 }

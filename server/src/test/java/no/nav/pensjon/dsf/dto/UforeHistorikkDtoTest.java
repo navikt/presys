@@ -1,7 +1,9 @@
 package no.nav.pensjon.dsf.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import no.nav.pensjon.dsf.domene.Uforegrad;
 import no.nav.pensjon.dsf.domene.status.UforeHistorikk;
+import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,9 @@ import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
 
+import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+import static org.hamcrest.Matchers.emptyCollectionOf;
+import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class UforeHistorikkDtoTest {
@@ -59,21 +64,16 @@ public class UforeHistorikkDtoTest {
     @Test
     public void thatUforehistorikkDtoIsMappedCorrectlyToJson() throws Exception {
         UforeHistorikkDto uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
-        String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(uforeHistorikkDto);
-
-        String expected = "{\r\n" +
-                "  \"uftMaaned\" : 1111,\r\n" +
-                "  \"ufg\" : 1010,\r\n" +
-                "  \"ufKriterier\" : 1212,\r\n" +
-                "  \"bup\" : 1,\r\n" +
-                "  \"bupGarantiKode\" : \"??\",\r\n" +
-                "  \"opphørsdatoMaaned\" : 1313,\r\n" +
-                "  \"opphørsKode\" : \"??\",\r\n" +
-                "  \"redusertAntallBupAar\" : 1414,\r\n" +
-                "  \"foedselsaarYngsteBarn\" : 1515,\r\n" +
-                "  \"virkningsdatoUfrHistorie\" : 1616,\r\n" +
-                "  \"uforegrader\" : [ ]\r\n" +
-                "}";
-        assertEquals(expected, json);
+        assertThatJson(uforeHistorikkDto).matches(IsMapWithSize.hasSize(10))
+                .matches(hasEntry("uftMaaned", BigDecimal.valueOf(1111)))
+                .matches(hasEntry("ufg", BigDecimal.valueOf(1010)))
+                .matches(hasEntry("ufKriterier", BigDecimal.valueOf(1212)))
+                .matches(hasEntry("bup", BigDecimal.valueOf(1)))
+                .matches(hasEntry("bupGarantiKode", "??"))
+                .matches(hasEntry("buopphørsdatoMaanedp", BigDecimal.valueOf(1313)))
+                .matches(hasEntry("opphørsKode", BigDecimal.valueOf(1414)))
+                .matches(hasEntry("redusertAntallBupAar", BigDecimal.valueOf(1515)))
+                .matches(hasEntry("foedselsaarYngsteBarn", BigDecimal.valueOf(1616)))
+                .matches(hasEntry("uforegrader", emptyCollectionOf(Uforegrad.class)));
     }
 }
