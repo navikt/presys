@@ -45,7 +45,7 @@ node {
 
         stage("build") {
             withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+                sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
         }
 
@@ -55,17 +55,7 @@ node {
             // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
             // so we don't have to set them as cli args to sonar-scanner
             withSonarQubeEnv('Presys Sonar') {
-                sh "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=no.nav.pensjon.presys:presys \
-                    -Dsonar.projectName=Presys \
-                    -Dsonar.projectVersion=${pom.version} \
-                    -Dsonar.sources=src \
-                    -Dsonar.sourceEncoding=UTF-8 \
-                    -Dsonar.java.binaries=target/classes \
-                    -Dsonar.java.test.binaries=target/test-classes \
-                    -Dsonar.modules=appconfig,klient,metrics,server \
-                    -Dsonar.links.scm=https://github.com/${project}/${repoName}.git \
-                    -Dsonar.links.scm_dev=https://github.com/${project}/${repoName}.git"
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${pom.version}"
             }
         }
 
