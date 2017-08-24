@@ -167,7 +167,15 @@
   "kodeverk.sivilstand.W": "Samboer etter § 1-5",
   "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner",
 
+  "kodeverk.land.0": "Norge",
+
   "kodeverk.grunnblankettType.F7": "FOLKETRYGDEN - FORSØRGINGSTILLEGG EKTEFELLE OG/ELLER BARN",
   "kodeverk.grunnblankettType.O2": "FOLKETRYGDEN - OPPHØRSBLANKETT 2 IKKE DØDSFALL",
+  "kodeverk.grunnblankettType.KF": "KRAV OM AVTALEFESTET PENSJON (AFP)",
+  "kodeverk.grunnblankettType.E3": "FOLKETRYGDEN - GRUNNBLANKETT ETTERLATT EKTEFELLE",
+  "kodeverk.grunnblankettType.U3": "FOLKETRYGDEN - GRUNNBLANKETT UFØREPENSJON",
+  "kodeverk.grunnblankettType.E1": "FOLKETRYGDEN - ENDRINGSBLANKETT",
+  "kodeverk.grunnblankettType.EN": "FOLKETRYGDEN ENDRINGSBLANKETT",
+  "kodeverk.grunnblankettType.AP": "FOLKETRYGDEN - GRUNNBLANKETT ALDERSPENSJON",
   "kodeverk.grunnblankettType.UP": "FOLKETRYGDEN - GRUNNBLANKETT UFØREPENSJON"
 }

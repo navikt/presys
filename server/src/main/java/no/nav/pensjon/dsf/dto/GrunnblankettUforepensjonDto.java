@@ -1,300 +1,86 @@
-package no.nav.pensjon.dsf.domene.grunnblanketter;
+package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
 
-@Segment(name = "GRUNNBU3" , length = 224)
-@UnmappedField(name="FRAVIK_5_1", length = 1, start = 130)
-/*
-@UnmappedField(name="EOS_AAR_IKKE_PRO_RATA (1967:2014)", length = 6, start = 198)
-@UnmappedField(name="EOS_AAR_1967_2014", length = 6, start = 176)
-*/
-@UnmappedField(name = "filler", length = 17, start = 207)
-public class GRUNNBU3 {
-
-    @Felt(name="ATT_UF", length = 1, start = 0)
     private String attforingUfor;
-
-    @Felt(name="NAVN", length = 25, start = 1)
     private String navn;
-
-    @Felt(name="NORSK_BOSATT", length = 1, start = 26)
     private String bosattNorge;
-
-    @Felt(name="TILL_EK", length = 1, start = 27)
     private String ektefelletillegg;
-
-    @Felt(name="TILL_BARN", length = 1, start = 28)
     private String barnetillegg;
-
-    @Felt(name="VP_TAB1", length = 3, start = 29)
-    @PackedDecimal
     private int vernepliktaar1;
-
-    @Felt(name="VP_TAB2", length = 3, start = 32)
-    @PackedDecimal
     private int vernepliktaar2;
-
-    @Felt(name="VP_TAB3", length = 3, start = 35)
-    @PackedDecimal
     private int vernepliktaar3;
-
-    @Felt(name="VP_TAB4", length = 3, start = 38)
-    @PackedDecimal
     private int vernepliktaar4;
-
-    @Felt(name="VILKAAR_8_4_3A", length = 1, start = 41)
     private String vilkaarPar8Pkt4Ledd3BokstavA;
-
-    @Felt(name="PI", length = 4, start = 42)
-    @PackedDecimal
     private int pensjonsgivendeInntekt;
-
-    @Felt(name="YNGSTE_BARN_FAAR", length = 3, start = 46)
-    @PackedDecimal
     private int yngsteBarnFodselsaar;
-
-    @Felt(name="YSKADE_TILLEGG", length = 1, start = 49)
     private String yrkesskadetillegg;
-
-    @Felt(name="YRKESM_ATTF", length = 1, start = 50)
     private String yrkesmessigAttforing;
-
-    @Felt(name="UTDANNING", length = 2, start = 51)
-    @PackedDecimal
     private int utdanning;
-
-    @Felt(name="YRKE", length = 2, start = 53)
-    @PackedDecimal
     private int yrke;
-
-    @Felt(name="UFG", length = 2, start = 55)
-    @PackedDecimal
     private int uforegrad;
-
-    @Felt(name="UFT_AAMD", length = 5, start = 57)
-    @PackedDecimal
     private int uforetidspunkt;
-
-    @Felt(name="FRIINNTEKT_DATO_AAMD", length = 5, start = 62)
-    @PackedDecimal
     private int friinntektDato;
-
-    @Felt(name="VIRK_DATO_AAMD", length = 5, start = 67)
-    @PackedDecimal
     private int virkningsdato;
-
-    @Felt(name="FNR_EK", length = 6, start = 72)
-    @PackedDecimal
     private int fodselsnummerEktefelle;
-
-    @Felt(name="NAVN_EK", length = 25, start = 78)
     private String navnEktefelle;
-
-    @Felt(name="STATSBORGER", length = 2, start = 103)
-    @PackedDecimal
     private int statsborgerskap;
-
-    @Felt(name="BOSATT", length = 2, start = 105)
-    @PackedDecimal
     private int bosattLand;
-
-    @Felt(name="UNNTAK_12_2", length = 1, start = 107)
     private String unntakPar12Pkt2;
-
-    @Felt(name="STI_AAMD_3B", length = 5, start = 108)
-    @PackedDecimal
     private int stonadstilfelleDato3B;
-
-    @Felt(name="FRAVIK_8_1_3C", length = 1, start = 113)
     private String fravikPar2Pkt1Ledd3BokstavC;
-
-    @Felt(name="STI_AAMD_3C", length = 5, start = 114)
-    @PackedDecimal
     private int stonadstilfelleDato3C;
-
-    @Felt(name="PENSJONSTRYGDET", length = 1, start = 119)
     private String pensjonstrygdet;
-
-    @Felt(name="TT_LIK_PAA", length = 1, start = 120)
     private String  grunnPensjonBeregnetPaaTrygdetidLikPoengaar;
-
-    @Felt(name="MINST_20_AAR", length = 1, start = 121)
     private String minst20Aar;
-
-    @Felt(name="KONVENSJON", length = 1, start = 122)
     private String folgerKonvensjonMedAndreLand;
-
-    @Felt(name="KONVENSJON_LAND", length = 2, start = 123)
-    @PackedDecimal
     private int konvensjonsLand;
-
-    @Felt(name="FRAVIK_BOSATT_EOS", length = 1, start = 125)
     private String fravikBosattEOS;
-
-    @Felt(name="FRAVIK_8_1", length = 1, start = 126)
     private String fravikPar8Pkt1;
-
-    @Felt(name="TT_PAA", length = 1, start = 127)
     private String trygdetidLikPoengaar;
-
-    @Felt(name="TT_FRAMTIDIG", length = 1, start = 128)
     private String beregneFramtidigTrygdetid;
-
-    @Felt(name="TT_FAKTISK", length = 1, start = 129)
     private String beregneFaktiskTrygdetid;
-
-    //Unmapped "FRAVIK_5_1", length = 1, start = 130)
-
-    @Felt(name="UNG_UFOR", length = 1, start = 131)
     private String ungUfor;
-
-    @Felt(name="FRAVIK_FLYKT", length = 1, start = 132)
     private String godkjentFlyktningUDI;
-
-    @Felt(name="OVERKOMP_UTL", length = 1, start = 133)
     private String overkompensert;
-
-    @Felt(name="TT_FRA1937_AAR", length = 2, start = 134)
-    @PackedDecimal
     private int trygdetidFra1937Aar;
-
-    @Felt(name="TT_FRA1937_MND", length = 2, start = 136)
-    @PackedDecimal
     private int trygdetidFra1937Maaneder;
-
-    @Felt(name="TT_F67", length = 2, start = 138)
-    @PackedDecimal
     private int trygdetidFor1967Aar;
-
-    @Felt(name="TT_E66_AA", length = 2, start = 140)
-    @PackedDecimal
     private int trygdetidEtter1966Aar;
-
-    @Felt(name="TT_E66_M", length = 2, start = 142)
-    @PackedDecimal
     private int trygdetidEtter1966Maaneder;
-
-    @Felt(name="TT_F67_EK", length = 2, start = 144)
-    @PackedDecimal
     private int trygdetidFor1967AarEktefelle;
-
-    @Felt(name="TT_E66_AA_EK", length = 2, start = 146)
-    @PackedDecimal
     private int trygdetidEtter1966AarEktefelle;
-
-    @Felt(name="TT_E66_M_EK", length = 2, start = 148)
-    @PackedDecimal
     private int trygdetidEtter1966MaanederEktefelle;
-
-    @Felt(name="FRAVIK_19_3", length = 1, start = 150)
     private String fravikpar19Pkt3;
-
-    @Felt(name="TT_ENDRES", length = 1, start = 151)
     private String trygdetidEndres;
-
-    @Felt(name="TT_NORDEN_ANNET", length = 1, start = 152)
     private String trygdetidAnnetNordiskLand;
-
-    @Felt(name="IKKE_GP", length = 1, start = 153)
     private String ikkeBeregneGrunnpensjon;
-
-    @Felt(name="AVKORT_SAERTILL", length = 1, start = 154)
     private String avkorteSaertillegg;
-
-    @Felt(name="TP_NORDISK", length = 3, start = 155)
-    @PackedDecimal
     private int tilleggspensjonFraAnnetNordiskland;
-
-    @Felt(name="TP_NORDISK_LAND", length = 2, start = 158)
-    @PackedDecimal
     private int tilleggspensjonsland;
-
-    @Felt(name="BEREGNING_KONV", length = 1, start = 160)
     private String beregningKonvensjon;
-
-    @Felt(name="TT_KONVENSJON_AAR", length = 2, start = 161)
-    @PackedDecimal
     private int trygdetidKonvensjonAar;
-
-    @Felt(name="BEREGN_FOLKETRYGD", length = 1, start = 163)
     private String beregneFolketrygd;
-
-    @Felt(name="EOS_8_4_3A", length = 1, start = 164)
     private String eosPar8Pkt4Ledd3BokstavA;
-
-    @Felt(name="TT_TEORETISK_EOS_AAR", length = 2, start = 165)
-    @PackedDecimal
     private int teoretiskTrygdetidEOSAar;
-
-    @Felt(name="TT_TEORETISK_EOS_MND", length = 2, start = 167)
-    @PackedDecimal
     private int teoretiskTrygdetidEOSMaaneder;
-
-    @Felt(name="TT_PRORATA_EOS_AAR", length = 2, start = 169)
-    @PackedDecimal
     private int prorataTrygdetidEOSAar;
-
-    @Felt(name="TT_PRORATA_EOS_MND", length = 2, start = 171)
-    @PackedDecimal
     private int prorataTrygdetidEOSMaaneder;
-
-    @Felt(name="PENSJON_EOS", length = 3, start = 173)
-    @PackedDecimal
     private int pensjonEOS;
-
-    // Bit EOS_AAR (1967:2014)    BIT(1)
-    @Felt(name="EOS_AAR_1967_2014", length = 6, start = 176)
     private String poengaarIEOS;
-
-    @Felt(name="INNTEKT_FOR_UP", length = 4, start = 182)
-    @PackedDecimal
     private int inntektForUforepensjon;
-
-    @Felt(name="TT_FAKTISK_NORDISK_AAR", length = 2, start = 186)
-    @PackedDecimal
     private int faktiskNordiskTrygdetidAar;
-
-    @Felt(name="TT_FAKTISK_NORDISK_MND", length = 2, start = 188)
-    @PackedDecimal
     private int faktiskNordiskTrygdetidMaaneder;
-
-    @Felt(name="PAA_FAKTISK_NORDISK", length = 2, start = 190)
-    @PackedDecimal
     private int faktiskeNordiskePoengaar;
-
-    @Felt(name="REAKTIVISERING", length = 1, start = 192)
     private String reaktivisering;
-
-    @Felt(name="UNNTAK_VENTETID", length = 1, start = 193)
     private String unntakVentetid;
-
-    @Felt(name="EK_INNT_OVER_2G", length = 1, start = 194)
     private String ektefelleInntektOver2G;
-
-    @Felt(name="GARANTERT_TP", length = 1, start = 195)
     private String garantertTjenestepensjon;
-
-    @Felt(name="FRYSP_5AAR_ARB", length = 1, start = 196)
     private String frysp5AarArbeid;
-
-    @Felt(name="FRYSP_TIDSB", length = 1, start = 197)
     private String fryspTidsb;
-
-    //@Felt(name="EOS_AAR_IKKE_PRO_RATA (1967:2014) BIT(1), lenght = 1, start = 193)
-
-    @Felt(name="EOS_AAR_IKKE_PRO_RATA (1967:2014)", length = 6, start = 198)
     private String poengaarIEOSIkkeMedIProrata;
-
-    @Felt(name="RED_GP_3_2_5", length = 1, start = 204)
     private String reduksjonGrunnpensjonEtterPar3Pkt2Ledd5;
-
-    @Felt(name="EOS_OPPLYSN", length = 1, start = 205)
     private String eosOpplysning;
-
-    @Felt(name="LONNSTILSKUDD", length = 1, start = 206)
     private String lonnstilskudd;
 
     public String getAttforingUfor() {
