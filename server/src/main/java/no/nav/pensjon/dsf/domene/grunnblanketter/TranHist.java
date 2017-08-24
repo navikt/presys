@@ -76,6 +76,10 @@ public class TranHist {
     @SubSegment
     private List<Barn> barn = new ArrayList<>();
 
+    @SubSegment
+    private List<GRUNNBAP> grunnbaper = new ArrayList<>();
+
+
     public int getVtp_key() {
         return vtp_key;
     }
@@ -190,6 +194,10 @@ public class TranHist {
 
     public List<ENBLAN1> getEnblan1er() {
         return enblan1er;
+    }
+
+    public List<GRUNNBAP> getGrunnbaper() {
+        return grunnbaper;
     }
 
     public List<GRUNNBIF> getGrunnbif() {

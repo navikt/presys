@@ -1,79 +1,31 @@
-package no.nav.pensjon.dsf.domene.grunnblanketter;
+package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+public class GrunnblankettNyAFPDto extends GrunnblankettDto {
 
-@Segment(name = "GRUNNBKF", length = 66)
-@UnmappedField(name = "filler", length = 9, start = 57)
-public class GRUNNBKF {
-
-    @Felt(name="NBOSATT", length = 1, start = 0)
-    private String norskBosatt;
-
-    @Felt(name="TT_16_66_AA", length = 2, start = 1)
-    @PackedDecimal
+    private boolean norskBosatt;
     private int trygdetidAar;
-
-    @Felt(name="TT_16_66_M", length = 2, start = 3)
-    @PackedDecimal
     private int trygdetidMaaneder;
-
-    @Felt(name="STATSBORGER", length = 2, start = 5)
-    @PackedDecimal
     private int statsborger;
-
-    @Felt(name="BOSATT", length = 2, start = 7)
-    @PackedDecimal
     private int bosattLandkode;
-
-    @Felt(name="FRAVIK_FLYKTN", length = 1, start = 9)
     private String fravikFlyktning;
-
-    @Felt(name="OVERKOMP_UTL", length = 1, start = 10)
     private String overkompensasjonForUtlending;
-
-    @Felt(name="PI_SISTE_AAR", length = 4, start = 11)
-    @PackedDecimal
     private int pensjonsinntektSisteAar;
-
-    @Felt(name="FAI", length = 3, start = 15)
-    @PackedDecimal
     private int framtidigArbeidsinntekt;
-
-    @Felt(name="TILL_EK", length = 1, start = 18)
     private String tilleggForEktefelle;
-
-    @Felt(name="PEN_INNT", length = 3, start = 19)
-    @PackedDecimal
     private int pensjonsinntektUtenomFolketrygd;
-
-    @Felt(name="AFP_TILLEGGKODE", length = 1, start = 22)
     private String afpTilleggskode;
-
-    @Felt(name="AFP_ORDNING", length = 1, start = 23)
     private String afpOrdningskode;
-
-    @Felt(name="FNR_EK", length = 6, start = 24)
-    @PackedDecimal
     private int fodselsnummerEktefelle;
-
-    @Felt(name="NAVN_EK", length = 25, start = 30)
     private String navnEktefelle;
-
-    @Felt(name="EK_INNT_OVER_2G", length = 1, start = 55)
     private String ektefelleInntektOver2G;
-
-    @Felt(name="RED_GP_3_2_5", length = 1, start = 56)
     private String redusertGrunnpensjonEtterParagraf325;
 
-    public String getNorskBosatt() {
+    public boolean getNorskBosatt() {
         return norskBosatt;
     }
 
     public void setNorskBosatt(String norskBosatt) {
-        this.norskBosatt = norskBosatt;
+        this.norskBosatt = norskBosatt.equals("J");
     }
 
     public int getTrygdetidAar() {
