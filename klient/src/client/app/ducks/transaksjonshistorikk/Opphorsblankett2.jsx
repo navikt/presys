@@ -4,7 +4,7 @@ import Column from 'components/elements/Column';
 
 import styles from './Transaksjonshistorikk.less';
 
-const Opphorsblankett = ({
+const Opphorsblankett2 = ({
 ektefelletilleggStoppes,
 opphorskode }) => <Row>
   <Column size={6}>
@@ -19,9 +19,9 @@ opphorskode }) => <Row>
 </Row>;
 
 
-Opphorsblankett.propTypes = {
+Opphorsblankett2.propTypes = {
   ektefelletilleggStoppes: React.PropTypes.string.isRequired,
   opphorskode: React.PropTypes.string.isRequired,
 };
 
-export default Opphorsblankett;
+export default Opphorsblankett2;

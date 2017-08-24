@@ -3,7 +3,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import styles from './Transaksjonshistorikk.less';
 
-const Grunnblankett = ({
+const GrunnblankettAlderspensjon = ({
     ektefelleTillegg,
     framtidigArbeidsinntekt,
     bosattNorge,
@@ -28,7 +28,7 @@ const Grunnblankett = ({
       <Column size={6}>
         <table className={styles.infotable}><tbody>
           <tr>
-            <td>EktefelleTillegg</td>
+            <td>Ektefelletillegg</td>
             <td>{ektefelleTillegg}</td>
           </tr>
           <tr>
@@ -44,7 +44,7 @@ const Grunnblankett = ({
             <td>{statsborgerskap}</td>
           </tr>
           <tr>
-            <td>Fravik etter paragraf 19_3</td>
+            <td>Fravik etter §19_3</td>
             <td>{fravikPar19Pkt3}</td>
           </tr>
           <tr>
@@ -108,7 +108,7 @@ const Grunnblankett = ({
     </Row>;
 
 
-Grunnblankett.propTypes = {
+GrunnblankettAlderspensjon.propTypes = {
   ektefelleTillegg: React.PropTypes.string.isRequired,
   framtidigArbeidsinntekt: React.PropTypes.number.isRequired,
   bosattNorge: React.PropTypes.string.isRequired,
@@ -132,4 +132,4 @@ Grunnblankett.propTypes = {
   inntektMinst4G: React.PropTypes.string.isRequired,
 };
 
-export default Grunnblankett;
+export default GrunnblankettAlderspensjon;

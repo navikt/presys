@@ -2,7 +2,7 @@ package no.nav.pensjon.dsf.dto;
 
 public class GrunnblankettNyAFPDto extends GrunnblankettDto {
 
-    private boolean norskBosatt;
+    private String norskBosatt;
     private int trygdetidAar;
     private int trygdetidMaaneder;
     private int statsborger;
@@ -20,12 +20,12 @@ public class GrunnblankettNyAFPDto extends GrunnblankettDto {
     private String ektefelleInntektOver2G;
     private String redusertGrunnpensjonEtterParagraf325;
 
-    public boolean getNorskBosatt() {
+    public String getNorskBosatt() {
         return norskBosatt;
     }
 
     public void setNorskBosatt(String norskBosatt) {
-        this.norskBosatt = norskBosatt.equals("J");
+        this.norskBosatt = norskBosatt;
     }
 
     public int getTrygdetidAar() {
