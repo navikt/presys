@@ -1,33 +1,26 @@
-package no.nav.pensjon.dsf.domene.grunnblanketter;
+package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+public class GrunnblankettEndringsblankettDto extends GrunnblankettDto {
 
-@Segment(name = "ENDRBLAN", length = 110)
-@UnmappedField(name="FILLER", length = 2, start = 108)
-public class ENDRBLAN {
-
-    @Felt(name="FAI" , length = 3, start = 0) @PackedDecimal private int framtidigArbeidsinntekt;
-    @Felt(name="APD_MAX" , length = 1, start = 3) private String hoyestePensjonsgrad;
-    @Felt(name="APD" , length = 2, start = 4) @PackedDecimal private int alderspensjonsdelIProsent;
-    @Felt(name="UFG" , length = 2, start = 6) @PackedDecimal private int uforegrad;
-    @Felt(name="FORVENTET_INNT" , length = 3, start = 8) @PackedDecimal private int forventetInntekt;
-    @Felt(name="O_TIL_PENSJON" , length = 1, start = 11) private String overgangsstonadTilPensjon;
-    @Felt(name="TP_PROSENT" , length = 2, start = 12) @PackedDecimal private int tilleggspensjonForGjenlevendePensjonIProsent;
-    @Felt(name="FRAMLEGGSDATO_AAMD" , length = 5, start = 14) @PackedDecimal private int framleggsdato;
-    @Felt(name="OPPHOREO" , length = 1, start = 19) private String opphortOvergangsstonadGjennlevende;
-    @Felt(name="NAVNNY" , length = 25, start = 20) private String nyttNavnPensjonist;
-    @Felt(name="NAVNNYEK" , length = 25, start = 45) private String nyttNavnEps;
-    @Felt(name="FNR_EK" , length = 6, start = 70) @PackedDecimal private int fodselsnummerEktefelle;
-    @Felt(name="NAVN_EK" , length = 25, start = 76) private String navnEktefelle;
-    @Felt(name="SKILSMIS" , length = 1, start = 101) private String skilsmisse;
-    @Felt(name="FLYTTFRA" , length = 1, start = 102) private String flyttetFraHverandre;
-    @Felt(name="FLYTTSAM" , length = 1, start = 103) private String flyttetSammen;
-    @Felt(name="INNT_MINST_4G" , length = 1, start = 104) private String inntektMinst4G;
-    @Felt(name="INNT_UNDER_4G" , length = 1, start = 105) private String inntektUnder4G;
-    @Felt(name="YUG" , length = 2, start = 106) @PackedDecimal private int yrkeUforegrad;
+    private int framtidigArbeidsinntekt;
+    private String hoyestePensjonsgrad;
+    private int alderspensjonsdelIProsent;
+    private int uforegrad;
+    private int forventetInntekt;
+    private String overgangsstonadTilPensjon;
+    private int tilleggspensjonForGjenlevendePensjonIProsent;
+    private int framleggsdato;
+    private String opphortOvergangsstonadGjennlevende;
+    private String nyttNavnPensjonist;
+    private String nyttNavnEps;
+    private int fodselsnummerEktefelle;
+    private String navnEktefelle;
+    private String skilsmisse;
+    private String flyttetFraHverandre;
+    private String flyttetSammen;
+    private String inntektMinst4G;
+    private String inntektUnder4G;
+    private int yrkeUforegrad;
 
     public int getFramtidigArbeidsinntekt() {
         return framtidigArbeidsinntekt;

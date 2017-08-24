@@ -4,14 +4,14 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
-@Segment(name = "OPPHBL2 ", length = 4)
-@UnmappedField(name = "filler", length = 1, start = 3)
+@Segment(name = "OPPHBL2 ", length = 6)
+@UnmappedField(name = "filler", length = 4, start = 2)
 public class OPPHBL2 {
 
     @Felt(name="ektefelletilleggStoppes", length = 1, start = 0)
     private String ektefelletilleggStoppes;
 
-    @Felt(name="opphrKode", length = 2, start = 1)
+    @Felt(name="opphrKode", length = 1, start = 1)
     private String opphorskode;
 
 
