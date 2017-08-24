@@ -53,19 +53,9 @@ node {
                     withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
                         withEnv(['SONAR_SCANNER_OPTS=-Dhttps.proxyHost=webproxy-utvikler.nav.no -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=adeo.no']) {
                             sh "${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectKey=no.nav.pensjon.presys:presys \
-                                -Dsonar.projectName=Presys \
                                 -Dsonar.projectVersion=${pom.version} \
-                                -Dsonar.sources=src \
-                                -Dsonar.sourceEncoding=UTF-8 \
-                                -Dsonar.java.binaries=target/classes \
-                                -Dsonar.java.test.binaries=target/test-classes \
-                                -Dsonar.modules=appconfig,klient,metrics,server \
-                                -Dsonar.links.scm=https://github.com/${project}/${application}.git \
-                                -Dsonar.links.scm_dev=https://github.com/${project}/${application}.git \
                                 -Dsonar.analysis.mode=preview \
                                 -Dsonar.github.pullRequest=${env.CHANGE_ID} \
-                                -Dsonar.github.repository=${project}/${application} \
                                 -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}"
                         }
                     }
