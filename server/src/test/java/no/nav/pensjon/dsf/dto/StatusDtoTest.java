@@ -1,22 +1,23 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.status.Status;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class StatusDtoTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     private Status status;
+
+    private StatusDto statusDto;
 
     @Before
     public void setUp() {
@@ -53,17 +54,18 @@ public class StatusDtoTest {
         status.setTrygdetidGaranti(1818);
         status.setVilkar8_4_3a("??");
         status.setVirkDato(1919);
+
+        statusDto = modelMapper.map(status, StatusDto.class);
     }
 
     @After
     public void tearDown() {
         status = null;
+        statusDto = null;
     }
 
     @Test
     public void thatStatusIsMappedCorrectlyToDto() {
-        StatusDto statusDto = modelMapper.map(status, StatusDto.class);
-
         assertEquals(status.getAntallBarn(), statusDto.getAntallBarn());
         assertEquals(status.getDodAvYrkesskade(), statusDto.getDodAvYrkesskade());
         assertEquals(status.getDodsddato(), statusDto.getDodsddato());
@@ -99,38 +101,40 @@ public class StatusDtoTest {
 
     @Test
     public void thatStatusDtoIsMappedCorrectlyToJson() {
-        StatusDto statusDto = modelMapper.map(status, StatusDto.class);
-        assertThatJson(statusDto).matches(IsMapWithSize.hasSize(31))
-                .matches(hasEntry("virkDato", BigDecimal.valueOf(1919)))
-                .matches(hasEntry("statusKode", "??"))
-                .matches(hasEntry("statusKodeHistorie", "??"))
-                .matches(hasEntry("pensjonsType1", "??"))
-                .matches(hasEntry("pensjonsType2", "??"))
-                .matches(hasEntry("pensjonsType3", "??"))
-                .matches(hasEntry("sivilstand", "??"))
-                .matches(hasEntry("trygdetidFoer1967", BigDecimal.valueOf(1616)))
-                .matches(hasEntry("trygdetidEtter1966", BigDecimal.valueOf(1515)))
-                .matches(hasEntry("trygdetidFramTil", BigDecimal.valueOf(1717)))
-                .matches(hasEntry("trygdetid1967Til1970", BigDecimal.valueOf(1313)))
-                .matches(hasEntry("trygdetidAnvendt", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("foersteGangReg", "J"))
-                .matches(hasEntry("sumYtelse", BigDecimal.valueOf(1337)))
-                .matches(hasEntry("antallBarn", BigDecimal.valueOf(3)))
-                .matches(hasEntry("dodsddato", BigDecimal.valueOf(19990101)))
-                .matches(hasEntry("dodAvYrkesskade", "J"))
-                .matches(hasEntry("vilkar8_4_3a", "??"))
-                .matches(hasEntry("trygdetidGaranti", BigDecimal.valueOf(1818)))
-                .matches(hasEntry("grunnbelopsDato", BigDecimal.valueOf(19970101)))
-                .matches(hasEntry("poengtilleggsDato", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("poengtilleggsKode", "??"))
-                .matches(hasEntry("pensjonsrettFoer91", "??"))
-                .matches(hasEntry("trygdetid16_66", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("garantertTilleggsPensjonKode", "??"))
-                .matches(hasEntry("ektefelleInntektOver2g", "J"))
-                .matches(hasEntry("pensjonFoer9802", "??"))
-                .matches(hasEntry("red_grunnPensjon_3_2_1", "??"))
-                .matches(hasEntry("grunnPensjonReduksjonsKode", "??"))
-                .matches(hasEntry("friinntektDato", BigDecimal.valueOf(19980101)));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("virkDato", 1919);
+        expected.put("statusKode", "??");
+        expected.put("statusKodeHistorie", "??");
+        expected.put("pensjonsType1", "??");
+        expected.put("pensjonsType2", "??");
+        expected.put("pensjonsType3", "??");
+        expected.put("sivilstand", "??");
+        expected.put("gammelSammenstotsRegel", "??");
+        expected.put("trygdetidFoer1967", 1616);
+        expected.put("trygdetidEtter1966", 1515);
+        expected.put("trygdetidFramTil", 1717);
+        expected.put("trygdetid1967Til1970", 1313);
+        expected.put("trygdetidAnvendt", 1414);
+        expected.put("foersteGangReg", "J");
+        expected.put("sumYtelse", 1337);
+        expected.put("antallBarn", 3);
+        expected.put("dodsddato", 19990101);
+        expected.put("dodAvYrkesskade", "J");
+        expected.put("vilkar8_4_3a", "??");
+        expected.put("trygdetidGaranti", 1818);
+        expected.put("grunnbelopsDato", 19970101);
+        expected.put("poengtilleggsDato", 1111);
+        expected.put("poengtilleggsKode", "??");
+        expected.put("pensjonsrettFoer91", "??");
+        expected.put("trygdetid16_66", 1212);
+        expected.put("garantertTilleggsPensjonKode", "??");
+        expected.put("ektefelleInntektOver2g", "J");
+        expected.put("pensjonFoer9802", "??");
+        expected.put("red_grunnPensjon_3_2_1", "??");
+        expected.put("grunnPensjonReduksjonsKode", "??");
+        expected.put("friinntektDato", 19980101);
+
+        assertThatJson(statusDto).isEqualTo(expected);
     }
 
 }

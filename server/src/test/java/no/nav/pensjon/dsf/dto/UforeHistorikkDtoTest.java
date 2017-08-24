@@ -1,18 +1,17 @@
 package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.dsf.domene.Uforegrad;
 import no.nav.pensjon.dsf.domene.status.UforeHistorikk;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.emptyCollectionOf;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class UforeHistorikkDtoTest {
@@ -20,6 +19,8 @@ public class UforeHistorikkDtoTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     private UforeHistorikk uforeHistorikk;
+
+    private UforeHistorikkDto uforeHistorikkDto;
 
     @Before
     public void setUp() {
@@ -34,17 +35,18 @@ public class UforeHistorikkDtoTest {
         uforeHistorikk.setRedusertAntallBupAar(1414);
         uforeHistorikk.setFoedselsaarYngsteBarn(1515);
         uforeHistorikk.setVirkningsdatoUfrHistorie(1616);
+
+        uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
     }
 
     @After
     public void tearDown() {
         uforeHistorikk = null;
+        uforeHistorikkDto = null;
     }
 
     @Test
     public void thatUforehistorikkIsMappedCorrectlyToDto() {
-        UforeHistorikkDto uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
-
         assertEquals(uforeHistorikk.getUfg(), uforeHistorikkDto.getUfg());
         assertEquals(uforeHistorikk.getUftMaaned(), uforeHistorikkDto.getUftMaaned());
         assertEquals(uforeHistorikk.getUfKriterier(), uforeHistorikkDto.getUfKriterier());
@@ -55,23 +57,23 @@ public class UforeHistorikkDtoTest {
         assertEquals(uforeHistorikk.getRedusertAntallBupAar(), uforeHistorikkDto.getRedusertAntallBupAar());
         assertEquals(uforeHistorikk.getFoedselsaarYngsteBarn(), uforeHistorikkDto.getFoedselsaarYngsteBarn());
         assertEquals(uforeHistorikk.getVirkningsdatoUfrHistorie(), uforeHistorikkDto.getVirkningsdatoUfrHistorie());
-
     }
 
     @Test
     public void thatUforehistorikkDtoIsMappedCorrectlyToJson() {
-        UforeHistorikkDto uforeHistorikkDto = modelMapper.map(uforeHistorikk, UforeHistorikkDto.class);
-        assertThatJson(uforeHistorikkDto).matches(IsMapWithSize.hasSize(11))
-                .matches(hasEntry("uftMaaned", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("ufg", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("ufKriterier", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("bup", BigDecimal.valueOf(1)))
-                .matches(hasEntry("bupGarantiKode", "??"))
-                .matches(hasEntry("opphørsdatoMaaned", BigDecimal.valueOf(1313)))
-                .matches(hasEntry("opphørsKode", "??"))
-                .matches(hasEntry("redusertAntallBupAar", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("foedselsaarYngsteBarn", BigDecimal.valueOf(1515)))
-                .matches(hasEntry("virkningsdatoUfrHistorie", BigDecimal.valueOf(1616)))
-                .node("uforegrader").matches(emptyCollectionOf(Uforegrad.class));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("uftMaaned", 1111);
+        expected.put("ufg", 1010);
+        expected.put("ufKriterier", 1212);
+        expected.put("bup", 1);
+        expected.put("bupGarantiKode", "??");
+        expected.put("opphørsdatoMaaned", 1313);
+        expected.put("opphørsKode", "??");
+        expected.put("redusertAntallBupAar", 1414);
+        expected.put("foedselsaarYngsteBarn", 1515);
+        expected.put("virkningsdatoUfrHistorie", 1616);
+        expected.put("uforegrader", Collections.EMPTY_LIST);
+
+        assertThatJson(uforeHistorikkDto).isEqualTo(expected);
     }
 }

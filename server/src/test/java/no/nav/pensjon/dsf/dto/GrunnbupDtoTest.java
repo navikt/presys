@@ -1,16 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.grunnblanketter.Grunnbup;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class GrunnbupDtoTest {
@@ -117,46 +116,48 @@ public class GrunnbupDtoTest {
 
     @Test
     public void thatGrunnbupDtoIsMappedCorrectlyToJson() {
-        assertThatJson(grunnbupDto)
-                .matches(IsMapWithSize.hasSize(39))
-                .matches(hasEntry("ektefelletillegg", "??"))
-                .matches(hasEntry("anntallBarn", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("uforegrad", BigDecimal.valueOf(2424)))
-                .matches(hasEntry("uforetidspunkt", BigDecimal.valueOf(2525)))
-                .matches(hasEntry("yrke", BigDecimal.valueOf(3030)))
-                .matches(hasEntry("vilkaar843A", "??"))
-                .matches(hasEntry("vilkaar81B", "??"))
-                .matches(hasEntry("fodselsnummerEktefelle", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("navnEktefelle", "??"))
-                .matches(hasEntry("norskINorgeMedlem", "??"))
-                .matches(hasEntry("vernepliktAar1", BigDecimal.valueOf(2626)))
-                .matches(hasEntry("vernepliktAar2", BigDecimal.valueOf(2727)))
-                .matches(hasEntry("vernepliktAar3", BigDecimal.valueOf(2828)))
-                .matches(hasEntry("vernepliktAar4", BigDecimal.valueOf(2929)))
-                .matches(hasEntry("pensjonsgivendeInntekt", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("overkompUtl", "??"))
-                .matches(hasEntry("uforUnderBotid", "??"))
-                .matches(hasEntry("trygdetidFor1967", BigDecimal.valueOf(2020)))
-                .matches(hasEntry("trygdetidEtter1966Aar", BigDecimal.valueOf(1616)))
-                .matches(hasEntry("trygdetidEtter1966Maaneder", BigDecimal.valueOf(1818)))
-                .matches(hasEntry("trygdetidFor1967Ektefelle", BigDecimal.valueOf(2121)))
-                .matches(hasEntry("statsborgerskap", BigDecimal.valueOf(1515)))
-                .matches(hasEntry("bosattLand", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("fravikBosatt", "??"))
-                .matches(hasEntry("trygd3", "??"))
-                .matches(hasEntry("fravikTrygdet3Aar", "??"))
-                .matches(hasEntry("fravik81", "??"))
-                .matches(hasEntry("konvensjon", "??"))
-                .matches(hasEntry("fravik193", "??"))
-                .matches(hasEntry("fravikFlyktning","??"))
-                .matches(hasEntry("trygdetidEtter1966AarEktefelle", BigDecimal.valueOf(1717)))
-                .matches(hasEntry("trygdetidEtter1966MaanederEktefelle", BigDecimal.valueOf(1919)))
-                .matches(hasEntry("ttfmt81", BigDecimal.valueOf(2222)))
-                .matches(hasEntry("ttFramtUft", BigDecimal.valueOf(2323)))
-                .matches(hasEntry("ikkeGrunnpensjon", "??"))
-                .matches(hasEntry("inntektMinst4G", "??"))
-                .matches(hasEntry("attforingUfore", "??"))
-                .matches(hasEntry("yrkesskadetillegg", "??"))
-                .matches(hasEntry("inntektForUforepensjon", BigDecimal.valueOf(1313)));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("ektefelletillegg", "??");
+        expected.put("anntallBarn", 1010);
+        expected.put("uforegrad", 2424);
+        expected.put("uforetidspunkt", 2525);
+        expected.put("yrke", 3030);
+        expected.put("vilkaar843A", "??");
+        expected.put("vilkaar81B", "??");
+        expected.put("fodselsnummerEktefelle", 1212);
+        expected.put("navnEktefelle", "??");
+        expected.put("norskINorgeMedlem", "??");
+        expected.put("vernepliktAar1", 2626);
+        expected.put("vernepliktAar2", 2727);
+        expected.put("vernepliktAar3", 2828);
+        expected.put("vernepliktAar4", 2929);
+        expected.put("pensjonsgivendeInntekt", 1414);
+        expected.put("overkompUtl", "??");
+        expected.put("uforUnderBotid", "??");
+        expected.put("trygdetidFor1967", 2020);
+        expected.put("trygdetidEtter1966Aar", 1616);
+        expected.put("trygdetidEtter1966Maaneder", 1818);
+        expected.put("trygdetidFor1967Ektefelle", 2121);
+        expected.put("statsborgerskap", 1515);
+        expected.put("bosattLand", 1111);
+        expected.put("fravikBosatt", "??");
+        expected.put("trygd3", "??");
+        expected.put("fravikTrygdet3Aar", "??");
+        expected.put("fravik81", "??");
+        expected.put("konvensjon", "??");
+        expected.put("fravik193", "??");
+        expected.put("fravikFlyktning", "??");
+        expected.put("trygdetidEtter1966AarEktefelle", 1717);
+        expected.put("trygdetidEtter1966MaanederEktefelle", 1919);
+        expected.put("ttfmt81", 2222);
+        expected.put("ttFramtUft", 2323);
+        expected.put("ikkeGrunnpensjon", "??");
+        expected.put("inntektMinst4G", "??");
+        expected.put("attforingUfore", "??");
+        expected.put("yrkesskadetillegg", "??");
+        expected.put("inntektForUforepensjon", 1313);
+
+        assertThatJson(grunnbupDto).isEqualTo(expected);
+
     }
 }

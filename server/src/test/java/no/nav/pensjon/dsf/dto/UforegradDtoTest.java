@@ -1,16 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.Uforegrad;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class UforegradDtoTest {
@@ -48,12 +47,13 @@ public class UforegradDtoTest {
 
     @Test
     public void thatUforegradDtoIsMappedCorrectlyToJson() {
-        assertThatJson(uforegradDto)
-                .matches(IsMapWithSize.hasSize(4))
-                .matches(hasEntry("uforegradDato", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("uforegradOvrige", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("virkningsdatoUforegrad", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("yngsteBarnFoerGrad", BigDecimal.valueOf(1313)));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("uforegradDato", 1010);
+        expected.put("uforegradOvrige", 1111);
+        expected.put("virkningsdatoUforegrad", 1212);
+        expected.put("yngsteBarnFoerGrad", 1313);
+
+        assertThatJson(uforegradDto).isEqualTo(expected);
     }
 
 }

@@ -1,14 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.grunnblanketter.OPPHBL2;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class Opphorsblankett2DtoTest {
@@ -41,10 +42,11 @@ public class Opphorsblankett2DtoTest {
 
     @Test
     public void thatOpphorsblankett2DtoIsMappedCorrectlyToJson() {
-        assertThatJson(opphorsblankettDto)
-                .matches(IsMapWithSize.hasSize(2))
-                .matches(hasEntry("ektefelletilleggStoppes", "??"))
-                .matches(hasEntry("opphorskode", "??"));
+        Map<String, String> expected = new HashMap<>();
+        expected.put("ektefelletilleggStoppes", "??");
+        expected.put("opphorskode", "??");
+
+        assertThatJson(opphorsblankettDto).isEqualTo(expected);
     }
 
 }

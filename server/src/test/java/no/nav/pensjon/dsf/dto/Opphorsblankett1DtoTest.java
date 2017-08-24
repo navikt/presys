@@ -1,16 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.grunnblanketter.OPPHBL1;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class Opphorsblankett1DtoTest {
@@ -47,12 +46,13 @@ public class Opphorsblankett1DtoTest {
 
     @Test
     public void thatOpphorsblankett1DtoIsMappedCorrectlyToJson() {
-        assertThatJson(opphorsblankettDto)
-                .matches(IsMapWithSize.hasSize(4))
-                .matches(hasEntry("avdodesPensjonsgivendeInntekt", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("dodsDato", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("ektefelleFodselsnummer", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("ektefelleNavn", "??"));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("avdodesPensjonsgivendeInntekt", 1010);
+        expected.put("dodsDato", 1111);
+        expected.put("ektefelleFodselsnummer", 1212);
+        expected.put("ektefelleNavn", "??");
+
+        assertThatJson(opphorsblankettDto).isEqualTo(expected);
     }
 
 }

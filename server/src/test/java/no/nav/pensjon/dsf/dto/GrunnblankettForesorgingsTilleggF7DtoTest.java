@@ -1,16 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class GrunnblankettForesorgingsTilleggF7DtoTest {
@@ -53,16 +52,19 @@ public class GrunnblankettForesorgingsTilleggF7DtoTest {
 
     @Test
     public void thatGrunnblankettDtoIsMappedCorrectlyToJson() {
-        assertThatJson(grunnblankettDto)
-                .matches(IsMapWithSize.hasSize(7))
-                .matches(hasEntry("antallBarnetillegg", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("arbeidsinntekt", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("arbeidsinntektEktefelle", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("pensjonsinntekt", BigDecimal.valueOf(1313)))
-                .matches(hasEntry("pensjonsinntektEktefelle", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("ektefelletillegg", "??"))
-                .node("ektefelle")
-                    .matches(hasEntry("fnr", "??"))
-                    .matches(hasEntry("navn", "??"));
+        Map<String, Object> ektefelle = new HashMap<>();
+        ektefelle.put("fnr", "??");
+        ektefelle.put("navn", "??");
+
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("antallBarnetillegg", 1010);
+        expected.put("arbeidsinntekt", 1111);
+        expected.put("arbeidsinntektEktefelle", 1212);
+        expected.put("pensjonsinntekt", 1313);
+        expected.put("pensjonsinntektEktefelle", 1414);
+        expected.put("ektefelletillegg", "??");
+        expected.put("ektefelle", ektefelle);
+
+        assertThatJson(grunnblankettDto).isEqualTo(expected);
     }
 }

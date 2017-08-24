@@ -1,16 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.Tilberpo;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class TilberpoDtoTest {
@@ -57,17 +56,18 @@ public class TilberpoDtoTest {
 
     @Test
     public void thatTilberpoDtoIsMappedCorrectlyToJson() {
-        assertThatJson(tilberpoDto)
-                .matches(IsMapWithSize.hasSize(9))
-                .matches(hasEntry("ai63", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("ai64", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("ai65", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("ai66", BigDecimal.valueOf(1313)))
-                .matches(hasEntry("pi66", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("vernepliktaar1", BigDecimal.valueOf(1515)))
-                .matches(hasEntry("vernepliktaar2", BigDecimal.valueOf(1616)))
-                .matches(hasEntry("vernepliktaar3", BigDecimal.valueOf(1717)))
-                .matches(hasEntry("vernepliktaar4", BigDecimal.valueOf(1818)));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("ai63", 1010);
+        expected.put("ai64", 1111);
+        expected.put("ai65", 1212);
+        expected.put("ai66", 1313);
+        expected.put("pi66", 1414);
+        expected.put("vernepliktaar1", 1515);
+        expected.put("vernepliktaar2", 1616);
+        expected.put("vernepliktaar3", 1717);
+        expected.put("vernepliktaar4", 1818);
+
+        assertThatJson(tilberpoDto).isEqualTo(expected);
     }
 
 }

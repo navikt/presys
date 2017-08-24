@@ -1,16 +1,15 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.EtteroppgjorAFP;
-import no.nav.pensjon.test.IsMapWithSize;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 
 public class EtteroppgjorAFPDtoTest {
@@ -67,22 +66,24 @@ public class EtteroppgjorAFPDtoTest {
 
     @Test
     public void thatEtteroppgjorAFPDtoIsMappedCorrectlyToJson() {
-        assertThatJson(etteroppgjorAFPDto)
-                .matches(IsMapWithSize.hasSize(14))
-                .matches(hasEntry("differanseForLiteUtbetalt", BigDecimal.valueOf(1010)))
-                .matches(hasEntry("differanseForMyeUtbetalt", BigDecimal.valueOf(1111)))
-                .matches(hasEntry("faktiskUtbetalt", BigDecimal.valueOf(1212)))
-                .matches(hasEntry("fullAFPiAvregningsperioden", BigDecimal.valueOf(1313)))
-                .matches(hasEntry("inntektEtterOpphor", BigDecimal.valueOf(1414)))
-                .matches(hasEntry("inntektForUttakAvAFP", BigDecimal.valueOf(1515)))
-                .matches(hasEntry("inntektsAar", BigDecimal.valueOf(1616)))
-                .matches(hasEntry("inntektIAFPPerioden", BigDecimal.valueOf(1717)))
-                .matches(hasEntry("oppgittFramtidigInntekt", BigDecimal.valueOf(1818)))
-                .matches(hasEntry("pensjonsgivendeInntekt", BigDecimal.valueOf(1919)))
-                .matches(hasEntry("tidligereInntekt", BigDecimal.valueOf(2020)))
-                .matches(hasEntry("beregnetEllerRegistrertViaInfotrygd", "??"))
-                .matches(hasEntry("registertViaDSFEllerInfotrygdIEO", "??"))
-                .matches(hasEntry("registertViaDSFEllerInfotrygdIFU", "??"));
+        Map<String, Object> expected = new HashMap<>();
+        expected.put("differanseForLiteUtbetalt", 1010);
+        expected.put("differanseForMyeUtbetalt", 1111);
+        expected.put("faktiskUtbetalt", 1212);
+        expected.put("fullAFPiAvregningsperioden", 1313);
+        expected.put("inntektEtterOpphor", 1414);
+        expected.put("inntektForUttakAvAFP", 1515);
+        expected.put("inntektsAar", 1616);
+        expected.put("inntektIAFPPerioden", 1717);
+        expected.put("oppgittFramtidigInntekt", 1818);
+        expected.put("pensjonsgivendeInntekt", 1919);
+        expected.put("tidligereInntekt", 2020);
+        expected.put("beregnetEllerRegistrertViaInfotrygd", "??");
+        expected.put("registertViaDSFEllerInfotrygdIEO", "??");
+        expected.put("registertViaDSFEllerInfotrygdIFU", "??");
+
+        assertThatJson(etteroppgjorAFPDto).isEqualTo(expected);
+
     }
 
 }
