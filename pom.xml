@@ -15,7 +15,6 @@
     </parent>
 
     <modules>
-        <module>metrics</module>
         <module>klient</module>
 		<module>server</module>
         <module>ear</module>
