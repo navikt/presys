@@ -3,6 +3,8 @@ target/
 /mvnw
 /mvnw.cmd
 
+.scannerwork
+
 ### STS ###
 .apt_generated
 .classpath
