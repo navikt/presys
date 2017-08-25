@@ -1,9 +1,8 @@
 package no.nav.pensjon.dsf.config.auth.ldap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.pensjon.presys.metrics.Event;
-import no.nav.pensjon.presys.metrics.MetricsFactory;
-import no.nav.pensjon.presys.metrics.Timer;
+import no.nav.metrics.Event;
+import no.nav.metrics.MetricsFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
