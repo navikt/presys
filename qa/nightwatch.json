@@ -31,7 +31,7 @@
       }
     },
     "jenkins": {
-      "launch_url" : "https://app-q1.adeo.no/presys",
+      "launch_url" : "https://app-t0.adeo.no/presys",
       "cli_args": {
         "webdriver.chrome.driver": "/usr/local/bin/chromedriver"
       },
