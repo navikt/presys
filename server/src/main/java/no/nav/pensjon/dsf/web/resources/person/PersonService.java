@@ -98,7 +98,6 @@ public class PersonService {
                     PersonDto ektefelle = new PersonDto();
                     ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
                     ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
-                    ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
                     grunnblankett.setEktefelle(ektefelle);
                     dto.setGrunnblankett(grunnblankett);
                     break;
