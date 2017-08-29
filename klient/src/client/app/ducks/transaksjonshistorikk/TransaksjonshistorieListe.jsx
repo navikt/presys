@@ -101,6 +101,7 @@ class TransaksjonshistorieListe extends Component {
         <Column size={12}>
           <Grunnblankett
             type={transaksjonshistorie[selectedIndex].grunnblankettkode}
+            barn={transaksjonshistorie[selectedIndex].barn}
             {...transaksjonshistorie[selectedIndex].grunnblankett}
           />
         </Column>

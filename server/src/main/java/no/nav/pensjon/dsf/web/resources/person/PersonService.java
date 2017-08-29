@@ -128,6 +128,10 @@ public class PersonService {
                 case "AP":
                     dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbaper().get(0), GrunnblankettAlderspensjonDto.class));
                     break;
+                case "A1":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnba1er().get(0), GrunnblankettAlderspensjon1Dto.class));
+                    break;
+
            }
             return dto;
         };
