@@ -3,12 +3,12 @@ import React from 'react';
 
 export const InntektListe = ({ inntekter }) => <div>{!inntekter ? null : <Table
   headerTextCodes={['Inntekt.Aar', 'Kommune', 'Type', 'Inntekt.Pensjonsgivende']}
-  data={inntekter.map(row => ({ key: row.personInntektAar,
+  data={inntekter.map((row, i) => ({ key: i,
     columns: [
-          { key: 'a', value: row.personInntektAar },
-          { key: 'b', value: row.kommune },
-          { key: 'c', value: row.personInntektType },
-          { key: 'd', value: row.personInntekt },
+          { key: '0', value: row.personInntektAar },
+          { key: '1', value: row.kommune },
+          { key: '2', value: row.personInntektType },
+          { key: '3', value: row.personInntekt },
     ] }))}
 />
         }</div>;
