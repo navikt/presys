@@ -1,5 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import CopyToClipboard from 'react-copy-to-clipboard';
+
 
 import urlMann from 'images/mann.svg';
 import urlKvinne from 'images/kvinne.svg';
@@ -18,9 +20,11 @@ const Person = ({
       <h2 className={hasLargeFont ? styles.navnLarge : styles.navn}>
         {navn}
       </h2>
-      <p className={hasLargeFont ? styles.personnummerLarge : styles.personnummer}>
-        {`${personnummer.substring(0, 6)} ${personnummer.substring(6)}`}
-      </p>
+      <CopyToClipboard text={personnummer}>
+        <p className={hasLargeFont ? styles.personnummerLarge : styles.personnummer}>
+          {`${personnummer.substring(0, 6)} ${personnummer.substring(6)}`}
+        </p>
+      </CopyToClipboard>
     </div>
   </div>
 );

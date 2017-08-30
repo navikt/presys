@@ -23,7 +23,7 @@ node {
             // infer with the Git polling that Jenkins already does (when polling for changes to the
             // repo containing the Jenkinsfile).
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-            			sh(script: "git clone https://github.com/${project}/${repoName}.git .")
+                sh(script: "git clone https://github.com/${project}/${repoName}.git .")
             }
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
@@ -33,7 +33,16 @@ node {
             /* gets the person who committed last as "Surname, First name" */
             committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
 
-            notifyGithub("${project}", "${repoName}", "${commitHash}", 'pending', "Build #${env.BUILD_NUMBER} has started")
+            githubNotify([
+                    credentialsId: 'navikt-jenkins',
+                    account: project,
+                    repo: repoName,
+                    sha: commitHash,
+                    status: 'PENDING',
+                    description: "Build #${env.BUILD_NUMBER} has started",
+                    context: 'continuous-integration/jenkins',
+                    targetUrl: env.BUILD_URL
+            ])
         }
 
         stage("initialize") {
@@ -45,7 +54,7 @@ node {
 
         stage("build") {
             withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+                sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
         }
 
@@ -55,17 +64,7 @@ node {
             // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
             // so we don't have to set them as cli args to sonar-scanner
             withSonarQubeEnv('Presys Sonar') {
-                sh "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=no.nav.pensjon.presys:presys \
-                    -Dsonar.projectName=Presys \
-                    -Dsonar.projectVersion=${pom.version} \
-                    -Dsonar.sources=src \
-                    -Dsonar.sourceEncoding=UTF-8 \
-                    -Dsonar.java.binaries=target/classes \
-                    -Dsonar.java.test.binaries=target/test-classes \
-                    -Dsonar.modules=appconfig,klient,metrics,server \
-                    -Dsonar.links.scm=https://github.com/${project}/${repoName}.git \
-                    -Dsonar.links.scm_dev=https://github.com/${project}/${repoName}.git"
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${pom.version}"
             }
         }
 
@@ -151,39 +150,36 @@ node {
             ])
         }
 
-        currentBuild.result = 'SUCCESS'
-        notifyGithub("${project}", "${repoName}", "${commitHash}", 'success', "Build #${env.BUILD_NUMBER} has finished")
+        githubNotify([
+                credentialsId: 'navikt-jenkins',
+                account: project,
+                repo: repoName,
+                sha: commitHash,
+                status: 'SUCCESS',
+                description: "Build #${env.BUILD_NUMBER} has finished",
+                context: 'continuous-integration/jenkins',
+                targetUrl: env.BUILD_URL
+        ])
         slackSend([
             color: 'good',
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} passed"
         ])
     } catch (e) {
-        notifyGithub("${project}", "${repoName}", "${commitHash}", 'failure', "Build #${env.BUILD_NUMBER} has failed")
-
+        githubNotify([
+                credentialsId: 'navikt-jenkins',
+                account: project,
+                repo: repoName,
+                sha: commitHash,
+                status: 'FAILURE',
+                description: "Build #${env.BUILD_NUMBER} has failed",
+                context: 'continuous-integration/jenkins',
+                targetUrl: env.BUILD_URL
+        ])
         slackSend([
             color: 'danger',
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} failed"
         ])
 
         throw e
-    }
-}
-
-def notifyGithub(owner, repo, sha, state, description) {
-    def postBody = [
-        state: "${state}",
-        context: 'continuous-integration/jenkins',
-        description: "${description}",
-        target_url: "${env.BUILD_URL}"
-    ]
-    def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-
-    withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-        withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'ACCESS_TOKEN')]) {
-            sh "curl 'https://api.github.com/repos/${owner}/${repo}/statuses/${sha}?access_token=$ACCESS_TOKEN' \
-                -H 'Content-Type: application/json' \
-                -X POST \
-                -d '${postBodyString}'"
-        }
     }
 }

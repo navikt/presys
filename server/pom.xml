@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>47-SNAPSHOT</version>
+		<version>55-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -28,9 +28,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>presys-metrics</artifactId>
-			<version>47-SNAPSHOT</version>
+			<groupId>no.nav</groupId>
+			<artifactId>metrics</artifactId>
+			<version>1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -114,6 +114,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.javacrumbs.json-unit</groupId>
+			<artifactId>json-unit-fluent</artifactId>
+			<version>1.20.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -125,6 +131,7 @@
 					<profiles>
 						<profile>dev</profile>
 					</profiles>
+					<jvmArguments>-Ddisable.metrics.report=true</jvmArguments>
 					<folders>
 						<!-- Adds src/test/resources to classpath so that
 							profile-specific properties files may be loaded from there -->

@@ -101,7 +101,6 @@ public class PersonService {
                     PersonDto ektefelle = new PersonDto();
                     ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
                     ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
-                    ektefelle.setAvailableForLookup(repo.exists(ektefelle.getFnr()));
                     grunnblankett.setEktefelle(ektefelle);
                     dto.setGrunnblankett(grunnblankett);
                     break;
@@ -114,7 +113,25 @@ public class PersonService {
                 case "O2":
                     dto.setGrunnblankett(modelMapper.map(tranhist.getOpphbl2er().get(0), Opphorsblankett2Dto.class));
                     break;
-            }
+                case "KF":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbkfer().get(0), GrunnblankettNyAFPDto.class));
+                    break;
+                case "U3":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbu3er().get(0), GrunnblankettUforepensjonDto.class));
+                    break;
+                case "E3":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbe3er().get(0), GrunnblankettEtterlattEktefelleDto.class));
+                    break;
+                case "E1":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getEndringsblankett().get(0), GrunnblankettEndringsblankettDto.class));
+                    break;
+                case "EN":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getEnblan1er().get(0), GrunnblankettEndringsblankettEnDto.class));
+                    break;
+                case "AP":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbaper().get(0), GrunnblankettAlderspensjonDto.class));
+                    break;
+           }
             return dto;
         };
 
