@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,6 +74,7 @@ public class TranHistDtoTest {
         expected.put("virkningsdato", 1212);
         expected.put("vtp_key", 1313);
         expected.put("grunnblankett", null);
+        expected.put("barn", new ArrayList<>());
 
         assertThatJson(tranHistDto).isEqualTo(expected);
     }

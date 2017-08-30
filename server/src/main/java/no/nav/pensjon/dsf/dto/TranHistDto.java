@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TranHistDto {
@@ -15,6 +16,7 @@ public class TranHistDto {
     private String terminalId;
     private String autoTerminalId;
     private GrunnblankettDto grunnblankett;
+    private List<BarnDto> barn = new ArrayList<>();
 
     public int getVtp_key() {
         return vtp_key;
@@ -110,5 +112,13 @@ public class TranHistDto {
 
     public void setGrunnblankett(GrunnblankettDto grunnblankett) {
         this.grunnblankett = grunnblankett;
+    }
+
+    public List<BarnDto> getBarn() {
+        return barn;
+    }
+
+    public void setBarn(List<BarnDto> barn) {
+        this.barn = barn;
     }
 }

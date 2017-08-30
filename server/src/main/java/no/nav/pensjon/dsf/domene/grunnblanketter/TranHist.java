@@ -79,6 +79,11 @@ public class TranHist {
     @SubSegment
     private List<GRUNNBAP> grunnbaper = new ArrayList<>();
 
+    @SubSegment
+    private List<GRUNNBA1> grunnba1er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBAF> grunnbafer = new ArrayList<>();
 
     public int getVtp_key() {
         return vtp_key;
@@ -198,6 +203,14 @@ public class TranHist {
 
     public List<GRUNNBAP> getGrunnbaper() {
         return grunnbaper;
+    }
+
+    public List<GRUNNBA1> getGrunnba1er() {
+        return grunnba1er;
+    }
+
+    public List<GRUNNBAF> getGrunnbafer() {
+        return grunnbafer;
     }
 
     public List<GRUNNBIF> getGrunnbif() {
