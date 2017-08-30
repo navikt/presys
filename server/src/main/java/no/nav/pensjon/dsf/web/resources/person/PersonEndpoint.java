@@ -5,7 +5,6 @@ import no.nav.pensjon.dsf.dto.*;
 import no.nav.metrics.aspects.ExceptionMetered;
 import no.nav.metrics.aspects.Field;
 import no.nav.metrics.aspects.Timed;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
