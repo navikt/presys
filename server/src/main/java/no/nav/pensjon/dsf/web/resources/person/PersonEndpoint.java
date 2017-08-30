@@ -5,12 +5,13 @@ import no.nav.pensjon.dsf.dto.*;
 import no.nav.metrics.aspects.ExceptionMetered;
 import no.nav.metrics.aspects.Field;
 import no.nav.metrics.aspects.Timed;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,8 +21,12 @@ import java.util.List;
 @ExceptionMetered(cause = Throwable.class, logMethodAsUniqueMeasurement = false)
 public class PersonEndpoint {
 
-    @Autowired
     private PersonService personService;
+
+    @Inject
+    public PersonEndpoint(PersonService service) {
+        personService = service;
+    }
 
     @Count(fields = @Field(key = "fnr", argumentNumber = "1"), logMethodAsUniqueMeasurement = false)
     @RequestMapping(method = RequestMethod.GET)

@@ -21,14 +21,19 @@ class PersonFraFnr extends Component {
   }
 
   render() {
-    const { person, children, params: { fnr }, route: { path } } = this.props;
+    const { person, children, params: { fnr }, route: { path }, router: { replace } } = this.props;
 
     if (!person.fnr || !fnr) {
       return null;
     } else if (person.loading) {
       return <div>loading</div>;
     }
+
     const pageRoot = `/${this.props.route.path.replace(':fnr', fnr)}`;
+
+    if (!children) {
+      replace(`${pageRoot}/uforehistorikk`);
+    }
     const menuItems = this.props.route.childRoutes
     .map(({ path: childPath }) => <MenuItem
       key={`${pageRoot}/${childPath}`}
@@ -84,6 +89,8 @@ PersonFraFnr.propTypes = {
       path: React.PropTypes.string.isRequired,
     })).isRequired,
   }).isRequired,
+  router: React.PropTypes.shape({ replace: React.PropTypes.func.isRequired }).isRequired,
+
 };
 
 

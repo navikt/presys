@@ -65,7 +65,7 @@ public class Status {
     @Felt(name="dodAvYrkesskade", length = 1, start = 32)
     private String dodAvYrkesskade;
     @Felt(name="vilkar8_4_3a", length = 1, start = 33)
-    private String vilkar8_4_3a;
+    private String vilkar843A;
     @Felt(name="trygdetidGaranti", length = 2, start = 34)
     @PackedDecimal
     private int trygdetidGaranti;
@@ -81,7 +81,7 @@ public class Status {
     private String pensjonsrettFoer91;
     @Felt(name="trygdetid16_66", length = 2, start = 48)
     @PackedDecimal
-    private int trygdetid16_66;
+    private int trygdetid1666;
     @Felt(name="garantertTilleggsPensjonKode", length = 1, start = 50)
     private String garantertTilleggsPensjonKode;
     @Felt(name="gammelSammenstotsRegel", length = 1, start = 51)
@@ -92,7 +92,7 @@ public class Status {
     @Felt(name="pensjonFor9802", length = 1, start = 76)
     private String pensjonFoer9802;
     @Felt(name="red_grunnPensjon_3_2_1", length = 1, start = 77)
-    private String red_grunnPensjon_3_2_1;
+    private String redGrunnPensjon321;
     @Felt(name="grunnPensjonReduksjonsKode", length = 1, start = 78)
     private String grunnPensjonReduksjonsKode;
     @Felt(name="friinntektDato", length = 5, start = 79)
@@ -124,7 +124,7 @@ public class Status {
     private List<EtterlattBarn> etterlattBarn = new ArrayList<>();
 
     public boolean erSiste() {
-        return getStatusKode().equals("S");
+        return "S".equals(getStatusKode());
     }
 
     public List<Tilknytning> getTilknytninger() {
@@ -291,12 +291,12 @@ public class Status {
         this.dodAvYrkesskade = dodAvYrkesskade;
     }
 
-    public String getVilkar8_4_3a() {
-        return vilkar8_4_3a;
+    public String getVilkar843A() {
+        return vilkar843A;
     }
 
-    public void setVilkar8_4_3a(String vilkar8_4_3a) {
-        this.vilkar8_4_3a = vilkar8_4_3a;
+    public void setVilkar843A(String vilkar843A) {
+        this.vilkar843A = vilkar843A;
     }
 
     public int getTrygdetidGaranti() {
@@ -339,12 +339,12 @@ public class Status {
         this.pensjonsrettFoer91 = pensjonsrettFoer91;
     }
 
-    public int getTrygdetid16_66() {
-        return trygdetid16_66;
+    public int getTrygdetid1666() {
+        return trygdetid1666;
     }
 
-    public void setTrygdetid16_66(int trygdetid16_66) {
-        this.trygdetid16_66 = trygdetid16_66;
+    public void setTrygdetid1666(int trygdetid1666) {
+        this.trygdetid1666 = trygdetid1666;
     }
 
     public String getGarantertTilleggsPensjonKode() {
@@ -380,12 +380,12 @@ public class Status {
         this.pensjonFoer9802 = pensjonFoer9802;
     }
 
-    public String getRed_grunnPensjon_3_2_1() {
-        return red_grunnPensjon_3_2_1;
+    public String getRedGrunnPensjon321() {
+        return redGrunnPensjon321;
     }
 
-    public void setRed_grunnPensjon_3_2_1(String red_grunnPensjon_3_2_1) {
-        this.red_grunnPensjon_3_2_1 = red_grunnPensjon_3_2_1;
+    public void setRedGrunnPensjon321(String redGrunnPensjon321) {
+        this.redGrunnPensjon321 = redGrunnPensjon321;
     }
 
     public String getGrunnPensjonReduksjonsKode() {

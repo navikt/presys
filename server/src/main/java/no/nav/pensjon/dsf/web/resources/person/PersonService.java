@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,11 +25,15 @@ public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
 
-    @Inject
     private PersonRepository repo;
 
-    @Autowired
     private ModelMapper modelMapper;
+
+    @Inject
+    public PersonService(PersonRepository repository, ModelMapper mapper) {
+        repo = repository;
+        modelMapper = mapper;
+    }
 
     public PersonDto hentPerson(String fnr) throws IOException {
         auditlog(fnr, "Hentet person-objekt");

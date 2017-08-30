@@ -30,8 +30,8 @@ public class UforeHistorikkDtoTest {
         uforeHistorikk.setUfKriterier(1212);
         uforeHistorikk.setBup(BigDecimal.ONE);
         uforeHistorikk.setBupGarantiKode("??");
-        uforeHistorikk.setOpphørsdatoMaaned(1313);
-        uforeHistorikk.setOpphørsKode("??");
+        uforeHistorikk.setOpphorsdatoMaaned(1313);
+        uforeHistorikk.setOpphorsKode("??");
         uforeHistorikk.setRedusertAntallBupAar(1414);
         uforeHistorikk.setFoedselsaarYngsteBarn(1515);
         uforeHistorikk.setVirkningsdatoUfrHistorie(1616);
@@ -52,8 +52,8 @@ public class UforeHistorikkDtoTest {
         assertEquals(uforeHistorikk.getUfKriterier(), uforeHistorikkDto.getUfKriterier());
         assertEquals(uforeHistorikk.getBup(), uforeHistorikkDto.getBup());
         assertEquals(uforeHistorikk.getBupGarantiKode(), uforeHistorikkDto.getBupGarantiKode());
-        assertEquals(uforeHistorikk.getOpphørsdatoMaaned(), uforeHistorikkDto.getOpphørsdatoMaaned());
-        assertEquals(uforeHistorikk.getOpphørsKode(), uforeHistorikkDto.getOpphørsKode());
+        assertEquals(uforeHistorikk.getOpphorsdatoMaaned(), uforeHistorikkDto.getOpphorsdatoMaaned());
+        assertEquals(uforeHistorikk.getOpphorsKode(), uforeHistorikkDto.getOpphorsKode());
         assertEquals(uforeHistorikk.getRedusertAntallBupAar(), uforeHistorikkDto.getRedusertAntallBupAar());
         assertEquals(uforeHistorikk.getFoedselsaarYngsteBarn(), uforeHistorikkDto.getFoedselsaarYngsteBarn());
         assertEquals(uforeHistorikk.getVirkningsdatoUfrHistorie(), uforeHistorikkDto.getVirkningsdatoUfrHistorie());
@@ -67,8 +67,8 @@ public class UforeHistorikkDtoTest {
         expected.put("ufKriterier", 1212);
         expected.put("bup", 1);
         expected.put("bupGarantiKode", "??");
-        expected.put("opphørsdatoMaaned", 1313);
-        expected.put("opphørsKode", "??");
+        expected.put("opphorsdatoMaaned", 1313);
+        expected.put("opphorsKode", "??");
         expected.put("redusertAntallBupAar", 1414);
         expected.put("foedselsaarYngsteBarn", 1515);
         expected.put("virkningsdatoUfrHistorie", 1616);

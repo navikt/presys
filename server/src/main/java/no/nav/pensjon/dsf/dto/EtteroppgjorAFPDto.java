@@ -15,6 +15,7 @@ public class EtteroppgjorAFPDto {
     private int fullAFPiAvregningsperioden;
     private int faktiskUtbetalt;
     private int differanseForMyeUtbetalt;
+    private int differanseForLiteUtbetalt;
 
     public int getInntektsAar() {
         return inntektsAar;
@@ -127,6 +128,4 @@ public class EtteroppgjorAFPDto {
     public void setDifferanseForLiteUtbetalt(int differanseForLiteUtbetalt) {
         this.differanseForLiteUtbetalt = differanseForLiteUtbetalt;
     }
-
-    private int differanseForLiteUtbetalt;
 }

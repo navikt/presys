@@ -40,19 +40,19 @@ public class StatusDtoTest {
         status.setPensjonsType3("??");
         status.setPoengtilleggsDato(1111);
         status.setPoengtilleggsKode("??");
-        status.setRed_grunnPensjon_3_2_1("??");
+        status.setRedGrunnPensjon321("??");
         status.setSivilstand("??");
         status.setStatusKode("??");
         status.setStatusKodeHistorie("??");
         status.setSumYtelse(1337);
-        status.setTrygdetid16_66(1212);
+        status.setTrygdetid1666(1212);
         status.setTrygdetid1967Til1970(1313);
         status.setTrygdetidAnvendt(1414);
         status.setTrygdetidEtter1966(1515);
         status.setTrygdetidFoer1967(1616);
         status.setTrygdetidFramTil(1717);
         status.setTrygdetidGaranti(1818);
-        status.setVilkar8_4_3a("??");
+        status.setVilkar843A("??");
         status.setVirkDato(1919);
 
         statusDto = modelMapper.map(status, StatusDto.class);
@@ -83,19 +83,19 @@ public class StatusDtoTest {
         assertEquals(status.getPensjonsType3(), statusDto.getPensjonsType3());
         assertEquals(status.getPoengtilleggsDato(), statusDto.getPoengtilleggsDato());
         assertEquals(status.getPoengtilleggsKode(), statusDto.getPoengtilleggsKode());
-        assertEquals(status.getRed_grunnPensjon_3_2_1(), statusDto.getRed_grunnPensjon_3_2_1());
+        assertEquals(status.getRedGrunnPensjon321(), statusDto.getRedGrunnPensjon321());
         assertEquals(status.getSivilstand(), statusDto.getSivilstand());
         assertEquals(status.getStatusKode(), statusDto.getStatusKode());
         assertEquals(status.getStatusKodeHistorie(), statusDto.getStatusKodeHistorie());
         assertEquals(status.getSumYtelse(), statusDto.getSumYtelse());
-        assertEquals(status.getTrygdetid16_66(), statusDto.getTrygdetid16_66());
+        assertEquals(status.getTrygdetid1666(), statusDto.getTrygdetid1666());
         assertEquals(status.getTrygdetid1967Til1970(), statusDto.getTrygdetid1967Til1970());
         assertEquals(status.getTrygdetidAnvendt(), statusDto.getTrygdetidAnvendt());
         assertEquals(status.getTrygdetidEtter1966(), statusDto.getTrygdetidEtter1966());
         assertEquals(status.getTrygdetidFoer1967(), statusDto.getTrygdetidFoer1967());
         assertEquals(status.getTrygdetidFramTil(), statusDto.getTrygdetidFramTil());
         assertEquals(status.getTrygdetidGaranti(), statusDto.getTrygdetidGaranti());
-        assertEquals(status.getVilkar8_4_3a(), statusDto.getVilkar8_4_3a());
+        assertEquals(status.getVilkar843A(), statusDto.getVilkar843A());
         assertEquals(status.getVirkDato(), statusDto.getVirkDato());
     }
 
@@ -120,17 +120,17 @@ public class StatusDtoTest {
         expected.put("antallBarn", 3);
         expected.put("dodsddato", 19990101);
         expected.put("dodAvYrkesskade", "J");
-        expected.put("vilkar8_4_3a", "??");
+        expected.put("vilkar843A", "??");
         expected.put("trygdetidGaranti", 1818);
         expected.put("grunnbelopsDato", 19970101);
         expected.put("poengtilleggsDato", 1111);
         expected.put("poengtilleggsKode", "??");
         expected.put("pensjonsrettFoer91", "??");
-        expected.put("trygdetid16_66", 1212);
+        expected.put("trygdetid1666", 1212);
         expected.put("garantertTilleggsPensjonKode", "??");
         expected.put("ektefelleInntektOver2g", "J");
         expected.put("pensjonFoer9802", "??");
-        expected.put("red_grunnPensjon_3_2_1", "??");
+        expected.put("redGrunnPensjon321", "??");
         expected.put("grunnPensjonReduksjonsKode", "??");
         expected.put("friinntektDato", 19980101);
 

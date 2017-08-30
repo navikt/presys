@@ -29,18 +29,18 @@ public class TestStatus {
         s.setPensjonsType3("");
         s.setPoengtilleggsDato(0);
         s.setPoengtilleggsKode("");
-        s.setRed_grunnPensjon_3_2_1("");
+        s.setRedGrunnPensjon321("");
         s.setSivilstand("");
         s.setStatusKodeHistorie("");
         s.setSumYtelse(0);
-        s.setTrygdetid16_66(0);
+        s.setTrygdetid1666(0);
         s.setTrygdetid1967Til1970(0);
         s.setTrygdetidAnvendt(0);
         s.setTrygdetidEtter1966(0);
         s.setTrygdetidFoer1967(0);
         s.setTrygdetidFramTil(0);
         s.setTrygdetidGaranti(0);
-        s.setVilkar8_4_3a("");
+        s.setVilkar843A("");
         s.setVirkDato(0);
     }
 
@@ -55,13 +55,13 @@ public class TestStatus {
         uh.setBup(BigDecimal.ZERO);
         uh.setBupGarantiKode("A");
         uh.setFoedselsaarYngsteBarn(0);
-        uh.setOpphørsdatoMaaned(20120200);
+        uh.setOpphorsdatoMaaned(20120200);
         uh.setRedusertAntallBupAar(0);
         uh.setUfg(grad);
         uh.setUfKriterier(1);
         uh.setUftMaaned(maaned);
         uh.setVirkningsdatoUfrHistorie(2133);
-        uh.setOpphørsKode("A");
+        uh.setOpphorsKode("A");
         for(int i = 1; i * 20 < grad; i++)
             uh.getUforegrader().add(uforegrad(maaned + i * 10000 , grad - i*20));
         return uh;
