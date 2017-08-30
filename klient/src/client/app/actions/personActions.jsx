@@ -1,4 +1,4 @@
-import { replace } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { get } from 'services/restMethods';
 import { PERSON_FETCH_STARTED, PERSON_RECEIVED, PERSON_FETCH_FAILED } from 'constants/actionTypes';
 import { PERSON_ENDPOINT } from 'constants/serverApi';
@@ -21,13 +21,8 @@ function action(actionType) {
 
 const handleError = dispatch => (ajax) => {
   dispatch(action(PERSON_FETCH_FAILED));
-  switch (ajax.response.status) {
-    case 404:
-      dispatch(replace('/'));
-      return showErrorMessage(ajax);
-    default:
-      return showErrorMessage(ajax);
-  }
+  dispatch(push('/'));
+  return showErrorMessage(ajax);
 };
 
 
