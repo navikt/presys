@@ -116,6 +116,9 @@ public class PersonService {
                 case "KF":
                     dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbkfer().get(0), GrunnblankettNyAFPDto.class));
                     break;
+                case "U2":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbu2er().get(0), GrunnblankettUforepensjon2Dto.class));
+                    break;
                 case "U3":
                     dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbu3er().get(0), GrunnblankettUforepensjonDto.class));
                     break;
@@ -134,7 +137,22 @@ public class PersonService {
                 case "A1":
                     dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnba1er().get(0), GrunnblankettAlderspensjon1Dto.class));
                     break;
-
+                case "EP":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbeper().get(0), GrunnblankettEtterlattEktefelleEpDto.class));
+                    break;
+                case "EE":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbeeer().get(0), GrunnblankettEtterlattEktefelleEeDto.class));
+                    break;
+                case "US":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrblufster().get(0), GrunnstonadHjelpestonadDto.class));
+                    break;
+                case "FT":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrblforser().get(0), GrunnblankettForsorgertilleggEktefelleBarnDto.class));
+                    break;
+                case "EF":
+                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrblfamper().get(0), GrunnblankettEtterlattFamiliepleieDto.class));
+                    break;
+                default:;
            }
             return dto;
         };
