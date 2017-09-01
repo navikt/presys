@@ -103,6 +103,9 @@ public class TranHist {
     @SubSegment
     private List<GRBLUFST> grblufster = new ArrayList<>();
 
+    @SubSegment
+    private List<GRUNNEES> grunneeser = new ArrayList<>();
+
     public int getVtp_key() {
         return vtp_key;
     }
@@ -265,5 +268,9 @@ public class TranHist {
 
     public List<ENDRBLAN> getEndringsblankett() {
         return endringsblankett;
+    }
+
+    public List<GRUNNEES> getGrunneeser() {
+        return grunneeser;
     }
 }
