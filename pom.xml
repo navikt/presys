@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.nav.pensjon.presys</groupId>
-    <version>58-SNAPSHOT</version>
+    <version>58</version>
     <artifactId>presys</artifactId>
     <packaging>pom</packaging>
     <name>presys-root</name>
