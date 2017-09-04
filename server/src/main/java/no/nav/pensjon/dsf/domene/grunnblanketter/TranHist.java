@@ -68,6 +68,9 @@ public class TranHist {
     private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
 
     @SubSegment
+    private List<GRBLFAE4> grblfae4er = new ArrayList<>();
+
+    @SubSegment
     private List<GRUNNBEP> grunnbeper = new ArrayList<>();
 
     @SubSegment
@@ -104,7 +107,22 @@ public class TranHist {
     private List<GRBLUFST> grblufster = new ArrayList<>();
 
     @SubSegment
+    private List<GRBLEBEN> grblebener = new ArrayList<>();
+
+    @SubSegment
+    private List<GRBLEBB6> grblebb6er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRBLEBBE> grblebbeer = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBFO> grunnbfer = new ArrayList<>();
+
+    @SubSegment
     private List<GRUNNEES> grunneeser = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBYP> grunnbyper = new ArrayList<>();
 
     public int getVtp_key() {
         return vtp_key;
@@ -240,6 +258,30 @@ public class TranHist {
 
     public List<GRUNNBE3> getGrunnbe3er() {
         return grunnbe3er;
+    }
+
+    public List<GRBLFAE4> getGrblfae4er() {
+        return grblfae4er;
+    }
+
+    public List<GRBLEBEN> getGrblebener() {
+        return grblebener;
+    }
+
+    public List<GRBLEBB6> getGrblebb6er() {
+        return grblebb6er;
+    }
+
+    public List<GRBLEBBE> getGrblebbeer() {
+        return grblebbeer;
+    }
+
+    public List<GRUNNBFO> getGrunnbfer() {
+        return grunnbfer;
+    }
+
+    public List<GRUNNBYP> getGrunnbyper() {
+        return grunnbyper;
     }
 
     public List<ENBLAN1> getEnblan1er() {

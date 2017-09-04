@@ -6,7 +6,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
 @UnmappedField(name="FILLER", length = 29, start = 70)
-@Segment(name = "GRUNNEES", length = 98)//99
+@Segment(name = "GRUNNEES", length = 99)//99
 public class GRUNNEES {
 
     //Feltene nedenfor tilhører gjenlendene/søke
