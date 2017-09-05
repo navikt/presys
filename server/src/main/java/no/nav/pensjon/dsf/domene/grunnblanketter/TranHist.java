@@ -124,6 +124,9 @@ public class TranHist {
     @SubSegment
     private List<GRUNNBYP> grunnbyper = new ArrayList<>();
 
+    @SubSegment
+    private List<GRUNNBUF> grunnbufer = new ArrayList<>();
+
     public int getVtp_key() {
         return vtp_key;
     }
@@ -282,6 +285,10 @@ public class TranHist {
 
     public List<GRUNNBYP> getGrunnbyper() {
         return grunnbyper;
+    }
+
+    public List<GRUNNBUF> getGrunnbufer() {
+        return grunnbufer;
     }
 
     public List<ENBLAN1> getEnblan1er() {
