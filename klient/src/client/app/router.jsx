@@ -48,7 +48,10 @@ const routes = (
       </Route>
       <Route path="eoafp" component={EoAfp} />
 
-      <Route path="status" component={Status} />
+      <Route path="status" component={Status}>
+        <IndexRoute />
+        <Route path=":valgtstatus" />
+      </Route>
     </Route>
     <Route path="*" component={MissingPage} />
   </Route>

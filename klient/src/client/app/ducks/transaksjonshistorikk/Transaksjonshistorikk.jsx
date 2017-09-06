@@ -5,12 +5,12 @@ import { DsfDate } from 'components/elements/ParseDate';
 import { MonthInYear, ISO8601 } from 'components/elements/FormattedDate';
 
 
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
 
-const TransInfo = ({ virkningsdato, registreringsdato, sivilstand, spraak, terminalId, trygdekontornummer }) => <Row>
+const Transaksjonshistorikk = ({ virkningsdato, registreringsdato, sivilstand, spraak, terminalId, trygdekontornummer }) => <Row>
   <Column size={4}>
-    <table className={styles.infotable}><tbody>
+    <InfoTable>
       <tr>
         <td>Virkningsdato:</td>
         <td><DsfDate value={virkningsdato}><MonthInYear /></DsfDate></td>
@@ -19,11 +19,10 @@ const TransInfo = ({ virkningsdato, registreringsdato, sivilstand, spraak, termi
         <td>Registrert dato:</td>
         <td><DsfDate value={registreringsdato}><ISO8601 /></DsfDate></td>
       </tr>
-    </tbody>
-    </table>
+    </InfoTable>
   </Column>
   <Column size={4}>
-    <table className={styles.infotable}><tbody>
+    <InfoTable>
       <tr>
         <td>Tknr:</td>
         <td>{trygdekontornummer}</td>
@@ -32,11 +31,10 @@ const TransInfo = ({ virkningsdato, registreringsdato, sivilstand, spraak, termi
         <td>TerminalId:</td>
         <td>{terminalId}</td>
       </tr>
-    </tbody>
-    </table>
+    </InfoTable>
   </Column>
   <Column size={4}>
-    <table className={styles.infotable}><tbody>
+    <InfoTable>
       <tr>
         <td>Sivilstand:</td>
         <td>{sivilstand}</td>
@@ -45,13 +43,12 @@ const TransInfo = ({ virkningsdato, registreringsdato, sivilstand, spraak, termi
         <td>Språk:</td>
         <td>{spraak}</td>
       </tr>
-    </tbody>
-    </table>
+    </InfoTable>
   </Column>
 </Row>
 ;
 
-TransInfo.propTypes = {
+Transaksjonshistorikk.propTypes = {
   virkningsdato: React.PropTypes.number.isRequired,
   registreringsdato: React.PropTypes.number.isRequired,
   sivilstand: React.PropTypes.string.isRequired,
@@ -61,5 +58,5 @@ TransInfo.propTypes = {
 };
 
 
-export default TransInfo;
+export default Transaksjonshistorikk;
 

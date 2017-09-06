@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
 const GrunnblankettAlderspensjon = ({
     ektefelleTillegg,
@@ -26,7 +26,7 @@ const GrunnblankettAlderspensjon = ({
     ikkeGrunnpensjon,
     inntektMinst4G }) => <Row>
       <Column size={6}>
-        <table className={styles.infotable}><tbody>
+        <InfoTable>
           <tr>
             <td>Ektefelletillegg</td>
             <td>{ektefelleTillegg}</td>
@@ -103,7 +103,7 @@ const GrunnblankettAlderspensjon = ({
             <td>Inntekt minst 4G</td>
             <td>{inntektMinst4G}</td>
           </tr>
-        </tbody></table>
+        </InfoTable>
       </Column>
     </Row>;
 

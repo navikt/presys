@@ -3,7 +3,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { FormattedMessage } from 'react-intl';
 
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
 const EktefelleInfo = ({ ektefelletillegg,
                fodselsnummerEktefelle,
@@ -13,7 +13,7 @@ const EktefelleInfo = ({ ektefelletillegg,
                trygdetidEtter1966MaanederEktefelle,
                inntektMinst4G }) => <Row>
                  <Column size={12}>
-                   <table className={styles.infotable}><tbody>
+                   <InfoTable>
                      <tr>
                        <td>Ektefelletillegg</td>
                        <td><input type="checkbox" checked={ektefelletillegg !== ' '} /></td>
@@ -40,7 +40,7 @@ const EktefelleInfo = ({ ektefelletillegg,
                        <td><FormattedMessage id={`kodeverk.ja.nei.${inntektMinst4G}`} /></td>
                      </tr>
 
-                   </tbody></table>
+                   </InfoTable>
                  </Column>
                </Row>;
 
