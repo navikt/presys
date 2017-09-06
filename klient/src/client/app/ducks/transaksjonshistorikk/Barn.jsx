@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
 const Barn = ({
 fnr,
@@ -10,7 +10,7 @@ fellesBarn,
 fellesFor0591,
 fellesEtter0591 }) => <Row>
   <Column size={6}>
-    <table className={styles.infotable}><tbody>
+    <InfoTable>
       <tr>
         <td>Fødselsnummer</td>
         <td>{fnr}</td>
@@ -31,7 +31,7 @@ fellesEtter0591 }) => <Row>
         <td>Felles barn født etter mai 1991</td>
         <td>{fellesEtter0591}</td>
       </tr>
-    </tbody></table>
+    </InfoTable>
   </Column>
 </Row>;
 

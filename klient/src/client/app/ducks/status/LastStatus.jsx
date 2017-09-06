@@ -8,7 +8,7 @@ import LastData from '../common/LastData';
 const ConnectedLastData = connect(state => ({ idShowing: state.status.fnr, loading: state.status.loading }),
  { fetch })(LastData);
 
-const Last = ({ fnr, ...rest, data }) => (
+const Last = ({ fnr, data, ...rest }) => (
   <ConnectedLastData idToShow={fnr}>
     <Dataview {...rest} status={data} />
   </ConnectedLastData>);
