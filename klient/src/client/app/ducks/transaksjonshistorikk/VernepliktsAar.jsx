@@ -2,21 +2,21 @@ import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
 const VernepliktsAar = ({ vernepliktAar1,
                              vernepliktAar2,
                              vernepliktAar3,
                              vernepliktAar4 }) => <Row>
                                <Column size={12}>
-                                 <table className={styles.infotable}><tbody>
+                                 <InfoTable>
                                    <tr>
                                      <td>Vernepliktår</td>
                                      <td><ul>
                                        {[vernepliktAar1, vernepliktAar2, vernepliktAar3, vernepliktAar4].filter(e => e > 0).map(e => <li>{e}</li>)}
                                      </ul></td>
                                    </tr>
-                                 </tbody></table>
+                                 </InfoTable>
                                </Column>
                              </Row>;
 VernepliktsAar.propTypes = {

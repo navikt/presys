@@ -7,16 +7,16 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
 @Segment(name = "GRBLUFST", length = 28)
 @UnmappedField(name = "filler", length = 5, start = 23)
-@UnmappedField(name="GS_PRIMDIAG", length = 6, start = 7)
-@UnmappedField(name="HSU_PRIMDIAG", length = 6, start = 13)
 public class GRBLUFST {
 
     @Felt(name="GS_SATS", length = 1, start = 0) private String grunnstonadSats;
     @Felt(name="GS_KODE1", length = 1, start = 1) private String grunnstonadKode1;
-    @Felt(name="GS_KODE2", length = 1, start = 2) private String grunnstonadKode2;
+    @Felt(name="GS_KODE3", length = 1, start = 2) private String grunnstonadKode2;
     @Felt(name="GS_KODE3", length = 1, start = 3) private String grunnstonadKode3;
     @Felt(name="HSU_SATS", length = 1, start = 4) private String hsuSats;
     @Felt(name="HSU_KODE", length = 2, start = 5) private String hsuKode;
+    @Felt(name="GS_PRIMDIAG", length = 6, start = 7) private String grunnstonadPrimaerdiagnose;
+    @Felt(name="HSU_PRIMDIAG", length = 6, start = 13) private String grunnstonadSekundaerdiagnose;
     @Felt(name="STATSBORGER", length = 2, start = 19) @PackedDecimal private int statsborgerskap;
     @Felt(name="BOSATT", length = 2, start = 21) @PackedDecimal private int bosattLand;
 
@@ -66,6 +66,22 @@ public class GRBLUFST {
 
     public void setHsuKode(String hsuKode) {
         this.hsuKode = hsuKode;
+    }
+
+    public String getGrunnstonadPrimaerdiagnose() {
+        return grunnstonadPrimaerdiagnose;
+    }
+
+    public void setGrunnstonadPrimaerdiagnose(String grunnstonadPrimaerdiagnose) {
+        this.grunnstonadPrimaerdiagnose = grunnstonadPrimaerdiagnose;
+    }
+
+    public String getGrunnstonadSekundaerdiagnose() {
+        return grunnstonadSekundaerdiagnose;
+    }
+
+    public void setGrunnstonadSekundaerdiagnose(String grunnstonadSekundaerdiagnose) {
+        this.grunnstonadSekundaerdiagnose = grunnstonadSekundaerdiagnose;
     }
 
     public int getStatsborgerskap() {

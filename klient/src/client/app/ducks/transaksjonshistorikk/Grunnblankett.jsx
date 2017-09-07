@@ -1,13 +1,13 @@
 import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
+import InfoTable from 'components/elements/InfoTable';
 import GrunnblankettF7 from './GrunnblankettF7';
 import Opphorsblankett2 from './Opphorsblankett2';
 import GrunnblankettAlderspensjon from './GrunnblankettAlderspensjon';
 import GrunnblankettUforepensjon from './GrunnblankettUforepensjon';
 import Barn from './Barn';
 
-import styles from './Transaksjonshistorikk.less';
 
 const Grunnblankett = ({ type, barn, ...rest }) => {
   let grunnblankett = null;
@@ -26,9 +26,9 @@ const Grunnblankett = ({ type, barn, ...rest }) => {
       break;
     default: grunnblankett = (<Row>
       <Column size={6}>
-        <table className={styles.infotable}><tbody>
+        <InfoTable>
           {Object.keys(rest).map(key => <tr><td>{key}</td><td>{JSON.stringify(rest[key])}</td></tr>)}
-        </tbody></table>
+        </InfoTable>
       </Column>
     </Row>);
   }
