@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.not;
  * Superklasse for alle domenetestene.
  * Created by K150562 on 07.06.2017.
  */
-public class DomeneTest {
+public abstract class DomeneTest {
 
     /**
      * Validerer at domene-entity, med felter, gettere og settere er satt rett.
@@ -75,7 +75,11 @@ public class DomeneTest {
         if (clazz.isAnnotationPresent(UnmappedField.class)) {
             UnmappedField umf = clazz.getAnnotation(UnmappedField.class);
             for (int i = 0; i < umf.length(); i++) {
-                fields[i + umf.start()]++;
+                try {
+                    fields[i + umf.start()]++;
+                }catch (ArrayIndexOutOfBoundsException e){
+                    throw new RuntimeException(clazz.getSimpleName(), e);
+                }
             }
         }
 

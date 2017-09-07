@@ -2,6 +2,8 @@ package no.nav.pensjon.dsf.domene.status;
 
 import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
+import java.util.List;
+
 @UnmappedField(name = "filler", length = 2, start = 28)
 @Segment(name = "YRKEHIST", length = 30)
 public class YrkesskadeHistorikk {
@@ -16,6 +18,9 @@ public class YrkesskadeHistorikk {
     @Felt(name="OPPH_DATO_AAMD", length = 5, start = 20) @PackedDecimal private int opphorsdato;
     @Felt(name="OPPH_KODE", length = 1, start = 25) private String opphorskode;
     @Felt(name="PAAA", length = 2, start = 26) @PackedDecimal(decimals = 2) private String sluttpoengtall;
+
+    @SubSegment
+    List<GradsendringInnenforYrkesskadeperioden> gradsendringInnenforYrkesskadeperiodens;
 
     public int getYrkeUforetidspunkt() {
         return yrkeUforetidspunkt;
@@ -95,5 +100,9 @@ public class YrkesskadeHistorikk {
 
     public void setSluttpoengtall(String sluttpoengtall) {
         this.sluttpoengtall = sluttpoengtall;
+    }
+
+    public List<GradsendringInnenforYrkesskadeperioden> getGradsendringInnenforYrkesskadeperiodens() {
+        return gradsendringInnenforYrkesskadeperiodens;
     }
 }

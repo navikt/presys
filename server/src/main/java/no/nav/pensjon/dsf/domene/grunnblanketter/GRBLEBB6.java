@@ -5,23 +5,23 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
-@Segment(name = "GRBLEBB6", length = 40)
-@UnmappedField(name = "filler", length = 4, start = 38)
+@Segment(name = "GRBLEBB6", length = 60)
+@UnmappedField(name = "filler", length = 4, start = 56)
 public class GRBLEBB6 {
 
-    @Felt(name="BEREGN_RED_TT", length = 1, start = 36) private String beregnesEtterRedusertTrygdetid;
-    @Felt(name="TT_REDUSERT", length = 2, start = 0) @PackedDecimal private int redusertTrygdetid;
-    @Felt(name="KONVENSJON", length = 1, start = 36) private String konvensjon;
-    @Felt(name="PENSJONSTRYGDET", length = 1, start = 36) private String pensjonstrygdet;
-    @Felt(name="MINST_20AAR", length = 1, start = 36) private String minst20Aar;
-    @Felt(name="FNR_DOD", length = 6, start = 0) @PackedDecimal private int fodselsnummerAvdod;
-    @Felt(name="NAVN_DOD", length = 25, start = 0) private String navnAvdod;
-    @Felt(name="DODSDATO_AAMD", length = 5, start = 0) @PackedDecimal private int dodsdato;
-    @Felt(name="VILKAAR_8_4_3A", length = 1, start = 36) private String vilkaarPar8Pkt4Ledd3BokstavA;
-    @Felt(name="VP_AAR_DOD1", length = 3, start = 0) @PackedDecimal private int vernepliktaarAvdod1;
-    @Felt(name="VP_AAR_DOD2", length = 3, start = 0) @PackedDecimal private int vernepliktaarAvdod2;
-    @Felt(name="VP_AAR_DOD3", length = 3, start = 0) @PackedDecimal private int vernepliktaarAvdod3;
-    @Felt(name="PI_DOD", length = 3, start = 0) @PackedDecimal private int pensjonsgivendeInntektAvdod;
+    @Felt(name="BEREGN_RED_TT", length = 1, start = 0) private String beregnesEtterRedusertTrygdetid;
+    @Felt(name="TT_REDUSERT", length = 2, start = 1) @PackedDecimal private int redusertTrygdetid;
+    @Felt(name="KONVENSJON", length = 1, start = 3) private String konvensjon;
+    @Felt(name="PENSJONSTRYGDET", length = 1, start = 4) private String pensjonstrygdet;
+    @Felt(name="MINST_20AAR", length = 1, start = 5) private String minst20Aar;
+    @Felt(name="FNR_DOD", length = 6, start = 6) @PackedDecimal private int fodselsnummerAvdod;
+    @Felt(name="NAVN_DOD", length = 25, start = 12) private String navnAvdod;
+    @Felt(name="DODSDATO_AAMD", length = 5, start = 37) @PackedDecimal private int dodsdato;
+    @Felt(name="VILKAAR_8_4_3A", length = 1, start = 42) private String vilkaarPar8Pkt4Ledd3BokstavA;
+    @Felt(name="VP_AAR_DOD1", length = 3, start = 43) @PackedDecimal private int vernepliktaarAvdod1;
+    @Felt(name="VP_AAR_DOD2", length = 3, start = 46) @PackedDecimal private int vernepliktaarAvdod2;
+    @Felt(name="VP_AAR_DOD3", length = 3, start = 49) @PackedDecimal private int vernepliktaarAvdod3;
+    @Felt(name="PI_DOD", length = 4, start = 52) @PackedDecimal private int pensjonsgivendeInntektAvdod;
 
     public String getBeregnesEtterRedusertTrygdetid() {
         return beregnesEtterRedusertTrygdetid;
