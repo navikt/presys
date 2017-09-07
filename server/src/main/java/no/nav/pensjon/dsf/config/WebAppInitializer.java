@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Import;
 @EnableAspectJAutoProxy
 @Configuration
 @Import({
-        MetricsConfig.class
+        MetricsConfig.class,
+        PEPAbacConfig.class
 })
 public class WebAppInitializer extends SpringBootServletInitializer {
 

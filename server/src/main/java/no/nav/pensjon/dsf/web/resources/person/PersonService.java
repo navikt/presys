@@ -1,5 +1,11 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
+import no.nav.abac.xacml.NavAttributter;
+import no.nav.freg.abac.core.annotation.Abac;
+import no.nav.freg.abac.core.annotation.context.AbacContext;
+import no.nav.freg.abac.core.dto.response.Decision;
+import no.nav.freg.abac.core.dto.response.XacmlResponse;
+import no.nav.freg.abac.core.service.AbacService;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
@@ -11,6 +17,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +38,12 @@ public class PersonService {
     private PersonRepository repo;
 
     private ModelMapper modelMapper;
+
+    @Autowired
+    private AbacService abacService;
+
+    @Autowired
+    private AbacContext abacContext;
 
 
     private  Map<String, BiConsumer<TranHist, TranHistDto>> grunnblankettMappers= new HashMap<>();
@@ -59,9 +73,30 @@ public class PersonService {
 
     }
 
+    @Abac
     public PersonDto hentPerson(String fnr) throws IOException {
+        Person person = repo.findPerson(fnr);
+
+        godkjennerRequesterMedAbac(fnr);
+
         auditlog(fnr, "Hentet person-objekt");
-        return modelMapper.map(repo.findPerson(fnr), PersonDto.class);
+        return modelMapper.map(person, PersonDto.class);
+    }
+
+    /**
+     * Gjør request mot abac om leserequesten fra saksbehandler til bruker godkjennes. Hvis requesten ikke godkjennes av
+     * ABAC kastes en AccessDeniedException. Hvis det returneres en obligation Presys ikke vet hvordan behandle kastes en
+     * UnhandledObligationException. (Ingen ObligationStrategy'er er laget siden det ikke er innført noen obligations per
+     * dd.
+     * @param fnr fødselsnummer som det skal sjekkes om saksbehandler har tilgang på.
+     */
+    private void godkjennerRequesterMedAbac(String fnr) {
+        abacContext.getRequest().resource(NavAttributter.RESOURCE_FELLES_PERSON_FNR, fnr);
+
+        XacmlResponse response = abacService.evaluate(abacContext.getRequest());
+        if(response.getDecision() != Decision.PERMIT) {
+            throw new AccessDeniedException("Abac har ikke returnert en PERMIT. Den returnerte Decision er: " + response.getDecision());
+        }
     }
 
     public List<InntektDto> hentInntekter(String fnr) throws IOException {
