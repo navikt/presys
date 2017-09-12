@@ -1,5 +1,8 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StatusDto {
     private int virkDato;
     private String statusKode;
@@ -48,6 +51,14 @@ public class StatusDto {
     private String grunnPensjonReduksjonsKode;
 
     private int friinntektDato;
+
+    private List<UforeHistorikkDto> uforehistorikk = new ArrayList<>();
+
+    private List<AfpHistorikkDto> afpHistorikk = new ArrayList<>();
+
+    private List<EosInfoDto> eosInfo = new ArrayList<>();
+
+    private List<SpesielleOpplysningerDto> spesielleOpplysninger = new ArrayList<>();
 
     public int getVirkDato() {
         return virkDato;
@@ -295,5 +306,37 @@ public class StatusDto {
 
     public void setFriinntektDato(int friinntektDato) {
         this.friinntektDato = friinntektDato;
+    }
+
+    public List<UforeHistorikkDto> getUforehistorikk() {
+        return uforehistorikk;
+    }
+
+    public void setUforehistorikk(List<UforeHistorikkDto> uforehistorikk) {
+        this.uforehistorikk = uforehistorikk;
+    }
+
+    public List<AfpHistorikkDto> getAfpHistorikk() {
+        return afpHistorikk;
+    }
+
+    public void setAfpHistorikk(List<AfpHistorikkDto> afpHistorikk) {
+        this.afpHistorikk = afpHistorikk;
+    }
+
+    public List<EosInfoDto> getEosInfo() {
+        return eosInfo;
+    }
+
+    public void setEosInfo(List<EosInfoDto> eosInfo) {
+        this.eosInfo = eosInfo;
+    }
+
+    public List<SpesielleOpplysningerDto> getSpesielleOpplysninger() {
+        return spesielleOpplysninger;
+    }
+
+    public void setSpesielleOpplysninger(List<SpesielleOpplysningerDto> spesielleOpplysninger) {
+        this.spesielleOpplysninger = spesielleOpplysninger;
     }
 }

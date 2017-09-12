@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by K150562 on 07.06.2017.
  */
-public class TilknytningTest extends DomeneTest {
+public class TilknytningTest extends DomeneTestHelper {
 
     @Test
     public void validerTilknytning() throws NoSuchMethodException {
