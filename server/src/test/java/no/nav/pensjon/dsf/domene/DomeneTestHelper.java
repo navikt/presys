@@ -75,7 +75,11 @@ public class DomeneTestHelper {
         if (clazz.isAnnotationPresent(UnmappedField.class)) {
             UnmappedField umf = clazz.getAnnotation(UnmappedField.class);
             for (int i = 0; i < umf.length(); i++) {
-                fields[i + umf.start()]++;
+                try {
+                    fields[i + umf.start()]++;
+                }catch (ArrayIndexOutOfBoundsException e){
+                    throw new RuntimeException(clazz.getSimpleName(), e);
+                }
             }
         }
 

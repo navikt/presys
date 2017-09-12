@@ -33,7 +33,7 @@ public class TranHistDtoTest {
         tranHist.setTransaksjonsreturkode("??");
         tranHist.setTrygdekontornummer(1111);
         tranHist.setVirkningsdato(1212);
-        tranHist.setVtp_key(1313);
+        tranHist.setVtpKey(1313);
 
         tranHistDto = modelMapper.map(tranHist, TranHistDto.class);
     }
@@ -56,7 +56,7 @@ public class TranHistDtoTest {
         assertEquals(tranHist.getRegistreringsdato(), tranHistDto.getRegistreringsdato());
         assertEquals(tranHist.getTrygdekontornummer(), tranHistDto.getTrygdekontornummer());
         assertEquals(tranHist.getVirkningsdato(), tranHistDto.getVirkningsdato());
-        assertEquals(tranHist.getVtp_key(), tranHistDto.getVtp_key());
+        assertEquals(tranHist.getVtpKey(), tranHistDto.getVtpKey());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TranHistDtoTest {
         expected.put("registreringsdato", 1010);
         expected.put("trygdekontornummer", 1111);
         expected.put("virkningsdato", 1212);
-        expected.put("vtp_key", 1313);
+        expected.put("vtpKey", 1313);
         expected.put("grunnblankett", null);
         expected.put("barn", new ArrayList<>());
 
