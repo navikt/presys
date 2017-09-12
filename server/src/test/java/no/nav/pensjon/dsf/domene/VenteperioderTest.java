@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by K150562 on 13.06.2017.
  */
-public class VenteperioderTest extends DomeneTest {
+public class VenteperioderTest extends DomeneTestHelper {
 
     @Test
     public void validerVenteperioder() throws NoSuchMethodException {

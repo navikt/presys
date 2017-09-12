@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.domene.status;
 
-import no.nav.pensjon.dsf.domene.Uforegrad;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 import java.math.BigDecimal;

@@ -2,7 +2,7 @@ package no.nav.pensjon.presys.utils.ebcdic;
 
 import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.dsf.domene.status.UforeHistorikk;
-import no.nav.pensjon.dsf.domene.Uforegrad;
+import no.nav.pensjon.dsf.domene.status.Uforegrad;
 
 import java.math.BigDecimal;
 
