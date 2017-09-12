@@ -109,6 +109,9 @@ public class Status {
     private List<UforeHistorikk> uforehistorikk = new ArrayList<>();
 
     @SubSegment
+    private List<YrkesskadeHistorikk> yrkesskadeHistorikker = new ArrayList<>();
+
+    @SubSegment
     private List<AfpHistorikk> afpHistorikker = new ArrayList<>();
 
     @SubSegment
@@ -404,4 +407,7 @@ public class Status {
         this.friinntektDato = friinntektDato;
     }
 
+    public List<YrkesskadeHistorikk> getYrkesskadeHistorikker() {
+        return yrkesskadeHistorikker;
+    }
 }
