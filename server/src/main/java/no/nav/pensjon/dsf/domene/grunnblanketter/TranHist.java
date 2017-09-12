@@ -9,9 +9,9 @@ import java.util.List;
 @UnmappedField(name = "filler", length = 3, start = 35)
 public class TranHist {
 
-    @Felt(name="vtp_key", length = 5, start = 0)
+    @Felt(name="vtpKey", length = 5, start = 0)
     @PackedDecimal
-    private int vtp_key;
+    private int vtpKey;
 
     @Felt(name="grblkode", length = 2, start = 5)
     private String grunnblankettkode;
@@ -127,12 +127,12 @@ public class TranHist {
     @SubSegment
     private List<GRUNNBUF> grunnbufer = new ArrayList<>();
 
-    public int getVtp_key() {
-        return vtp_key;
+    public int getVtpKey() {
+        return vtpKey;
     }
 
-    public void setVtp_key(int vtp_key) {
-        this.vtp_key = vtp_key;
+    public void setVtpKey(int vtpKey) {
+        this.vtpKey = vtpKey;
     }
 
     public String getGrunnblankettkode() {
