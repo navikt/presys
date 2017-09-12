@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
+import no.nav.pensjon.dsf.domene.Person;
+import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
 import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.dsf.dto.*;
@@ -16,8 +18,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.List;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,10 +31,32 @@ public class PersonService {
 
     private ModelMapper modelMapper;
 
+
+    private  Map<String, BiConsumer<TranHist, TranHistDto>> grunnblankettMappers= new HashMap<>();
+
     @Inject
     public PersonService(PersonRepository repository, ModelMapper mapper) {
         repo = repository;
         modelMapper = mapper;
+
+        grunnblankettMappers.put("F7", (domene, dto)-> dto.setGrunnblankett(mapGrunnblankettForesorgingsTilleggF7(domene.getGrunnbif().get(0))));
+        grunnblankettMappers.put("UP", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbuper().get(0), GrunnbupDto.class)));
+        grunnblankettMappers.put("O1", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getOpphbl1er().get(0), Opphorsblankett1Dto.class)));
+        grunnblankettMappers.put("O2", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getOpphbl2er().get(0), Opphorsblankett2Dto.class)));
+        grunnblankettMappers.put("KF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbkfer().get(0), GrunnblankettNyAFPDto.class)));
+        grunnblankettMappers.put("U2", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbu2er().get(0), GrunnblankettUforepensjon2Dto.class)));
+        grunnblankettMappers.put("U3", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbu3er().get(0), GrunnblankettUforepensjonDto.class)));
+        grunnblankettMappers.put("E3", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbe3er().get(0), GrunnblankettEtterlattEktefelleDto.class)));
+        grunnblankettMappers.put("E1", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getEndringsblankett().get(0), GrunnblankettEndringsblankettDto.class)));
+        grunnblankettMappers.put("EN", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getEnblan1er().get(0), GrunnblankettEndringsblankettEnDto.class)));
+        grunnblankettMappers.put("AP", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbaper().get(0), GrunnblankettAlderspensjonDto.class)));
+        grunnblankettMappers.put("A1", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnba1er().get(0), GrunnblankettAlderspensjon1Dto.class)));
+        grunnblankettMappers.put("EP", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbeper().get(0), GrunnblankettEtterlattEktefelleEpDto.class)));
+        grunnblankettMappers.put("EE", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbeeer().get(0), GrunnblankettEtterlattEktefelleEeDto.class)));
+        grunnblankettMappers.put("US", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblufster().get(0), GrunnstonadHjelpestonadDto.class)));
+        grunnblankettMappers.put("FT", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblforser().get(0), GrunnblankettForsorgertilleggEktefelleBarnDto.class)));
+        grunnblankettMappers.put("EF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblfamper().get(0), GrunnblankettEtterlattFamiliepleieDto.class)));
+
     }
 
     public PersonDto hentPerson(String fnr) throws IOException {
@@ -42,9 +66,40 @@ public class PersonService {
 
     public List<InntektDto> hentInntekter(String fnr) throws IOException {
         auditlog(fnr, "Hentet inntekter for person");
-        return repo.findPerson(fnr).getInntekter().stream()
+        Person person = repo.findPerson(fnr);
+        List<InntektDto> inntekter = new ArrayList<>();
+        person.getTilberpo().forEach(t->{
+            inntekter.add(inntekt(t.getAi63(), 1963, "AI"));
+            inntekter.add(inntekt(t.getAi64(), 1964, "AI"));
+            inntekter.add(inntekt(t.getAi65(), 1965, "AI"));
+            inntekter.add(inntekt(t.getAi66(), 1966, "AI"));
+            inntekter.add(inntekt(t.getPi66(), 1966, "PI"));
+        });
+        if(inntekter.isEmpty()){
+            inntekter.add(inntekt(0, 1963, "AI"));
+            inntekter.add(inntekt(0, 1964, "AI"));
+            inntekter.add(inntekt(0, 1965, "AI"));
+            inntekter.add(inntekt(0, 1966, "AI"));
+            inntekter.add(inntekt(0, 1966, "PI"));
+        }
+        inntekter.add(inntekt(person.getAi67(), 1967, "AI"));
+
+        inntekter.addAll(person.getInntekter().stream()
                 .map(inntekt -> modelMapper.map(inntekt, InntektDto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+
+        return inntekter;
+    }
+
+    private InntektDto inntekt(int belop, int aar, String type){
+        InntektDto inntekt = new InntektDto();
+        inntekt.setKommune("");
+        inntekt.setPersonInntekt(belop);
+        inntekt.setPersonInntektMerke("");
+        inntekt.setPersonInntektAar(aar);
+        inntekt.setPersonInntektType(type);
+        inntekt.setRapporteringsDato(0);
+        return inntekt;
     }
 
     public List<EtteroppgjorAFPDto> hentEtteroppgjor(String fnr) throws IOException {
@@ -93,74 +148,29 @@ public class PersonService {
 
     public List<TranHistDto> hentTranhister(String fnr) throws IOException {
         auditlog(fnr, "Hentet tranhist-objekt for person");
-        Function<TranHist, TranHistDto> mapper = tranhist ->{
-            TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
-            switch (tranhist.getGrunnblankettkode()){
-                case "F7":
-                    GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(tranhist.getGrunnbif().get(0), GrunnblankettForesorgingsTilleggF7Dto.class);
-                    PersonDto ektefelle = new PersonDto();
-                    ektefelle.setFnr(tranhist.getGrunnbif().get(0).getFnrEktefelle());
-                    ektefelle.setNavn(tranhist.getGrunnbif().get(0).getNavnEktefelle());
-                    grunnblankett.setEktefelle(ektefelle);
-                    dto.setGrunnblankett(grunnblankett);
-                    break;
-                case "UP":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbuper().get(0), GrunnbupDto.class));
-                    break;
-                case "O1":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getOpphbl1er().get(0), Opphorsblankett1Dto.class));
-                    break;
-                case "O2":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getOpphbl2er().get(0), Opphorsblankett2Dto.class));
-                    break;
-                case "KF":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbkfer().get(0), GrunnblankettNyAFPDto.class));
-                    break;
-                case "U2":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbu2er().get(0), GrunnblankettUforepensjon2Dto.class));
-                    break;
-                case "U3":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbu3er().get(0), GrunnblankettUforepensjonDto.class));
-                    break;
-                case "E3":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbe3er().get(0), GrunnblankettEtterlattEktefelleDto.class));
-                    break;
-                case "E1":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getEndringsblankett().get(0), GrunnblankettEndringsblankettDto.class));
-                    break;
-                case "EN":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getEnblan1er().get(0), GrunnblankettEndringsblankettEnDto.class));
-                    break;
-                case "AP":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbaper().get(0), GrunnblankettAlderspensjonDto.class));
-                    break;
-                case "A1":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnba1er().get(0), GrunnblankettAlderspensjon1Dto.class));
-                    break;
-                case "EP":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbeper().get(0), GrunnblankettEtterlattEktefelleEpDto.class));
-                    break;
-                case "EE":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrunnbeeer().get(0), GrunnblankettEtterlattEktefelleEeDto.class));
-                    break;
-                case "US":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrblufster().get(0), GrunnstonadHjelpestonadDto.class));
-                    break;
-                case "FT":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrblforser().get(0), GrunnblankettForsorgertilleggEktefelleBarnDto.class));
-                    break;
-                case "EF":
-                    dto.setGrunnblankett(modelMapper.map(tranhist.getGrblfamper().get(0), GrunnblankettEtterlattFamiliepleieDto.class));
-                    break;
-                default:;
-           }
-            return dto;
-        };
-
-
         return repo.findPerson(fnr).getTranHister().stream()
-                .map(mapper )
+                .map(this::transhistMapper )
+                .filter(t->Objects.nonNull(t.getGrunnblankett()))
                 .collect(Collectors.toList());
+    }
+
+    private GrunnblankettForesorgingsTilleggF7Dto mapGrunnblankettForesorgingsTilleggF7(GRUNNBIF domene) {
+        GrunnblankettForesorgingsTilleggF7Dto grunnblankett= modelMapper.map(domene, GrunnblankettForesorgingsTilleggF7Dto.class);
+        PersonDto ektefelle = new PersonDto();
+        ektefelle.setFnr(domene.getFnrEktefelle());
+        ektefelle.setNavn(domene.getNavnEktefelle());
+        grunnblankett.setEktefelle(ektefelle);
+        return grunnblankett;
+    }
+
+    private TranHistDto transhistMapper(TranHist tranhist){
+        TranHistDto dto = modelMapper.map(tranhist, TranHistDto.class);
+        try {
+            Optional.ofNullable(grunnblankettMappers.get(tranhist.getGrunnblankettkode())).ifPresent(c->c.accept(tranhist, dto));
+        }catch (IndexOutOfBoundsException e){
+            LOG.error("Mangler grunnblankett", e);
+        }
+        return dto;
     }
 
     /**

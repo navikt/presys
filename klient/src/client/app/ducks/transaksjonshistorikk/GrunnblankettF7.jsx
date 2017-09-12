@@ -2,9 +2,9 @@ import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
-const Grunnblankett = ({
+const GrunnblankettF7 = ({
 arbeidsinntekt,
 antallBarnetillegg,
 arbeidsinntektEktefelle,
@@ -13,7 +13,7 @@ ektefelletillegg,
 pensjonsinntekt,
 pensjonsinntektEktefelle }) => <Row>
   <Column size={6}>
-    <table className={styles.infotable}><tbody>
+    <InfoTable>
       <tr><td>antall forsørgede barn</td><td>{antallBarnetillegg}</td></tr>
       <tr>
         <td>Ektefelletillegg</td>
@@ -36,10 +36,10 @@ pensjonsinntektEktefelle }) => <Row>
         <td>{pensjonsinntektEktefelle}</td>
       </tr>
 
-    </tbody></table>
+    </InfoTable>
   </Column>
   <Column size={6}>
-    <table className={styles.infotable}><tbody>
+    <InfoTable>
       <tr>
         <td>Ektefelle:</td>
         <td>{ektefelle.fnr}</td>
@@ -48,11 +48,11 @@ pensjonsinntektEktefelle }) => <Row>
         <td> Navn</td>
         <td>{ektefelle.navn}</td>
       </tr>
-    </tbody></table>
+    </InfoTable>
   </Column>
 </Row>;
 
-Grunnblankett.propTypes = {
+GrunnblankettF7.propTypes = {
   arbeidsinntekt: React.PropTypes.number.isRequired,
   antallBarnetillegg: React.PropTypes.number.isRequired,
   arbeidsinntektEktefelle: React.PropTypes.number.isRequired,
@@ -65,4 +65,4 @@ Grunnblankett.propTypes = {
   pensjonsinntektEktefelle: React.PropTypes.number.isRequired,
 };
 
-export default Grunnblankett;
+export default GrunnblankettF7;
