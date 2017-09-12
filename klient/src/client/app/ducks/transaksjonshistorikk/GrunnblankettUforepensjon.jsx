@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { DsfDate } from 'components/elements/ParseDate';
 import { MonthInYear } from 'components/elements/FormattedDate';
 
-import styles from './Transaksjonshistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 import VernepliktsAar from './VernepliktsAar';
 import EktefelleInfo from './EktefelleInfo';
 
@@ -15,7 +15,7 @@ const BostedsInfo = ({ norskINorgeMedlem,
      bosattLand,
      uforUnderBotid }) => <Row>
        <Column size={12}>
-         <table className={styles.infotable}><tbody>
+         <InfoTable>
            <tr>
              <td>Norsk medlem bosatt i Norge</td>
              <td><FormattedMessage id={`kodeverk.ja.nei.${norskINorgeMedlem}`} /></td>
@@ -32,7 +32,7 @@ const BostedsInfo = ({ norskINorgeMedlem,
              <td>Ufør under botid</td>
              <td><FormattedMessage id={`kodeverk.ja.nei.${uforUnderBotid}`} /></td>
            </tr>
-         </tbody></table>
+         </InfoTable>
        </Column>
      </Row>;
 BostedsInfo.propTypes = {
@@ -56,7 +56,7 @@ const Fravik = ({ fravikBosatt,
     ttfmt81,
     ikkeGrunnpensjon }) => <Row>
       <Column size={12}>
-        <table className={styles.infotable}><tbody>
+        <InfoTable>
           <tr>
             <td>Vilkår §8-4-3A</td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${vilkaar843A}`} /></td>
@@ -105,7 +105,7 @@ const Fravik = ({ fravikBosatt,
             <td>Godkjent som flyktning av Utlendingsdirektoratet (UDI)</td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${fravikFlyktning}`} /></td>
           </tr>
-        </tbody></table>
+        </InfoTable>
       </Column>
     </Row>;
 
@@ -142,7 +142,7 @@ const GrunnblankettUforepensjon = ({
     ...ubehandlede }) => <Row>
       <Column size={6}>
         <div>&nbsp;<h3>Personalia:</h3></div>
-        <table className={styles.infotable}><tbody>
+        <InfoTable>
           <tr>
             <td>Antall forsørgede barn</td>
             <td>{anntallBarn}</td>
@@ -187,8 +187,8 @@ const GrunnblankettUforepensjon = ({
             <td>Inntekt før uforepensjon</td>
             <td>{inntektForUforepensjon}</td>
           </tr>
-        </tbody></table>
-        <table className={styles.infotable}>
+        </InfoTable>
+        <table>
           <div>&nbsp;<h3>Bosted:</h3></div>
           <BostedsInfo {...ubehandlede} />
           <tbody /></table>

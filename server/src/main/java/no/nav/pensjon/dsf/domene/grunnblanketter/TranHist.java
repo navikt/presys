@@ -53,6 +53,9 @@ public class TranHist {
     private List<GRUNNBKF> grunnbkfer = new ArrayList<>();
 
     @SubSegment
+    private List<GRUNNBU2> grunnbu2er = new ArrayList<>();
+
+    @SubSegment
     private List<GRUNNBU3> grunnbu3er = new ArrayList<>();
 
     @SubSegment
@@ -63,6 +66,12 @@ public class TranHist {
 
     @SubSegment
     private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBEP> grunnbeper = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBEE> grunnbeeer = new ArrayList<>();
 
     @SubSegment
     private List<ENBLAN1> enblan1er = new ArrayList<>();
@@ -87,7 +96,15 @@ public class TranHist {
 
     public int getVtpKey() {
         return vtpKey;
-    }
+
+    @SubSegment
+    private List<GRBLFORS> grblforser = new ArrayList<>();
+
+    @SubSegment
+    private List<GRBLFAMP> grblfamper = new ArrayList<>();
+
+    @SubSegment
+    private List<GRBLUFST> grblufster = new ArrayList<>();
 
     public void setVtpKey(int vtpKey) {
         this.vtpKey = vtpKey;
@@ -181,8 +198,32 @@ public class TranHist {
         return grunnbkfer;
     }
 
+    public List<GRUNNBU2> getGrunnbu2er() {
+        return grunnbu2er;
+    }
+
     public List<GRUNNBU3> getGrunnbu3er() {
         return grunnbu3er;
+    }
+
+    public List<GRUNNBEP> getGrunnbeper() {
+        return grunnbeper;
+    }
+
+    public List<GRUNNBEE> getGrunnbeeer() {
+        return grunnbeeer;
+    }
+
+    public List<GRBLUFST> getGrblufster() {
+        return grblufster;
+    }
+
+    public List<GRBLFORS> getGrblforser() {
+        return grblforser;
+    }
+
+    public List<GRBLFAMP> getGrblfamper() {
+        return grblfamper;
     }
 
     public List<OPPHBL1> getOpphbl1er() {
