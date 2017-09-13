@@ -14,7 +14,7 @@ public class GRBLEBB6 {
     @Felt(name="KONVENSJON", length = 1, start = 3) private String konvensjon;
     @Felt(name="PENSJONSTRYGDET", length = 1, start = 4) private String pensjonstrygdet;
     @Felt(name="MINST_20AAR", length = 1, start = 5) private String minst20Aar;
-    @Felt(name="FNR_DOD", length = 6, start = 6) @PackedDecimal private int fodselsnummerAvdod;
+    @Felt(name="FNR_DOD", length = 6, start = 6) @PackedDecimal private String fodselsnummerAvdod;
     @Felt(name="NAVN_DOD", length = 25, start = 12) private String navnAvdod;
     @Felt(name="DODSDATO_AAMD", length = 5, start = 37) @PackedDecimal private int dodsdato;
     @Felt(name="VILKAAR_8_4_3A", length = 1, start = 42) private String vilkaarPar8Pkt4Ledd3BokstavA;
@@ -63,11 +63,11 @@ public class GRBLEBB6 {
         this.minst20Aar = minst20Aar;
     }
 
-    public int getFodselsnummerAvdod() {
+    public String getFodselsnummerAvdod() {
         return fodselsnummerAvdod;
     }
 
-    public void setFodselsnummerAvdod(int fodselsnummerAvdod) {
+    public void setFodselsnummerAvdod(String fodselsnummerAvdod) {
         this.fodselsnummerAvdod = fodselsnummerAvdod;
     }
 

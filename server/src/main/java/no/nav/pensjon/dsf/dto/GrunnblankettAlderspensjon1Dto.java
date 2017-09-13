@@ -14,7 +14,7 @@ public class GrunnblankettAlderspensjon1Dto extends GrunnblankettDto {
     private int alderspensjonIProsent;
     private int framtidigArbeidsinntekt;
     private String navnEktefelle;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String tilleggEktefelle;
     private int inntektEktefelle;
     private int antallBarn;
@@ -119,11 +119,11 @@ public class GrunnblankettAlderspensjon1Dto extends GrunnblankettDto {
         this.navnEktefelle = navnEktefelle;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

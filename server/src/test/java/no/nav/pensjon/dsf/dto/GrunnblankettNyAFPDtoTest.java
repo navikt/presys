@@ -35,7 +35,7 @@ public class GrunnblankettNyAFPDtoTest {
         model.setPensjonsinntektUtenomFolketrygd(1616);
         model.setAfpTilleggskode("??");
         model.setAfpOrdningskode("??");
-        model.setFodselsnummerEktefelle(1717);
+        model.setFodselsnummerEktefelle("1717");
         model.setNavnEktefelle("??");
         model.setEktefelleInntektOver2G("??");
         model.setRedusertGrunnpensjonEtterParagraf325("??");
@@ -86,7 +86,7 @@ public class GrunnblankettNyAFPDtoTest {
         expected.put("pensjonsinntektUtenomFolketrygd", 1616);
         expected.put("afpTilleggskode", "??");
         expected.put("afpOrdningskode", "??");
-        expected.put("fodselsnummerEktefelle", 1717);
+        expected.put("fodselsnummerEktefelle", "1717");
         expected.put("navnEktefelle", "??");
         expected.put("ektefelleInntektOver2G", "??");
         expected.put("redusertGrunnpensjonEtterParagraf325", "??");

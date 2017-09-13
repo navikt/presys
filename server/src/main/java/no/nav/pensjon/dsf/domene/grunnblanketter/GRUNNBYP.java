@@ -18,9 +18,9 @@ public class GRUNNBYP {
     @Felt(name="KAP11_7_UTLST", length = 1, start = 10) private String kapittel11Pkt7Utlost;
     @Felt(name="YRKE11", length = 1, start = 11) private String yrke11;
     @Felt(name="AI", length = 4, start = 12) @PackedDecimal private int aarligArbeidsinntekt;
-    @Felt(name="FNR_EK", length = 6, start = 16) @PackedDecimal private int fodselsnummerEktefelle;
-    @Felt(name="FNR_SAMBOER", length = 6, start = 22) @PackedDecimal private int fodselsnummerSamboer;
-    @Felt(name="FNR_BARN", length = 6, start = 28) @PackedDecimal private int fodselsnummerBarn;
+    @Felt(name="FNR_EK", length = 6, start = 16) @PackedDecimal private String fodselsnummerEktefelle;
+    @Felt(name="FNR_SAMBOER", length = 6, start = 22) @PackedDecimal private String fodselsnummerSamboer;
+    @Felt(name="FNR_BARN", length = 6, start = 28) @PackedDecimal private String fodselsnummerBarn;
     @Felt(name="PLEIEBARN", length = 1, start = 34) private String fodselsnummerPleiebarn;
 
     public String getVilkaarPar1Pkt2Ledd2BokstavA() {
@@ -87,27 +87,27 @@ public class GRUNNBYP {
         this.aarligArbeidsinntekt = aarligArbeidsinntekt;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 
-    public int getFodselsnummerSamboer() {
+    public String getFodselsnummerSamboer() {
         return fodselsnummerSamboer;
     }
 
-    public void setFodselsnummerSamboer(int fodselsnummerSamboer) {
+    public void setFodselsnummerSamboer(String fodselsnummerSamboer) {
         this.fodselsnummerSamboer = fodselsnummerSamboer;
     }
 
-    public int getFodselsnummerBarn() {
+    public String getFodselsnummerBarn() {
         return fodselsnummerBarn;
     }
 
-    public void setFodselsnummerBarn(int fodselsnummerBarn) {
+    public void setFodselsnummerBarn(String fodselsnummerBarn) {
         this.fodselsnummerBarn = fodselsnummerBarn;
     }
 

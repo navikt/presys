@@ -15,7 +15,7 @@ public class GRBLFORS {
     @Felt(name="TT_ETTER_1966_EK_AAR", length = 2, start = 4) @PackedDecimal private int  trygdetidEtter1966EktefelleAar;
     @Felt(name="TT_ETTER_1966_EK_MM", length = 2, start = 6) @PackedDecimal private int  trygdetidEtter1966EktefelleMaaneder;
     @Felt(name="BT_ANT", length = 2, start = 8) @PackedDecimal private int  antallBarnetillegg;
-    @Felt(name="FNR_EK", length = 6, start = 10) @PackedDecimal private int  fodselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 10) @PackedDecimal private String  fodselsnummerEktefelle;
     @Felt(name="NAVN_EK", length = 25, start = 16) private String navnEktefelle;
     @Felt(name="INNT_MINST_4G", length = 1, start = 41) private String ektefellesInntektOver4G;
 
@@ -67,11 +67,11 @@ public class GRBLFORS {
         this.antallBarnetillegg = antallBarnetillegg;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

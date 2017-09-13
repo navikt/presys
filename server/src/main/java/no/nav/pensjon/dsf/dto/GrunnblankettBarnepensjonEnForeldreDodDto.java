@@ -2,17 +2,17 @@ package no.nav.pensjon.dsf.dto;
 
 public class GrunnblankettBarnepensjonEnForeldreDodDto extends GrunnblankettDto {
 
-    private int fodselsnummerAvdod;
+    private String fodselsnummerAvdod;
     private String navnYngsteBarn;
     private int dodsdato;
     private String dodAvYrkesskade;
     private String pleiebarn;
 
-    public int getFodselsnummerAvdod() {
+    public String getFodselsnummerAvdod() {
         return fodselsnummerAvdod;
     }
 
-    public void setFodselsnummerAvdod(int fodselsnummerAvdod) {
+    public void setFodselsnummerAvdod(String fodselsnummerAvdod) {
         this.fodselsnummerAvdod = fodselsnummerAvdod;
     }
 

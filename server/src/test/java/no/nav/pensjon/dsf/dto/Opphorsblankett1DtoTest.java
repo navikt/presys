@@ -24,7 +24,7 @@ public class Opphorsblankett1DtoTest {
         opphorsblankett = new OPPHBL1();
         opphorsblankett.setAvdodesPensjonsgivendeInntekt(1010);
         opphorsblankett.setDodsDato(1111);
-        opphorsblankett.setEktefelleFodselsnummer(1212);
+        opphorsblankett.setEktefelleFodselsnummer("1212");
         opphorsblankett.setEktefelleNavn("??");
 
         opphorsblankettDto = modelMapper.map(opphorsblankett, Opphorsblankett1Dto.class);
@@ -49,7 +49,7 @@ public class Opphorsblankett1DtoTest {
         Map<String, Object> expected = new HashMap<>();
         expected.put("avdodesPensjonsgivendeInntekt", 1010);
         expected.put("dodsDato", 1111);
-        expected.put("ektefelleFodselsnummer", 1212);
+        expected.put("ektefelleFodselsnummer", "1212");
         expected.put("ektefelleNavn", "??");
 
         assertThatJson(opphorsblankettDto).isEqualTo(expected);

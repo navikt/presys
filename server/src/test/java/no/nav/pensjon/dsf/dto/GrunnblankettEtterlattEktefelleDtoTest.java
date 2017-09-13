@@ -31,7 +31,7 @@ public class GrunnblankettEtterlattEktefelleDtoTest {
         model.setYrkesskadeTillegg("??");
         model.setFramleggsdato(1212);
         model.setFramleggskode("??");
-        model.setFodselsnummerEktefelle(1313);
+        model.setFodselsnummerEktefelle("1313");
         model.setNavnEktefelle("??");
         model.setDodsdato(1414);
         model.setBosattNorgeEktefelle("??");
@@ -130,7 +130,7 @@ public class GrunnblankettEtterlattEktefelleDtoTest {
         expected.put("yrkesskadeTillegg", "??");
         expected.put("framleggsdato", 1212);
         expected.put("framleggskode", "??");
-        expected.put("fodselsnummerEktefelle", 1313);
+        expected.put("fodselsnummerEktefelle", "1313");
         expected.put("navnEktefelle", "??");
         expected.put("dodsdato", 1414);
         expected.put("bosattNorgeEktefelle", "??");

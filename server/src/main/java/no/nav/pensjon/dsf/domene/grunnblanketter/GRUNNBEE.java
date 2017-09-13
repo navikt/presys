@@ -15,7 +15,7 @@ public class GRUNNBEE {
     @Felt(name="GP_OS_KODE", length = 1, start = 7) private String overgangsstonadPensjonKode;
     @Felt(name="YSKADE_TILLEGG", length = 1, start = 8) private String yrkesskadetillegg;
     @Felt(name="FRAMLEGGSDATO_AAMD", length = 5, start = 9) @PackedDecimal private int framleggsdato;
-    @Felt(name="FNR_EK", length = 6, start = 14) @PackedDecimal private int fodselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 14) @PackedDecimal private String fodselsnummerEktefelle;
     @Felt(name="NAVN_EK", length = 25, start = 20) private String navnEktefelle;
     @Felt(name="SIVILSTAND_EK", length = 1, start = 45) private String sivilstandEktefelle;
     @Felt(name="DODSDATO_AAMD_EK", length = 5, start = 46) @PackedDecimal private int dodsdatoEktefelle;
@@ -77,11 +77,11 @@ public class GRUNNBEE {
         this.framleggsdato = framleggsdato;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

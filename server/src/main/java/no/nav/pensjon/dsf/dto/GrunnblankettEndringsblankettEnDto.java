@@ -11,7 +11,7 @@ public class GrunnblankettEndringsblankettEnDto extends GrunnblankettDto {
     private String opphortOvergangsstonadGjennlevende;
     private String nyttNavnStonadsmottaker;
     private String nyttNavnEktefelle;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private String skilsmisse;
     private String flyttetFraHverandre;
@@ -115,11 +115,11 @@ public class GrunnblankettEndringsblankettEnDto extends GrunnblankettDto {
         this.nyttNavnEktefelle = nyttNavnEktefelle;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

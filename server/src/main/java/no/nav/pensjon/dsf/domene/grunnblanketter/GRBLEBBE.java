@@ -9,7 +9,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 @UnmappedField(name = "filler", length = 3, start = 111)
 public class GRBLEBBE {
 
-    @Felt(name="FNR_MOR", length = 6, start = 0) @PackedDecimal private int fodselsnummerMor;
+    @Felt(name="FNR_MOR", length = 6, start = 0) @PackedDecimal private String fodselsnummerMor;
     @Felt(name="NAVNMOR", length = 25, start = 6) private String navnMor;
     @Felt(name="DODDTOMO_AAMD", length = 5, start = 31) @PackedDecimal private int dodsdatoMor;
     @Felt(name="VIL843AM", length = 1, start = 36) private String vilkaar843AMor;
@@ -19,7 +19,7 @@ public class GRBLEBBE {
     @Felt(name="TT_ETTER_1966_MOR_MM", length = 2, start = 42) @PackedDecimal private int trygdetidEtter1966MorMaaneder;
     @Felt(name="PIMOR", length = 4, start = 44) @PackedDecimal private int pensjonsgivendeInntektMor;
     @Felt(name="DOD_AV_YRKESSKADE_MOR", length = 1, start = 48) private String dodYrkesskadeMor;
-    @Felt(name="FNR_FAR", length = 6, start = 49) @PackedDecimal private int fodselsnummerFar;
+    @Felt(name="FNR_FAR", length = 6, start = 49) @PackedDecimal private String fodselsnummerFar;
     @Felt(name="NAVNFAR", length = 25, start = 55) private String navnFar;
     @Felt(name="DODDTOFA_AAMD", length = 5, start = 80) @PackedDecimal private int dodsdatoFar;
     @Felt(name="VIL843AF", length = 1, start = 85) private String vilkaar843AFar;
@@ -35,11 +35,11 @@ public class GRBLEBBE {
     @Felt(name="DOD_AV_YRKESSKADE_FAR", length = 1, start = 109) private String dodYrkesskadeFar;
     @Felt(name="BARNE_TAB_POS", length = 1, start = 110) private String barneTabPos;
 
-    public int getFodselsnummerMor() {
+    public String getFodselsnummerMor() {
         return fodselsnummerMor;
     }
 
-    public void setFodselsnummerMor(int fodselsnummerMor) {
+    public void setFodselsnummerMor(String fodselsnummerMor) {
         this.fodselsnummerMor = fodselsnummerMor;
     }
 
@@ -115,11 +115,11 @@ public class GRBLEBBE {
         this.dodYrkesskadeMor = dodYrkesskadeMor;
     }
 
-    public int getFodselsnummerFar() {
+    public String getFodselsnummerFar() {
         return fodselsnummerFar;
     }
 
-    public void setFodselsnummerFar(int fodselsnummerFar) {
+    public void setFodselsnummerFar(String fodselsnummerFar) {
         this.fodselsnummerFar = fodselsnummerFar;
     }
 

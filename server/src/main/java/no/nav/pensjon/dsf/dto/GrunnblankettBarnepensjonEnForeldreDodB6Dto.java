@@ -7,7 +7,7 @@ public class GrunnblankettBarnepensjonEnForeldreDodB6Dto extends GrunnblankettDt
     private String konvensjon;
     private String pensjonstrygdet;
     private String minst20Aar;
-    private int fodselsnummerAvdod;
+    private String fodselsnummerAvdod;
     private String navnAvdod;
     private int dodsdato;
     private String vilkaarPar8Pkt4Ledd3BokstavA;
@@ -56,11 +56,11 @@ public class GrunnblankettBarnepensjonEnForeldreDodB6Dto extends GrunnblankettDt
         this.minst20Aar = minst20Aar;
     }
 
-    public int getFodselsnummerAvdod() {
+    public String getFodselsnummerAvdod() {
         return fodselsnummerAvdod;
     }
 
-    public void setFodselsnummerAvdod(int fodselsnummerAvdod) {
+    public void setFodselsnummerAvdod(String fodselsnummerAvdod) {
         this.fodselsnummerAvdod = fodselsnummerAvdod;
     }
 

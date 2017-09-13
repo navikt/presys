@@ -15,7 +15,7 @@ public class GrunnblankettNyAFPDto extends GrunnblankettDto {
     private int pensjonsinntektUtenomFolketrygd;
     private String afpTilleggskode;
     private String afpOrdningskode;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private String ektefelleInntektOver2G;
     private String redusertGrunnpensjonEtterParagraf325;
@@ -124,11 +124,11 @@ public class GrunnblankettNyAFPDto extends GrunnblankettDto {
         this.afpOrdningskode = afpOrdningskode;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

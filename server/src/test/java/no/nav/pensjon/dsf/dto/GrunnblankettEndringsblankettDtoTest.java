@@ -33,7 +33,7 @@ public class GrunnblankettEndringsblankettDtoTest {
         model.setOpphortOvergangsstonadGjennlevende("??");
         model.setNyttNavnPensjonist("??");
         model.setNyttNavnEps("??");
-        model.setFodselsnummerEktefelle(1616);
+        model.setFodselsnummerEktefelle("1616");
         model.setNavnEktefelle("??");
         model.setSkilsmisse("??");
         model.setFlyttetFraHverandre("??");
@@ -88,7 +88,7 @@ public class GrunnblankettEndringsblankettDtoTest {
         expected.put("opphortOvergangsstonadGjennlevende", "??");
         expected.put("nyttNavnPensjonist", "??");
         expected.put("nyttNavnEps", "??");
-        expected.put("fodselsnummerEktefelle", 1616);
+        expected.put("fodselsnummerEktefelle", "1616");
         expected.put("navnEktefelle", "??");
         expected.put("skilsmisse", "??");
         expected.put("flyttetFraHverandre", "??");
