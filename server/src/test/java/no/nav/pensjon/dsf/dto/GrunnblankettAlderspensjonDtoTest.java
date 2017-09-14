@@ -56,7 +56,7 @@ public class GrunnblankettAlderspensjonDtoTest {
     @Test
     public void thatGRUNNBAPIsMappedCorrectlyToDto() {
         assertEquals(model.getEktefelleTillegg(), dto.getEktefelleTillegg());
-        assertEquals(model.getFramtidigArbeidsinntekt(), dto.getFramtidigArbeidsinntekt());
+        assertEquals(model.getFramtidigArbeidsinntekt() * 100, dto.getFramtidigArbeidsinntekt());
         assertEquals(model.getBosattNorge(), dto.getBosattNorge());
         assertEquals(model.getStatsborgerskap(), dto.getStatsborgerskap());
         assertEquals(model.getBosattLand(), dto.getBosattLand());
@@ -82,7 +82,7 @@ public class GrunnblankettAlderspensjonDtoTest {
     public void thatGrunnblankettAlderspensjonDtoIsMappedCorrectlyToJson() {
         Map<String, Object> expected = new HashMap<>();
         expected.put("ektefelleTillegg", "??");
-        expected.put("framtidigArbeidsinntekt", 1010);
+        expected.put("framtidigArbeidsinntekt", 101000);
         expected.put("bosattNorge", "??");
         expected.put("statsborgerskap", 1111);
         expected.put("bosattLand", 1212);
