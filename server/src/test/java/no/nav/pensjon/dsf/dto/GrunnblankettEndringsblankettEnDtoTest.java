@@ -76,7 +76,7 @@ public class GrunnblankettEndringsblankettEnDtoTest {
     public void thatENBLAN1IsMappedCorrectlyToDto() {
         assertEquals(model.getFramtidigArbeidsinntekt(), dto.getFramtidigArbeidsinntekt());
         assertEquals(model.getUforegrad(), dto.getUforegrad());
-        assertEquals(model.getForventetInntekt(), dto.getForventetInntekt());
+        assertEquals(model.getForventetInntekt() *100, dto.getForventetInntekt());
         assertEquals(model.getFraOvergangsstonadTilPensjon(), dto.getFraOvergangsstonadTilPensjon());
         assertEquals(model.getFradrag2G(), dto.getFradrag2G());
         assertEquals(model.getFramleggsdato(), dto.getFramleggsdato());
@@ -121,7 +121,7 @@ public class GrunnblankettEndringsblankettEnDtoTest {
         Map<String, Object> expected = new HashMap<>();
         expected.put("framtidigArbeidsinntekt", 1010);
         expected.put("uforegrad", 1111);
-        expected.put("forventetInntekt", 1212);
+        expected.put("forventetInntekt", 121200);
         expected.put("fraOvergangsstonadTilPensjon", "??");
         expected.put("fradrag2G", "??");
         expected.put("framleggsdato", 1313);

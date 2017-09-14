@@ -1,9 +1,10 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { DsfDate } from 'components/elements/ParseDate';
 import { MonthInYear } from 'components/elements/FormattedDate';
+import { OpphorsKode } from 'components/elements/Kodeverk';
 import styles from './UforeHistorikk.less';
 
 const UforeHistorikk = ({ uftMaaned, ufg, ufKriterier, bup, bupGarantiKode, opphorsdatoMaaned,
@@ -17,7 +18,7 @@ opphorsKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistor
           <td><FormattedMessage id="UforeHistorikk.ufKriterier" /></td>
           <td>{ufKriterier !== ' ' ? <FormattedMessage id={`kodeverk.ufKriterier.${ufKriterier}`} /> : ''}</td>
         </tr>
-        <tr><td><FormattedMessage id="UforeHistorikk.bup" /></td><td>{bup}</td></tr>
+        <tr><td><FormattedMessage id="UforeHistorikk.bup" /></td><td><FormattedNumber value={bup} /></td></tr>
         <tr>
           <td><FormattedMessage id="UforeHistorikk.bupGarantiKode" /></td>
           <td>{bupGarantiKode !== ' ' ? <FormattedMessage id={`kodeverk.bupGarantiKode.${bupGarantiKode}`} /> : ''}</td>
@@ -28,7 +29,7 @@ opphorsKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistor
         </tr>
         <tr>
           <td><FormattedMessage id="UforeHistorikk.opphorsKode" /></td>
-          <td>{opphorsKode !== ' ' ? <FormattedMessage id={`kodeverk.opphorsdato.${opphorsKode}`} /> : ''}</td>
+          <td>{opphorsKode !== ' ' ? <OpphorsKode kode={opphorsKode} /> : ''}</td>
         </tr>
         <tr><td><FormattedMessage id="UforeHistorikk.redusertAntallBupAar" /></td><td>{redusertAntallBupAar}</td></tr>
         <tr><td><FormattedMessage id="UforeHistorikk.foedselsaarYngsteBarn" /></td><td>{foedselsaarYngsteBarn}</td></tr>

@@ -25,10 +25,5 @@ FormattedDate.defaultProps = {
 
 export default FormattedDate;
 
-const dateOnlyProp = { date: React.PropTypes.instanceOf(Date).isRequired };
-
-export const MonthInYear = ({ date }) => <FormattedDate date={date} format="yyyy/mm" />;
-MonthInYear.propTypes = dateOnlyProp;
-
-export const ISO8601 = ({ date }) => <FormattedDate date={date} format="yyyy-mm-dd" />;
-ISO8601.propTypes = dateOnlyProp;
+export const MonthInYear = props => <FormattedDate {...props} format="yyyy/mm" />;
+export const ISO8601 = props => <FormattedDate {...props} format="yyyy-mm-dd" />;

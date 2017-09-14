@@ -57,7 +57,7 @@ public class GrunnblankettEndringsblankettDtoTest {
         assertEquals(model.getHoyestePensjonsgrad(), dto.getHoyestePensjonsgrad());
         assertEquals(model.getAlderspensjonsdelIProsent(), dto.getAlderspensjonsdelIProsent());
         assertEquals(model.getUforegrad(), dto.getUforegrad());
-        assertEquals(model.getForventetInntekt(), dto.getForventetInntekt());
+        assertEquals(model.getForventetInntekt() *100, dto.getForventetInntekt());
         assertEquals(model.getOvergangsstonadTilPensjon(), dto.getOvergangsstonadTilPensjon());
         assertEquals(model.getTilleggspensjonForGjenlevendePensjonIProsent(), dto.getTilleggspensjonForGjenlevendePensjonIProsent());
         assertEquals(model.getFramleggsdato(), dto.getFramleggsdato());
@@ -81,7 +81,7 @@ public class GrunnblankettEndringsblankettDtoTest {
         expected.put("hoyestePensjonsgrad", "??");
         expected.put("alderspensjonsdelIProsent", 1111);
         expected.put("uforegrad", 1212);
-        expected.put("forventetInntekt", 1313);
+        expected.put("forventetInntekt", 131300);
         expected.put("overgangsstonadTilPensjon", "??");
         expected.put("tilleggspensjonForGjenlevendePensjonIProsent", 1414);
         expected.put("framleggsdato", 1515);

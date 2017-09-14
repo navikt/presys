@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
+    private static final Logger LOGG = LoggerFactory.getLogger(PersonService.class);
 
     private PersonRepository repo;
 
@@ -88,7 +89,7 @@ public class PersonService {
             inntekter.add(inntekt(0, 1966, "AI"));
             inntekter.add(inntekt(0, 1966, "PI"));
         }
-        inntekter.add(inntekt(person.getAi67(), 1967, "AI"));
+        inntekter.add(inntekt(person.getAi67() * 100, 1967, "AI"));
 
         inntekter.addAll(person.getInntekter().stream()
                 .map(inntekt -> modelMapper.map(inntekt, InntektDto.class))
@@ -174,7 +175,7 @@ public class PersonService {
         try {
             Optional.ofNullable(grunnblankettMappers.get(tranhist.getGrunnblankettkode())).ifPresent(c->c.accept(tranhist, dto));
         }catch (IndexOutOfBoundsException e){
-            LOG.error("Mangler grunnblankett", e);
+            LOGG.warn("Mangler grunnblankett", e);
         }
         return dto;
     }
