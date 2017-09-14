@@ -89,7 +89,7 @@ public class PersonService {
             inntekter.add(inntekt(0, 1966, "AI"));
             inntekter.add(inntekt(0, 1966, "PI"));
         }
-        inntekter.add(inntekt(person.getAi67(), 1967, "AI"));
+        inntekter.add(inntekt(person.getAi67() * 100, 1967, "AI"));
 
         inntekter.addAll(person.getInntekter().stream()
                 .map(inntekt -> modelMapper.map(inntekt, InntektDto.class))
