@@ -59,7 +59,7 @@ public class GrunnblankettEndringsblankettDto extends GrunnblankettDto {
     }
 
     public void setForventetInntekt(int forventetInntekt) {
-        this.forventetInntekt = forventetInntekt;
+        this.forventetInntekt = forventetInntekt * 100;
     }
 
     public String getOvergangsstonadTilPensjon() {
