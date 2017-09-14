@@ -2,6 +2,7 @@ import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import InfoTable from 'components/elements/InfoTable';
+import { FormattedNumber } from 'react-intl';
 
 const UforePensjon = ({ uforegrad,
                vilkaarPar8Pkt4Ledd3BokstavA,
@@ -17,6 +18,7 @@ const UforePensjon = ({ uforegrad,
                overkompensasjonstillegg }) => <Row>
                  <Column size={6}>
                    <InfoTable>
+                     <div>&nbsp;<h4>Uforepensjon:</h4></div>
                      <tr>
                        <td>Uforegrad</td>
                        <td>{uforegrad}</td>
@@ -59,7 +61,7 @@ const UforePensjon = ({ uforegrad,
                      </tr>
                      <tr>
                        <td>Sluttpoengtall</td>
-                       <td>{sluttpoengtall}</td>
+                       <td><FormattedNumber value={sluttpoengtall} /></td>
                      </tr>
                      <tr>
                        <td>Overkompensasjonstillegg</td>

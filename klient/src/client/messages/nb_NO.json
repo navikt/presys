@@ -91,6 +91,14 @@
   "Status.grunnPensjonReduksjonsKode" : "Grunnpensjonreduksjonskode",
   "Status.friinntektDato" : "Friintekstsdato",
 
+  "StatusSegment.gpRedKode.I" : "Ektefelle har inntekt over 2G",
+  "StatusSegment.gpRedKode.J" : "Ektefelle har sammenstøtende pensjon",
+  "StatusSegment.gpRedKode.Y" : "W-samboer har sammenstøtende pensjon",
+  "StatusSegment.gpRedKode.Z" : "V/W-samboer har inntekt over 2G",
+  "StatusSegment.gpRedKode.X" : "Redusert grunnpensjon pga. samboer 3-2-5 med inntekt eller pensjon",
+
+  "StatusSegment.garantertTilleggsPensjonKode.E" : "Personen har rett på en garantert minste tilleggspensjon for den som er født 1923-40 og ufør før 26 år.",
+
   "UforeHistorikk.maaned" : "Uføretidspunkt",
   "UforeHistorikk.ufg" : "Uføregrad",
   "UforeHistorikk.ufKriterier" : "Uførekriterier",
@@ -138,8 +146,9 @@
 
   "kodeverk.ja.nei.J": "Ja",
   "kodeverk.ja.nei.N": "Nei",
-  "kodeverk.ja.nei. ": " ",
-  "kodeverk.ja.nei.": " ",
+  "kodeverk.ja.nei. ": "Blank ",
+  "kodeverk.ja.nei.": "Tom ",
+  "kodeverk.ja.nei.undefined": "Udefinert??? ",
 
   "kodeverk.ufKriterier.1": "Inntekt >= G etter 1966 (19-6A)",
   "kodeverk.ufKriterier.2": "Inntekt >= G ved uførhet (8-4-3A)",
@@ -181,6 +190,7 @@
   "kodeverk.sivilstand.S": "Skilt",
   "kodeverk.sivilstand.W": "Samboer etter § 1-5",
   "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner",
+  "kodeverk.sivilstand.N": "Sivilstand N",
 
   "kodeverk.grunnblankettType.F7": "FOLKETRYGDEN - FORSØRGINGSTILLEGG EKTEFELLE OG/ELLER BARN",
   "kodeverk.grunnblankettType.O2": "FOLKETRYGDEN - OPPHØRSBLANKETT 2 IKKE DØDSFALL",
