@@ -10,54 +10,33 @@ public class StatusDto {
     private String pensjonsType1;
     private String pensjonsType2;
     private String pensjonsType3;
-
     private String sivilstand;
-
     private int trygdetidFoer1967;
-
     private int trygdetidEtter1966;
-
     private int trygdetidFramTil;
-
     private int trygdetid1967Til1970;
-
     private int trygdetidAnvendt;
     private String foersteGangReg;
-
     private int sumYtelse;
-
     private int antallBarn;
-
     private int dodsddato;
     private String dodAvYrkesskade;
     private String vilkar843A;
-
     private int trygdetidGaranti;
-
     private int grunnbelopsDato;
-
     private int poengtilleggsDato;
     private String poengtilleggsKode;
     private String pensjonsrettFoer91;
-
     private int trygdetid1666;
     private String garantertTilleggsPensjonKode;
     private String gammelSammenstotsRegel;
-
     private String ektefelleInntektOver2g;
     private String pensjonFoer9802;
     private String redGrunnPensjon321;
-
     private String grunnPensjonReduksjonsKode;
-
     private int friinntektDato;
 
     private List<UforeHistorikkDto> uforehistorikk = new ArrayList<>();
-
-    private List<AfpHistorikkDto> afpHistorikk = new ArrayList<>();
-
-    private List<EosInfoDto> eosInfo = new ArrayList<>();
-
     private List<TilknytningDto> tilknytninger = new ArrayList<>();
     private List<AlderspensjonDto> alderspensjoner = new ArrayList<>();
     private List<YrkesskadeHistorikkDto> yrkesskadeHistorikker = new ArrayList<>();
@@ -323,22 +302,6 @@ public class StatusDto {
 
     public void setUforehistorikk(List<UforeHistorikkDto> uforehistorikk) {
         this.uforehistorikk = uforehistorikk;
-    }
-
-    public List<AfpHistorikkDto> getAfpHistorikk() {
-        return afpHistorikk;
-    }
-
-    public void setAfpHistorikk(List<AfpHistorikkDto> afpHistorikk) {
-        this.afpHistorikk = afpHistorikk;
-    }
-
-    public List<EosInfoDto> getEosInfo() {
-        return eosInfo;
-    }
-
-    public void setEosInfo(List<EosInfoDto> eosInfo) {
-        this.eosInfo = eosInfo;
     }
 
     public List<TilknytningDto> getTilknytninger() {
