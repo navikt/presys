@@ -8,7 +8,7 @@ const InfoTable = ({ children }) => (
   </tbody></table>);
 
 InfoTable.propTypes = {
-  children: React.PropTypes.number.isRequired,
+  children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
 };
 
 export default InfoTable;

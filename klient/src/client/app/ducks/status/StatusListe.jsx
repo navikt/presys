@@ -1,21 +1,23 @@
 import React from 'react';
-import PrettyJson from 'components/elements/PrettyJson';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { Link } from 'react-router';
 import styles from './status.less';
+import Status from './Status';
 
-const StatusListe = ({ status, params: { valgtstatus }, parentLocation }) => <Row>
+const StatusListe = ({ status, params: { valgtstatus }, parentLocation }) => <div> {status.length === 0 ? null : <Row>
   <Row>
-    <Column>
+    {status.length < 2 ? null : <Column>
       <Link activeClassName={styles.activemenu} to={`${parentLocation}/status/s`}>siste</Link> |
       <Link activeClassName={styles.activemenu} to={`${parentLocation}/status/n`}>nest siste</Link>
-    </Column>
+    </Column>}
   </Row>
-  {valgtstatus ? <Row>
-    <Column> <PrettyJson data={status.find(s => s.statusKode === valgtstatus.toUpperCase())} /></Column>
-  </Row> : null}
-</Row>;
+  { valgtstatus ? <Row>
+    <Column size={12}> <Status {...status.find(s => s.statusKode === valgtstatus.toUpperCase())} /></Column>
+  </Row> : <Row>
+    <Column size={12}> <Status {...status.find(s => s.statusKode === 'S')} /></Column>
+  </Row>}
+</Row>}</div>;
 
 StatusListe.propTypes = {
   status: React.PropTypes.arrayOf(React.PropTypes.object),
@@ -29,5 +31,6 @@ StatusListe.defaultProps = {
   status: [],
   params: {},
 };
+
 
 export default StatusListe;

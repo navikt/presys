@@ -58,7 +58,16 @@ public class StatusDto {
 
     private List<EosInfoDto> eosInfo = new ArrayList<>();
 
-    private List<SpesielleOpplysningerDto> spesielleOpplysninger = new ArrayList<>();
+    private List<TilknytningDto> tilknytninger = new ArrayList<>();
+    private List<AlderspensjonDto> alderspensjoner = new ArrayList<>();
+    private List<YrkesskadeHistorikkDto> yrkesskadeHistorikker = new ArrayList<>();
+    private List<YrkesskadepensjonDto> yrkesskadepensjoner = new ArrayList<>();
+    private List<AfpHistorikkDto> afpHistorikker = new ArrayList<>();
+    private List<UforepensjonDto> uforepensjoner = new ArrayList<>();
+    private List<EtterlattEktefelleDto> etterlattEktefeller = new ArrayList<>();
+    private List<EtterlattBarnDto> etterlattBarn = new ArrayList<>();
+    private List<EosInfoDto> eosInfoer = new ArrayList<>();
+    private List<SpesielleOpplysningerDto> spesielleOpplysningerer = new ArrayList<>();
 
     public int getVirkDato() {
         return virkDato;
@@ -332,11 +341,83 @@ public class StatusDto {
         this.eosInfo = eosInfo;
     }
 
-    public List<SpesielleOpplysningerDto> getSpesielleOpplysninger() {
-        return spesielleOpplysninger;
+    public List<TilknytningDto> getTilknytninger() {
+        return tilknytninger;
     }
 
-    public void setSpesielleOpplysninger(List<SpesielleOpplysningerDto> spesielleOpplysninger) {
-        this.spesielleOpplysninger = spesielleOpplysninger;
+    public void setTilknytninger(List<TilknytningDto> tilknytninger) {
+        this.tilknytninger = tilknytninger;
+    }
+
+    public List<AlderspensjonDto> getAlderspensjoner() {
+        return alderspensjoner;
+    }
+
+    public void setAlderspensjoner(List<AlderspensjonDto> alderspensjoner) {
+        this.alderspensjoner = alderspensjoner;
+    }
+
+    public List<YrkesskadeHistorikkDto> getYrkesskadeHistorikker() {
+        return yrkesskadeHistorikker;
+    }
+
+    public void setYrkesskadeHistorikker(List<YrkesskadeHistorikkDto> yrkesskadeHistorikker) {
+        this.yrkesskadeHistorikker = yrkesskadeHistorikker;
+    }
+
+    public List<YrkesskadepensjonDto> getYrkesskadepensjoner() {
+        return yrkesskadepensjoner;
+    }
+
+    public void setYrkesskadepensjoner(List<YrkesskadepensjonDto> yrkesskadepensjoner) {
+        this.yrkesskadepensjoner = yrkesskadepensjoner;
+    }
+
+    public List<AfpHistorikkDto> getAfpHistorikker() {
+        return afpHistorikker;
+    }
+
+    public void setAfpHistorikker(List<AfpHistorikkDto> afpHistorikker) {
+        this.afpHistorikker = afpHistorikker;
+    }
+
+    public List<UforepensjonDto> getUforepensjoner() {
+        return uforepensjoner;
+    }
+
+    public void setUforepensjoner(List<UforepensjonDto> uforepensjoner) {
+        this.uforepensjoner = uforepensjoner;
+    }
+
+    public List<EtterlattEktefelleDto> getEtterlattEktefeller() {
+        return etterlattEktefeller;
+    }
+
+    public void setEtterlattEktefeller(List<EtterlattEktefelleDto> etterlattEktefeller) {
+        this.etterlattEktefeller = etterlattEktefeller;
+    }
+
+    public List<EtterlattBarnDto> getEtterlattBarn() {
+        return etterlattBarn;
+    }
+
+    public void setEtterlattBarn(List<EtterlattBarnDto> etterlattBarn) {
+        this.etterlattBarn = etterlattBarn;
+    }
+
+    public List<EosInfoDto> getEosInfoer() {
+        return eosInfoer;
+    }
+
+    public void setEosInfoer(List<EosInfoDto> eosInfoer) {
+        this.eosInfoer = eosInfoer;
+    }
+
+    public List<SpesielleOpplysningerDto> getSpesielleOpplysningerer() {
+        return spesielleOpplysningerer;
+    }
+
+    public void setSpesielleOpplysningerer(List<SpesielleOpplysningerDto> spesielleOpplysningerer) {
+        this.spesielleOpplysningerer = spesielleOpplysningerer;
     }
 }
