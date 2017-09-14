@@ -17,7 +17,7 @@ public class GRUNNBFO {
     @Felt(name="PENSJONSINNTEKT_EK", length = 4, start = 13) @PackedDecimal private int pensjonsInntektEktefelle;
     @Felt(name="BT_ANT", length = 2, start = 17) @PackedDecimal private int anntallBarnForForsorgertillegg;
     @Felt(name="MINST4G", length = 1, start = 19) private String minst4G;
-    @Felt(name="FNR_EK", length = 6, start = 20) @PackedDecimal private int fodselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 20) @PackedDecimal private String fodselsnummerEktefelle;
     @Felt(name="NAVN_EK", length = 25, start = 26) private String navnEktefelle;
     @Felt(name="INNT_PROVET_EOS_PENS", length = 1, start = 51) private String inntektsprovetEosPensjon;
     @Felt(name="TT_EOS_ANT_AAR", length = 2, start = 52) @PackedDecimal private int trygdetidEosAAr;
@@ -79,11 +79,11 @@ public class GRUNNBFO {
         this.minst4G = minst4G;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

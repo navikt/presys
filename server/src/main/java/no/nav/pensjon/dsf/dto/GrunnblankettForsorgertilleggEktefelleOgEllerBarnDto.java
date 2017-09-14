@@ -9,7 +9,7 @@ public class GrunnblankettForsorgertilleggEktefelleOgEllerBarnDto extends Grunnb
     private int pensjonsInntektEktefelle;
     private int anntallBarnForForsorgertillegg;
     private String minst4G;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private String inntektsprovetEosPensjon;
     private int trygdetidEosAAr;
@@ -71,11 +71,11 @@ public class GrunnblankettForsorgertilleggEktefelleOgEllerBarnDto extends Grunnb
         this.minst4G = minst4G;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

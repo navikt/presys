@@ -9,18 +9,18 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 @UnmappedField(name = "filler", length = 2, start = 38)
 public class GRBLEBEN {
 
-    @Felt(name="FNR_DOD", length = 6, start = 0) @PackedDecimal private int fodselsnummerAvdod;
+    @Felt(name="FNR_DOD", length = 6, start = 0) @PackedDecimal private String fodselsnummerAvdod;
     @Felt(name="NAVN", length = 25, start = 6) private String navnYngsteBarn;
     @Felt(name="DODSDATO_AAMD", length = 5, start = 31) @PackedDecimal private int dodsdato;
     @Felt(name="DOD_AV_YRKESSKADE", length = 1, start = 36) private String dodAvYrkesskade;
     @Felt(name="PLEIEBARN", length = 1, start = 37) private String pleiebarn;
 
 
-    public int getFodselsnummerAvdod() {
+    public String getFodselsnummerAvdod() {
         return fodselsnummerAvdod;
     }
 
-    public void setFodselsnummerAvdod(int fodselsnummerAvdod) {
+    public void setFodselsnummerAvdod(String fodselsnummerAvdod) {
         this.fodselsnummerAvdod = fodselsnummerAvdod;
     }
 

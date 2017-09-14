@@ -20,7 +20,7 @@ public class ENDRBLAN {
     @Felt(name="OPPHOREO" , length = 1, start = 19) private String opphortOvergangsstonadGjennlevende;
     @Felt(name="NAVNNY" , length = 25, start = 20) private String nyttNavnPensjonist;
     @Felt(name="NAVNNYEK" , length = 25, start = 45) private String nyttNavnEps;
-    @Felt(name="FNR_EK" , length = 6, start = 70) @PackedDecimal private int fodselsnummerEktefelle;
+    @Felt(name="FNR_EK" , length = 6, start = 70) @PackedDecimal private String fodselsnummerEktefelle;
     @Felt(name="NAVN_EK" , length = 25, start = 76) private String navnEktefelle;
     @Felt(name="SKILSMIS" , length = 1, start = 101) private String skilsmisse;
     @Felt(name="FLYTTFRA" , length = 1, start = 102) private String flyttetFraHverandre;
@@ -117,11 +117,11 @@ public class ENDRBLAN {
         this.nyttNavnEps = nyttNavnEps;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

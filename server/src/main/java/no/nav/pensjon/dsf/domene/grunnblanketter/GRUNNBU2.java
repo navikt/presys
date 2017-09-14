@@ -27,7 +27,7 @@ public class GRUNNBU2 {
     @Felt(name="UFT_AAMD", length = 5, start = 26)@PackedDecimal private int uforetidspunkt;
     @Felt(name="YRKESM_ATTF", length = 1, start = 31) private String yrkesmessigAttforing;
     @Felt(name="YRKE", length = 2, start = 32)@PackedDecimal private int yrke;
-    @Felt(name="FNR_EK", length = 6, start = 46)@PackedDecimal private int fodselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 46)@PackedDecimal private String fodselsnummerEktefelle;
     @Felt(name="NAVN_EK", length = 25, start = 52) private String navnEktefelle;
     @Felt(name="MINST4G", length = 1, start = 77) private String ektefellesInntektMinst4G;
     @Felt(name="STATSBORGER", length = 2, start = 78)@PackedDecimal private int statsborgerskap;
@@ -175,11 +175,11 @@ public class GRUNNBU2 {
         this.yrke = yrke;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

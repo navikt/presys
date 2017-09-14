@@ -22,7 +22,7 @@ public class GRUNNBA1 {
     @Felt(name="APD", length = 2, start = 13) @PackedDecimal private int alderspensjonIProsent;
     @Felt(name="FAI", length = 3, start = 15) @PackedDecimal private int framtidigArbeidsinntekt;
     @Felt(name="NAVN_EK", length = 25, start = 18) private String navnEktefelle;
-    @Felt(name="FNR_EK", length = 6, start = 43) @PackedDecimal private int fodselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 43) @PackedDecimal private String fodselsnummerEktefelle;
     @Felt(name="TILL_EK", length = 1, start = 49) private String tilleggEktefelle;
     @Felt(name="INNT_EK", length = 4, start = 50) @PackedDecimal private int inntektEktefelle;
     @Felt(name="BT_ANT", length = 2, start = 54) @PackedDecimal private int antallBarn;
@@ -127,11 +127,11 @@ public class GRUNNBA1 {
         this.navnEktefelle = navnEktefelle;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

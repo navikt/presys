@@ -3,7 +3,7 @@ package no.nav.pensjon.dsf.dto;
 
 public class GrunnblankettForeldreloseBarnDto extends GrunnblankettDto {
 
-    private int fodselsnummerMor;
+    private String fodselsnummerMor;
     private String navnMor;
     private int dodsdatoMor;
     private String vilkaar843AMor;
@@ -13,7 +13,7 @@ public class GrunnblankettForeldreloseBarnDto extends GrunnblankettDto {
     private int trygdetidEtter1966MorMaaneder;
     private int pensjonsgivendeInntektMor;
     private String dodYrkesskadeMor;
-    private int fodselsnummerFar;
+    private String fodselsnummerFar;
     private String navnFar;
     private int dodsdatoFar;
     private String vilkaar843AFar;
@@ -29,11 +29,11 @@ public class GrunnblankettForeldreloseBarnDto extends GrunnblankettDto {
     private String dodYrkesskadeFar;
     private String barneTabPos;
 
-    public int getFodselsnummerMor() {
+    public String getFodselsnummerMor() {
         return fodselsnummerMor;
     }
 
-    public void setFodselsnummerMor(int fodselsnummerMor) {
+    public void setFodselsnummerMor(String fodselsnummerMor) {
         this.fodselsnummerMor = fodselsnummerMor;
     }
 
@@ -109,11 +109,11 @@ public class GrunnblankettForeldreloseBarnDto extends GrunnblankettDto {
         this.dodYrkesskadeMor = dodYrkesskadeMor;
     }
 
-    public int getFodselsnummerFar() {
+    public String getFodselsnummerFar() {
         return fodselsnummerFar;
     }
 
-    public void setFodselsnummerFar(int fodselsnummerFar) {
+    public void setFodselsnummerFar(String fodselsnummerFar) {
         this.fodselsnummerFar = fodselsnummerFar;
     }
 

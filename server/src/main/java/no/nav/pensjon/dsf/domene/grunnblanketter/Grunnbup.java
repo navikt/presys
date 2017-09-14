@@ -38,7 +38,7 @@ public class Grunnbup {
 
     @Felt(name="fnr_ek", length = 6, start = 26)
     @PackedDecimal
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
 
     @Felt(name="navn_ek", length = 25, start = 32)
     private String navnEktefelle;
@@ -206,11 +206,11 @@ public class Grunnbup {
         this.vilkaar81B = vilkaar81B;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

@@ -3,7 +3,7 @@ package no.nav.pensjon.dsf.dto;
 public class Opphorsblankett1Dto extends GrunnblankettDto {
 
     private int dodsDato;
-    private int ektefelleFodselsnummer;
+    private String ektefelleFodselsnummer;
     private String ektefelleNavn;
     private int avdodesPensjonsgivendeInntekt;
 
@@ -15,11 +15,11 @@ public class Opphorsblankett1Dto extends GrunnblankettDto {
         this.dodsDato = dodsDato;
     }
 
-    public int getEktefelleFodselsnummer() {
+    public String getEktefelleFodselsnummer() {
         return ektefelleFodselsnummer;
     }
 
-    public void setEktefelleFodselsnummer(int ektefelleFodselsnummer) {
+    public void setEktefelleFodselsnummer(String ektefelleFodselsnummer) {
         this.ektefelleFodselsnummer = ektefelleFodselsnummer;
     }
 
