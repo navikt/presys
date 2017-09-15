@@ -188,14 +188,14 @@ const StatusSegment = ({ virkDato,
                      </tr>
                      <tr>
                        <td>Reduksjon av grunnpensjon etter §3_2_5</td>
-                       <td>{redGrunnPensjon321 !== ' ' ? <FormattedMessage id={`kodeverk.ja.nei.${redGrunnPensjon321}`} /> : ''}</td>
+                       <td><FormattedMessage id={`kodeverk.ja.nei.${redGrunnPensjon321}`} /></td>
                      </tr>
                      <tr>
                        <td>Grunnpensjonsreduksjonskode</td>
-                       <td>{grunnPensjonReduksjonsKode !== ' ' ? <FormattedMessage id={`StatusSegment.gpRedKod.${grunnPensjonReduksjonsKode}`} /> : ''}</td>
+                       <td><FormattedMessage id={`StatusSegment.gpRedKode.${grunnPensjonReduksjonsKode}`} /></td>
                      </tr>
                      <tr>
-                       <td>friinntektDato</td>
+                       <td>Friinntekt dato</td>
                        <td><DsfDate value={friinntektDato}><ISO8601 /></DsfDate></td>
                      </tr>
                    </InfoTable>

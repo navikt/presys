@@ -3,6 +3,11 @@ import PrettyJson from 'components/elements/PrettyJson';
 import StatusSegment from './StatusSegment';
 import UforeHistorikk from '../uforehistorikk/UforeHistorikk';
 import YrkesskadePensjon from '../yrkesskadepensjon/YrkesskadePensjon';
+import YrkesskadeHistorikk from '../yrkesskadehistorikk/YrkesskadeHistorikk';
+
+import Tilknytning from '../tilknytning/Tilknytning';
+
+
 import UforePensjon from '../uforepensjon/UforePensjon';
 
 const renderIfExcist = (liste, Komponent) => <div>{liste.length === 1 ? <Komponent {...liste[0]} /> : null}</div>;
@@ -23,9 +28,9 @@ const Status = ({ yrkesskadepensjoner,
                     <StatusSegment {...status} />
                     {renderIfExcist(uforepensjoner, UforePensjon)}
                     {renderIfExcist(afpHistorikker, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(tilknytninger, props => <PrettyJson data={props} />)}
+                    {renderIfExcist(tilknytninger, Tilknytning)}
                     {renderIfExcist(alderspensjoner, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(yrkesskadeHistorikker, props => <PrettyJson data={props} />)}
+                    {renderIfExcist(yrkesskadeHistorikker, YrkesskadeHistorikk)}
                     {renderIfExcist(etterlattEktefeller, props => <PrettyJson data={props} />)}
                     {renderIfExcist(etterlattBarn, props => <PrettyJson data={props} />)}
                     {renderIfExcist(eosInfoer, props => <PrettyJson data={props} />)}

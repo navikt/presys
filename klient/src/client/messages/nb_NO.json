@@ -97,6 +97,26 @@
   "StatusSegment.gpRedKode.Z" : "V/W-samboer har inntekt over 2G",
   "StatusSegment.gpRedKode.X" : "Redusert grunnpensjon pga. samboer 3-2-5 med inntekt eller pensjon",
 
+  "Tilknytning.forsorgertilleggFor1999.J" : "Det skal regnes inntektsprøvede forsørgingstillegg",
+  "Tilknytning.forsorgertilleggFor1999.N" : "Det skal bare regnes garanti",
+  "Tilknytning.forsorgertilleggFor1999.D" : "FORSI-segmentet skal erstattes med blanke",
+  "Tilknytning.forsorgertilleggFor1999. " : "Forsørgingstillegg regnes etter reglene før 1.5.1991",
+  "Tilknytning.forsorgertilleggFor1999." : "Forsørgingstillegg regnes etter reglene før 1.5.1991",
+
+  "Tilknytning.tilknytningskode.A" : "Alderspensjon",
+  "Tilknytning.tilknytningskode.B" : "Yngste barn i et barnekull (foreldreløse barn)",
+  "Tilknytning.tilknytningskode.D" : "Død person",
+  "Tilknytning.tilknytningskode.E" : "Etterlatte ektefelle (ogsÅ nÅr pt1 er A/U)",
+  "Tilknytning.tilknytningskode.F" : "Forsørget ektefelle",
+  "Tilknytning.tilknytningskode.G" : "Ektefelle/samboer mv uten ytelse",
+  "Tilknytning.tilknytningskode.K" : "AFP",
+  "Tilknytning.tilknytningskode.L" : "Forsørget barn",
+  "Tilknytning.tilknytningskode.N" : "Yngste barn i et barnekull (en av foreldrene er død)",
+  "Tilknytning.tilknytningskode.U" : "Uførepensjon",
+  "Tilknytning.tilknytningskode.V" : "Forsørget barn - særkullbarn f.o.m. 1.5.1991",
+  "Tilknytning.tilknytningskode.W" : "Forsørget barn - fellesbarn f.o.m. 1.5.1991",
+  "Tilknytning.tilknytningskode.Y" : "Yrkesskadepensjon",
+
   "StatusSegment.garantertTilleggsPensjonKode.E" : "Personen har rett på en garantert minste tilleggspensjon for den som er født 1923-40 og ufør før 26 år.",
 
   "UforeHistorikk.maaned" : "Uføretidspunkt",
