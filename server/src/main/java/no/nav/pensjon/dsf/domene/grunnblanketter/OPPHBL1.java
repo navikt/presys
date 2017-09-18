@@ -15,7 +15,7 @@ public class OPPHBL1 {
 
     @Felt(name="fnr_ek", length = 6, start = 5)
     @PackedDecimal
-    private int ektefelleFodselsnummer;
+    private String ektefelleFodselsnummer;
 
     @Felt(name="navn_ek", length = 25, start = 11)
     private String ektefelleNavn;
@@ -33,11 +33,11 @@ public class OPPHBL1 {
         this.dodsDato = dodsDato;
     }
 
-    public int getEktefelleFodselsnummer() {
+    public String getEktefelleFodselsnummer() {
         return ektefelleFodselsnummer;
     }
 
-    public void setEktefelleFodselsnummer(int ektefelleFodselsnummer) {
+    public void setEktefelleFodselsnummer(String ektefelleFodselsnummer) {
         this.ektefelleFodselsnummer = ektefelleFodselsnummer;
     }
 

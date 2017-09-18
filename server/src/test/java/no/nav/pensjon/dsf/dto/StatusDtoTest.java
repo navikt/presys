@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,6 +134,10 @@ public class StatusDtoTest {
         expected.put("redGrunnPensjon321", "??");
         expected.put("grunnPensjonReduksjonsKode", "??");
         expected.put("friinntektDato", 19980101);
+        expected.put("uforehistorikk", new ArrayList<>());
+        expected.put("afpHistorikk", new ArrayList<>());
+        expected.put("eosInfo", new ArrayList<>());
+        expected.put("spesielleOpplysninger", new ArrayList<>());
 
         assertThatJson(statusDto).isEqualTo(expected);
     }

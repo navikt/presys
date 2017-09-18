@@ -88,7 +88,7 @@ public class GRUNNBU3 {
 
     @Felt(name="FNR_EK", length = 6, start = 72)
     @PackedDecimal
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
 
     @Felt(name="NAVN_EK", length = 25, start = 78)
     private String navnEktefelle;
@@ -457,11 +457,11 @@ public class GRUNNBU3 {
         this.virkningsdato = virkningsdato;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String  getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

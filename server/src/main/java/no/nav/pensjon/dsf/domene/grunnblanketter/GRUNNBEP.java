@@ -17,7 +17,7 @@ public class GRUNNBEP {
     @Felt(name="HJEMMEL_10_8", length = 1, start = 8) private String hjemmelPar10Pkt8;
     @Felt(name="FRAMLEGGSDATO_AAMD", length = 5, start = 9) @PackedDecimal private int framleggsdato;
     @Felt(name="FRAMLEGGSKODE", length = 1, start = 14) private String framleggskode;
-    @Felt(name="FNR_EK", length = 6, start = 15) @PackedDecimal private int fodrselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 15) @PackedDecimal private String fodrselsnummerEktefelle;
     @Felt(name="NAVN_EK ", length = 25, start = 21) private String navnEktefelle;
     @Felt(name="DODSDATO_AAMD", length = 5, start = 46) @PackedDecimal private int dodsdato;
     @Felt(name="VILKAAR_8_4_3A", length = 1, start = 51) private String vilkaarPar4Pkt4Ledd3BokstavA;
@@ -124,11 +124,11 @@ public class GRUNNBEP {
         this.framleggskode = framleggskode;
     }
 
-    public int getFodrselsnummerEktefelle() {
+    public String getFodrselsnummerEktefelle() {
         return fodrselsnummerEktefelle;
     }
 
-    public void setFodrselsnummerEktefelle(int fodrselsnummerEktefelle) {
+    public void setFodrselsnummerEktefelle(String fodrselsnummerEktefelle) {
         this.fodrselsnummerEktefelle = fodrselsnummerEktefelle;
     }
 

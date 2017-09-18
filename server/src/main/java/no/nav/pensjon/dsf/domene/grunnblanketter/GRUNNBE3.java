@@ -18,7 +18,7 @@ public class GRUNNBE3 {
     @Felt(name="YSKADE_TILLEGG", length = 1, start = 10) private String yrkesskadeTillegg;
     @Felt(name="FRAMLEGGSDATO_AAMD", length = 5, start = 11) @PackedDecimal private int framleggsdato;
     @Felt(name="FRAMLEGGSKODE", length = 1, start = 16) private String framleggskode;
-    @Felt(name="FNR_EK", length = 6, start = 17) @PackedDecimal private int fodselsnummerEktefelle;
+    @Felt(name="FNR_EK", length = 6, start = 17) @PackedDecimal private String fodselsnummerEktefelle;
     @Felt(name="NAVN_EK", length = 25, start = 23) private String navnEktefelle;
     @Felt(name="DODSDATO_AAMD", length = 5, start = 48) @PackedDecimal private int dodsdato;
     @Felt(name="NORSK_BOSATT_EK", length = 1, start = 53) private String bosattNorgeEktefelle;
@@ -123,11 +123,11 @@ public class GRUNNBE3 {
         this.framleggskode = framleggskode;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

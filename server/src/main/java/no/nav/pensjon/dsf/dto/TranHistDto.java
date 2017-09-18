@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TranHistDto {
-    private int vtp_key;
+    private int vtpKey;
     private String grunnblankettkode;
     private String prioritetskode;
     private int virkningsdato;
@@ -18,12 +18,12 @@ public class TranHistDto {
     private GrunnblankettDto grunnblankett;
     private List<BarnDto> barn = new ArrayList<>();
 
-    public int getVtp_key() {
-        return vtp_key;
+    public int getVtpKey() {
+        return vtpKey;
     }
 
-    public void setVtp_key(int vtp_key) {
-        this.vtp_key = vtp_key;
+    public void setVtpKey(int vtpKey) {
+        this.vtpKey = vtpKey;
     }
 
     public String getGrunnblankettkode() {

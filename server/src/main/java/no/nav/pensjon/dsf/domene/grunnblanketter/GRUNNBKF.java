@@ -57,7 +57,7 @@ public class GRUNNBKF {
 
     @Felt(name="FNR_EK", length = 6, start = 24)
     @PackedDecimal
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
 
     @Felt(name="NAVN_EK", length = 25, start = 30)
     private String navnEktefelle;
@@ -172,11 +172,11 @@ public class GRUNNBKF {
         this.afpOrdningskode = afpOrdningskode;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

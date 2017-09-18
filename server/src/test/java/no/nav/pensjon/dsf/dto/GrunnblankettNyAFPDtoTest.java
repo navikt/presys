@@ -35,7 +35,7 @@ public class GrunnblankettNyAFPDtoTest {
         model.setPensjonsinntektUtenomFolketrygd(1616);
         model.setAfpTilleggskode("??");
         model.setAfpOrdningskode("??");
-        model.setFodselsnummerEktefelle(1717);
+        model.setFodselsnummerEktefelle("1717");
         model.setNavnEktefelle("??");
         model.setEktefelleInntektOver2G("??");
         model.setRedusertGrunnpensjonEtterParagraf325("??");
@@ -59,7 +59,7 @@ public class GrunnblankettNyAFPDtoTest {
         assertEquals(model.getFravikFlyktning(), dto.getFravikFlyktning());
         assertEquals(model.getOverkompensasjonForUtlending(), dto.getOverkompensasjonForUtlending());
         assertEquals(model.getPensjonsinntektSisteAar(), dto.getPensjonsinntektSisteAar());
-        assertEquals(model.getFramtidigArbeidsinntekt(), dto.getFramtidigArbeidsinntekt());
+        assertEquals(model.getFramtidigArbeidsinntekt() * 100, dto.getFramtidigArbeidsinntekt());
         assertEquals(model.getTilleggForEktefelle(), dto.getTilleggForEktefelle());
         assertEquals(model.getPensjonsinntektUtenomFolketrygd(), dto.getPensjonsinntektUtenomFolketrygd());
         assertEquals(model.getAfpTilleggskode(), dto.getAfpTilleggskode());
@@ -81,12 +81,12 @@ public class GrunnblankettNyAFPDtoTest {
         expected.put("fravikFlyktning", "??");
         expected.put("overkompensasjonForUtlending", "??");
         expected.put("pensjonsinntektSisteAar", 1414);
-        expected.put("framtidigArbeidsinntekt", 1515);
+        expected.put("framtidigArbeidsinntekt", 151500);
         expected.put("tilleggForEktefelle", "??");
         expected.put("pensjonsinntektUtenomFolketrygd", 1616);
         expected.put("afpTilleggskode", "??");
         expected.put("afpOrdningskode", "??");
-        expected.put("fodselsnummerEktefelle", 1717);
+        expected.put("fodselsnummerEktefelle", "1717");
         expected.put("navnEktefelle", "??");
         expected.put("ektefelleInntektOver2G", "??");
         expected.put("redusertGrunnpensjonEtterParagraf325", "??");

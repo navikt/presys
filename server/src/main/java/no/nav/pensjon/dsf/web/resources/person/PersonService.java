@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
+    private static final Logger LOGG = LoggerFactory.getLogger(PersonService.class);
 
     private PersonRepository repo;
 
@@ -70,7 +71,13 @@ public class PersonService {
         grunnblankettMappers.put("US", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblufster().get(0), GrunnstonadHjelpestonadDto.class)));
         grunnblankettMappers.put("FT", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblforser().get(0), GrunnblankettForsorgertilleggEktefelleBarnDto.class)));
         grunnblankettMappers.put("EF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblfamper().get(0), GrunnblankettEtterlattFamiliepleieDto.class)));
-
+        grunnblankettMappers.put("BP", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblebener().get(0), GrunnblankettBarnepensjonEnForeldreDodDto.class)));
+        grunnblankettMappers.put("B6", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblebb6er().get(0), GrunnblankettBarnepensjonEnForeldreDodB6Dto.class)));
+        grunnblankettMappers.put("FB", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblebbeer().get(0), GrunnblankettForeldreloseBarnDto.class)));
+        grunnblankettMappers.put("FO", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbfer().get(0), GrunnblankettForsorgertilleggEktefelleOgEllerBarnDto.class)));
+        grunnblankettMappers.put("MV", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbyper().get(0), GrunnblankettYrkesskadePensjonDto.class)));
+        grunnblankettMappers.put("UF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbufer().get(0), GrunnblankettUngUforFor1967Dto.class)));
+        grunnblankettMappers.put("AF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbafer().get(0), GrunnblankettAvtalefestetPensjonDto.class)));
     }
 
     @Abac
@@ -117,7 +124,7 @@ public class PersonService {
             inntekter.add(inntekt(0, 1966, "AI"));
             inntekter.add(inntekt(0, 1966, "PI"));
         }
-        inntekter.add(inntekt(person.getAi67(), 1967, "AI"));
+        inntekter.add(inntekt(person.getAi67() * 100, 1967, "AI"));
 
         inntekter.addAll(person.getInntekter().stream()
                 .map(inntekt -> modelMapper.map(inntekt, InntektDto.class))
@@ -203,7 +210,7 @@ public class PersonService {
         try {
             Optional.ofNullable(grunnblankettMappers.get(tranhist.getGrunnblankettkode())).ifPresent(c->c.accept(tranhist, dto));
         }catch (IndexOutOfBoundsException e){
-            LOG.error("Mangler grunnblankett", e);
+            LOGG.warn("Mangler grunnblankett", e);
         }
         return dto;
     }

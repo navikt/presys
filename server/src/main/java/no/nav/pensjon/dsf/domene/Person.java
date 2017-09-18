@@ -45,8 +45,6 @@ public class Person {
     @SubSegment
     private List<TranHist> tranHister = new ArrayList<>();
 
-
-
     public List<EtteroppgjorAFP> getEtteroppgjor() {
         return etteroppgjor;
     }
@@ -90,6 +88,4 @@ public class Person {
     public List<TranHist> getTranHister() {
         return tranHister;
     }
-
-
 }

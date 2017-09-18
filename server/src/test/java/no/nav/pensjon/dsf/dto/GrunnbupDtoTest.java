@@ -26,7 +26,7 @@ public class GrunnbupDtoTest {
         grunnbup.setAttforingUfore("??");
         grunnbup.setBosattLand(1111);
         grunnbup.setEktefelletillegg("??");
-        grunnbup.setFodselsnummerEktefelle(1212);
+        grunnbup.setFodselsnummerEktefelle("1212");
         grunnbup.setFravik81("??");
         grunnbup.setFravik193("??");
         grunnbup.setFravikBosatt("??");
@@ -124,7 +124,7 @@ public class GrunnbupDtoTest {
         expected.put("yrke", 3030);
         expected.put("vilkaar843A", "??");
         expected.put("vilkaar81B", "??");
-        expected.put("fodselsnummerEktefelle", 1212);
+        expected.put("fodselsnummerEktefelle", "1212");
         expected.put("navnEktefelle", "??");
         expected.put("norskINorgeMedlem", "??");
         expected.put("vernepliktAar1", 2626);

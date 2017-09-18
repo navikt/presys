@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.not;
  * Superklasse for alle domenetestene.
  * Created by K150562 on 07.06.2017.
  */
-public class DomeneTest {
+public class DomeneTestHelper {
 
     /**
      * Validerer at domene-entity, med felter, gettere og settere er satt rett.
@@ -43,7 +43,7 @@ public class DomeneTest {
 
         Segment seg = clazz.getAnnotation(Segment.class);
         clazz.getConstructor();
-        assertThat(seg.name().length(), is(8));
+        assertThat("Segmentnavn må være 8 tegn. Dette segmentet har lengre navn: "+ clazz.getSimpleName(), seg.name().length(), is(8));
 
         int[] fields = new int[seg.length()];
 
@@ -60,7 +60,7 @@ public class DomeneTest {
                 String getterName = "get" + String.valueOf(f.getName().charAt(0)).toUpperCase() + f.getName().substring(1);
                 f.getDeclaringClass().getMethod(getterName).getReturnType().equals(List.class);
                 if(validerUndersegment) {
-                    validerSegment(subTypeClass, validerUndersegment);
+                    validerSegment(subTypeClass, true);
                 }
             }
         }
@@ -75,7 +75,11 @@ public class DomeneTest {
         if (clazz.isAnnotationPresent(UnmappedField.class)) {
             UnmappedField umf = clazz.getAnnotation(UnmappedField.class);
             for (int i = 0; i < umf.length(); i++) {
-                fields[i + umf.start()]++;
+                try {
+                    fields[i + umf.start()]++;
+                }catch (ArrayIndexOutOfBoundsException e){
+                    throw new RuntimeException(clazz.getSimpleName(), e);
+                }
             }
         }
 

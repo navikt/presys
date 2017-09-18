@@ -9,7 +9,7 @@ public class GrunnbupDto extends GrunnblankettDto {
     private int yrke;
     private String vilkaar843A;
     private String vilkaar81B;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private String norskINorgeMedlem;
     private int vernepliktAar1;
@@ -98,11 +98,11 @@ public class GrunnbupDto extends GrunnblankettDto {
         this.vilkaar81B = vilkaar81B;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

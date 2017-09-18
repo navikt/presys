@@ -1,6 +1,6 @@
 package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.dsf.domene.Uforegrad;
+import no.nav.pensjon.dsf.domene.status.Uforegrad;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

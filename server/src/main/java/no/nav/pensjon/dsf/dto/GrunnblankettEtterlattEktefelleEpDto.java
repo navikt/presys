@@ -10,7 +10,7 @@ public class GrunnblankettEtterlattEktefelleEpDto extends GrunnblankettDto {
     private String hjemmelPar10Pkt8;
     private int framleggsdato;
     private String framleggskode;
-    private int fodrselsnummerEktefelle;
+    private String fodrselsnummerEktefelle;
     private String navnEktefelle;
     private int dodsdato;
     private String vilkaarPar4Pkt4Ledd3BokstavA;
@@ -117,11 +117,11 @@ public class GrunnblankettEtterlattEktefelleEpDto extends GrunnblankettDto {
         this.framleggskode = framleggskode;
     }
 
-    public int getFodrselsnummerEktefelle() {
+    public String getFodrselsnummerEktefelle() {
         return fodrselsnummerEktefelle;
     }
 
-    public void setFodrselsnummerEktefelle(int fodrselsnummerEktefelle) {
+    public void setFodrselsnummerEktefelle(String fodrselsnummerEktefelle) {
         this.fodrselsnummerEktefelle = fodrselsnummerEktefelle;
     }
 

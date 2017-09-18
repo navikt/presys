@@ -11,7 +11,7 @@ public class GrunnblankettEtterlattEktefelleDto extends GrunnblankettDto {
     private String yrkesskadeTillegg;
     private int framleggsdato;
     private String framleggskode;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private int dodsdato;
     private String bosattNorgeEktefelle;
@@ -116,11 +116,11 @@ public class GrunnblankettEtterlattEktefelleDto extends GrunnblankettDto {
         this.framleggskode = framleggskode;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

@@ -5,9 +5,6 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by h141598 on 19.04.2017.
- */
 @Segment(name = "STATUS  ", length = 94)
 @UnmappedField(name = "garanti_tp", length = 3, start = 52)
 @UnmappedField(name = "garanti_dato_md", length = 5, start = 55)
@@ -109,6 +106,9 @@ public class Status {
     private List<UforeHistorikk> uforehistorikk = new ArrayList<>();
 
     @SubSegment
+    private List<YrkesskadeHistorikk> yrkesskadeHistorikker = new ArrayList<>();
+
+    @SubSegment
     private List<AfpHistorikk> afpHistorikker = new ArrayList<>();
 
     @SubSegment
@@ -122,6 +122,15 @@ public class Status {
 
     @SubSegment
     private List<EtterlattBarn> etterlattBarn = new ArrayList<>();
+
+    @SubSegment
+    private List<EosInfo> eosInfoer = new ArrayList<>();
+
+    @SubSegment
+    private List<SpesielleOpplysninger> spesielleOpplysningerer = new ArrayList<>();
+
+    @SubSegment
+    private List<Yrkesskadepensjon> yrkesskadepensjonerr = new ArrayList<>();
 
     public boolean erSiste() {
         return "S".equals(getStatusKode());
@@ -156,6 +165,14 @@ public class Status {
     }
 
     public List<EtterlattBarn> getEtterlattBarn() { return etterlattBarn; }
+
+    public List<EosInfo> getEosInfoer() {
+        return eosInfoer;
+    }
+
+    public List<SpesielleOpplysninger> getSpesielleOpplysningerer() {
+        return spesielleOpplysningerer;
+    }
 
     public int getVirkDato() {
         return virkDato;
@@ -404,4 +421,11 @@ public class Status {
         this.friinntektDato = friinntektDato;
     }
 
+    public List<YrkesskadeHistorikk> getYrkesskadeHistorikker() {
+        return yrkesskadeHistorikker;
+    }
+
+    public List<Yrkesskadepensjon> getYrkesskadepensjonerr() {
+        return yrkesskadepensjonerr;
+    }
 }

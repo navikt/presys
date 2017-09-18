@@ -9,9 +9,9 @@ import java.util.List;
 @UnmappedField(name = "filler", length = 3, start = 35)
 public class TranHist {
 
-    @Felt(name="vtp_key", length = 5, start = 0)
+    @Felt(name="vtpKey", length = 5, start = 0)
     @PackedDecimal
-    private int vtp_key;
+    private int vtpKey;
 
     @Felt(name="grblkode", length = 2, start = 5)
     private String grunnblankettkode;
@@ -68,6 +68,9 @@ public class TranHist {
     private List<GRUNNBE3> grunnbe3er = new ArrayList<>();
 
     @SubSegment
+    private List<GRBLFAE4> grblfae4er = new ArrayList<>();
+
+    @SubSegment
     private List<GRUNNBEP> grunnbeper = new ArrayList<>();
 
     @SubSegment
@@ -103,12 +106,33 @@ public class TranHist {
     @SubSegment
     private List<GRBLUFST> grblufster = new ArrayList<>();
 
-    public int getVtp_key() {
-        return vtp_key;
+    @SubSegment
+    private List<GRBLEBEN> grblebener = new ArrayList<>();
+
+    @SubSegment
+    private List<GRBLEBB6> grblebb6er = new ArrayList<>();
+
+    @SubSegment
+    private List<GRBLEBBE> grblebbeer = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBFO> grunnbfer = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNEES> grunneeser = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBYP> grunnbyper = new ArrayList<>();
+
+    @SubSegment
+    private List<GRUNNBUF> grunnbufer = new ArrayList<>();
+
+    public int getVtpKey() {
+        return vtpKey;
     }
 
-    public void setVtp_key(int vtp_key) {
-        this.vtp_key = vtp_key;
+    public void setVtpKey(int vtpKey) {
+        this.vtpKey = vtpKey;
     }
 
     public String getGrunnblankettkode() {
@@ -239,6 +263,34 @@ public class TranHist {
         return grunnbe3er;
     }
 
+    public List<GRBLFAE4> getGrblfae4er() {
+        return grblfae4er;
+    }
+
+    public List<GRBLEBEN> getGrblebener() {
+        return grblebener;
+    }
+
+    public List<GRBLEBB6> getGrblebb6er() {
+        return grblebb6er;
+    }
+
+    public List<GRBLEBBE> getGrblebbeer() {
+        return grblebbeer;
+    }
+
+    public List<GRUNNBFO> getGrunnbfer() {
+        return grunnbfer;
+    }
+
+    public List<GRUNNBYP> getGrunnbyper() {
+        return grunnbyper;
+    }
+
+    public List<GRUNNBUF> getGrunnbufer() {
+        return grunnbufer;
+    }
+
     public List<ENBLAN1> getEnblan1er() {
         return enblan1er;
     }
@@ -265,5 +317,9 @@ public class TranHist {
 
     public List<ENDRBLAN> getEndringsblankett() {
         return endringsblankett;
+    }
+
+    public List<GRUNNEES> getGrunneeser() {
+        return grunneeser;
     }
 }

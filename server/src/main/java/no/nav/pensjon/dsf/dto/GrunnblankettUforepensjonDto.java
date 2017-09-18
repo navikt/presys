@@ -22,7 +22,7 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
     private int uforetidspunkt;
     private int friinntektDato;
     private int virkningsdato;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private int statsborgerskap;
     private int bosattLand;
@@ -243,11 +243,11 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
         this.virkningsdato = virkningsdato;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

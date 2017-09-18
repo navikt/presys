@@ -42,7 +42,7 @@ public class GrunnblankettUforepensjonDtoTest {
         model.setUforetidspunkt(1818);
         model.setFriinntektDato(1919);
         model.setVirkningsdato(2020);
-        model.setFodselsnummerEktefelle(2121);
+        model.setFodselsnummerEktefelle("2121");
         model.setNavnEktefelle("??");
         model.setStatsborgerskap(2222);
         model.setBosattLand(2323);
@@ -219,7 +219,7 @@ public class GrunnblankettUforepensjonDtoTest {
         expected.put("uforetidspunkt", 1818);
         expected.put("friinntektDato", 1919);
         expected.put("virkningsdato", 2020);
-        expected.put("fodselsnummerEktefelle", 2121);
+        expected.put("fodselsnummerEktefelle", "2121");
         expected.put("navnEktefelle", "??");
         expected.put("statsborgerskap", 2222);
         expected.put("bosattLand", 2323);
