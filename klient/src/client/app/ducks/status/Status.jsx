@@ -7,6 +7,7 @@ import YrkesskadeHistorikk from '../yrkesskadehistorikk/YrkesskadeHistorikk';
 import AfpHistorikk from '../afphistorikk/AfpHistorikk';
 import Alderspensjon from '../alderspensjon/Alderspensjon';
 import SpesielleOpplysninger from '../spesielleOpplysninger/SpesielleOpplysninger';
+import EosInfo from '../eosinfo/EosInfo';
 
 
 import Tilknytning from '../tilknytning/Tilknytning';
@@ -36,7 +37,7 @@ const Status = ({ yrkesskadepensjoner,
                     {renderIfExcist(yrkesskadeHistorikker, YrkesskadeHistorikk)}
                     {renderIfExcist(etterlattEktefeller, props => <PrettyJson data={props} />)}
                     {renderIfExcist(etterlattBarn, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(eosInfoer, props => <PrettyJson data={props} />)}
+                    {renderIfExcist(eosInfoer, EosInfo)}
                     {uforehistorikk.map(element => <UforeHistorikk key={element.uftMaaned} {...element} />)}
                     {renderIfExcist(yrkesskadepensjoner, YrkesskadePensjon)}
                     {renderIfExcist(spesielleOpplysningerer, SpesielleOpplysninger)}
