@@ -67,15 +67,15 @@ const Pensjonstyper = ({ pensjonsType1,
                     <div>&nbsp;<h4>Pensjonstyper:</h4></div>
                     <tr>
                       <td>Pensjonstype1</td>
-                      <td>{pensjonsType1}</td>
+                      <td><FormattedMessage id={`StatusSegment.Pensjonstype1.${pensjonsType1}`} /></td>
                     </tr>
                     <tr>
                       <td>Pensjonstype2</td>
-                      <td>{pensjonsType2}</td>
+                      <td><FormattedMessage id={`StatusSegment.Pensjonstype2.${pensjonsType2}`} /></td>
                     </tr>
                     <tr>
                       <td>Pensjonstype3</td>
-                      <td>{pensjonsType3}</td>
+                      <td><FormattedMessage id={`StatusSegment.Pensjonstype3.${pensjonsType3}`} /></td>
                     </tr>
                   </InfoTable>
                 </Column>
@@ -119,7 +119,7 @@ const StatusSegment = ({ virkDato,
                      </tr>
                      <tr>
                        <td>Statuskode</td>
-                       <td>{statusKode}</td>
+                       <td><FormattedMessage id={`StatusSegment.statusKode.${statusKode}`} /></td>
                      </tr>
                      <tr>
                        <td>Statuskode historikk</td>

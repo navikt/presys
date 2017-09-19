@@ -4,6 +4,10 @@ import StatusSegment from './StatusSegment';
 import UforeHistorikk from '../uforehistorikk/UforeHistorikk';
 import YrkesskadePensjon from '../yrkesskadepensjon/YrkesskadePensjon';
 import YrkesskadeHistorikk from '../yrkesskadehistorikk/YrkesskadeHistorikk';
+import AfpHistorikk from '../afphistorikk/AfpHistorikk';
+import Alderspensjon from '../alderspensjon/Alderspensjon';
+import SpesielleOpplysninger from '../spesielleOpplysninger/SpesielleOpplysninger';
+
 
 import Tilknytning from '../tilknytning/Tilknytning';
 
@@ -24,19 +28,18 @@ const Status = ({ yrkesskadepensjoner,
                   etterlattBarn,
                   eosInfoer,
                   spesielleOpplysningerer, ...status }) => <div>
-                    <h1>{statusKode}</h1>
                     <StatusSegment {...status} />
                     {renderIfExcist(uforepensjoner, UforePensjon)}
-                    {renderIfExcist(afpHistorikker, props => <PrettyJson data={props} />)}
+                    {renderIfExcist(afpHistorikker, AfpHistorikk)}
                     {renderIfExcist(tilknytninger, Tilknytning)}
-                    {renderIfExcist(alderspensjoner, props => <PrettyJson data={props} />)}
+                    {renderIfExcist(alderspensjoner, Alderspensjon)}
                     {renderIfExcist(yrkesskadeHistorikker, YrkesskadeHistorikk)}
                     {renderIfExcist(etterlattEktefeller, props => <PrettyJson data={props} />)}
                     {renderIfExcist(etterlattBarn, props => <PrettyJson data={props} />)}
                     {renderIfExcist(eosInfoer, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(spesielleOpplysningerer, props => <PrettyJson data={props} />)}
                     {uforehistorikk.map(element => <UforeHistorikk key={element.uftMaaned} {...element} />)}
                     {renderIfExcist(yrkesskadepensjoner, YrkesskadePensjon)}
+                    {renderIfExcist(spesielleOpplysningerer, SpesielleOpplysninger)}
                   </div>;
 
 Status.propTypes = {
