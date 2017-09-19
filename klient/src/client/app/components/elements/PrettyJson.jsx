@@ -7,7 +7,7 @@ import InfoTable from 'components/elements/InfoTable';
 const PrettyJson = ({ data }) => <Row>
   <Column size={6}>
     <InfoTable>
-      {Object.keys(data).map(key => <tr><td>{key}</td><td>{typeof (data[key]) === 'string' ? data[key] : JSON.stringify(data[key])}
+      {Object.keys(data).map(key => <tr key={key}><td>{key}</td><td>{typeof (data[key]) === 'string' ? data[key] : JSON.stringify(data[key])}
       </td></tr>)}
     </InfoTable>
   </Column>
