@@ -58,8 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.GET, "/", "/public/**").permitAll()
-                    .anyRequest().hasAuthority("0000-GA-PENSJON_SAKSBEHANDLER").and()
+                    .antMatchers(HttpMethod.GET, "/", "/public/**").permitAll().and()
                 .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }

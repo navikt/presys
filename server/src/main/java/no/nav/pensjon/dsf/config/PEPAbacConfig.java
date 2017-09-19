@@ -53,12 +53,12 @@ public class PEPAbacConfig {
 
     @Bean
     AbacAttributeLocator fellesDomeneLocator() {
-        return new ResolvingAbacAttributeLocator(NavAttributter.RESOURCE_FELLES_DOMENE, () -> "Pensjon");
+        return new ResolvingAbacAttributeLocator(NavAttributter.RESOURCE_FELLES_DOMENE, () -> "pensjon");
     }
 
     @Bean
     AbacAttributeLocator pepIdLocator() {
-        return new ResolvingAbacAttributeLocator(NavAttributter.ENVIRONMENT_FELLES_PEP_ID, () -> "Presys");
+        return new ResolvingAbacAttributeLocator(NavAttributter.ENVIRONMENT_FELLES_PEP_ID, () -> "presys");
     }
 
     @Bean

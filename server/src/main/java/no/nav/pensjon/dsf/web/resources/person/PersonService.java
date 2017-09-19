@@ -80,7 +80,7 @@ public class PersonService {
         grunnblankettMappers.put("AF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbafer().get(0), GrunnblankettAvtalefestetPensjonDto.class)));
     }
 
-    @Abac
+    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
     public PersonDto hentPerson(String fnr) throws IOException {
         Person person = repo.findPerson(fnr);
 
@@ -102,7 +102,7 @@ public class PersonService {
 
         XacmlResponse response = abacService.evaluate(abacContext.getRequest());
         if(response.getDecision() != Decision.PERMIT) {
-            throw new AccessDeniedException("Abac har ikke returnert en PERMIT. Den returnerte Decision er: " + response.getDecision());
+            throw new AccessDeniedException("Abac har ikke returnert en PERMIT. Den returnerte Decision er: " + response.getOriginalDecision());
         }
     }
 
