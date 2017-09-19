@@ -105,7 +105,7 @@ const StatusSegment = ({ virkDato,
               garantertTilleggsPensjonKode,
               gammelSammenstotsRegel,
               ektefelleInntektOver2g,
-              pensjonFor9802,
+              pensjonFoer9802,
               redGrunnPensjon321,
               grunnPensjonReduksjonsKode,
               friinntektDato,
@@ -184,7 +184,7 @@ const StatusSegment = ({ virkDato,
                      </tr>
                      <tr>
                        <td>Hadde pensjon før februar 1998</td>
-                       <td><FormattedMessage id={`kodeverk.ja.nei.${pensjonFor9802}`} /></td>
+                       <td><FormattedMessage id={`kodeverk.ja.nei.${pensjonFoer9802}`} /></td>
                      </tr>
                      <tr>
                        <td>Reduksjon av grunnpensjon etter §3_2_5</td>
@@ -224,7 +224,7 @@ StatusSegment.propTypes = {
   garantertTilleggsPensjonKode: React.PropTypes.string.isRequired,
   gammelSammenstotsRegel: React.PropTypes.string.isRequired,
   ektefelleInntektOver2g: React.PropTypes.string.isRequired,
-  pensjonFor9802: React.PropTypes.string.isRequired,
+  pensjonFoer9802: React.PropTypes.string.isRequired,
   redGrunnPensjon321: React.PropTypes.string.isRequired,
   grunnPensjonReduksjonsKode: React.PropTypes.string.isRequired,
   friinntektDato: React.PropTypes.number.isRequired,

@@ -27,8 +27,8 @@ const Status = ({ yrkesskadepensjoner,
                   etterlattEktefeller,
                   etterlattBarn,
                   eosInfoer,
-                  spesielleOpplysningerer, ...status }) => <div>
-                    <StatusSegment {...status} />
+                  spesielleOpplysningerer, ...status }) => (<div>
+                    <StatusSegment {...status} statusKode={statusKode} />
                     {renderIfExcist(uforepensjoner, UforePensjon)}
                     {renderIfExcist(afpHistorikker, AfpHistorikk)}
                     {renderIfExcist(tilknytninger, Tilknytning)}
@@ -40,14 +40,13 @@ const Status = ({ yrkesskadepensjoner,
                     {uforehistorikk.map(element => <UforeHistorikk key={element.uftMaaned} {...element} />)}
                     {renderIfExcist(yrkesskadepensjoner, YrkesskadePensjon)}
                     {renderIfExcist(spesielleOpplysningerer, SpesielleOpplysninger)}
-                  </div>;
+                  </div>);
 
 Status.propTypes = {
   yrkesskadepensjoner: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   statusKode: React.PropTypes.string.isRequired,
   uforehistorikk: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   uforepensjoner: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  eosInfo: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tilknytninger: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   alderspensjoner: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   yrkesskadeHistorikker: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
