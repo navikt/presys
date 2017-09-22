@@ -1,11 +1,12 @@
 import React from 'react';
-import PrettyJson from 'components/elements/PrettyJson';
 import StatusSegment from './StatusSegment';
 import UforeHistorikk from '../uforehistorikk/UforeHistorikk';
 import YrkesskadePensjon from '../yrkesskadepensjon/YrkesskadePensjon';
 import YrkesskadeHistorikk from '../yrkesskadehistorikk/YrkesskadeHistorikk';
 import AfpHistorikk from '../afphistorikk/AfpHistorikk';
 import Alderspensjon from '../alderspensjon/Alderspensjon';
+import EtterlattBarn from '../etterlattbarn/EtterlattBarn';
+import EtterlattEktefelle from '../etterlattektefelle/EtterlattEktefelle';
 import SpesielleOpplysninger from '../spesielleOpplysninger/SpesielleOpplysninger';
 import EosInfo from '../eosinfo/EosInfo';
 
@@ -35,8 +36,8 @@ const Status = ({ yrkesskadepensjoner,
                     {renderIfExcist(tilknytninger, Tilknytning)}
                     {renderIfExcist(alderspensjoner, Alderspensjon)}
                     {renderIfExcist(yrkesskadeHistorikker, YrkesskadeHistorikk)}
-                    {renderIfExcist(etterlattEktefeller, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(etterlattBarn, props => <PrettyJson data={props} />)}
+                    {renderIfExcist(etterlattEktefeller, EtterlattEktefelle)}
+                    {renderIfExcist(etterlattBarn, EtterlattBarn)}
                     {renderIfExcist(eosInfoer, EosInfo)}
                     {uforehistorikk.map(element => <UforeHistorikk key={element.uftMaaned} {...element} />)}
                     {renderIfExcist(yrkesskadepensjoner, YrkesskadePensjon)}

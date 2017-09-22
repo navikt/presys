@@ -2,6 +2,8 @@ import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import InfoTable from 'components/elements/InfoTable';
+import { DsfDate } from 'components/elements/ParseDate';
+import { ISO8601 } from 'components/elements/FormattedDate';
 import { FormattedNumber } from 'react-intl';
 
 const Alternativ = ({ alternativGrunnpensjon,
@@ -10,37 +12,47 @@ const Alternativ = ({ alternativGrunnpensjon,
                    alternativBarnetrygd,
                    alternativEktefelletillegg,
                    alternativSumPensjon,
-                   alternativtSaertilleggBrutto }) => <Row>
+                   alternativtSaertilleggBrutto,
+                   alternetivGrunnpensjonBrutto,
+                   alternetivTjenestepensjonBrutto }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>Alternativ:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>Alternativ:</h4></div>
                          <tr>
-                           <td>alternativGrunnpensjon</td>
+                           <td>Alternativ grunnpensjon</td>
                            <td>{alternativGrunnpensjon}</td>
                          </tr>
                          <tr>
-                           <td>alternativSaertillegg</td>
+                           <td>Alternativ sætillegg</td>
                            <td>{alternativSaertillegg}</td>
                          </tr>
                          <tr>
-                           <td>alternativTjenestepensjon</td>
+                           <td>Alternativ tjenestepensjon</td>
                            <td>{alternativTjenestepensjon}</td>
                          </tr>
                          <tr>
-                           <td>alternativBarnetrygd</td>
+                           <td>Alternativ barnetrygd</td>
                            <td>{alternativBarnetrygd}</td>
                          </tr>
                          <tr>
-                           <td>alternativEktefelletillegg</td>
+                           <td>Alternativt ektefelletillegg</td>
                            <td>{alternativEktefelletillegg}</td>
                          </tr>
                          <tr>
-                           <td>alternativSumPensjon</td>
+                           <td>Alternativ sum pensjon</td>
                            <td>{alternativSumPensjon}</td>
                          </tr>
                          <tr>
-                           <td>alternativtSaertilleggBrutto</td>
+                           <td>Alternativt særtillegg brutto</td>
                            <td>{alternativtSaertilleggBrutto}</td>
+                         </tr>
+                         <tr>
+                           <td>Alternetiv grunnpensjon brutto</td>
+                           <td>{alternetivGrunnpensjonBrutto}</td>
+                         </tr>
+                         <tr>
+                           <td>Alternetiv tjenestepensjon brutto</td>
+                           <td>{alternetivTjenestepensjonBrutto}</td>
                          </tr>
                        </InfoTable>
                      </Column>
@@ -54,6 +66,9 @@ Alternativ.propTypes = {
   alternativEktefelletillegg: React.PropTypes.number.isRequired,
   alternativSumPensjon: React.PropTypes.number.isRequired,
   alternativtSaertilleggBrutto: React.PropTypes.number.isRequired,
+  alternetivGrunnpensjonBrutto: React.PropTypes.number.isRequired,
+  alternetivTjenestepensjonBrutto: React.PropTypes.number.isRequired,
+
 };
 
 const Trygdetid = ({ trygdetidProRataMaaneder,
@@ -69,39 +84,35 @@ const Trygdetid = ({ trygdetidProRataMaaneder,
                        <InfoTable>
                          <div>&nbsp;<h4>Trygdetid:</h4></div>
                          <tr>
-                           <td>trygdetidProRataMaaneder</td>
+                           <td>Trygdetid pro rata i måneder</td>
                            <td>{trygdetidProRataMaaneder}</td>
                          </tr>
                          <tr>
-                           <td>trygdetidTeoretiskEosMaaneder</td>
+                           <td>Teoretisk EØS trygdetid i måneder</td>
                            <td>{trygdetidTeoretiskEosMaaneder}</td>
                          </tr>
                          <tr>
-                           <td>trygdetidEosFramtidigMaaneder</td>
+                           <td>Framtidig EØS trygdetid i måneder</td>
                            <td>{trygdetidEosFramtidigMaaneder}</td>
                          </tr>
                          <tr>
-                           <td>trygdetidEosAnvendtMaaneder</td>
-                           <td>{trygdetidEosAnvendtMaaneder}</td>
+                           <td>Anvendt EØS trygdetid</td>
+                           <td>{trygdetidEosAnvendtAAr} år og {trygdetidEosAnvendtMaaneder} måneder</td>
                          </tr>
                          <tr>
-                           <td>trygdetidEosAnvendtAAr</td>
-                           <td>{trygdetidEosAnvendtAAr}</td>
-                         </tr>
-                         <tr>
-                           <td>trygdetidNordiskFaktiskMaaneder</td>
+                           <td>Faktisk nordisk trygdetid i måneder</td>
                            <td>{trygdetidNordiskFaktiskMaaneder}</td>
                          </tr>
                          <tr>
-                           <td>trygdetidNordiskFramtidigBrutto</td>
+                           <td>Framtidig nordisk trygdetid brutto</td>
                            <td>{trygdetidNordiskFramtidigBrutto}</td>
                          </tr>
                          <tr>
-                           <td>trygdetidNordiskFramtidigNetto</td>
+                           <td>Framtidig nordisk trygdetid netto</td>
                            <td>{trygdetidNordiskFramtidigNetto}</td>
                          </tr>
                          <tr>
-                           <td>trygdetidFaktiskNorskMaaneder</td>
+                           <td>Faktisk norsk trygdetid i måneder</td>
                            <td>{trygdetidFaktiskNorskMaaneder}</td>
                          </tr>
                        </InfoTable>
@@ -131,27 +142,27 @@ const Nordisk = ({ nordiskKonvensjon,
                        <InfoTable>
                          <div>&nbsp;<h4>Nordisk:</h4></div>
                          <tr>
-                           <td>nordiskKonvensjon</td>
+                           <td>Nordisk konvensjon</td>
                            <td>{nordiskKonvensjon}</td>
                          </tr>
                          <tr>
-                           <td>pensjonsAarNordiskFaktisk</td>
+                           <td>Faktisk nordisk pensjonsår</td>
                            <td>{pensjonsAarNordiskFaktisk}</td>
                          </tr>
                          <tr>
-                           <td>pensjonsAarNordiskFramtidigBrutto</td>
+                           <td>Framtidig nordisk pensjonsår brutto</td>
                            <td>{pensjonsAarNordiskFramtidigBrutto}</td>
                          </tr>
                          <tr>
-                           <td>pensjonsAarNordiskFramtidigNetto</td>
+                           <td>Framtidig nordisk pensjonsår netto</td>
                            <td>{pensjonsAarNordiskFramtidigNetto}</td>
                          </tr>
                          <tr>
-                           <td>sluttpoengtallNordiskArtikkel15</td>
+                           <td>Nordisk sluttpoengtall artikke l15</td>
                            <td><FormattedNumber value={sluttpoengtallNordiskArtikkel15} /></td>
                          </tr>
                          <tr>
-                           <td>overkompensasjonNordiskArtikkel15</td>
+                           <td>Nordisk overkompensasjon artikke l15</td>
                            <td>{overkompensasjonNordiskArtikkel15}</td>
                          </tr>
                        </InfoTable>
@@ -183,8 +194,6 @@ const EosInfo = ({ beregnFolketrygd,
                    framtidigPensjonsAarEos,
                    grunnpensjonArtikkel13Virkedato,
                    tjenestepensjonArtikkel13Virkedato,
-                   alternetivGrunnpensjonBrutto,
-                   alternetivTjenestepensjonBrutto,
                    eosAarIkkeProRata1967Til2014,
                    inntektprovetEosPensjon,
                    beregnetUforePensjonsgradEos,
@@ -194,91 +203,84 @@ const EosInfo = ({ beregnFolketrygd,
                        <InfoTable>
                          <div>&nbsp;<h4>EØS informasjon:</h4></div>
                          <tr>
-                           <td>beregnFolketrygd</td>
+                           <td>Beregnet folketrygd</td>
                            <td>{beregnFolketrygd}</td>
                          </tr>
                          <tr>
-                           <td>proRataBeregning</td>
+                           <td>Pro rata beregning</td>
                            <td>{proRataBeregning}</td>
                          </tr>
                          <tr>
-                           <td>inntektsaarEos</td>
+                           <td>EØS inntektsår</td>
                            <td>{inntektsaarEos}</td>
                          </tr>
                          <tr>
-                           <td>antallNorskePoengaar</td>
+                           <td>Antall norske poengår</td>
                            <td>{antallNorskePoengaar}</td>
                          </tr>
                          <tr>
-                           <td>antallNorskePoengaarEtter1991</td>
+                           <td>Antall norske poengår etter 1991</td>
                            <td>{antallNorskePoengaarEtter1991}</td>
                          </tr>
                          <tr>
-                           <td>sluttpoengtallEos</td>
+                           <td>EØS sluttpoengtall</td>
                            <td><FormattedNumber value={sluttpoengtallEos} /></td>
                          </tr>
                          <tr>
-                           <td>overkompensasjonEos</td>
+                           <td>EØS overkompensasjon</td>
                            <td><FormattedNumber value={overkompensasjonEos} /></td>
                          </tr>
                          <tr>
-                           <td>pensjonEos</td>
+                           <td>EØS pensjon</td>
                            <td>{pensjonEos}</td>
                          </tr>
                          <tr>
-                           <td>eosPar8Pkt4Ledd3BokstavA</td>
+                           <td>EØS §8_4_3A</td>
                            <td>{eosPar8Pkt4Ledd3BokstavA}</td>
                          </tr>
                          <tr>
-                           <td>gunstigsteAlternativ</td>
+                           <td>Gunstigste alternativ</td>
                            <td>{gunstigsteAlternativ}</td>
                          </tr>
                          <tr>
-                           <td>pensjonsAarEos</td>
+                           <td>EØS pensjonsår</td>
                            <td>{pensjonsAarEos}</td>
                          </tr>
                          <tr>
-                           <td>pensjonsAarEosEtter1991</td>
+                           <td>EØS pensjonsår etter 1991</td>
                            <td>{pensjonsAarEosEtter1991}</td>
                          </tr>
                          <tr>
-                           <td>framtidigPensjonsAarEos</td>
+                           <td>EØS framtidige pensjonsår</td>
                            <td>{framtidigPensjonsAarEos}</td>
                          </tr>
                          <tr>
-                           <td>grunnpensjonArtikkel13Virkedato</td>
-                           <td>{grunnpensjonArtikkel13Virkedato}</td>
+                           <td>Grunnpensjon artikke l13 virkedato</td>
+                           <td><DsfDate value={grunnpensjonArtikkel13Virkedato}><ISO8601 /></DsfDate></td>
                          </tr>
                          <tr>
-                           <td>tjenestepensjonArtikkel13Virkedato</td>
+                           <td>Tjenestepensjon artikke l13 virkedato</td>
                            <td>{tjenestepensjonArtikkel13Virkedato}</td>
+                           <td><DsfDate value={tjenestepensjonArtikkel13Virkedato}><ISO8601 /></DsfDate></td>
                          </tr>
                          <tr>
-                           <td>alternetivGrunnpensjonBrutto</td>
-                           <td>{alternetivGrunnpensjonBrutto}</td>
-                         </tr>
-                         <tr>
-                           <td>alternetivTjenestepensjonBrutto</td>
-                           <td>{alternetivTjenestepensjonBrutto}</td>
-                         </tr>
-                         <tr>
-                           <td>eosAarIkkeProRata1967Til2014</td>
+                           <td>EØS-år, ikke pro rata 1967 til 2014</td>
                            <td>{eosAarIkkeProRata1967Til2014}</td>
                          </tr>
                          <tr>
-                           <td>inntektprovetEosPensjon</td>
+                           <td>EØS inntektprøvet pensjon</td>
                            <td>{inntektprovetEosPensjon}</td>
                          </tr>
                          <tr>
-                           <td>beregnetUforePensjonsgradEos</td>
-                           <td>{beregnetUforePensjonsgradEos}</td>
+                           <td>EØS beregnet uførepensjonsgrad</td>
+                           <td><FormattedNumber value={beregnetUforePensjonsgradEos} /></td>
                          </tr>
                          <tr>
-                           <td>pensjonsaarEosFaktisk</td>
+                           <td>Faktisk EØS pensjonsår</td>
                            <td>{pensjonsaarEosFaktisk}</td>
                          </tr>
                          <tr>
-                           <td>proRata21967Til2014</td>
+                           <td>Pro rata 2 1967 til 2014</td>
                            <td>{proRata21967Til2014}</td>
                          </tr>
                        </InfoTable>
@@ -307,8 +309,6 @@ EosInfo.propTypes = {
   framtidigPensjonsAarEos: React.PropTypes.number.isRequired,
   grunnpensjonArtikkel13Virkedato: React.PropTypes.number.isRequired,
   tjenestepensjonArtikkel13Virkedato: React.PropTypes.number.isRequired,
-  alternetivGrunnpensjonBrutto: React.PropTypes.number.isRequired,
-  alternetivTjenestepensjonBrutto: React.PropTypes.number.isRequired,
   eosAarIkkeProRata1967Til2014: React.PropTypes.string.isRequired,
   inntektprovetEosPensjon: React.PropTypes.string.isRequired,
   beregnetUforePensjonsgradEos: React.PropTypes.number.isRequired,

@@ -3,7 +3,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { DsfDate } from 'components/elements/ParseDate';
 import { ISO8601 } from 'components/elements/FormattedDate';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import InfoTable from 'components/elements/InfoTable';
 
@@ -38,7 +38,7 @@ const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
                    </tr>
                    <tr>
                      <td>Yrke 11</td>
-                     <td><FormattedMessage id={`kodeverk.ja.nei.${yrke11}`} /></td>
+                     <td><FormattedMessage id={`kodeverk.yrke11.${yrke11}`} /></td>
                    </tr>
                    <tr>
                      <td>Vilkår §1_2_2</td>
@@ -49,16 +49,16 @@ const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
                      <td><FormattedMessage id={`kodeverk.ja.nei.${kap11Pkt7Utlost}`} /></td>
                    </tr>
                    <tr>
-                     <td>Opphorsdato</td>
+                     <td>Opphørsdato</td>
                      <td><DsfDate value={opphorsdato}><ISO8601 /></DsfDate></td>
                    </tr>
                    <tr>
-                     <td>Opphorskode</td>
-                     <td>{opphorskode}</td>
+                     <td>Opphørskode</td>
+                     <td><FormattedMessage id={`yrkesskadehistorikk.opphorskode.${opphorskode}`} /></td>
                    </tr>
                    <tr>
                      <td>Sluttpoengtall</td>
-                     <td>{sluttpoengtall}</td>
+                     <td><FormattedNumber value={sluttpoengtall} /></td>
                    </tr>
                  </InfoTable>
                </Column>

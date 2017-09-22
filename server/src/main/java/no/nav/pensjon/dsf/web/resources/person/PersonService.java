@@ -127,7 +127,9 @@ public class PersonService {
     public List<StatusDto> hentStatus(String fnr) throws IOException {
         auditlog(fnr, "Hentet statuser for person");
         return repo.findPerson(fnr).getStatus().stream()
+                //.peek(s->s.getSpesielleOpplysningerer().forEach(so->System.out.println(" verdi i ebcdicmodell: " + so.getFravikPar10Pkt1())))
                 .map(status -> modelMapper.map(status, StatusDto.class))
+              //  .peek(s->s.getSpesielleOpplysningerer().forEach(so->System.out.println(" verdi i dto: " + so.getFravikPar10Pkt1())))
                 .collect(Collectors.toList());
     }
 
