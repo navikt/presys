@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/internal/**");
+        web.ignoring().antMatchers("/api/internal/**", "/metrics/**");
 
     }
 }
