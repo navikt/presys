@@ -6,10 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="no.nav.arbeid" level="DEBUG"/>
-    <logger name="no.nav.arbeid.stilling.app.sensu.SensuClient" level="OFF"/>
-
-    <root level="INFO">
+    <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
