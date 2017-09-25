@@ -39,7 +39,7 @@ node {
             }
 
             dir ("server") {
-                sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
+                sh "docker build -t docker.adeo.no:5000/${application}:${commitHashShort} ."
             }
         }
 
@@ -77,7 +77,7 @@ node {
             		-e LDAP_URL=ldaps://ldapgw.test.local \
             		-e LDAP_BASEDN=dc=test,dc=local \
             		-e LDAP_DOMAIN=TEST.LOCAL \
-            		docker.adeo.no:5000/${application}:${releaseVersion}"
+            		docker.adeo.no:5000/${application}:${commitHashShort}"
             }
 
             dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
@@ -102,19 +102,19 @@ node {
         }
 
         stage("release snapshot") {
-            // sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
+            // sh "docker push docker.adeo.no:5000/${application}:${commitHashShort}"
             sh "${mvn} clean deploy -DskipTests -B -e"
 
             dir ("server") {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh "curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${releaseVersion} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
+                    sh "curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${commitHashShort} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
                 }
             }
         }
 
         stage("deploy") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "curl -k -d \'{\"application\": \"${application}\", \"version\": \"${releaseVersion}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
+                sh "curl -k -d \'{\"application\": \"${application}\", \"version\": \"${commitHashShort}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
             }
         }
 
