@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>presys-frontend</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>presys-frontend</name>
 
     <build>
