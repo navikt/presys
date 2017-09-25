@@ -114,7 +114,7 @@ node {
 
         stage("deploy") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "curl -k -d \'{\"application\": \"${application}\", \"version\": \"${commitHashShort}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
+                sh "curl -k -d \'{\"application\": \"${application}\", \"version\": \"${commitHashShort}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", "appconfigurl": "http://maven.adeo.no/nexus/content/repositories/m2internal/nais/${application}/${commitHashShort}/${application}-${commitHashShort}.yaml", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
             }
         }
 
