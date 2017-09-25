@@ -12,16 +12,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
 	devtool : 'inline-source-map',
-	entry : [ 
+	entry : [
 	    'webpack-dev-server/client?http://localhost:9000',
-		'webpack/hot/only-dev-server', 
+		'webpack/hot/only-dev-server',
 		'babel-polyfill',
-		APP_DIR + '/index.jsx' 
+		APP_DIR + '/index.jsx'
 	],
 	output : {
 		path : path.join(__dirname, 'src/client/public'),
 		filename : 'bundle.js',
-		publicPath : '/presys/public/'
+		publicPath : '/public/'
 	},
 	module : {
 		rules : [{
@@ -71,12 +71,12 @@ const config = {
 		}]
 	},
 
-	plugins : [ 
+	plugins : [
        new ExtractTextPlugin("style.css"),
 	   new webpack.HotModuleReplacementPlugin(),
 	   new webpack.DefinePlugin({
 	       'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV)
-	   }), 
+	   }),
 	],
 
 	devServer : {

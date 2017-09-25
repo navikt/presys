@@ -15,7 +15,7 @@ const config = {
 	output : {
 		path : path.join(__dirname, 'target', 'public'),
 		filename : 'bundle.js',
-		publicPath : '/presys/public/'
+		publicPath : '/public/'
 	},
 	module : {
 		rules : [ {
@@ -67,8 +67,8 @@ const config = {
 		} ]
 	},
 
-	plugins : [ 
-	    new ExtractTextPlugin("style.css"), 
+	plugins : [
+	    new ExtractTextPlugin("style.css"),
 	    new webpack.DefinePlugin({'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV)	}),
 	    new webpack.LoaderOptionsPlugin({
 	    	minimize: true,
@@ -86,10 +86,10 @@ const config = {
         })
 	],
 
-	stats: { 
-		children: false 
+	stats: {
+		children: false
 	},
-	
+
 	resolve : {
 		alias : {
 			styles: STYLE_DIR,
