@@ -67,22 +67,20 @@ node {
             }
         }
 
-        stage("release snapshot") {
-            sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-
-            sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
-            sh "${mvn} clean deploy -DskipTests -B -e"
-        }
-
         stage("integration tests") {
-            build([
-                job: 'presys-deploy-pipeline',
-                parameters: [
-                    string(name: 'RELEASE_VERSION', value: releaseVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 't0')
-                ]
-            ])
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'PRESYSDB_USERNAME', passwordVariable: 'PRESYSDB_PASSWORD']]) {
+            	sh "docker run --name ${application}-${commitHashShort} --rm -dP \
+            		-e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
+            		-e PRESYSDB_USERNAME \
+            		-e PRESYSDB_PASSWORD \
+            		-e JWT_PASSWORD=somesecret \
+            		-e LDAP_URL=ldaps://ldapgw.test.local \
+            		-e LDAP_BASEDN=dc=test,dc=local \
+            		-e LDAP_DOMAIN=TEST.LOCAL \
+            		docker.adeo.no:5000/${application}:${releaseVersion}"
+            }
+
+            dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
 
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
@@ -91,9 +89,16 @@ node {
                     sh "${npm} install chromedriver --chromedriver_filepath=/usr/local/chromedriver/chromedriver_linux64.zip"
                     sh "${npm} install"
 
-                    sh "./node_modules/.bin/nightwatch --env jenkins"
+                    sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
                 }
             }
+
+            sh "docker stop ${application}-${commitHashShort} || true"
+        }
+
+        stage("release snapshot") {
+            // sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
+            sh "${mvn} clean deploy -DskipTests -B -e"
         }
 
         slackSend([
@@ -103,6 +108,8 @@ node {
 
         currentBuild.result = 'SUCCESS'
     } catch (e) {
+        sh "docker stop ${application}-${commitHashShort} || true"
+
         slackSend([
             color: 'danger',
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${application}@${env.BRANCH_NAME} by ${committer} failed"
