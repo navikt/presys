@@ -46,7 +46,6 @@ public class PEPAbacConfig {
     @Bean
     Set<String> abacDefaultResources() {
         Set<String> values = new HashSet<>();
-        values.add(NavAttributter.RESOURCE_FELLES_RESOURCE_TYPE);
         values.add(NavAttributter.RESOURCE_FELLES_DOMENE);
         return values;
     }
@@ -74,10 +73,5 @@ public class PEPAbacConfig {
     @Bean
     AbacAttributeLocator defaultSubjectIDLocator() {
         return new ResolvingAbacAttributeLocator(StandardAttributter.SUBJECT_ID, () -> ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-    }
-
-    @Bean
-    AbacAttributeLocator defaultResourceType() {
-        return new ResolvingAbacAttributeLocator(NavAttributter.RESOURCE_FELLES_RESOURCE_TYPE, () -> NavAttributter.RESOURCE_FELLES_PERSON);
     }
 }
