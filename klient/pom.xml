@@ -9,9 +9,9 @@
         <version>65-SNAPSHOT</version>
     </parent>
 
-    <artifactId>presys-web-klient</artifactId>
+    <artifactId>presys-frontend</artifactId>
     <packaging>jar</packaging>
-    <name>presys-klient</name>
+    <name>presys-frontend</name>
 
     <build>
         <outputDirectory>target/web</outputDirectory>
