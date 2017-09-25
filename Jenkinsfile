@@ -37,6 +37,8 @@ node {
             withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                 sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
+
+            sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
         }
 
         // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
@@ -66,6 +68,7 @@ node {
         stage("release snapshot") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
+            sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
             sh "${mvn} clean deploy -DskipTests -B -e"
         }
 
