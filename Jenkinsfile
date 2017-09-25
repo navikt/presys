@@ -82,15 +82,20 @@ node {
 
             dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
 
+            // wait for app to become ready
+            timeout(time: 180, unit: 'SECONDS') {
+                sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
+            }
+
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     // install manually using local distribution, as the chromedriver package will
                     // try to download from Internet if else
                     sh "${npm} install chromedriver --chromedriver_filepath=/usr/local/chromedriver/chromedriver_linux64.zip"
                     sh "${npm} install"
-
-                    sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
                 }
+
+                sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
             }
 
             sh "docker stop ${application}-${commitHashShort} || true"
