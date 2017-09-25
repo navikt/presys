@@ -38,7 +38,9 @@ node {
                 sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
 
-            sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
+            dir ("server") {
+                sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
+            }
         }
 
         // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
