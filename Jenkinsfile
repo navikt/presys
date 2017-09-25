@@ -39,12 +39,12 @@ node {
             }
         }
 
-        stage("sonar analysis") {
-            // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
-            // the PR number is available in the CHANGE_ID environment variable.
-            // because the same Jenkinsfile is used for both PR builds and branch builds,
-            // we have to check for the existence of CHANGE_ID
-            if (env.CHANGE_ID) {
+        // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
+        // the PR number is available in the CHANGE_ID environment variable.
+        // because the same Jenkinsfile is used for both PR builds and branch builds,
+        // we have to check for the existence of CHANGE_ID
+        if (env.CHANGE_ID) {
+            stage("sonar analysis") {
                 def scannerHome = tool 'sonarqube-scanner';
 
                 // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
@@ -66,7 +66,7 @@ node {
         stage("release snapshot") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
-            sh "${mvn} clean deploy -DskipTests -pl '!klient' -B -e"
+            sh "${mvn} clean deploy -DskipTests -B -e"
         }
 
         stage("integration tests") {
