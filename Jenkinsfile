@@ -104,6 +104,18 @@ node {
         stage("release snapshot") {
             // sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
             sh "${mvn} clean deploy -DskipTests -B -e"
+
+            dir ("server") {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                    sh "curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${releaseVersion} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
+                }
+            }
+        }
+
+        stage("deploy") {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                sh "curl -k -d \'{\"application\": \"${application}\", \"version\": \"${releaseVersion}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
+            }
         }
 
         slackSend([
