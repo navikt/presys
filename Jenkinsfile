@@ -34,9 +34,11 @@ node {
         }
 
         stage("build") {
-            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            dir ("klient") {
+                sh "${npm} install"
             }
+
+            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
 
             dir ("server") {
                 sh "docker build -t docker.adeo.no:5000/${application}:${commitHashShort} ."
