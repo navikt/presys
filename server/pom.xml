@@ -153,7 +153,7 @@
 							<overwrite>true</overwrite>
 							<resources>
 								<resource>
-									<directory>../klient/target/public</directory>
+									<directory>../klient/dist</directory>
 								</resource>
 							</resources>
 						</configuration>
