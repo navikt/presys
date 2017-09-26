@@ -135,9 +135,16 @@ public class StatusDtoTest {
         expected.put("grunnPensjonReduksjonsKode", "??");
         expected.put("friinntektDato", 19980101);
         expected.put("uforehistorikk", new ArrayList<>());
-        expected.put("afpHistorikk", new ArrayList<>());
-        expected.put("eosInfo", new ArrayList<>());
-        expected.put("spesielleOpplysninger", new ArrayList<>());
+        expected.put("afpHistorikker", new ArrayList<>());
+        expected.put("alderspensjoner", new ArrayList<>());
+        expected.put("eosInfoer", new ArrayList<>());
+        expected.put("etterlattBarn", new ArrayList<>());
+        expected.put("etterlattEktefeller", new ArrayList<>());
+        expected.put("spesielleOpplysningerer", new ArrayList<>());
+        expected.put("tilknytninger", new ArrayList<>());
+        expected.put("uforepensjoner", new ArrayList<>());
+        expected.put("yrkesskadeHistorikker", new ArrayList<>());
+        expected.put("yrkesskadepensjoner", new ArrayList<>());
 
         assertThatJson(statusDto).isEqualTo(expected);
     }
