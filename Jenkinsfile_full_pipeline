@@ -53,9 +53,10 @@ node {
         }
 
         stage("build") {
-            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
+            dir ("klient") {
+                sh "${npm} install"
             }
+            sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
         }
 
         stage("sonar analysis") {
@@ -80,9 +81,7 @@ node {
                 }
             }
 
-            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                sh "${mvn} clean deploy -DskipTests -pl '!klient' -B -e"
-            }
+            sh "${mvn} clean deploy -DskipTests -B -e"
 
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
@@ -111,13 +110,9 @@ node {
 
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    // install manually using local distribution, as the chromedriver package will
-                    // try to download from Internet if else
-                    sh "${npm} install chromedriver --chromedriver_filepath=/usr/local/chromedriver/chromedriver_linux64.zip"
                     sh "${npm} install"
-
-                    sh "./node_modules/.bin/nightwatch --env jenkins"
                 }
+                sh "./node_modules/.bin/nightwatch --env jenkins"
             }
         }
 

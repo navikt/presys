@@ -11,6 +11,8 @@ node {
     def commitHash, commitHashShort, commitUrl, committer, releaseVersion
 
     try {
+        cleanWs()
+
         stage("checkout") {
             checkout scm
         }
@@ -34,17 +36,18 @@ node {
         }
 
         stage("build") {
-            withEnv(['APPDATA=klient/node/node_modules/npm/bin', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            dir ("klient") {
+                sh "${npm} install"
             }
+            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
         }
 
-        stage("sonar analysis") {
-            // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
-            // the PR number is available in the CHANGE_ID environment variable.
-            // because the same Jenkinsfile is used for both PR builds and branch builds,
-            // we have to check for the existence of CHANGE_ID
-            if (env.CHANGE_ID) {
+        // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
+        // the PR number is available in the CHANGE_ID environment variable.
+        // because the same Jenkinsfile is used for both PR builds and branch builds,
+        // we have to check for the existence of CHANGE_ID
+        if (env.CHANGE_ID) {
+            stage("sonar analysis") {
                 def scannerHome = tool 'sonarqube-scanner';
 
                 // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
@@ -66,7 +69,7 @@ node {
         stage("release snapshot") {
             sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
-            sh "${mvn} clean deploy -DskipTests -pl '!klient' -B -e"
+            sh "${mvn} clean deploy -DskipTests -B -e"
         }
 
         stage("integration tests") {
@@ -81,13 +84,10 @@ node {
 
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    // install manually using local distribution, as the chromedriver package will
-                    // try to download from Internet if else
-                    sh "${npm} install chromedriver --chromedriver_filepath=/usr/local/chromedriver/chromedriver_linux64.zip"
                     sh "${npm} install"
-
-                    sh "./node_modules/.bin/nightwatch --env jenkins"
                 }
+
+                sh "./node_modules/.bin/nightwatch --env jenkins"
             }
         }
 
