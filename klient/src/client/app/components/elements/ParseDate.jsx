@@ -11,7 +11,7 @@ export const toDate = (value, format) => {
   return new Date(value);
 };
 
-const ParseDate = ({ value, format, children }) => <span> {React.Children.map(children,
+const ParseDate = ({ value, format, children }) => <span> { value === 0 ? null : React.Children.map(children,
                                                          child => React.cloneElement(child, {
                                                            date: toDate(value, format),
                                                          }),
