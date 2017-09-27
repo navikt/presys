@@ -20,9 +20,6 @@ const EtterlattBarn = ({ pensjonEtter,
                              <div>&nbsp;<h4>Etterlatt barn:</h4></div>
                              <InfoTable>
                                <tr>
-                                 <td><b>Etterlatte barn</b></td>
-                               </tr>
-                               <tr>
                                  <td><FormattedMessage id="EtterlatteBarn.pensjonEtter" /></td>
                                  <td>{pensjonEtter !== ' ' ? <FormattedMessage id={`EtterlatteBarn.pensjonEtter.${pensjonEtter}`} /> : ''}</td>
                                </tr>
