@@ -1,6 +1,7 @@
 package no.nav.pensjon.dsf.config;
 
 import no.nav.pensjon.dsf.WebServerApplication;
+import no.nav.pensjon.dsf.config.auth.abac.PEPAbacConfig;
 import no.nav.pensjon.dsf.metrics.MetricsConfig;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.builder.SpringApplicationBuilder;

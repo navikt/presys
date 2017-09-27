@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf.config.auth.abac;
 
 import no.nav.abac.xacml.StandardAttributter;
 import no.nav.freg.abac.core.annotation.attribute.AbacAttributeLocator;

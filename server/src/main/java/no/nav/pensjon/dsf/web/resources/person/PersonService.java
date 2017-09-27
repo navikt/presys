@@ -1,12 +1,7 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
 import no.nav.abac.xacml.NavAttributter;
-import no.nav.freg.abac.core.annotation.Abac;
-import no.nav.freg.abac.core.annotation.context.AbacContext;
-import no.nav.freg.abac.core.dto.response.Decision;
-import no.nav.freg.abac.core.dto.response.XacmlResponse;
-import no.nav.freg.abac.core.service.AbacService;
-import no.nav.pensjon.dsf.abac.attributes.PresysAttributes;
+import no.nav.pensjon.dsf.config.auth.abac.PresysAttributes;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
@@ -18,8 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -31,6 +25,7 @@ import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @Service
+@PreAuthorize("hasPermission(#fnr, '" + NavAttributter.RESOURCE_FELLES_PERSON + "')")
 public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
@@ -39,12 +34,6 @@ public class PersonService {
     private PersonRepository repo;
 
     private ModelMapper modelMapper;
-
-    @Autowired
-    private AbacService abacService;
-
-    @Autowired
-    private AbacContext abacContext;
 
 
     private  Map<String, BiConsumer<TranHist, TranHistDto>> grunnblankettMappers= new HashMap<>();
@@ -80,36 +69,12 @@ public class PersonService {
         grunnblankettMappers.put("AF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbafer().get(0), GrunnblankettAvtalefestetPensjonDto.class)));
     }
 
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
     public PersonDto hentPerson(String fnr) throws IOException {
-
-        godkjennerRequesterMedAbac(fnr, NavAttributter.RESOURCE_FELLES_PERSON);
-
         auditlog(fnr, "Henter person-objekt");
         return modelMapper.map(repo.findPerson(fnr), PersonDto.class);
     }
 
-    /**
-     * Gjør request mot abac om leserequesten fra saksbehandler til bruker godkjennes. Hvis requesten ikke godkjennes av
-     * ABAC kastes en AccessDeniedException. Hvis det returneres en obligation Presys ikke vet hvordan behandle kastes en
-     * UnhandledObligationException. (Ingen ObligationStrategy'er er laget siden det ikke er innført noen obligations per
-     * dd.
-     * @param fnr fødselsnummer som det skal sjekkes om saksbehandler har tilgang på.
-     */
-    private void godkjennerRequesterMedAbac(String fnr, String resourceType) {
-        abacContext.getRequest().resource(NavAttributter.RESOURCE_FELLES_PERSON_FNR, fnr);
-        abacContext.getRequest().resource(NavAttributter.RESOURCE_FELLES_RESOURCE_TYPE, resourceType);
-
-        XacmlResponse response = abacService.evaluate(abacContext.getRequest());
-        if(response.getDecision() != Decision.PERMIT) {
-            throw new AccessDeniedException("Abac har ikke returnert en PERMIT. Den returnerte Decision er: " + response.getOriginalDecision());
-        }
-    }
-
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
     public List<InntektDto> hentInntekter(String fnr) throws IOException {
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.RESOURCE_INNTEKTER);
-
         auditlog(fnr, "Henter inntekter for person");
 
         Person person = repo.findPerson(fnr);
@@ -148,53 +113,31 @@ public class PersonService {
         return inntekt;
     }
 
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
     public List<EtteroppgjorAFPDto> hentEtteroppgjor(String fnr) throws IOException {
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.ETTEROPPGJOR);
-
         auditlog(fnr, "Henter etteroppgjør for person");
         return repo.findPerson(fnr).getEtteroppgjor().stream()
                 .map(etteroppgjorAFP -> modelMapper.map(etteroppgjorAFP, EtteroppgjorAFPDto.class))
                 .collect(Collectors.toList());
     }
 
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
     public List<TilberpoDto> hentTilberpo(String fnr) throws IOException {
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.TILHORIGHETER);
-
         auditlog(fnr, "Henter tilhørigheter for person");
         return repo.findPerson(fnr).getTilberpo().stream()
                 .map(tilberpo -> modelMapper.map(tilberpo, TilberpoDto.class))
                 .collect(Collectors.toList());
     }
 
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
+    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.STATUS + "')")
     public List<StatusDto> hentStatus(String fnr) throws IOException {
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.STATUS);
-
         auditlog(fnr, "Henter statuser for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .map(status -> modelMapper.map(status, StatusDto.class))
                 .collect(Collectors.toList());
     }
 
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
-    public StatusDto hentSisteStatus(String fnr) throws IOException {
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.STATUS);
-
-        auditlog(fnr, "Henter den siste statusen for person");
-        return repo.findPerson(fnr).getStatus().stream()
-                .filter(Status::erSiste)
-                .map(status -> modelMapper.map(status, StatusDto.class))
-                .findAny()
-                .orElseThrow(ResourceNotFound::new);
-    }
-
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
+    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.UFOREHISTORIKK + "')")
     public List<UforeHistorikkDto> hentUforehistorikk(String fnr) throws IOException {
         /* finn siste status og returner uførehistorikken knyttet til denne */
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.UFOREHISTORIKK);
-
         auditlog(fnr, "Henter uførehistorikken for siste status for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .filter(Status::erSiste)
@@ -204,10 +147,17 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @Abac(bias = Decision.DENY, failOnIndeterminate = true)
-    public List<TranHistDto> hentTranhister(String fnr) throws IOException {
-        godkjennerRequesterMedAbac(fnr, PresysAttributes.TRANHIST);
+    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.STATUS + "')")
+    public StatusDto hentSisteStatus(String fnr) throws IOException {
+        auditlog(fnr, "Henter den siste statusen for person");
+        return repo.findPerson(fnr).getStatus().stream()
+                .filter(Status::erSiste)
+                .map(status -> modelMapper.map(status, StatusDto.class))
+                .findAny()
+                .orElseThrow(ResourceNotFound::new);
+    }
 
+    public List<TranHistDto> hentTranhister(String fnr) throws IOException {
         auditlog(fnr, "Henter grunnblanketter for person");
         return repo.findPerson(fnr).getTranHister().stream()
                 .map(this::transhistMapper )
