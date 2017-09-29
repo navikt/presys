@@ -5,6 +5,7 @@ import no.nav.pensjon.dsf.config.auth.jwt.JwtAuthenticationProvider;
 import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationProcessingFilter;
 import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -32,9 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LdapAuthenticationSuccessHandler ldapSuccessHandler;
 
+    @Autowired
+    private CounterService counterService;
+
     private LdapAuthenticationProcessingFilter ldapAuthenticationProcessingFilter() throws Exception {
         LdapAuthenticationProcessingFilter filter = new LdapAuthenticationProcessingFilter(
-                new AntPathRequestMatcher("/api/login", "POST")
+                new AntPathRequestMatcher("/api/login", "POST"),
+                counterService
         );
 
         filter.setAuthenticationManager(authenticationManager());

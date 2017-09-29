@@ -21,6 +21,7 @@
 	</properties>
 
 	<dependencies>
+		<!-- spring boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -55,6 +56,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+		<!-- misc -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
@@ -64,11 +67,6 @@
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>4.10</version>
-		</dependency>
-		<dependency>
-			<groupId>no.nav</groupId>
-			<artifactId>metrics</artifactId>
-			<version>1</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -100,6 +98,22 @@
 			<artifactId>presys-appconfig</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
+		<!-- prometheus -->
+		<!-- The client -->
+		<dependency>
+			<groupId>io.prometheus</groupId>
+			<artifactId>simpleclient_spring_boot</artifactId>
+			<version>0.0.26</version>
+		</dependency>
+		<!-- Hotspot JVM metrics-->
+		<dependency>
+			<groupId>io.prometheus</groupId>
+			<artifactId>simpleclient_hotspot</artifactId>
+			<version>0.0.26</version>
+		</dependency>
+
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
