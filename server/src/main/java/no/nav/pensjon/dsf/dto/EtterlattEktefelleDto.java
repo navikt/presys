@@ -18,6 +18,7 @@ public class EtterlattEktefelleDto extends GrunnblankettDto {
     private int forventet;
     private String stiAMD;
     private int stBrutto;
+    private String fradrag2G;
 
     public String getOmsorgAvdBa() {
         return omsorgAvdBa;
@@ -145,5 +146,13 @@ public class EtterlattEktefelleDto extends GrunnblankettDto {
 
     public void setStBrutto(int stBrutto) {
         this.stBrutto = stBrutto;
+    }
+
+    public String getFradrag2G() {
+        return fradrag2G;
+    }
+
+    public void setFradrag2G(String fradrag2G) {
+        this.fradrag2G = fradrag2G;
     }
 }
