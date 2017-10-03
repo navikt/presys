@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -187,11 +185,8 @@ public class PersonService {
      * @param grunn Grunnen til at (hvilke opplysninger om) personen har blitt aksessert.
      */
     private static void auditlog(String target, String grunn) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String user = userDetails.getUsername();
-        MDC.put("user", user);
         MDC.put("target", target);
-        LOG.info("Presys gjorde en aksess av (" + target + ") på oppdrag av <" + user + ">. Grunnen var (" + grunn + ")");
-        MDC.clear();
+        LOG.info("Presys gjorde en aksess av (" + target + "). Grunnen var (" + grunn + ")");
+        MDC.remove("target");
     }
 }
