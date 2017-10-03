@@ -235,7 +235,7 @@ const EosInfo = ({ beregnFolketrygd,
                            <td>{pensjonEos}</td>
                          </tr>
                          <tr>
-                           <td>EØS §8_4_3A</td>
+                           <td>EØS §8-4-3A</td>
                            <td>{eosPar8Pkt4Ledd3BokstavA}</td>
                          </tr>
                          <tr>
@@ -255,11 +255,11 @@ const EosInfo = ({ beregnFolketrygd,
                            <td>{framtidigPensjonsAarEos}</td>
                          </tr>
                          <tr>
-                           <td>Grunnpensjon artikke l13 virkedato</td>
+                           <td>Grunnpensjon artikkel 13 virkedato</td>
                            <td><DsfDate value={grunnpensjonArtikkel13Virkedato}><ISO8601 /></DsfDate></td>
                          </tr>
                          <tr>
-                           <td>Tjenestepensjon artikke l13 virkedato</td>
+                           <td>Tjenestepensjon artikkel 13 virkedato</td>
                            <td>{tjenestepensjonArtikkel13Virkedato}</td>
                            <td><DsfDate value={tjenestepensjonArtikkel13Virkedato}><ISO8601 /></DsfDate></td>
                          </tr>
