@@ -28,5 +28,7 @@ fasitResources: # resources fetched from Fasit
     resourceType: credential
   - alias: ldap
     resourceType: ldap
+  - alias: ldap
+    resourceType: applicationproperties
   - alias: presysDB
     resourceType: datasource
