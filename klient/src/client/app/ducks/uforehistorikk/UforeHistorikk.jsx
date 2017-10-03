@@ -4,7 +4,6 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { DsfDate } from 'components/elements/ParseDate';
 import { MonthInYear } from 'components/elements/FormattedDate';
-import { OpphorsKode } from 'components/elements/Kodeverk';
 import styles from './UforeHistorikk.less';
 
 const UforeHistorikk = ({ uftMaaned, ufg, ufKriterier, bup, bupGarantiKode, opphorsdatoMaaned,
@@ -24,12 +23,12 @@ opphorsKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistor
           <td>{bupGarantiKode !== ' ' ? <FormattedMessage id={`kodeverk.bupGarantiKode.${bupGarantiKode}`} /> : ''}</td>
         </tr>
         <tr>
-          <td><FormattedMessage id="UforeHistorikk.opphorsdatoMaaned" /></td>
-          <td>{opphorsKode !== ' ' ? <DsfDate value={opphorsdatoMaaned}><MonthInYear /></DsfDate> : '' }</td>
+          <td><FormattedMessage id="UforeHistorikk.opphørsdatoMaaned" /></td>
+          <td>{opphorsdatoMaaned !== ' ' ? <DsfDate value={opphorsdatoMaaned}><MonthInYear /></DsfDate> : '' }</td>
         </tr>
         <tr>
-          <td><FormattedMessage id="UforeHistorikk.opphorsKode" /></td>
-          <td>{opphorsKode !== ' ' ? <OpphorsKode kode={opphorsKode} /> : ''}</td>
+          <td><FormattedMessage id="UforeHistorikk.opphørsKode" /></td>
+          <td>{opphorsKode !== ' ' ? <FormattedMessage id={`UforeHistorikk.opphorskode.${opphorsKode}`} /> : ''}</td>
         </tr>
         <tr><td><FormattedMessage id="UforeHistorikk.redusertAntallBupAar" /></td><td>{redusertAntallBupAar}</td></tr>
         <tr><td><FormattedMessage id="UforeHistorikk.foedselsaarYngsteBarn" /></td><td>{foedselsaarYngsteBarn}</td></tr>

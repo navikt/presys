@@ -1,6 +1,7 @@
 package no.nav.pensjon.dsf.dto;
 
 import no.nav.pensjon.dsf.domene.Inntekt;
+import no.nav.pensjon.dsf.domene.status.SpesielleOpplysninger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
