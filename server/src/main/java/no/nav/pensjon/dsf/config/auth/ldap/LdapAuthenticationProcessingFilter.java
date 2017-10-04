@@ -3,7 +3,9 @@ package no.nav.pensjon.dsf.config.auth.ldap;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.actuate.metrics.CounterService;
-import org.springframework.http.HttpStatus;
+import org.springframework.ldap.NamingException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +30,7 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
-            throws AuthenticationException, IOException, ServletException {
+            throws AuthenticationException, IOException {
 
         counterService.increment("counter.login.attempt");
         try {
@@ -43,8 +45,10 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
             );
         } catch (JsonMappingException e) {
             counterService.increment("counter.login.malformed_input");
-            res.sendError(HttpStatus.BAD_REQUEST.value());
-            throw e;
+            throw new BadCredentialsException("Malformed JSON", e);
+        } catch (NamingException e) {
+            counterService.increment("counter.login.error");
+            throw new InternalAuthenticationServiceException("Error while contacting LDAP server", e);
         }
     }
 
