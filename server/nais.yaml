@@ -8,10 +8,10 @@ port: 8080 # the port number which is exposed by the container and should receiv
 healthcheck:
   liveness:
     path: api/internal/isAlive
-    initialDelay: 80
+    initialDelay: 100
   readiness:
     path: api/internal/isReady
-    initialDelay: 80
+    initialDelay: 100
 prometheus: #Optional
   enabled: true # if true the pod will be scraped for metrics by prometheus
   path: /metrics # Path to prometheus-metrics
