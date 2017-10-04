@@ -50,7 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() throws Exception {
         JwtAuthenticationProcessingFilter filter = new JwtAuthenticationProcessingFilter(
-                new AntPathRequestMatcher("/api/**")
+                new AntPathRequestMatcher("/api/**"),
+                counterService
         );
 
         filter.setAuthenticationManager(authenticationManager());

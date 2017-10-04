@@ -23,6 +23,11 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     }
 
     @Override
+    public boolean supports(Class<?> authentication) {
+        return JwtUsernamePasswordAuthenticationToken.class.equals(authentication);
+    }
+
+    @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         /* when we parse the JWT, we implicitly check that the JWT claims is valid (issue date, not valid before,
             not valid after). so there's nothing left for us to do */
