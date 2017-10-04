@@ -45,7 +45,7 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
         /* continue with the request processing */
         try {
             UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-            MDC.put("user", userDetails.getUsername());
+            MDC.put("saksbehandler", userDetails.getUsername());
 
             chain.doFilter(request, response);
         } finally {

@@ -28,7 +28,7 @@ public class PersonRepository {
     private static final Logger LOG = LoggerFactory.getLogger(PersonRepository.class);
 
     public Person findPerson(String fnr) throws IOException {
-        MDC.put("target", fnr);
+        MDC.put("bruker", fnr);
         try {
             return AnnotationMapper.les(new ScrollableArray(
                             Base64.getDecoder().decode(
@@ -41,7 +41,7 @@ public class PersonRepository {
             LOG.info("Feil ved henting av person", e);
             throw new RuntimeException(e);
         } finally {
-            MDC.remove("target");
+            MDC.remove("bruker");
         }
     }
 

@@ -187,8 +187,8 @@ public class PersonService {
      * @param grunn Grunnen til at (hvilke opplysninger om) personen har blitt aksessert.
      */
     private static void auditlog(String target, String grunn) {
-        MDC.put("target", target);
+        MDC.put("bruker", target);
         LOG.info("Presys gjorde en aksess av (" + target + "). Grunnen var (" + grunn + ")");
-        MDC.remove("target");
+        MDC.remove("bruker");
     }
 }
