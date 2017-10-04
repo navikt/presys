@@ -42,8 +42,8 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             authentication.setDetails(claims);
 
             return PresysUser.fromClaims(rawToken, claims);
-        } catch (ExpiredJwtException | SignatureException | MalformedJwtException e) {
-            throw new BadCredentialsException(e.getMessage());
+        } catch (IllegalArgumentException | ExpiredJwtException | SignatureException | MalformedJwtException e) {
+            throw new BadCredentialsException(e.getMessage(), e);
         }
     }
 }
