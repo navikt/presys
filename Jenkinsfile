@@ -73,15 +73,15 @@ node {
 
         stage("integration tests") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'PRESYSDB_USERNAME', passwordVariable: 'PRESYSDB_PASSWORD']]) {
-            	sh "docker run --name ${application}-${commitHashShort} --rm -dP \
-            		-e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
-            		-e PRESYSDB_USERNAME \
-            		-e PRESYSDB_PASSWORD \
-            		-e JWT_PASSWORD=somesecret \
-            		-e LDAP_URL=ldaps://ldapgw.test.local \
-            		-e LDAP_BASEDN=dc=test,dc=local \
-            		-e LDAP_DOMAIN=TEST.LOCAL \
-            		docker.adeo.no:5000/${application}:${commitHashShort}"
+                sh "docker run --name ${application}-${commitHashShort} --rm -dP \
+                    -e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
+                    -e PRESYSDB_USERNAME \
+                    -e PRESYSDB_PASSWORD \
+                    -e JWT_PASSWORD=somesecret \
+                    -e LDAP_URL=ldaps://ldapgw.test.local \
+                    -e LDAP_BASEDN=dc=test,dc=local \
+                    -e LDAP_DOMAIN=TEST.LOCAL \
+                    docker.adeo.no:5000/${application}:${commitHashShort}"
             }
 
             dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
@@ -103,19 +103,19 @@ node {
         }
 
         stage("release snapshot") {
-            // sh "docker push docker.adeo.no:5000/${application}:${commitHashShort}"
+            sh "docker push docker.adeo.no:5000/${application}:${commitHashShort}"
             sh "${mvn} clean deploy -DskipTests -B -e"
 
             dir ("server") {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh "curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${commitHashShort} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
+                    sh "curl --fail -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${commitHashShort} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
                 }
             }
         }
 
         stage("deploy") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "curl -k -d \'{\"application\": \"${application}\", \"version\": \"${commitHashShort}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"appconfigurl\": \"http://maven.adeo.no/nexus/content/repositories/m2internal/nais/${application}/${commitHashShort}/${application}-${commitHashShort}.yaml\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
+                sh "curl --fail -s -k -d \'{\"application\": \"${application}\", \"version\": \"${commitHashShort}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"appconfigurl\": \"http://maven.adeo.no/nexus/content/repositories/m2internal/nais/${application}/${commitHashShort}/${application}-${commitHashShort}.yaml\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
             }
         }
 
