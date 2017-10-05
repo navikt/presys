@@ -45,33 +45,35 @@ class PersonFraFnr extends Component {
     const personLocation = path.replace(':fnr', fnr);
 
     return (
-      <MainContent>
-        <Row>
-          <Column size={3}>
-            <Person
-              navn={person.navn}
-              alder={person.alder}
-              personnummer={person.fnr}
-              erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
-              hasLargeFont={false}
-            />
-          </Column>
-        </Row>
+      <div>
+        <MainContent>
+
+          <Row>
+            <Column size={3}>
+              <Person
+                navn={person.navn}
+                alder={person.alder}
+                personnummer={person.fnr}
+                erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
+                hasLargeFont={false}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column size={12}>
+              <Menu>{menuItems}</Menu>
+            </Column>
+          </Row>
+        </MainContent>
         <Row>
           <Column size={12}>
-            <Menu>{menuItems}</Menu>
-          </Column>
-        </Row>
-        <Row>
-          <Column size={12}>
-            <MainContent medpadding>
-              {React.Children.map(children,
+            {React.Children.map(children,
               child => React.cloneElement(child, {
                 fnr, parentLocation: personLocation,
               }),
              )}
-            </MainContent>
-          </Column></Row></MainContent>);
+
+          </Column></Row></div>);
   }
 }
 
