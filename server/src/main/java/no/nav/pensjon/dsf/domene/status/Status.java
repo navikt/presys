@@ -130,7 +130,7 @@ public class Status {
     private List<SpesielleOpplysninger> spesielleOpplysningerer = new ArrayList<>();
 
     @SubSegment
-    private List<Yrkesskadepensjon> yrkesskadepensjonerr = new ArrayList<>();
+    private List<Yrkesskadepensjon> yrkesskadepensjoner = new ArrayList<>();
 
     public boolean erSiste() {
         return "S".equals(getStatusKode());
@@ -425,7 +425,7 @@ public class Status {
         return yrkesskadeHistorikker;
     }
 
-    public List<Yrkesskadepensjon> getYrkesskadepensjonerr() {
-        return yrkesskadepensjonerr;
+    public List<Yrkesskadepensjon> getYrkesskadepensjoner() {
+        return yrkesskadepensjoner;
     }
 }

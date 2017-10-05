@@ -59,6 +59,19 @@
   "AFP.Inntekt_i_perioden":"Inntekt i AFP Perioden",
   "AFP.Infotrygd.Beregnet_eller_registrert":"Beregnet eller reg via Infotrygd",
 
+  "Transaksjonshistorikk.virkningsdato" : "Virkningsdato:",
+  "Transaksjonshistorikk.registreringsdato" : "Registreringsdato:",
+  "Transaksjonshistorikk.trygdekontornummer" : "Trygdekontornummer:",
+  "Transaksjonshistorikk.sivilstand" : "Sivilstand",
+  "Transaksjonshistorikk.spraak" : "Språk:",
+  "Transaksjonshistorikk.terminalId" : "Terminal-id:",
+
+  "Transaksjonshistorikk.spraak.N" : "Nynorsk",
+  "Transaksjonshistorikk.spraak.B" : "Bokmål",
+  "Transaksjonshistorikk.spraak.E" : "Engelsk",
+  "Transaksjonshistorikk.spraak. " : " ",
+  "Transaksjonshistorikk.spraak." : " ",
+
 
   "StatusSegment.gpRedKode.I" : "Ektefelle har inntekt over 2G",
   "StatusSegment.gpRedKode.J" : "Ektefelle har sammenstøtende pensjon",
@@ -105,7 +118,7 @@
   "StatusSegment.Pensjonstype3.B" : "AFP-pensjon i bank-ordning",
   "StatusSegment.Pensjonstype3.V" : "AFP-pensjon i NAVO-bedrift",
   "StatusSegment.Pensjonstype3.N" : "AFP-pensjon med 0-pensjon uten rett til AFP-tillegg",
-  "StatusSegment.Pensjonstype3. " : "LO/NHO",
+  "StatusSegment.Pensjonstype3. " : " ",
   "StatusSegment.Pensjonstype3." : " ",
   "StatusSegment.Pensjonstype3.U" : "UFØRPENSJON SAMMEN MED BARNEPENSJON",
   "StatusSegment.Pensjonstype3.A" : "Foreløpig uførestønad",
@@ -344,7 +357,8 @@
   "kodeverk.sivilstand.S": "Skilt",
   "kodeverk.sivilstand.W": "Samboer etter § 1-5",
   "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner",
-  "kodeverk.sivilstand.N": "Sivilstand N",
+  "kodeverk.sivilstand. ": " ",
+  "kodeverk.sivilstand.": " ",
 
   "EtterlatteBarn.pensjonEtter" : "Pensjon etter",
   "EtterlatteBarn.gp" : "Grunnpensjon",

@@ -1,6 +1,5 @@
 import React from 'react';
 import StatusSegment from './StatusSegment';
-import UforeHistorikk from '../uforehistorikk/UforeHistorikk';
 import YrkesskadePensjon from '../yrkesskadepensjon/YrkesskadePensjon';
 import YrkesskadeHistorikk from '../yrkesskadehistorikk/YrkesskadeHistorikk';
 import AfpHistorikk from '../afphistorikk/AfpHistorikk';
@@ -19,7 +18,6 @@ import UforePensjon from '../uforepensjon/UforePensjon';
 const renderIfExcist = (liste, Komponent) => <div>{liste.length === 1 ? <Komponent {...liste[0]} /> : null}</div>;
 
 const Status = ({ yrkesskadepensjoner,
-                  uforehistorikk,
                   uforepensjoner,
                   statusKode,
                   tilknytninger,
@@ -39,7 +37,6 @@ const Status = ({ yrkesskadepensjoner,
                     {renderIfExcist(etterlattEktefeller, EtterlattEktefelle)}
                     {renderIfExcist(etterlattBarn, EtterlattBarn)}
                     {renderIfExcist(eosInfoer, EosInfo)}
-                    {uforehistorikk.map(element => <UforeHistorikk key={element.uftMaaned} {...element} />)}
                     {renderIfExcist(yrkesskadepensjoner, YrkesskadePensjon)}
                     {renderIfExcist(spesielleOpplysningerer, SpesielleOpplysninger)}
                   </div>);
