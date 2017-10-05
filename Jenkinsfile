@@ -108,7 +108,7 @@ node {
 
             dir ("server") {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh "curl --fail -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${commitHashShort} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
+                    sh "curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${commitHashShort} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
                 }
             }
         }
