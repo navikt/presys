@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureException;
 import no.nav.pensjon.dsf.config.auth.JwtService;
 import no.nav.pensjon.dsf.config.auth.PresysUser;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
@@ -20,6 +21,11 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     public JwtAuthenticationProvider(JwtService jwtService) {
         this.jwtService = jwtService;
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return JwtUsernamePasswordAuthenticationToken.class.equals(authentication);
     }
 
     @Override
@@ -42,8 +48,10 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             authentication.setDetails(claims);
 
             return PresysUser.fromClaims(rawToken, claims);
-        } catch (ExpiredJwtException | SignatureException | MalformedJwtException e) {
-            throw new BadCredentialsException(e.getMessage());
+        } catch (ExpiredJwtException e) {
+            throw new CredentialsExpiredException("JWT has expired", e);
+        } catch (IllegalArgumentException | SignatureException | MalformedJwtException e) {
+            throw new BadCredentialsException(e.getMessage(), e);
         }
     }
 }
