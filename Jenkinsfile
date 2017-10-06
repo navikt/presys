@@ -43,6 +43,7 @@ node {
             sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
 
             dir ("server") {
+                sh "/usr/local/bin/nais validate"
                 sh "docker build -t docker.adeo.no:5000/${application}:${commitHashShort} ."
             }
         }
@@ -107,15 +108,15 @@ node {
             sh "${mvn} clean deploy -DskipTests -B -e"
 
             dir ("server") {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh "curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${commitHashShort} -F p=yaml -F file=@nais.yaml -u ${env.USERNAME}:${env.PASSWORD} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
+                    sh "/usr/local/bin/nais upload --app ${application} -v ${commitHashShort}"
                 }
             }
         }
 
         stage("deploy") {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "curl --fail -s -k -d \'{\"application\": \"${application}\", \"version\": \"${commitHashShort}\", \"environment\": \"cd-u1\", \"zone\": \"fss\", \"namespace\": \"default\", \"appconfigurl\": \"http://maven.adeo.no/nexus/content/repositories/m2internal/nais/${application}/${commitHashShort}/${application}-${commitHashShort}.yaml\", \"username\": \"${env.USERNAME}\", \"password\": \"${env.PASSWORD}\"}\' https://daemon.nais.devillo.no/deploy"
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'NAIS_USERNAME', passwordVariable: 'NAIS_PASSWORD']]) {
+                sh "/usr/local/bin/nais deploy -c nais-dev --app ${application} -v ${commitHashShort} -e cd-u1"
             }
         }
 
