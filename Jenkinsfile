@@ -61,11 +61,13 @@ node {
                 withSonarQubeEnv('Presys Sonar') {
                     withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
                         withEnv(['SONAR_SCANNER_OPTS=-Dhttps.proxyHost=webproxy-utvikler.nav.no -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=adeo.no']) {
-                            sh "${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectVersion=${pom.version} \
-                                -Dsonar.analysis.mode=preview \
-                                -Dsonar.github.pullRequest=${env.CHANGE_ID} \
-                                -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}"
+                            sh """
+                                ${scannerHome}/bin/sonar-scanner \
+                                    -Dsonar.projectVersion=${pom.version} \
+                                    -Dsonar.analysis.mode=preview \
+                                    -Dsonar.github.pullRequest=${env.CHANGE_ID} \
+                                    -Dsonar.github.oauth=${env.GITHUB_OAUTH_TOKEN}
+                            """
                         }
                     }
                 }
@@ -74,27 +76,29 @@ node {
 
         stage("integration tests") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'PRESYSDB_USERNAME', passwordVariable: 'PRESYSDB_PASSWORD']]) {
-                sh "docker run --name ${application}-${commitHashShort} --rm -dP \
-                    -e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
-                    -e PRESYSDB_USERNAME \
-                    -e PRESYSDB_PASSWORD \
-                    -e JWT_PASSWORD=somesecret \
-                    -e LDAP_URL=ldaps://ldapgw.test.local \
-                    -e LDAP_BASEDN=dc=test,dc=local \
-                    -e LDAP_DOMAIN=TEST.LOCAL \
-                    docker.adeo.no:5000/${application}:${commitHashShort}"
-            }
-
-            dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
-
-            // wait for app to become ready
-            timeout(time: 180, unit: 'SECONDS') {
-                sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
+                sh """
+                    docker run --name ${application}-${commitHashShort} --rm -dP \
+                        -e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
+                        -e PRESYSDB_USERNAME \
+                        -e PRESYSDB_PASSWORD \
+                        -e JWT_PASSWORD=somesecret \
+                        -e LDAP_URL=ldaps://ldapgw.test.local \
+                        -e LDAP_BASEDN=dc=test,dc=local \
+                        -e LDAP_DOMAIN=TEST.LOCAL \
+                        docker.adeo.no:5000/${application}:${commitHashShort}
+                """
             }
 
             dir ("qa") {
                 withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     sh "${npm} install"
+                }
+
+                dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
+
+                // wait for app to become ready
+                timeout(time: 180, unit: 'SECONDS') {
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
                 }
 
                 sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
