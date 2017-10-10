@@ -1,7 +1,4 @@
-FROM openjdk:8-jre-alpine
-
-COPY target/*.jar /usr/app/presys.jar
-WORKDIR /usr/app
+FROM navikt/java:8
 
 ENV LDAP_URL="" \
     LDAP_DOMAIN="" \
@@ -11,9 +8,4 @@ ENV LDAP_URL="" \
     PRESYSDB_USERNAME="" \
     PRESYSDB_PASSWORD=""
 
-EXPOSE 8080
-
-CMD ["java", "-XX:+UnlockExperimentalVMOptions", \
-    "-XX:+UseCGroupMemoryLimitForHeap", \
-    "-Dspring.profiles.active=nais", \
-    "-jar", "/usr/app/presys.jar"]
+ENV JAVA_OPTS -Dspring.profiles.active=nais
