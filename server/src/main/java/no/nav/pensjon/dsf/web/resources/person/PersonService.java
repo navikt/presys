@@ -5,8 +5,7 @@ import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
 import no.nav.pensjon.dsf.domene.status.Status;
 import no.nav.pensjon.dsf.dto.*;
-import no.nav.pensjon.dsf.repository.PersonRepository;
-import no.nav.pensjon.dsf.web.Exceptions.ResourceNotFound;
+import no.nav.pensjon.dsf.web.exceptions.ResourceNotFound;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.io.IOException;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
@@ -64,12 +62,12 @@ public class PersonService {
         grunnblankettMappers.put("AF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbafer().get(0), GrunnblankettAvtalefestetPensjonDto.class)));
     }
 
-    public PersonDto hentPerson(String fnr) throws IOException {
+    public PersonDto hentPerson(String fnr) {
         auditlog(fnr, "Hentet person-objekt");
         return modelMapper.map(repo.findPerson(fnr), PersonDto.class);
     }
 
-    public List<InntektDto> hentInntekter(String fnr) throws IOException {
+    public List<InntektDto> hentInntekter(String fnr) {
         auditlog(fnr, "Hentet inntekter for person");
         Person person = repo.findPerson(fnr);
         List<InntektDto> inntekter = new ArrayList<>();
@@ -107,14 +105,14 @@ public class PersonService {
         return inntekt;
     }
 
-    public List<EtteroppgjorAFPDto> hentEtteroppgjor(String fnr) throws IOException {
+    public List<EtteroppgjorAFPDto> hentEtteroppgjor(String fnr) {
         auditlog(fnr, "Hentet etteroppgjør for person");
         return repo.findPerson(fnr).getEtteroppgjor().stream()
                 .map(etteroppgjorAFP -> modelMapper.map(etteroppgjorAFP, EtteroppgjorAFPDto.class))
                 .collect(Collectors.toList());
     }
 
-    public List<TilberpoDto> hentTilberpo(String fnr) throws IOException {
+    public List<TilberpoDto> hentTilberpo(String fnr) {
         auditlog(fnr, "Hentet tilhørigheter for person");
         return repo.findPerson(fnr).getTilberpo().stream()
                 .map(tilberpo -> modelMapper.map(tilberpo, TilberpoDto.class))
@@ -122,17 +120,15 @@ public class PersonService {
     }
 
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
-    public List<StatusDto> hentStatus(String fnr) throws IOException {
+    public List<StatusDto> hentStatus(String fnr) {
         auditlog(fnr, "Hentet statuser for person");
         return repo.findPerson(fnr).getStatus().stream()
-                //.peek(s->s.getSpesielleOpplysningerer().forEach(so->System.out.println(" verdi i ebcdicmodell: " + so.getFravikPar10Pkt1())))
                 .map(status -> modelMapper.map(status, StatusDto.class))
-              //  .peek(s->s.getSpesielleOpplysningerer().forEach(so->System.out.println(" verdi i dto: " + so.getFravikPar10Pkt1())))
                 .collect(Collectors.toList());
     }
 
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
-    public StatusDto hentSisteStatus(String fnr) throws IOException {
+    public StatusDto hentSisteStatus(String fnr) {
         auditlog(fnr, "Hentet den siste statusen for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .filter(Status::erSiste)
@@ -142,7 +138,7 @@ public class PersonService {
     }
 
     @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
-    public List<UforeHistorikkDto> hentUforehistorikk(String fnr) throws IOException {
+    public List<UforeHistorikkDto> hentUforehistorikk(String fnr) {
         /* finn siste status og returner uførehistorikken knyttet til denne */
         auditlog(fnr, "Hentet uførehistorikken for siste status for person");
         return repo.findPerson(fnr).getStatus().stream()
@@ -153,7 +149,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    public List<TranHistDto> hentTranhister(String fnr) throws IOException {
+    public List<TranHistDto> hentTranhister(String fnr) {
         auditlog(fnr, "Hentet tranhist-objekt for person");
         return repo.findPerson(fnr).getTranHister().stream()
                 .map(this::transhistMapper )
