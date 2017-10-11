@@ -18,7 +18,7 @@ public class GrunnblankettUforepensjon2Dto extends GrunnblankettDto {
     private int uforetidspunkt;
     private String yrkesmessigAttforing;
     private int yrke;
-    private int fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private String ektefellesInntektMinst4G;
     private int statsborgerskap;
@@ -166,11 +166,11 @@ public class GrunnblankettUforepensjon2Dto extends GrunnblankettDto {
         this.yrke = yrke;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 
