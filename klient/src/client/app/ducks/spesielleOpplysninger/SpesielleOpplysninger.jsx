@@ -11,7 +11,7 @@ const Trygdetid = ({ trygdetidFramtidigUforetrygd,
              ikkeTrygdetidFramtidigDod,
              trygdetidFramtidig,
              trygdetidFaktisk }) => <Row>
-               <Column size={6}>
+               <Column size={12}>
                  <div>&nbsp;<h4>Trygdetid:</h4></div>
                  <InfoTable>
                    <tr>
@@ -62,7 +62,7 @@ const Fravik = ({ fravikFlyktning,
              fravikBosattEos,
              unntakPar12Pkt2,
              fravikPar5Pkt1 }) => <Row>
-               <Column size={6}>
+               <Column size={12}>
                  <div>&nbsp;<h4>Fravik:</h4></div>
                  <InfoTable>
                    <tr>
@@ -133,7 +133,7 @@ const SpesielleOpplysninger = ({ statsborgerskap,
              tjenestepensjonNordiskLand,
              ungUfor,
              konvensjonTjenestepensjon, ...ubehandlede }) => <Row>
-               <Column size={6}>
+               <Column size={4}>
                  <div>&nbsp;<h4>Spesielle opplysninger:</h4></div>
                  <InfoTable>
                    <tr>
@@ -179,8 +179,10 @@ const SpesielleOpplysninger = ({ statsborgerskap,
                    </tr>
                  </InfoTable>
                </Column>
-               <Column size={6}>
+               <Column size={4}>
                  <Trygdetid {...ubehandlede} />
+               </Column>
+               <Column size={4}>
                  <Fravik {...ubehandlede} />
                </Column>
 
