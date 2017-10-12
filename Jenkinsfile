@@ -120,26 +120,7 @@ node {
 
         stage("deploy") {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'NAIS_USERNAME', passwordVariable: 'NAIS_PASSWORD']]) {
-                sh "/usr/local/bin/nais deploy -c preprod-fss --app ${application} -v ${commitHashShort} -e cd-u1"
-            }
-
-            // wait for deploy to finish
-            timeout(time: 300, unit: 'SECONDS') {
-                sh """
-                   while true
-                    do
-                        httpCode=\$(curl -k -s -o /dev/null -w "%{http_code}" https://daemon.nais.preprod.local/deploystatus/default/presys)
-                
-                        if [[ "\$httpCode" -ne "202" ]];
-                        then
-                            if [[ "\$httpCode" -eq "200" ]];
-                            then
-                                exit 0
-                            fi
-                            exit \$httpCode
-                        fi
-                    done
-                """
+                sh "/usr/local/bin/nais deploy --wait --app ${application} -v ${commitHashShort} -e cd-u1"
             }
         }
 
