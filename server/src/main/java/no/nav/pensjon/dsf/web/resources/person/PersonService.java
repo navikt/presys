@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
+import no.nav.abac.xacml.NavAttributter;
+import no.nav.pensjon.dsf.config.auth.abac.PresysAttributes;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
@@ -19,6 +21,7 @@ import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @Service
+@PreAuthorize("hasPermission(#fnr, '" + NavAttributter.RESOURCE_FELLES_PERSON + "')")
 public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
@@ -119,7 +122,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
+    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.STATUS + "')")
     public List<StatusDto> hentStatus(String fnr) {
         auditlog(fnr, "Hentet statuser for person");
         return repo.findPerson(fnr).getStatus().stream()
@@ -127,7 +130,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
+    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.STATUS + "')")
     public StatusDto hentSisteStatus(String fnr) {
         auditlog(fnr, "Hentet den siste statusen for person");
         return repo.findPerson(fnr).getStatus().stream()
@@ -137,10 +140,10 @@ public class PersonService {
                 .orElseThrow(ResourceNotFound::new);
     }
 
-    @PreAuthorize("hasAuthority('0000-GA-PENSJON_UFORE')")
+    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.UFOREHISTORIKK + "')")
     public List<UforeHistorikkDto> hentUforehistorikk(String fnr) {
         /* finn siste status og returner uførehistorikken knyttet til denne */
-        auditlog(fnr, "Hentet uførehistorikken for siste status for person");
+        auditlog(fnr, "Henter uførehistorikken for siste status for person");
         return repo.findPerson(fnr).getStatus().stream()
                 .filter(Status::erSiste)
                 .map(Status::getUforehistorikk)
