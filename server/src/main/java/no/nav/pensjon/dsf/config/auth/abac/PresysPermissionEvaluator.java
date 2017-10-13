@@ -1,13 +1,5 @@
 package no.nav.pensjon.dsf.config.auth.abac;
 
-import no.nav.abac.xacml.NavAttributter;
-import no.nav.freg.abac.core.annotation.Abac;
-import no.nav.freg.abac.core.annotation.context.AbacContext;
-import no.nav.freg.abac.core.dto.response.Decision;
-import no.nav.freg.abac.core.dto.response.XacmlResponse;
-import no.nav.freg.abac.core.service.AbacService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
