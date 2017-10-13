@@ -4,8 +4,11 @@ import Column from 'components/elements/Column';
 import InfoTable from 'components/elements/InfoTable';
 import GrunnblankettF7 from './GrunnblankettF7';
 import Opphorsblankett2 from './Opphorsblankett2';
+import Opphorsblankett1 from './Opphorsblankett1';
 import GrunnblankettAlderspensjon from './GrunnblankettAlderspensjon';
 import GrunnblankettUforepensjon from './GrunnblankettUforepensjon';
+import GrunnblankettUforepensjonU2 from './GrunnblankettUforepensjonU2';
+import GrunnblankettUforepensjonU3 from './GrunnblankettUforepensjonU3';
 import Barn from './Barn';
 
 
@@ -24,6 +27,16 @@ const Grunnblankett = ({ type, barn, ...rest }) => {
     case 'UP':
       grunnblankett = <GrunnblankettUforepensjon {...rest} />;
       break;
+    case 'O1':
+      grunnblankett = <Opphorsblankett1 {...rest} />;
+      break;
+    case 'U2':
+      grunnblankett = <GrunnblankettUforepensjonU2 {...rest} />;
+      break;
+    case 'U3':
+      grunnblankett = <GrunnblankettUforepensjonU3 {...rest} />;
+      break;
+
     default: grunnblankett = (<Row>
       <Column size={6}>
         <InfoTable>

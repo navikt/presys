@@ -1,12 +1,13 @@
 import React from 'react';
-import PrettyJson from 'components/elements/PrettyJson';
 import StatusSegment from './StatusSegment';
-import UforeHistorikk from '../uforehistorikk/UforeHistorikk';
 import YrkesskadePensjon from '../yrkesskadepensjon/YrkesskadePensjon';
 import YrkesskadeHistorikk from '../yrkesskadehistorikk/YrkesskadeHistorikk';
 import AfpHistorikk from '../afphistorikk/AfpHistorikk';
 import Alderspensjon from '../alderspensjon/Alderspensjon';
+import EtterlattBarn from '../etterlattbarn/EtterlattBarn';
+import EtterlattEktefelle from '../etterlattektefelle/EtterlattEktefelle';
 import SpesielleOpplysninger from '../spesielleOpplysninger/SpesielleOpplysninger';
+import EosInfo from '../eosinfo/EosInfo';
 
 
 import Tilknytning from '../tilknytning/Tilknytning';
@@ -17,7 +18,6 @@ import UforePensjon from '../uforepensjon/UforePensjon';
 const renderIfExcist = (liste, Komponent) => <div>{liste.length === 1 ? <Komponent {...liste[0]} /> : null}</div>;
 
 const Status = ({ yrkesskadepensjoner,
-                  uforehistorikk,
                   uforepensjoner,
                   statusKode,
                   tilknytninger,
@@ -34,10 +34,9 @@ const Status = ({ yrkesskadepensjoner,
                     {renderIfExcist(tilknytninger, Tilknytning)}
                     {renderIfExcist(alderspensjoner, Alderspensjon)}
                     {renderIfExcist(yrkesskadeHistorikker, YrkesskadeHistorikk)}
-                    {renderIfExcist(etterlattEktefeller, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(etterlattBarn, props => <PrettyJson data={props} />)}
-                    {renderIfExcist(eosInfoer, props => <PrettyJson data={props} />)}
-                    {uforehistorikk.map(element => <UforeHistorikk key={element.uftMaaned} {...element} />)}
+                    {renderIfExcist(etterlattEktefeller, EtterlattEktefelle)}
+                    {renderIfExcist(etterlattBarn, EtterlattBarn)}
+                    {renderIfExcist(eosInfoer, EosInfo)}
                     {renderIfExcist(yrkesskadepensjoner, YrkesskadePensjon)}
                     {renderIfExcist(spesielleOpplysningerer, SpesielleOpplysninger)}
                   </div>);

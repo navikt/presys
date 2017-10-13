@@ -1,10 +1,11 @@
 package no.nav.pensjon.dsf.config.auth.jwt;
 
+import org.slf4j.MDC;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -34,13 +35,20 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
         }
 
         rawToken = rawToken.replace("Bearer ", "");
-        return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(null, rawToken));
+        return getAuthenticationManager().authenticate(new JwtUsernamePasswordAuthenticationToken(null, rawToken));
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authResult);
         /* continue with the request processing */
-        chain.doFilter(request, response);
+        try {
+            UserDetails userDetails = (UserDetails) authResult.getPrincipal();
+            MDC.put("saksbehandler", userDetails.getUsername());
+
+            chain.doFilter(request, response);
+        } finally {
+            MDC.clear();
+        }
     }
 }

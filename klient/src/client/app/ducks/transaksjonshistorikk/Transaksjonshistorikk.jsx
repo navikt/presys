@@ -3,6 +3,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { DsfDate } from 'components/elements/ParseDate';
 import { MonthInYear, ISO8601 } from 'components/elements/FormattedDate';
+import { FormattedMessage } from 'react-intl';
 
 
 import InfoTable from 'components/elements/InfoTable';
@@ -37,11 +38,11 @@ const Transaksjonshistorikk = ({ virkningsdato, registreringsdato, sivilstand, s
     <InfoTable>
       <tr>
         <td>Sivilstand:</td>
-        <td>{sivilstand}</td>
+        <td><FormattedMessage id={`kodeverk.sivilstand.${sivilstand}`} /></td>
       </tr>
       <tr>
         <td>Språk:</td>
-        <td>{spraak}</td>
+        <td><FormattedMessage id={`Transaksjonshistorikk.spraak.${spraak}`} /></td>
       </tr>
     </InfoTable>
   </Column>

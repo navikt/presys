@@ -69,15 +69,15 @@ class UforeHistorikkListe extends Component {
     </Row>
       <Row>
         <Column size={1}>
-          {selectedIndex > 0 ? <Link
-            href={`#${this.urlForHistorikk(maanedliste[selectedIndex - 1].toString())}`}
-          > &#8678;nyere</Link> : <span>&#8678;nyere</span>}
-        </Column>
-        <Column size={1}>
           {selectedIndex < maanedliste.length - 1 ? <Link
             href={`#${
                    this.urlForHistorikk(maanedliste[selectedIndex + 1].toString())}`}
           > eldre&#8680;</Link> : <span>eldre&#8680;</span>}
+        </Column>
+        <Column size={1}>
+          {selectedIndex > 0 ? <Link
+            href={`#${this.urlForHistorikk(maanedliste[selectedIndex - 1].toString())}`}
+          > &#8678;nyere</Link> : <span>&#8678;nyere</span>}
         </Column>
       </Row>
       <Row>
@@ -107,5 +107,4 @@ UforeHistorikkListe.defaultProps = {
   uforehistorikker: [],
 };
 
-// export default injectIntl(UforeHistorikkListe);
 export default UforeHistorikkListe;

@@ -19,11 +19,11 @@ const Trygdetid = ({ trygdetidFoer1967,
                    <InfoTable>
                      <div>&nbsp;<h4>Trygdetid:</h4></div>
                      <tr>
-                       <td>Trygdetid før 1967 i måneder</td>
+                       <td>Trygdetid før 1967 antall år</td>
                        <td>{trygdetidFoer1967}</td>
                      </tr>
                      <tr>
-                       <td>Trygdetid etter 1966 i måneder</td>
+                       <td>Trygdetid etter 1966 antall måneder</td>
                        <td>{trygdetidEtter1966}</td>
                      </tr>
                      <tr>
@@ -31,19 +31,19 @@ const Trygdetid = ({ trygdetidFoer1967,
                        <td>{trygdetidFramTil}</td>
                      </tr>
                      <tr>
-                       <td>Trygdetid fra 1967 til 1970 i måneder</td>
+                       <td>Trygdetid fra 67. til 69. året, antall år</td>
                        <td>{trygdetid1967Til1970}</td>
                      </tr>
                      <tr>
-                       <td>Trygdetid anvendt i måneder</td>
+                       <td>Anvendt trygdetid, antall år</td>
                        <td>{trygdetidAnvendt}</td>
                      </tr>
                      <tr>
-                       <td>Trygdetidsgaranti</td>
+                       <td>Trygdetidsgaranti, antall år</td>
                        <td>{trygdetidGaranti}</td>
                      </tr>
                      <tr>
-                       <td>Trygdetid fra 16. til 66. året i mnd</td>
+                       <td>Trygdetid fra 16. til 66. året, antall år</td>
                        <td>{trygdetid1666}</td>
                      </tr>
                    </InfoTable>
@@ -66,15 +66,15 @@ const Pensjonstyper = ({ pensjonsType1,
                   <InfoTable>
                     <div>&nbsp;<h4>Pensjonstyper:</h4></div>
                     <tr>
-                      <td>Pensjonstype1</td>
+                      <td>Pensjonstype 1</td>
                       <td><FormattedMessage id={`StatusSegment.Pensjonstype1.${pensjonsType1}`} /></td>
                     </tr>
                     <tr>
-                      <td>Pensjonstype2</td>
+                      <td>Pensjonstype 2</td>
                       <td><FormattedMessage id={`StatusSegment.Pensjonstype2.${pensjonsType2}`} /></td>
                     </tr>
                     <tr>
-                      <td>Pensjonstype3</td>
+                      <td>Pensjonstype 3</td>
                       <td><FormattedMessage id={`StatusSegment.Pensjonstype3.${pensjonsType3}`} /></td>
                     </tr>
                   </InfoTable>
@@ -123,11 +123,11 @@ const StatusSegment = ({ virkDato,
                      </tr>
                      <tr>
                        <td>Statuskode historikk</td>
-                       <td>{statusKodeHistorie}</td>
+                       <td><FormattedMessage id={`StatusSegment.statuskodehistorikk.${statusKodeHistorie}`} /></td>
                      </tr>
                      <tr>
                        <td>Sivilstand</td>
-                       <td><FormattedMessage id={`kodeverk.sivilstand.${foersteGangReg}`} /></td>
+                       <td><FormattedMessage id={`kodeverk.sivilstand.${sivilstand}`} /></td>
                      </tr>
                      <tr>
                        <td>Førstegangsregistrert</td>
@@ -138,7 +138,7 @@ const StatusSegment = ({ virkDato,
                        <td>{sumYtelse}</td>
                      </tr>
                      <tr>
-                       <td>Antallbarn</td>
+                       <td>Antall barn</td>
                        <td>{antallBarn}</td>
                      </tr>
                      <tr>
@@ -150,32 +150,32 @@ const StatusSegment = ({ virkDato,
                        <td><FormattedMessage id={`kodeverk.ja.nei.${dodAvYrkesskade}`} /></td>
                      </tr>
                      <tr>
-                       <td>Vilkår §8_4_3A</td>
+                       <td>Vilkår §8-4 3 a</td>
                        <td>{vilkar843A}</td>
                      </tr>
                      <tr>
-                       <td>Grunnbelopsdato</td>
+                       <td>Grunnbeløpsdato, år og mnd</td>
                        <td><DsfDate value={grunnbelopsDato}><ISO8601 /></DsfDate></td>
                      </tr>
                      <tr>
-                       <td>Poengtilleggsdato</td>
+                       <td>Poengtilleggsdato, år og mnd</td>
                        <td><DsfDate value={poengtilleggsDato}><ISO8601 /></DsfDate></td>
                      </tr>
                      <tr>
-                       <td>Poengtilleggskode</td>
-                       <td>{poengtilleggsKode}</td>
+                       <td>Poengtillegg</td>
+                       <td><FormattedMessage id={`StatusSegment.poengtilleggskode.${poengtilleggsKode}`} /></td>
                      </tr>
                      <tr>
                        <td>Pensjonsrett før 1991</td>
                        <td><FormattedMessage id={`kodeverk.ja.nei.${pensjonsrettFoer91}`} /></td>
                      </tr>
                      <tr>
-                       <td>Garantert tilleggspensjonskode</td>
+                       <td>Garantert tilleggspensjon etter §3-22</td>
                        <td>{garantertTilleggsPensjonKode !== ' ' ?
                          <FormattedMessage id={`StatusSegment.garantertTilleggsPensjonKode.${garantertTilleggsPensjonKode}`} /> : ''} </td>
                      </tr>
                      <tr>
-                       <td>Gammel sammenstøtsregel</td>
+                       <td>Sammenstøtsregel før 1990</td>
                        <td><FormattedMessage id={`kodeverk.ja.nei.${gammelSammenstotsRegel}`} /></td>
                      </tr>
                      <tr>
@@ -183,15 +183,15 @@ const StatusSegment = ({ virkDato,
                        <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelleInntektOver2g}`} /></td>
                      </tr>
                      <tr>
-                       <td>Hadde pensjon før februar 1998</td>
+                       <td>Pensjon før 02 1998</td>
                        <td><FormattedMessage id={`kodeverk.ja.nei.${pensjonFoer9802}`} /></td>
                      </tr>
                      <tr>
-                       <td>Reduksjon av grunnpensjon etter §3_2_5</td>
+                       <td>Reduksjon av grunnpensjon etter §3-2 5.</td>
                        <td><FormattedMessage id={`kodeverk.ja.nei.${redGrunnPensjon321}`} /></td>
                      </tr>
                      <tr>
-                       <td>Grunnpensjonsreduksjonskode</td>
+                       <td>Grunnpensjonsreduksjon</td>
                        <td><FormattedMessage id={`StatusSegment.gpRedKode.${grunnPensjonReduksjonsKode}`} /></td>
                      </tr>
                      <tr>
