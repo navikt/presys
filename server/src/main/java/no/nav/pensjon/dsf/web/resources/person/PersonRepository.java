@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Base64;
 import java.util.Map;
 
@@ -27,21 +26,16 @@ public class PersonRepository {
         this.db = db;
     }
 
-
     Person findPerson(String fnr) {
         MDC.put("bruker", fnr);
         try {
             Map<String, Object> map = db.queryForMap("select data from db_person where fnr=?", fnr);
             return AnnotationMapper.les(new ScrollableArray(map.get("data") instanceof String ? Base64.getDecoder().decode((String) map.get("data")) : (byte[]) map.get("data")), Person.class);
-
         } catch (EmptyResultDataAccessException e){
             throw new ResourceNotFound(e);
         } catch (RuntimeException rte) {
             LOG.warn("Feil ved henting av person", rte);
             throw rte;
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException  e) {
-            LOG.warn("Feil ved henting av person", e);
-            throw new IllegalArgumentException(e);
         }  finally {
             MDC.remove("bruker");
         }
