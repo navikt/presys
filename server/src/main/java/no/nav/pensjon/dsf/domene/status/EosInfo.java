@@ -28,8 +28,8 @@ public class EosInfo {
     @Felt(name="NORDISK_KONVENSJON", length = 1, start = 46) private String nordiskKonvensjon;
     @Felt(name="GUNSTIGSTE_ALTERNATIV", length = 1, start = 47) private String gunstigsteAlternativ;
     @Felt(name="TT_EOS_FRAMT_MND", length = 2, start = 48) @PackedDecimal private int trygdetidEosFramtidigMaaneder;
-    @Felt(name="TT_EOS_ANV_AAR", length = 2, start = 50) @PackedDecimal private int trygdetidEosAnvendtMaaneder;
-    @Felt(name="TT_EOS_ANV_MND", length = 2, start = 52) @PackedDecimal private int trygdetidEosAnvendtAAr;
+    @Felt(name="TT_EOS_ANV_AAR", length = 2, start = 50) @PackedDecimal private int trygdetidEosAnvendtAAr;
+    @Felt(name="TT_EOS_ANV_MND", length = 2, start = 52) @PackedDecimal private int trygdetidEosAnvendtMaaneder;
     @Felt(name="TT_NORDISK_FAKT_MND", length = 2, start = 54) @PackedDecimal private int trygdetidNordiskFaktiskMaaneder;
     @Felt(name="TT_NORDISK_FRAMT_BRUTTO", length = 2, start = 56) @PackedDecimal private int trygdetidNordiskFramtidigBrutto;
     @Felt(name="TT_NORDISK_FRAMT_NETTO", length = 2, start = 58) @PackedDecimal private int trygdetidNordiskFramtidigNetto;
