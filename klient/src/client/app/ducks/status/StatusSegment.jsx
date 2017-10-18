@@ -43,7 +43,7 @@ const Trygdetid = ({ trygdetidFoer1967,
                        <td>{trygdetidGaranti}</td>
                      </tr>
                      <tr>
-                       <td>Trygdetid fra 16. til 66. året, antall år</td>
+                       <td>Trygdetid fra 16. til 66. året, antall måneder</td>
                        <td>{trygdetid1666}</td>
                      </tr>
                    </InfoTable>
