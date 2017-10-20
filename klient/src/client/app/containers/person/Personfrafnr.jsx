@@ -5,6 +5,7 @@ import Column from 'components/elements/Column';
 import { connect } from 'react-redux';
 import Person from 'components/person/Person';
 import { Menu, MenuItem } from 'components/app/Menu';
+import MainContent from 'components/app/MainContent';
 
 class PersonFraFnr extends Component {
 
@@ -45,32 +46,33 @@ class PersonFraFnr extends Component {
 
     return (
       <div>
-        <Row>
-          <Column size={3}>
-            <Row>
-              <Column size={12}>
-                <Person
-                  navn={person.navn}
-                  alder={person.alder}
-                  personnummer={person.fnr}
-                  erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
-                  hasLargeFont={false}
-                />
-              </Column>
-            </Row>
-            <Row>
-              <Column size={12}>
-                <Menu>{menuItems}</Menu>
-              </Column>
-            </Row>
-          </Column>
+        <MainContent>
 
-          <Column size={9}>
+          <Row>
+            <Column size={3}>
+              <Person
+                navn={person.navn}
+                alder={person.alder}
+                personnummer={person.fnr}
+                erKvinne={parseInt(person.fnr.charAt(8), 10) % 2 === 0}
+                hasLargeFont={false}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column size={12}>
+              <Menu>{menuItems}</Menu>
+            </Column>
+          </Row>
+        </MainContent>
+        <Row>
+          <Column size={12}>
             {React.Children.map(children,
               child => React.cloneElement(child, {
                 fnr, parentLocation: personLocation,
               }),
              )}
+
           </Column></Row></div>);
   }
 }

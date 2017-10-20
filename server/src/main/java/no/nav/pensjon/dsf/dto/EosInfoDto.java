@@ -1,13 +1,14 @@
 package no.nav.pensjon.dsf.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class EosInfoDto {
     private String beregnFolketrygd;
     private String proRataBeregning;
     private int trygdetidProRataMaaneder;
     private int trygdetidTeoretiskEosMaaneder;
-    private String inntektsaarEos;
+    private List<Integer> inntektsaarEos;
     private int alternativGrunnpensjon;
     private int alternativSaertillegg;
     private int alternativTjenestepensjon;
@@ -40,13 +41,13 @@ public class EosInfoDto {
     private int tjenestepensjonArtikkel13Virkedato;
     private int alternetivGrunnpensjonBrutto;
     private int alternetivTjenestepensjonBrutto;
-    private String eosAarIkkeProRata1967Til2014;
+    private List<Integer> eosAarIkkeProRata1967Til2014;
     private String inntektprovetEosPensjon;
     private BigDecimal beregnetUforePensjonsgradEos;
     private int trygdetidFaktiskNorskMaaneder;
     private int pensjonsaarEosFaktisk;
     private int alternativtSaertilleggBrutto;
-    private String proRata21967Til2014;
+    private List<Integer> proRata21967Til2014;
 
     public String getBeregnFolketrygd() {
         return beregnFolketrygd;
@@ -80,12 +81,12 @@ public class EosInfoDto {
         this.trygdetidTeoretiskEosMaaneder = trygdetidTeoretiskEosMaaneder;
     }
 
-    public String getInntektsaarEos() {
+    public List<Integer> getInntektsaarEos() {
         return inntektsaarEos;
     }
 
-    public void setInntektsaarEos(String inntektsaarEos) {
-        this.inntektsaarEos = inntektsaarEos;
+    public void setInntektsaarEos(boolean[] inntektsaarEos) {
+        this.inntektsaarEos = ConvertersUtil.bittabellTilAarstallFra1967(inntektsaarEos );
     }
 
     public int getAlternativGrunnpensjon() {
@@ -344,12 +345,12 @@ public class EosInfoDto {
         this.alternetivTjenestepensjonBrutto = alternetivTjenestepensjonBrutto;
     }
 
-    public String getEosAarIkkeProRata1967Til2014() {
+    public List<Integer> getEosAarIkkeProRata1967Til2014() {
         return eosAarIkkeProRata1967Til2014;
     }
 
-    public void setEosAarIkkeProRata1967Til2014(String eosAarIkkeProRata1967Til2014) {
-        this.eosAarIkkeProRata1967Til2014 = eosAarIkkeProRata1967Til2014;
+    public void setEosAarIkkeProRata1967Til2014(boolean[] eosAarIkkeProRata1967Til2014) {
+        this.eosAarIkkeProRata1967Til2014 = ConvertersUtil.bittabellTilAarstallFra1967(eosAarIkkeProRata1967Til2014);
     }
 
     public String getInntektprovetEosPensjon() {
@@ -392,11 +393,11 @@ public class EosInfoDto {
         this.alternativtSaertilleggBrutto = alternativtSaertilleggBrutto;
     }
 
-    public String getProRata21967Til2014() {
+    public List<Integer> getProRata21967Til2014() {
         return proRata21967Til2014;
     }
 
-    public void setProRata21967Til2014(String proRata21967Til2014) {
-        this.proRata21967Til2014 = proRata21967Til2014;
+    public void setProRata21967Til2014(boolean[] proRata21967Til2014) {
+        this.proRata21967Til2014 = ConvertersUtil.bittabellTilAarstallFra1967(proRata21967Til2014);
     }
 }

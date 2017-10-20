@@ -212,7 +212,7 @@ const EosInfo = ({ beregnFolketrygd,
                          </tr>
                          <tr>
                            <td>EØS inntektsår</td>
-                           <td>{inntektsaarEos}</td>
+                           <td><ul>{inntektsaarEos.map(e => <li key={e}>{e}</li>)}</ul></td>
                          </tr>
                          <tr>
                            <td>Antall norske poengår</td>
@@ -260,12 +260,11 @@ const EosInfo = ({ beregnFolketrygd,
                          </tr>
                          <tr>
                            <td>Tjenestepensjon artikkel 13 virkedato</td>
-                           <td>{tjenestepensjonArtikkel13Virkedato}</td>
                            <td><DsfDate value={tjenestepensjonArtikkel13Virkedato}><ISO8601 /></DsfDate></td>
                          </tr>
                          <tr>
                            <td>EØS-år, ikke pro rata 1967 til 2014</td>
-                           <td>{eosAarIkkeProRata1967Til2014}</td>
+                           <td><ul>{eosAarIkkeProRata1967Til2014.map(e => <li key={e}>{e}</li>)}</ul></td>
                          </tr>
                          <tr>
                            <td>EØS inntektprøvet pensjon</td>
@@ -281,7 +280,7 @@ const EosInfo = ({ beregnFolketrygd,
                          </tr>
                          <tr>
                            <td>Pro rata 2 1967 til 2014</td>
-                           <td>{proRata21967Til2014}</td>
+                           <td><ul>{proRata21967Til2014.map(e => <li key={e}>{e}</li>)}</ul></td>
                          </tr>
                        </InfoTable>
                      </Column>
@@ -296,7 +295,7 @@ const EosInfo = ({ beregnFolketrygd,
 EosInfo.propTypes = {
   beregnFolketrygd: React.PropTypes.string.isRequired,
   proRataBeregning: React.PropTypes.string.isRequired,
-  inntektsaarEos: React.PropTypes.string.isRequired,
+  inntektsaarEos: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
   antallNorskePoengaar: React.PropTypes.number.isRequired,
   antallNorskePoengaarEtter1991: React.PropTypes.number.isRequired,
   sluttpoengtallEos: React.PropTypes.number.isRequired,
@@ -309,11 +308,11 @@ EosInfo.propTypes = {
   framtidigPensjonsAarEos: React.PropTypes.number.isRequired,
   grunnpensjonArtikkel13Virkedato: React.PropTypes.number.isRequired,
   tjenestepensjonArtikkel13Virkedato: React.PropTypes.number.isRequired,
-  eosAarIkkeProRata1967Til2014: React.PropTypes.string.isRequired,
+  eosAarIkkeProRata1967Til2014: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
   inntektprovetEosPensjon: React.PropTypes.string.isRequired,
   beregnetUforePensjonsgradEos: React.PropTypes.number.isRequired,
   pensjonsaarEosFaktisk: React.PropTypes.number.isRequired,
-  proRata21967Til2014: React.PropTypes.string.isRequired,
+  proRata21967Til2014: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
 };
 
 export default EosInfo;

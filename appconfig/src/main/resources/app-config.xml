@@ -14,6 +14,8 @@
         <datasource jndi="java:/jdbc/presysDB" alias="presysDB" />
         <credential alias="jwt" />
         <ldap alias="ldap" mapToProperty="ldap" />
+        <rest alias="abac.pdp.endpoint" mapToProperty="abac"/>
     </resources>
+    <abacSecurity serviceUserResourceAlias="srvpresys"/>
     <loadBalancer isAlive="/presys/api/internal/isAlive" />
 </application>

@@ -1,9 +1,6 @@
 package no.nav.pensjon.dsf.domene.status;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 import java.math.BigDecimal;
 
@@ -15,8 +12,7 @@ public class EosInfo {
     @Felt(name="PRO_RATA_BEREGNING", length = 1, start = 1) private String proRataBeregning;
     @Felt(name="TT_PRO_RATA_MND", length = 2, start = 2) @PackedDecimal private int trygdetidProRataMaaneder;
     @Felt(name="TT_TEORETISK_EOS_MND", length = 2, start = 4) @PackedDecimal private int trygdetidTeoretiskEosMaaneder;
-    //bit-tabell
-    @Felt(name="INNTEKTSAAR_EOS (1967:2014)", length = 6, start = 6) private String inntektsaarEos;
+    @Felt(name="INNTEKTSAAR_EOS (1967:2014)", length = 6, start = 6) @BitTabell private boolean[] inntektsaarEos;
     @Felt(name="ALTERNATIV_GP", length = 4, start = 12) @PackedDecimal private int alternativGrunnpensjon;
     @Felt(name="ALTERNATIV_ST", length = 3, start = 16) @PackedDecimal private int alternativSaertillegg;
     @Felt(name="ALTERNATIV_TP", length = 4, start = 19) @PackedDecimal private int alternativTjenestepensjon;
@@ -32,8 +28,8 @@ public class EosInfo {
     @Felt(name="NORDISK_KONVENSJON", length = 1, start = 46) private String nordiskKonvensjon;
     @Felt(name="GUNSTIGSTE_ALTERNATIV", length = 1, start = 47) private String gunstigsteAlternativ;
     @Felt(name="TT_EOS_FRAMT_MND", length = 2, start = 48) @PackedDecimal private int trygdetidEosFramtidigMaaneder;
-    @Felt(name="TT_EOS_ANV_AAR", length = 2, start = 50) @PackedDecimal private int trygdetidEosAnvendtMaaneder;
-    @Felt(name="TT_EOS_ANV_MND", length = 2, start = 52) @PackedDecimal private int trygdetidEosAnvendtAAr;
+    @Felt(name="TT_EOS_ANV_AAR", length = 2, start = 50) @PackedDecimal private int trygdetidEosAnvendtAAr;
+    @Felt(name="TT_EOS_ANV_MND", length = 2, start = 52) @PackedDecimal private int trygdetidEosAnvendtMaaneder;
     @Felt(name="TT_NORDISK_FAKT_MND", length = 2, start = 54) @PackedDecimal private int trygdetidNordiskFaktiskMaaneder;
     @Felt(name="TT_NORDISK_FRAMT_BRUTTO", length = 2, start = 56) @PackedDecimal private int trygdetidNordiskFramtidigBrutto;
     @Felt(name="TT_NORDISK_FRAMT_NETTO", length = 2, start = 58) @PackedDecimal private int trygdetidNordiskFramtidigNetto;
@@ -49,15 +45,13 @@ public class EosInfo {
     @Felt(name="TP_ART15_VIRKDATO_AAMD", length = 5, start = 81) @PackedDecimal private int tjenestepensjonArtikkel13Virkedato;
     @Felt(name="ALTERNATIV_GP_BRUTTO", length = 4, start = 86) @PackedDecimal private int alternetivGrunnpensjonBrutto;
     @Felt(name="ALTERNATIV_TP_BRUTTO", length = 4, start = 90) @PackedDecimal private int alternetivTjenestepensjonBrutto;
-    //bit-tabell
-    @Felt(name="EOS_AAR_IKKE_PRO_RATA(1967:2014)", length = 6, start = 94) private String eosAarIkkeProRata1967Til2014;
+    @Felt(name="EOS_AAR_IKKE_PRO_RATA(1967:2014)", length = 6, start = 94) @BitTabell private boolean[] eosAarIkkeProRata1967Til2014;
     @Felt(name="INNT_PROVET_EOS_PENS", length = 1, start = 100) private String inntektprovetEosPensjon;
     @Felt(name="BUP_GRAD_EOS", length = 2, start = 101) @PackedDecimal(decimals = 2) private BigDecimal beregnetUforePensjonsgradEos;
     @Felt(name="TT_FAKTISK_NORSK_MND", length = 2, start = 103) @PackedDecimal private int trygdetidFaktiskNorskMaaneder;
     @Felt(name="PAA_EOS_FAKTISK", length = 2, start = 105) @PackedDecimal private int pensjonsaarEosFaktisk;
     @Felt(name="ALTERNATIV_ST_BRUTTO", length = 4, start = 107) @PackedDecimal private int alternativtSaertilleggBrutto;
-    //bit-tabell
-    @Felt(name="PRO_RATA2(1967:2014)", length = 6, start = 111) private String proRata21967Til2014;
+    @Felt(name="PRO_RATA2(1967:2014)", length = 6, start = 111) @BitTabell private boolean[] proRata21967Til2014;
 
     public String getBeregnFolketrygd() {
         return beregnFolketrygd;
@@ -91,11 +85,11 @@ public class EosInfo {
         this.trygdetidTeoretiskEosMaaneder = trygdetidTeoretiskEosMaaneder;
     }
 
-    public String getInntektsaarEos() {
+    public boolean[] getInntektsaarEos() {
         return inntektsaarEos;
     }
 
-    public void setInntektsaarEos(String inntektsaarEos) {
+    public void setInntektsaarEos(boolean[] inntektsaarEos) {
         this.inntektsaarEos = inntektsaarEos;
     }
 
@@ -355,11 +349,11 @@ public class EosInfo {
         this.alternetivTjenestepensjonBrutto = alternetivTjenestepensjonBrutto;
     }
 
-    public String getEosAarIkkeProRata1967Til2014() {
+    public boolean[] getEosAarIkkeProRata1967Til2014() {
         return eosAarIkkeProRata1967Til2014;
     }
 
-    public void setEosAarIkkeProRata1967Til2014(String eosAarIkkeProRata1967Til2014) {
+    public void setEosAarIkkeProRata1967Til2014(boolean[] eosAarIkkeProRata1967Til2014) {
         this.eosAarIkkeProRata1967Til2014 = eosAarIkkeProRata1967Til2014;
     }
 
@@ -403,11 +397,11 @@ public class EosInfo {
         this.alternativtSaertilleggBrutto = alternativtSaertilleggBrutto;
     }
 
-    public String getProRata21967Til2014() {
+    public boolean[] getProRata21967Til2014() {
         return proRata21967Til2014;
     }
 
-    public void setProRata21967Til2014(String proRata21967Til2014) {
+    public void setProRata21967Til2014(boolean[] proRata21967Til2014) {
         this.proRata21967Til2014 = proRata21967Til2014;
     }
 }

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import styles from './status.less';
 import Status from './Status';
 
-const StatusListe = ({ status, params: { valgtstatus }, parentLocation }) => <div> {status.length === 0 ? null : <Row>
+const StatusListe = ({ status, params: { valgtstatus }, parentLocation }) => <div> {status.length === 0 ? null : <Row> <Column size={12}>
   <Row>
     {status.length < 2 ? null : <Column>
       <Link activeClassName={styles.activemenu} to={`${parentLocation}/status/s`}>siste</Link> |
@@ -16,7 +16,7 @@ const StatusListe = ({ status, params: { valgtstatus }, parentLocation }) => <di
     <Column size={12}> <Status {...status.find(s => s.statusKode === valgtstatus.toUpperCase())} /></Column>
   </Row> : <Row>
     <Column size={12}> <Status {...status.find(s => s.statusKode === 'S')} /></Column>
-  </Row>}
+  </Row>}</Column>
 </Row>}</div>;
 
 StatusListe.propTypes = {

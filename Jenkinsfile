@@ -3,12 +3,9 @@ node {
     def application = "presys"
 
     def mvnHome = tool "maven-3.3.9"
-    def mvn = "${mvnHome}/bin/mvn"
-    def nodeHome = tool "nodejs-6.6.0"
-    def node = "${nodeHome}/node"
-    def npm = "${nodeHome}/npm"
+    def nodeHome = tool "nodejs-6.9.4"
 
-    def commitHash, commitHashShort, commitUrl, committer, releaseVersion
+    def commitHash, commitHashShort, commitUrl, committer, releaseVersio, deploymentId
 
     try {
         cleanWs()
@@ -37,10 +34,14 @@ node {
 
         stage("build") {
             dir ("klient") {
-                sh "${npm} install"
+                withEnv(["PATH+NODE=${nodeHome}/bin"]) {
+                    sh "npm install"
+                }
             }
 
-            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            }
 
             dir ("server") {
                 sh "/usr/local/bin/nais validate"
@@ -59,7 +60,7 @@ node {
                 // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
                 // so we don't have to set them as cli args to sonar-scanner
                 withSonarQubeEnv('Presys Sonar') {
-                    withCredentials([string(credentialsId: 'navikt-jenkins-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
                         withEnv(['SONAR_SCANNER_OPTS=-Dhttps.proxyHost=webproxy-utvikler.nav.no -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=adeo.no']) {
                             sh """
                                 ${scannerHome}/bin/sonar-scanner \
@@ -90,8 +91,8 @@ node {
             }
 
             dir ("qa") {
-                withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "${npm} install"
+                withEnv(["PATH+NODE=${nodeHome}/bin", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                    sh "npm install"
                 }
 
                 dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
@@ -119,8 +120,15 @@ node {
         }
 
         stage("deploy") {
+            def response = createDeployment(project, application, commitHash, "preprod-fss", "deploy to preprod-fss")
+            deploymentId = response.id
+
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'NAIS_USERNAME', passwordVariable: 'NAIS_PASSWORD']]) {
                 sh "/usr/local/bin/nais deploy --wait --app ${application} -v ${commitHashShort} -e cd-u1"
+            }
+
+            if (deploymentId) {
+                createDeploymentStatus(project, application, deploymentId, "success")
             }
         }
 
@@ -133,6 +141,10 @@ node {
     } catch (e) {
         sh "docker stop ${application}-${commitHashShort} || true"
 
+        if (deploymentId) {
+            createDeploymentStatus(project, application, deploymentId, "failure")
+        }
+
         slackSend([
             color: 'danger',
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${application}@${env.BRANCH_NAME} by ${committer} failed"
@@ -140,5 +152,60 @@ node {
 
         currentBuild.result = 'FAILED'
         throw e
+    }
+}
+
+// createDeployment(commitSha, "production", "deploy to production")
+// createDeployment("feature/branch", "qa", "deploy to qa")
+def createDeployment(owner, repo, ref, environment, description) {
+    def postBody = [
+        ref: ref,
+        auto_merge: false,
+        required_contexts: [],
+        environment: environment,
+        description: description
+    ]
+
+    def postBodyString = groovy.json.JsonOutput.toJson(postBody)
+
+    withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+        withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+            responseBody = sh(script: """
+                curl -H 'Authorization: token ${GITHUB_OAUTH_TOKEN}' \
+                    -H 'Content-Type: application/json' \
+                    -X POST \
+                    -d '${postBodyString}' \
+                    https://api.github.com/repos/${owner}/${repo}/deployments
+            """, returnStdout: true).trim()
+
+            def slurper = new groovy.json.JsonSlurperClassic()
+            return slurper.parseText(responseBody);
+        }
+    }
+}
+
+// createDeploymentStatus(12345, "pending")
+// createDeploymentStatus(12345, "error")
+// createDeploymentStatus(12345, "failure")
+// createDeploymentStatus(12345, "success")
+def createDeploymentStatus(owner, repo, deployId, state) {
+    def postBody = [
+            state: state
+    ]
+
+    def postBodyString = groovy.json.JsonOutput.toJson(postBody)
+
+    withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+        withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+            responseBody = sh(script: """
+                curl -H 'Authorization: token ${GITHUB_OAUTH_TOKEN}' \
+                    -H 'Content-Type: application/json' \
+                    -X POST \
+                    -d '${postBodyString}' \
+                    https://api.github.com/repos/${owner}/${repo}/deployments/${deployId}/statuses
+            """, returnStdout: true).trim()
+            def slurper = new groovy.json.JsonSlurperClassic()
+            return slurper.parseText(responseBody);
+        }
     }
 }

@@ -16,8 +16,9 @@ const YrkesskadePensjon = ({ gjeldendeYrkesgrad,
               antallPoengaar,
               poengberegningsalternativ,
               yrkessykdom }) => <Row>
-                <Column size={12}>
+                <Column size={6}>
                   <InfoTable>
+                    <div>&nbsp;<h4>Yrkesskadepensjon:</h4></div>
                     <tr>
                       <td>Gjendende yrkesgrad</td>
                       <td>{gjeldendeYrkesgrad}</td>
