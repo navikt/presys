@@ -127,11 +127,14 @@ node {
             deploymentId = response.id
 
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'NAIS_USERNAME', passwordVariable: 'NAIS_PASSWORD']]) {
-                sh "/usr/local/bin/nais deploy --wait --app ${application} -v ${commitHashShort} -e cd-u1"
-            }
+                def exitStatus = sh([
+                    script: "/usr/local/bin/nais deploy --wait --app ${application} -v ${commitHashShort} -e cd-u1",
+                    returnStatus: true
+                ])
 
-            if (deploymentId) {
-                createDeploymentStatus(project, application, deploymentId, "success")
+                if (deploymentId) {
+                    createDeploymentStatus(project, application, deploymentId, exitStatus == 0 ? "success" : "failure")
+                }
             }
         }
 
@@ -143,10 +146,6 @@ node {
         currentBuild.result = 'SUCCESS'
     } catch (e) {
         sh "docker stop ${application}-${commitHashShort} || true"
-
-        if (deploymentId) {
-            createDeploymentStatus(project, application, deploymentId, "failure")
-        }
 
         slackSend([
             color: 'danger',
