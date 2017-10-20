@@ -34,3 +34,5 @@ fasitResources: # resources fetched from Fasit
     resourceType: datasource
   - alias: srvpresys
     resourceType: credential
+  - alias: abac.pdp.endpoint
+    resourceType: restservice

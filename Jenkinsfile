@@ -82,6 +82,9 @@ node {
                         -e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
                         -e PRESYSDB_USERNAME \
                         -e PRESYSDB_PASSWORD \
+                        -e ABAC_URL=https://wasapp-t0.adeo.no/asm-pdp/authorize \
+                        -e SRVPRESYS_USERNAME=presys \
+                        -e SRVPRESYS_PASSWORD=foobar \
                         -e JWT_PASSWORD=somesecret \
                         -e LDAP_URL=ldaps://ldapgw.test.local \
                         -e LDAP_BASEDN=dc=test,dc=local \
