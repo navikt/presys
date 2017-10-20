@@ -2,6 +2,7 @@ import { PERSON_ENDPOINT } from 'constants/serverApi';
 import { replace } from 'react-router-redux';
 import { get } from 'services/restMethods';
 import { showErrorMessage } from 'actions/errorActions';
+import { logout } from 'actions/saksbehandlerActions';
 
 
 export const actionsFor = type => ({
@@ -29,6 +30,8 @@ const handleError = (dispatch, fetchTypes, fnr) => (ajax) => {
     case 404:
       dispatch(replace('/'));
       return showErrorMessage(ajax);
+    case 401:
+      return logout();
     default:
       return showErrorMessage(ajax);
   }

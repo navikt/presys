@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fetchPerson from 'actions/personActions';
+import fetchPerson from 'actions/fetchPerson';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import { connect } from 'react-redux';

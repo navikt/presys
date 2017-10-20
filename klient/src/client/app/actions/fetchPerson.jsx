@@ -3,6 +3,7 @@ import { get } from 'services/restMethods';
 import { PERSON_FETCH_STARTED, PERSON_RECEIVED, PERSON_FETCH_FAILED } from 'constants/actionTypes';
 import { PERSON_ENDPOINT } from 'constants/serverApi';
 import { showErrorMessage, removeErrorMessage } from './errorActions';
+import { logout } from './saksbehandlerActions';
 
 
 function dataReceived(datatype, fnr = null) {
@@ -20,6 +21,9 @@ function action(actionType) {
 }
 
 const handleError = dispatch => (ajax) => {
+  if (ajax.response.status === 401) {
+    return logout();
+  }
   dispatch(action(PERSON_FETCH_FAILED));
   dispatch(push('/'));
   return showErrorMessage(ajax);
