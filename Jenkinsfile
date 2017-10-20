@@ -5,7 +5,7 @@ node {
     def mvnHome = tool "maven-3.3.9"
     def nodeHome = tool "nodejs-6.9.4"
 
-    def commitHash, commitHashShort, commitUrl, committer, releaseVersio, deploymentId
+    def commitHash, commitHashShort, commitUrl, committer, deploymentId
 
     try {
         cleanWs()
@@ -24,9 +24,6 @@ node {
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
             commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             commitUrl = "https://github.com/${project}/${application}/commit/${commitHash}"
-
-            // rewrite XX-SNAPSHOT to XX.YY-SNAPSHOT, where YY is the commit sha
-            releaseVersion = pom.version.tokenize("-")[0] + "." + commitHashShort + "-SNAPSHOT"
 
             /* gets the person who committed last as "Surname, First name" */
             committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
