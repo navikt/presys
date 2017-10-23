@@ -26,11 +26,25 @@ export function loginFeil(response) {
   };
 }
 
+export function logout() {
+  return (dispatch) => {
+    localStorage.removeItem('jwt_token');
+    dispatch({
+      type: LOGOUT_SUCCESS,
+    });
+  };
+}
+
+export function setTimeoutForJwtToken(dispatch, token) {
+  setTimeout(() => dispatch(logout()), (new Date(JSON.parse(atob(token.split('.')[1])).exp * 1000) - new Date()));
+}
+
 export function login(username, password) {
   return (dispatch) => {
     post(`${LOGIN_ENDPOINT}`, { username, password }, dispatch,
           (json, response) => {
             dispatch(removeErrorMessage());
+            setTimeoutForJwtToken(dispatch, response.data.token);
             return loginOk(response.data.token);
           },
           (response) => {
@@ -40,11 +54,3 @@ export function login(username, password) {
   };
 }
 
-export function logout() {
-  return (dispatch) => {
-    localStorage.removeItem('jwt_token');
-    dispatch({
-      type: LOGOUT_SUCCESS,
-    });
-  };
-}
