@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.List;
+
 public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
 
     private String attforingUfor;
@@ -67,7 +69,7 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
     private int prorataTrygdetidEOSAar;
     private int prorataTrygdetidEOSMaaneder;
     private int pensjonEOS;
-    private String poengaarIEOS;
+    private List<Integer> poengaarIEOS;
     private int inntektForUforepensjon;
     private int faktiskNordiskTrygdetidAar;
     private int faktiskNordiskTrygdetidMaaneder;
@@ -78,7 +80,7 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
     private String garantertTjenestepensjon;
     private String frysp5AarArbeid;
     private String fryspTidsb;
-    private String poengaarIEOSIkkeMedIProrata;
+    private List<Integer> poengaarIEOSIkkeMedIProrata;
     private String reduksjonGrunnpensjonEtterPar3Pkt2Ledd5;
     private String eosOpplysning;
     private String lonnstilskudd;
@@ -603,13 +605,15 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
         this.pensjonEOS = pensjonEOS;
     }
 
-    public String getPoengaarIEOS() {
+
+    public List<Integer> getPoengaarIEOS() {
         return poengaarIEOS;
     }
 
-    public void setPoengaarIEOS(String poengaarIEOS) {
-        this.poengaarIEOS = poengaarIEOS;
+    public void setPoengaarIEOS(boolean[] poengaarIEOS) {
+        this.poengaarIEOS = ConvertersUtil.bittabellTilAarstallFra1967(poengaarIEOS);
     }
+
 
     public int getInntektForUforepensjon() {
         return inntektForUforepensjon;
@@ -691,12 +695,12 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
         this.fryspTidsb = fryspTidsb;
     }
 
-    public String getPoengaarIEOSIkkeMedIProrata() {
+    public List<Integer> getPoengaarIEOSIkkeMedIProrata() {
         return poengaarIEOSIkkeMedIProrata;
     }
 
-    public void setPoengaarIEOSIkkeMedIProrata(String poengaarIEOSIkkeMedIProrata) {
-        this.poengaarIEOSIkkeMedIProrata = poengaarIEOSIkkeMedIProrata;
+    public void setPoengaarIEOSIkkeMedIProrata(boolean[]  poengaarIEOSIkkeMedIProrata) {
+        this.poengaarIEOSIkkeMedIProrata = ConvertersUtil.bittabellTilAarstallFra1967(poengaarIEOSIkkeMedIProrata);
     }
 
     public String getReduksjonGrunnpensjonEtterPar3Pkt2Ledd5() {

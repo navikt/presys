@@ -96,7 +96,7 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>22</version>
+			<version>26</version>
 		</dependency>
 		<dependency>
 			<groupId>no.nav.pensjon</groupId>

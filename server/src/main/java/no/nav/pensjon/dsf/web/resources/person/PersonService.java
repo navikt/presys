@@ -46,6 +46,7 @@ public class PersonService {
         grunnblankettMappers.put("KF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbkfer().get(0), GrunnblankettNyAFPDto.class)));
         grunnblankettMappers.put("U2", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbu2er().get(0), GrunnblankettUforepensjon2Dto.class)));
         grunnblankettMappers.put("U3", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbu3er().get(0), GrunnblankettUforepensjonDto.class)));
+
         grunnblankettMappers.put("E3", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbe3er().get(0), GrunnblankettEtterlattEktefelleDto.class)));
         grunnblankettMappers.put("E1", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getEndringsblankett().get(0), GrunnblankettEndringsblankettDto.class)));
         grunnblankettMappers.put("EN", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getEnblan1er().get(0), GrunnblankettEndringsblankettEnDto.class)));
@@ -60,7 +61,6 @@ public class PersonService {
         grunnblankettMappers.put("B6", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblebb6er().get(0), GrunnblankettBarnepensjonEnForeldreDodB6Dto.class)));
         grunnblankettMappers.put("FB", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrblebbeer().get(0), GrunnblankettForeldreloseBarnDto.class)));
         grunnblankettMappers.put("FO", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbfer().get(0), GrunnblankettForsorgertilleggEktefelleOgEllerBarnDto.class)));
-        grunnblankettMappers.put("MV", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbyper().get(0), GrunnblankettYrkesskadePensjonDto.class)));
         grunnblankettMappers.put("UF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbufer().get(0), GrunnblankettUngUforFor1967Dto.class)));
         grunnblankettMappers.put("AF", (domene, dto)->dto.setGrunnblankett(modelMapper.map(domene.getGrunnbafer().get(0), GrunnblankettAvtalefestetPensjonDto.class)));
     }

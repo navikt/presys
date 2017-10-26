@@ -1,9 +1,6 @@
 package no.nav.pensjon.dsf.domene.grunnblanketter;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Felt;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
-import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
+import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 @Segment(name = "GRUNNBU3" , length = 224)
 @UnmappedField(name="FRAVIK_5_1", length = 1, start = 130)
@@ -245,9 +242,9 @@ public class GRUNNBU3 {
     @PackedDecimal
     private int pensjonEOS;
 
-    // Bit EOS_AAR (1967:2014)    BIT(1)
     @Felt(name="EOS_AAR_1967_2014", length = 6, start = 176)
-    private String poengaarIEOS;
+    @BitTabell
+    private boolean[] poengaarIEOS;
 
     @Felt(name="INNTEKT_FOR_UP", length = 4, start = 182)
     @PackedDecimal
@@ -283,10 +280,9 @@ public class GRUNNBU3 {
     @Felt(name="FRYSP_TIDSB", length = 1, start = 197)
     private String fryspTidsb;
 
-    //@Felt(name="EOS_AAR_IKKE_PRO_RATA (1967:2014) BIT(1), lenght = 1, start = 193)
-
     @Felt(name="EOS_AAR_IKKE_PRO_RATA (1967:2014)", length = 6, start = 198)
-    private String poengaarIEOSIkkeMedIProrata;
+    @BitTabell
+    private boolean[]poengaarIEOSIkkeMedIProrata;
 
     @Felt(name="RED_GP_3_2_5", length = 1, start = 204)
     private String reduksjonGrunnpensjonEtterPar3Pkt2Ledd5;
@@ -817,11 +813,11 @@ public class GRUNNBU3 {
         this.pensjonEOS = pensjonEOS;
     }
 
-    public String getPoengaarIEOS() {
+    public boolean[] getPoengaarIEOS() {
         return poengaarIEOS;
     }
 
-    public void setPoengaarIEOS(String poengaarIEOS) {
+    public void setPoengaarIEOS(boolean[] poengaarIEOS) {
         this.poengaarIEOS = poengaarIEOS;
     }
 
@@ -905,11 +901,11 @@ public class GRUNNBU3 {
         this.fryspTidsb = fryspTidsb;
     }
 
-    public String getPoengaarIEOSIkkeMedIProrata() {
+    public boolean[] getPoengaarIEOSIkkeMedIProrata() {
         return poengaarIEOSIkkeMedIProrata;
     }
 
-    public void setPoengaarIEOSIkkeMedIProrata(String poengaarIEOSIkkeMedIProrata) {
+    public void setPoengaarIEOSIkkeMedIProrata(boolean[] poengaarIEOSIkkeMedIProrata) {
         this.poengaarIEOSIkkeMedIProrata = poengaarIEOSIkkeMedIProrata;
     }
 

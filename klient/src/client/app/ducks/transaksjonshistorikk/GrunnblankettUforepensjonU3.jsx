@@ -298,7 +298,7 @@ const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.poengaarIEOS" /></td>
-            <td>{poengaarIEOS}</td>
+            <td><ul>{poengaarIEOS.map(e => <li key={e}>{e}</li>)}</ul></td>
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.inntektForUforepensjon" /></td>
@@ -334,7 +334,7 @@ const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.poengaarIEOSIkkeMedIProrata" /></td>
-            <td>{poengaarIEOSIkkeMedIProrata}</td>
+            <td><ul>{poengaarIEOSIkkeMedIProrata.map(e => <li key={e}>{e}</li>)}</ul></td>
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.reduksjonGrunnpensjonEtterPar3Pkt2Ledd5" /></td>
@@ -361,7 +361,7 @@ GrunnblankettUforepensjonFortsetter.propTypes = {
   beregneFolketrygd: React.PropTypes.string.isRequired,
   eosPar8Pkt4Ledd3BokstavA: React.PropTypes.string.isRequired,
   pensjonEOS: React.PropTypes.number.isRequired,
-  poengaarIEOS: React.PropTypes.string.isRequired,
+  poengaarIEOS: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
   inntektForUforepensjon: React.PropTypes.number.isRequired,
   faktiskeNordiskePoengaar: React.PropTypes.number.isRequired,
   reaktivisering: React.PropTypes.string.isRequired,
@@ -370,7 +370,7 @@ GrunnblankettUforepensjonFortsetter.propTypes = {
   garantertTjenestepensjon: React.PropTypes.string.isRequired,
   frysp5AarArbeid: React.PropTypes.string.isRequired,
   fryspTidsb: React.PropTypes.string.isRequired,
-  poengaarIEOSIkkeMedIProrata: React.PropTypes.string.isRequired,
+  poengaarIEOSIkkeMedIProrata: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
   reduksjonGrunnpensjonEtterPar3Pkt2Ledd5: React.PropTypes.string.isRequired,
   eosOpplysning: React.PropTypes.string.isRequired,
   lonnstilskudd: React.PropTypes.string.isRequired,

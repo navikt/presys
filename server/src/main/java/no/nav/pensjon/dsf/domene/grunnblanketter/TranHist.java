@@ -119,10 +119,10 @@ public class TranHist {
     private List<GRUNNBFO> grunnbfer = new ArrayList<>();
 
     @SubSegment
-    private List<GRUNNEES> grunneeser = new ArrayList<>();
+    private List<GRUNNEES> grunnees = new ArrayList<>();
 
     @SubSegment
-    private List<GRUNNBYP> grunnbyper = new ArrayList<>();
+    private List<GRUNNBYP> grunnbyp = new ArrayList<>();
 
     @SubSegment
     private List<GRUNNBUF> grunnbufer = new ArrayList<>();
@@ -283,8 +283,8 @@ public class TranHist {
         return grunnbfer;
     }
 
-    public List<GRUNNBYP> getGrunnbyper() {
-        return grunnbyper;
+    public List<GRUNNBYP> getGrunnbyp() {
+        return grunnbyp;
     }
 
     public List<GRUNNBUF> getGrunnbufer() {
@@ -319,7 +319,7 @@ public class TranHist {
         return endringsblankett;
     }
 
-    public List<GRUNNEES> getGrunneeser() {
-        return grunneeser;
+    public List<GRUNNEES> getGrunnees() {
+        return grunnees;
     }
 }
