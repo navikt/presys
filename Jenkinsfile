@@ -125,6 +125,7 @@ node {
         stage("deploy") {
             build([
                 job: 'presys-deploy-pipeline',
+                propagate: false,
                 parameters: [
                     string(name: 'RELEASE_VERSION', value: commitHashShort),
                     string(name: 'COMMIT_HASH', value: commitHash),
