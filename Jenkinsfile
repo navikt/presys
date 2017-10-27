@@ -123,19 +123,15 @@ node {
         }
 
         stage("deploy") {
-            def response = createDeployment(project, application, commitHash, "preprod-fss", "deploy to preprod-fss")
-            deploymentId = response.id
-
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'fasitUser', usernameVariable: 'NAIS_USERNAME', passwordVariable: 'NAIS_PASSWORD']]) {
-                def exitStatus = sh([
-                    script: "/usr/local/bin/nais deploy --wait --app ${application} -v ${commitHashShort} -e cd-u1",
-                    returnStatus: true
-                ])
-
-                if (deploymentId) {
-                    createDeploymentStatus(project, application, deploymentId, exitStatus == 0 ? "success" : "failure")
-                }
-            }
+            build([
+                job: 'presys-deploy-pipeline',
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: commitHashShort),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 'q0'),
+                    string(name: 'DEPLOY_TYPE', value: 'nais')
+                ]
+            ])
         }
 
         slackSend([
@@ -154,60 +150,5 @@ node {
 
         currentBuild.result = 'FAILED'
         throw e
-    }
-}
-
-// createDeployment(commitSha, "production", "deploy to production")
-// createDeployment("feature/branch", "qa", "deploy to qa")
-def createDeployment(owner, repo, ref, environment, description) {
-    def postBody = [
-        ref: ref,
-        auto_merge: false,
-        required_contexts: [],
-        environment: environment,
-        description: description
-    ]
-
-    def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-
-    withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-        withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-            responseBody = sh(script: """
-                curl -H 'Authorization: token ${GITHUB_OAUTH_TOKEN}' \
-                    -H 'Content-Type: application/json' \
-                    -X POST \
-                    -d '${postBodyString}' \
-                    https://api.github.com/repos/${owner}/${repo}/deployments
-            """, returnStdout: true).trim()
-
-            def slurper = new groovy.json.JsonSlurperClassic()
-            return slurper.parseText(responseBody);
-        }
-    }
-}
-
-// createDeploymentStatus(12345, "pending")
-// createDeploymentStatus(12345, "error")
-// createDeploymentStatus(12345, "failure")
-// createDeploymentStatus(12345, "success")
-def createDeploymentStatus(owner, repo, deployId, state) {
-    def postBody = [
-            state: state
-    ]
-
-    def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-
-    withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-        withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-            responseBody = sh(script: """
-                curl -H 'Authorization: token ${GITHUB_OAUTH_TOKEN}' \
-                    -H 'Content-Type: application/json' \
-                    -X POST \
-                    -d '${postBodyString}' \
-                    https://api.github.com/repos/${owner}/${repo}/deployments/${deployId}/statuses
-            """, returnStdout: true).trim()
-            def slurper = new groovy.json.JsonSlurperClassic()
-            return slurper.parseText(responseBody);
-        }
     }
 }
