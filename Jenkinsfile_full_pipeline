@@ -164,7 +164,7 @@ node {
                     string(name: 'RELEASE_VERSION', value: releaseVersion),
                     string(name: 'COMMIT_HASH', value: commitHash),
                     string(name: 'DEPLOY_ENV', value: 'p'),
-                    string(name: 'CLUSTER', value: 'prod')
+                    string(name: 'DEPLOY_TYPE', value: 'nais')
                 ]
             ])
         }
