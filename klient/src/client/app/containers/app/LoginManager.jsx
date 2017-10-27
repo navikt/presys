@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login, logout } from 'actions/saksbehandlerActions';
+import styles from './loginmanager.less';
 
 class LoginManager extends Component {
 
@@ -27,9 +28,9 @@ class LoginManager extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className={styles.loginform} >
           <label htmlFor="username">
-            Brukernavn:
+            Brukernavn:<br />
             <input
               type="text" id="username" onChange={(e) => {
                 this.setState({
@@ -39,7 +40,7 @@ class LoginManager extends Component {
             />
           </label>
           <label htmlFor="password">
-            Passord:
+            Passord:<br />
             <input
               type="password" id="password" onChange={(e) => {
                 this.setState({

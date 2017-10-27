@@ -15,7 +15,7 @@ import UforeHistorikk from 'ducks/uforehistorikk/LastUforeHistorikk';
 import Transhist from 'ducks/transaksjonshistorikk/LastTransaksjonsHistorikk';
 
 import LoginManager from 'containers/app/LoginManager';
-import { loginOk } from 'actions/saksbehandlerActions';
+import { loginOk, setTimeoutForJwtToken } from 'actions/saksbehandlerActions';
 import configureStore from './store/store';
 
 injectTapEventPlugin();
@@ -25,8 +25,9 @@ const history = syncHistoryWithStore(hashHistory, store);
 
 /* sjekk initiell tilstand */
 const token = localStorage.getItem('jwt_token');
-if (token) {
+if (token && new Date(JSON.parse(atob(token.split('.')[1])).exp * 1000) > new Date()) {
   store.dispatch(loginOk(token));
+  setTimeoutForJwtToken(store.dispatch, token);
 }
 
 const routes = (
