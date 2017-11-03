@@ -15,7 +15,7 @@
 
   "test_settings" : {
     "default" : {
-      "launch_url" : "https://localhost:8080/presys",
+      "launch_url" : "https://localhost:8080",
       "silent": true,
       "screenshots" : {
         "enabled" : true,
@@ -31,7 +31,7 @@
       }
     },
     "jenkins": {
-      "launch_url" : "https://app-t0.adeo.no/presys",
+      "launch_url" : "http://localhost:${PORT}",
       "cli_args": {
         "webdriver.chrome.driver": "/usr/local/bin/chromedriver"
       },

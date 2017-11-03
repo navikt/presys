@@ -2,8 +2,7 @@ package no.nav.pensjon.dsf.config.auth.ldap;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.metrics.Event;
-import no.nav.metrics.MetricsFactory;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.ldap.NamingException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -22,19 +21,18 @@ import java.io.IOException;
 
 public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    Event eventAttempt = createLoginEvent("attempt");
-    Event eventSuccess = createLoginEvent("success");
-    Event eventFailure = createLoginEvent("failure");
+    private CounterService counterService;
 
-    public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, CounterService counterService) {
         super(requiresAuthenticationRequestMatcher);
+        this.counterService = counterService;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException {
 
-        eventAttempt.report();
+        counterService.increment("counter.login.attempt");
         try {
             LoginRequest loginRequest = new ObjectMapper()
                     .readValue(req.getInputStream(), LoginRequest.class);
@@ -46,28 +44,24 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
                     )
             );
         } catch (JsonMappingException e) {
+            counterService.increment("counter.login.malformed_input");
             throw new BadCredentialsException("Malformed JSON", e);
         } catch (NamingException e) {
+            counterService.increment("counter.login.error");
             throw new InternalAuthenticationServiceException("Error while contacting LDAP server", e);
         }
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        eventSuccess.report();
+        counterService.increment("counter.login.success");
         SecurityContextHolder.getContext().setAuthentication(authResult);
         getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        eventFailure.report();
+        counterService.increment("counter.login.failed");
         super.unsuccessfulAuthentication(request, response, failed);
-    }
-
-    private Event createLoginEvent(String type) {
-        Event event = MetricsFactory.createEvent("Presys.loginevent");
-        event.addTagToReport("loginEventTypeTag", type);
-        return event;
     }
 }

@@ -9,7 +9,7 @@
         <version>81-SNAPSHOT</version>
     </parent>
 
-    <artifactId>presys-web-klient</artifactId>
+    <artifactId>presys-frontend</artifactId>
     <packaging>pom</packaging>
-    <name>presys-klient</name>
+    <name>presys-frontend</name>
 </project>

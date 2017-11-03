@@ -7,10 +7,7 @@ node {
     def commitHash, commitHashShort, commitUrl, committer, pom, currentVersion, releaseVersion
 
     def mvnHome = tool "maven-3.3.9"
-    def mvn = "${mvnHome}/bin/mvn"
-    def nodeHome = tool "nodejs-6.6.0"
-    def node = "${nodeHome}/node"
-    def npm = "${nodeHome}/npm"
+    def nodeHome = tool "nodejs-6.9.4"
 
     try {
         // delete whole workspace before starting the build,
@@ -54,9 +51,19 @@ node {
 
         stage("build") {
             dir ("klient") {
-                sh "${npm} install"
+                withEnv(["PATH+NODE=${nodeHome}/bin"]) {
+                    sh "npm install"
+                }
             }
-            sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
+
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
+            }
+
+            dir ("server") {
+                sh "/usr/local/bin/nais validate"
+                sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
+            }
         }
 
         stage("sonar analysis") {
@@ -69,8 +76,55 @@ node {
             }
         }
 
+        stage("integration tests") {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'PRESYSDB_USERNAME', passwordVariable: 'PRESYSDB_PASSWORD']]) {
+                sh """
+                    docker run --name ${application}-${releaseVersion} --rm -dP \
+                        -e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
+                        -e PRESYSDB_USERNAME \
+                        -e PRESYSDB_PASSWORD \
+                        -e ABAC_URL=https://wasapp-t0.adeo.no/asm-pdp/authorize \
+                        -e SRVPRESYS_USERNAME=presys \
+                        -e SRVPRESYS_PASSWORD=foobar \
+                        -e JWT_PASSWORD=somesecret \
+                        -e LDAP_URL=ldaps://ldapgw.test.local \
+                        -e LDAP_BASEDN=dc=test,dc=local \
+                        -e LDAP_DOMAIN=TEST.LOCAL \
+                        docker.adeo.no:5000/${application}:${releaseVersion}
+                """
+            }
+
+            dir ("qa") {
+                withEnv(["PATH+NODE=${nodeHome}/bin", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                    sh "npm install"
+                }
+
+                dockerPort = sh(script: "docker port ${application}-${releaseVersion} 8080/tcp | sed s/.*://", returnStdout: true).trim()
+
+                // wait for app to become ready
+                timeout(time: 180, unit: 'SECONDS') {
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
+                }
+
+                sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
+            }
+
+            sh "docker stop ${application}-${releaseVersion} || true"
+        }
+
         stage("release") {
-            sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
+            sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
+
+            dir ("server") {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
+                    sh "/usr/local/bin/nais upload --app ${application} -v ${releaseVersion}"
+                }
+            }
+
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
+            }
+
             sh "git add '*pom.xml'"
             sh "git commit -m 'Commit before creating tag ${application}-${releaseVersion}'"
             sh "git tag -a '${application}-${releaseVersion}' -m '${application}-${releaseVersion}'"
@@ -81,13 +135,18 @@ node {
                 }
             }
 
-            sh "${mvn} clean deploy -DskipTests -B -e"
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn clean deploy -DskipTests -B -e"
+            }
 
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
             }
 
-            sh "${mvn} versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
+            }
+
             sh "git add '*pom.xml'"
             sh "git commit -m 'Updated version to ${nextVersion} after release'"
 
@@ -98,49 +157,15 @@ node {
             }
         }
 
-        stage("integration tests") {
-            build([
-                job: 'presys-deploy-pipeline',
-                parameters: [
-                    string(name: 'RELEASE_VERSION', value: releaseVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 't0')
-                ]
-            ])
-
-            dir ("qa") {
-                withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "${npm} install"
-                }
-                sh "./node_modules/.bin/nightwatch --env jenkins"
-            }
-        }
-
         stage("deploy") {
             build([
                 job: 'presys-deploy-pipeline',
+                propagate: false,
                 parameters: [
                     string(name: 'RELEASE_VERSION', value: releaseVersion),
                     string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'q1')
-                ]
-            ])
-
-            build([
-                job: 'presys-deploy-pipeline',
-                parameters: [
-                    string(name: 'RELEASE_VERSION', value: releaseVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'q0')
-                ]
-            ])
-
-            build([
-                job: 'presys-deploy-pipeline',
-                parameters: [
-                    string(name: 'RELEASE_VERSION', value: releaseVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'p')
+                    string(name: 'DEPLOY_ENV', value: 'p'),
+                    string(name: 'DEPLOY_TYPE', value: 'nais')
                 ]
             ])
         }
@@ -160,6 +185,8 @@ node {
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} passed"
         ])
     } catch (e) {
+        sh "docker stop ${application}-${releaseVersion} || true"
+
         githubNotify([
                 credentialsId: 'navikt-ci',
                 account: project,

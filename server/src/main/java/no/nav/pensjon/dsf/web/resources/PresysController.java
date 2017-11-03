@@ -26,6 +26,11 @@ public class PresysController {
         return "OK";
     }
 
+    @RequestMapping(method = {RequestMethod.GET}, value="/isReady")
+    public String isReady() {
+        return "OK";
+    }
+
     @RequestMapping(method = {RequestMethod.GET}, value="/selftest")
     public Selftest selftest() {
         /* see https://confluence.adeo.no/display/AURA/Selftest */

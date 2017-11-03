@@ -1,0 +1,38 @@
+name: presys
+image: docker.adeo.no:5000/presys
+replicas: # set min = max to disable autoscaling
+  min: 1 # minimum number of replicas
+  max: 1 # maximum number of replicas
+  cpuThresholdPercentage: 50 # total cpu percentage threshold on deployment, at which point it will increase number of pods if current < max
+port: 8080 # the port number which is exposed by the container and should receive traffic
+healthcheck:
+  liveness:
+    path: api/internal/isAlive
+    initialDelay: 100
+  readiness:
+    path: api/internal/isReady
+    initialDelay: 100
+prometheus: #Optional
+  enabled: true # if true the pod will be scraped for metrics by prometheus
+  path: /metrics # Path to prometheus-metrics
+resources: # Optional. See: http://kubernetes.io/docs/user-guide/compute-resources/
+  limits:
+    cpu: 500m # app will have its cpu usage throttled if exceeding this limit
+    memory: 512Mi  # app will be killed if exceeding these limits
+  requests: # app will be scheduled on nodes with at least this amount resources available
+    cpu: 200m
+    memory: 256Mi
+fasitResources: # resources fetched from Fasit
+  used: # this will be injected into the application as environment variables
+  - alias: jwt
+    resourceType: credential
+  - alias: ldap
+    resourceType: ldap
+  - alias: ldap
+    resourceType: applicationproperties
+  - alias: presysDB
+    resourceType: datasource
+  - alias: srvpresys
+    resourceType: credential
+  - alias: abac.pdp.endpoint
+    resourceType: restservice
