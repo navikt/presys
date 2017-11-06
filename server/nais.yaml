@@ -11,12 +11,12 @@ healthcheck:
     # wait 20 seconds before trying to check status,
     # and then try 15 times with 4 second intervals before
     # killing the pod: 20 + 4*15 ~ 80 seconds before pod is killed
-    initialDelay: 20
+    initialDelay: 60
     periodSeconds: 4
     failureThreshold: 15
   readiness:
     path: api/internal/isReady
-    initialDelay: 20
+    initialDelay: 60
     periodSeconds: 4
     failureThreshold: 15
 prometheus: #Optional
