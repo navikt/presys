@@ -131,7 +131,7 @@ node {
 
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                    sh("git push --tags https://navikt-ci:${GITHUB_OAUTH_TOKEN}@github.com/navikt/presys.git master")
+                    sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
                 }
             }
 
@@ -152,7 +152,7 @@ node {
 
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                    sh("git push https://navikt-ci:${GITHUB_OAUTH_TOKEN}@github.com/navikt/presys.git master")
+                    sh("git push https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
                 }
             }
         }
