@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>83</version>
+		<version>84-SNAPSHOT</version>
 	</parent>
 
 	<properties>
