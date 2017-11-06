@@ -8,17 +8,17 @@ port: 8080 # the port number which is exposed by the container and should receiv
 healthcheck:
   liveness:
     path: api/internal/isAlive
-    # wait 20 seconds before trying to check status,
-    # and then try 15 times with 4 second intervals before
-    # killing the pod: 20 + 4*15 ~ 80 seconds before pod is killed
+    # wait 60 seconds before trying to check status,
+    # and then try 20 times with 5 second intervals before
+    # killing the pod: 60 + 5*20 ~ 160 seconds before pod is killed
     initialDelay: 60
-    periodSeconds: 4
-    failureThreshold: 15
+    periodSeconds: 5
+    failureThreshold: 20
   readiness:
     path: api/internal/isReady
     initialDelay: 60
-    periodSeconds: 4
-    failureThreshold: 15
+    periodSeconds: 5
+    failureThreshold: 20
 prometheus: #Optional
   enabled: true # if true the pod will be scraped for metrics by prometheus
   path: /metrics # Path to prometheus-metrics
