@@ -129,8 +129,7 @@ node {
                 parameters: [
                     string(name: 'RELEASE_VERSION', value: commitHashShort),
                     string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'q0'),
-                    string(name: 'DEPLOY_TYPE', value: 'nais')
+                    string(name: 'DEPLOY_ENV', value: 'q0')
                 ]
             ])
         }
