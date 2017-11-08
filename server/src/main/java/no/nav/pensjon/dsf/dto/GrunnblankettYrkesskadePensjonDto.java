@@ -10,9 +10,9 @@ public class GrunnblankettYrkesskadePensjonDto extends GrunnblankettDto {
     private String kapittel11Pkt7Utlost;
     private String yrke11;
     private int aarligArbeidsinntekt;
-    private int fodselsnummerEktefelle;
-    private int fodselsnummerSamboer;
-    private int fodselsnummerBarn;
+    private String fodselsnummerEktefelle;
+    private String fodselsnummerSamboer;
+    private String fodselsnummerBarn;
     private String fodselsnummerPleiebarn;
 
     public String getVilkaarPar1Pkt2Ledd2BokstavA() {
@@ -79,27 +79,27 @@ public class GrunnblankettYrkesskadePensjonDto extends GrunnblankettDto {
         this.aarligArbeidsinntekt = aarligArbeidsinntekt;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 
-    public int getFodselsnummerSamboer() {
+    public String getFodselsnummerSamboer() {
         return fodselsnummerSamboer;
     }
 
-    public void setFodselsnummerSamboer(int fodselsnummerSamboer) {
+    public void setFodselsnummerSamboer(String fodselsnummerSamboer) {
         this.fodselsnummerSamboer = fodselsnummerSamboer;
     }
 
-    public int getFodselsnummerBarn() {
+    public String getFodselsnummerBarn() {
         return fodselsnummerBarn;
     }
 
-    public void setFodselsnummerBarn(int fodselsnummerBarn) {
+    public void setFodselsnummerBarn(String fodselsnummerBarn) {
         this.fodselsnummerBarn = fodselsnummerBarn;
     }
 

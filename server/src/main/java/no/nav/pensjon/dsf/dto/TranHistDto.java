@@ -17,6 +17,8 @@ public class TranHistDto {
     private String autoTerminalId;
     private GrunnblankettDto grunnblankett;
     private List<BarnDto> barn = new ArrayList<>();
+    private List<GrunnblankettYrkesskadePensjonDto> grunnbyp = new ArrayList<>();
+    private List<GrunnblankettEtterlattEktefelleEeSDto> grunnees = new ArrayList<>();
 
     public int getVtpKey() {
         return vtpKey;
@@ -120,5 +122,21 @@ public class TranHistDto {
 
     public void setBarn(List<BarnDto> barn) {
         this.barn = barn;
+    }
+
+    public List<GrunnblankettYrkesskadePensjonDto> getGrunnbyp() {
+        return grunnbyp;
+    }
+
+    public void setGrunnbyp(List<GrunnblankettYrkesskadePensjonDto> grunnbyp) {
+        this.grunnbyp = grunnbyp;
+    }
+
+    public List<GrunnblankettEtterlattEktefelleEeSDto> getGrunnees() {
+        return grunnees;
+    }
+
+    public void setGrunnees(List<GrunnblankettEtterlattEktefelleEeSDto> grunnees) {
+        this.grunnees = grunnees;
     }
 }

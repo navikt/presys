@@ -46,7 +46,7 @@ const EktefelleInfo = ({ ektefelletillegg,
 
 EktefelleInfo.propTypes = {
   ektefelletillegg: React.PropTypes.string.isRequired,
-  fodselsnummerEktefelle: React.PropTypes.number.isRequired,
+  fodselsnummerEktefelle: React.PropTypes.string.isRequired,
   navnEktefelle: React.PropTypes.string.isRequired,
   trygdetidFor1967Ektefelle: React.PropTypes.number.isRequired,
   trygdetidEtter1966AarEktefelle: React.PropTypes.number.isRequired,

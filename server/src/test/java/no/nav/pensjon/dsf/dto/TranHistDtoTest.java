@@ -75,6 +75,9 @@ public class TranHistDtoTest {
         expected.put("vtpKey", 1313);
         expected.put("grunnblankett", null);
         expected.put("barn", new ArrayList<>());
+        expected.put("grunnbyp", new ArrayList<>());
+        expected.put("grunnees", new ArrayList<>());
+
 
         assertThatJson(tranHistDto).isEqualTo(expected);
     }

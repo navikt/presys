@@ -188,10 +188,8 @@ const GrunnblankettUforepensjon = ({
             <td>{inntektForUforepensjon}</td>
           </tr>
         </InfoTable>
-        <table>
-          <div>&nbsp;<h3>Bosted:</h3></div>
-          <BostedsInfo {...ubehandlede} />
-          <tbody /></table>
+        <div>&nbsp;<h3>Bosted:</h3></div>
+        <BostedsInfo {...ubehandlede} />
       </Column>
       <Column size={6}>
         <div>&nbsp;<h3>Fravik:</h3></div>

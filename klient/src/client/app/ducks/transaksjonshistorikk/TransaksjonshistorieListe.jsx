@@ -102,6 +102,8 @@ class TransaksjonshistorieListe extends Component {
           <Grunnblankett
             type={transaksjonshistorie[selectedIndex].grunnblankettkode}
             barn={transaksjonshistorie[selectedIndex].barn}
+            grunnees={transaksjonshistorie[selectedIndex].grunnees}
+            grunnbyp={transaksjonshistorie[selectedIndex].grunnbyp}
             {...transaksjonshistorie[selectedIndex].grunnblankett}
           />
         </Column>

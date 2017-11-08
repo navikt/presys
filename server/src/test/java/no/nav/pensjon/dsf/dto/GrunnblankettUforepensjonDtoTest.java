@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +88,7 @@ public class GrunnblankettUforepensjonDtoTest {
         model.setProrataTrygdetidEOSAar(4040);
         model.setProrataTrygdetidEOSMaaneder(4141);
         model.setPensjonEOS(4242);
-        model.setPoengaarIEOS("??");
+        model.setPoengaarIEOS(new boolean[] {true, false});
         model.setInntektForUforepensjon(4343);
         model.setFaktiskNordiskTrygdetidAar(4444);
         model.setFaktiskNordiskTrygdetidMaaneder(4545);
@@ -98,7 +99,7 @@ public class GrunnblankettUforepensjonDtoTest {
         model.setGarantertTjenestepensjon("??");
         model.setFrysp5AarArbeid("??");
         model.setFryspTidsb("??");
-        model.setPoengaarIEOSIkkeMedIProrata("??");
+        model.setPoengaarIEOSIkkeMedIProrata(new boolean[] {false, true});
         model.setReduksjonGrunnpensjonEtterPar3Pkt2Ledd5("??");
         model.setEosOpplysning("??");
         model.setLonnstilskudd("??");
@@ -179,7 +180,7 @@ public class GrunnblankettUforepensjonDtoTest {
         assertEquals(model.getProrataTrygdetidEOSAar(), dto.getProrataTrygdetidEOSAar());
         assertEquals(model.getProrataTrygdetidEOSMaaneder(), dto.getProrataTrygdetidEOSMaaneder());
         assertEquals(model.getPensjonEOS(), dto.getPensjonEOS());
-        assertEquals(model.getPoengaarIEOS(), dto.getPoengaarIEOS());
+        assertEquals( Arrays.asList(1967), dto.getPoengaarIEOS());
         assertEquals(model.getInntektForUforepensjon(), dto.getInntektForUforepensjon());
         assertEquals(model.getFaktiskNordiskTrygdetidAar(), dto.getFaktiskNordiskTrygdetidAar());
         assertEquals(model.getFaktiskNordiskTrygdetidMaaneder(), dto.getFaktiskNordiskTrygdetidMaaneder());
@@ -190,7 +191,7 @@ public class GrunnblankettUforepensjonDtoTest {
         assertEquals(model.getGarantertTjenestepensjon(), dto.getGarantertTjenestepensjon());
         assertEquals(model.getFrysp5AarArbeid(), dto.getFrysp5AarArbeid());
         assertEquals(model.getFryspTidsb(), dto.getFryspTidsb());
-        assertEquals(model.getPoengaarIEOSIkkeMedIProrata(), dto.getPoengaarIEOSIkkeMedIProrata());
+        assertEquals( Arrays.asList(1968), dto.getPoengaarIEOSIkkeMedIProrata());
         assertEquals(model.getReduksjonGrunnpensjonEtterPar3Pkt2Ledd5(), dto.getReduksjonGrunnpensjonEtterPar3Pkt2Ledd5());
         assertEquals(model.getEosOpplysning(), dto.getEosOpplysning());
         assertEquals(model.getLonnstilskudd(), dto.getLonnstilskudd());
@@ -264,7 +265,7 @@ public class GrunnblankettUforepensjonDtoTest {
         expected.put("prorataTrygdetidEOSAar", 4040);
         expected.put("prorataTrygdetidEOSMaaneder", 4141);
         expected.put("pensjonEOS", 4242);
-        expected.put("poengaarIEOS", "??");
+        expected.put("poengaarIEOS", Arrays.asList(1967));
         expected.put("inntektForUforepensjon", 4343);
         expected.put("faktiskNordiskTrygdetidAar", 4444);
         expected.put("faktiskNordiskTrygdetidMaaneder", 4545);
@@ -275,7 +276,7 @@ public class GrunnblankettUforepensjonDtoTest {
         expected.put("garantertTjenestepensjon", "??");
         expected.put("frysp5AarArbeid", "??");
         expected.put("fryspTidsb", "??");
-        expected.put("poengaarIEOSIkkeMedIProrata", "??");
+        expected.put("poengaarIEOSIkkeMedIProrata",  Arrays.asList(1968));
         expected.put("reduksjonGrunnpensjonEtterPar3Pkt2Ledd5", "??");
         expected.put("eosOpplysning", "??");
         expected.put("lonnstilskudd", "??");

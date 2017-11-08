@@ -1,50 +1,42 @@
-package no.nav.pensjon.dsf.domene.grunnblanketter;
+package no.nav.pensjon.dsf.dto;
 
-import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
-
-@UnmappedField(name="FILLER", length = 29, start = 70)
-@Segment(name = "GRUNNEES", length = 99)//99
-public class GRUNNEES {
-
-    //Feltene nedenfor tilhører gjenlendene/søke
-    @Felt(name="STATSBORGER", length = 2, start = 0) @PackedDecimal private int statsborgerskap;
-    @Felt(name="BOSATT", length = 2, start = 2) @PackedDecimal private int bosattLand;
-    @Felt(name="MEDLEM", length = 1, start = 4) private String medlem;
-    @Felt(name="TT_LIK_PAA", length = 1, start = 5) private String trygdatidLikPensjonsAar;
-    @Felt(name="MINST_20AAR", length = 1, start = 6) private String minst20AarBotid;
-    @Felt(name="KONVENSJON_LAND", length = 2, start = 7) @PackedDecimal private int konvensjonsLand;
-    @Felt(name="FRAVIK_BOSATT_EOS", length = 1, start = 9) private String fravikBosattEos;
-    @Felt(name="UNG_UFOR", length = 1, start = 10) private String ungUfor;
-    @Felt(name="FRAVIK_FLYKT", length = 1, start = 11) private String erFlyktning;
-    @Felt(name="TT_ENDRES", length = 1, start = 12) private String trygdetidEndres;
-
-    //Feltene nedenfor tilhører avdøde
-    @Felt(name="STATSBORGER_EK", length = 2, start = 13) @PackedDecimal private int statsborgerskapEktefelle;
-    @Felt(name="BOSATT_EK", length = 2, start = 15) @PackedDecimal private int bosattLandEktefelle;
-    @Felt(name="FRAVIK_FLYKT_EK", length = 1, start = 17) private String fravikFlyktningEktefelle;
-    @Felt(name="FRAVIK_17_3_4A", length = 1, start = 18) private String fravikPar17Pkt3Ledd4BokstavA;
-    @Felt(name="FRAVIK_17_3_4B", length = 1, start = 19) private String fravikPar17Pkt3Ledd4BokstavB;
-    @Felt(name="OVERKOMP_UTL_EK", length = 1, start = 20) private String overkompensasjonUtlandEktefelle;
-    @Felt(name="TT_FRA_1937_AAR_EK", length = 2, start = 21) @PackedDecimal private int trygdetidFra1937AArEktefelle;
-    @Felt(name="TT_FRA_1937_MND_EK", length = 2, start = 23) @PackedDecimal private int trygdetidFra1937MaanederEktefelle;
-    @Felt(name="TT_KONVENSJON_AAR_EK", length = 2, start = 25) @PackedDecimal private int trygdetidKonvensjonAarEktefelle;
-    @Felt(name="BEREGN_FOLKETRYGD", length = 1, start = 27) private String beregnFolketrygd;
-    @Felt(name="EOS_3_17A", length = 1, start = 28) private String eosPar3Pkt17BokstavA;
-    @Felt(name="EOS_AAR (1967:2014)", length = 6, start = 29) @BitTabell private boolean[] eosAar;
-    @Felt(name="EOS_AAR_IKKE_PRO_RATA (1967:2014)", length = 6, start = 35) @BitTabell private boolean[] eosAarIkkeProrata;
-    @Felt(name="TT_TEORETISK_AAR", length = 2, start = 41) @PackedDecimal private int trygdetidTeoretiskAar;
-    @Felt(name="TT_TEORETISK_MND", length = 2, start = 43) @PackedDecimal private int trygdetidTeoretiskMaaneder;
-    @Felt(name="TT_PRORATA_AAR", length = 2, start = 45) @PackedDecimal private int trygdetidProrataAar;
-    @Felt(name="TT_PRORATA_MND", length = 2, start = 47) @PackedDecimal private int trygdetidProrataMaaneder;
-    @Felt(name="PENSJON_EOS", length = 3, start = 49) @PackedDecimal private int pensjonEos;
-    @Felt(name="EOS_AAR_PRO_RATA2(1967:2014)", length = 6, start = 52) @BitTabell private boolean[] eosAarProrata2;
-    @Felt(name="TT_PRORATA2_AAR", length = 2, start = 58) @PackedDecimal private int trygdetidProrata2Aar;
-    @Felt(name="TT_PRORATA2_MND", length = 2, start = 60) @PackedDecimal private int trygdetidProrata2Maaneder;
-    @Felt(name="TT_FAKTISK_NORDISK_AAR", length = 2, start = 62) @PackedDecimal private int trygdetidFaktiskNordiskAar;
-    @Felt(name="TT_FAKTISK_NORDISK_MND", length = 2, start = 64) @PackedDecimal private int trygdetidFaktiskNordiskMaaneder;
-    @Felt(name="PAA_FAKTISK_NORDISK", length = 2, start = 66) @PackedDecimal private int pensjonsaarFaktiskNordisk;
-    @Felt(name="INNT_PROVET_EOS_PENS", length = 1, start = 68) private String inntektsprovetEosPensjon;
-    @Felt(name="EOS_OPPLYSN", length = 1, start = 69) private String eosOpplysning;
+public class GrunnblankettEtterlattEktefelleEeSDto extends GrunnblankettDto {
+    private int statsborgerskap;
+    private int bosattLand;
+    private String medlem;
+    private String trygdatidLikPensjonsAar;
+    private String minst20AarBotid;
+    private int konvensjonsLand;
+    private String fravikBosattEos;
+    private String ungUfor;
+    private String erFlyktning;
+    private String trygdetidEndres;
+    private int statsborgerskapEktefelle;
+    private int bosattLandEktefelle;
+    private String fravikFlyktningEktefelle;
+    private String fravikPar17Pkt3Ledd4BokstavA;
+    private String fravikPar17Pkt3Ledd4BokstavB;
+    private String overkompensasjonUtlandEktefelle;
+    private int trygdetidFra1937AArEktefelle;
+    private int trygdetidFra1937MaanederEktefelle;
+    private int trygdetidKonvensjonAarEktefelle;
+    private String beregnFolketrygd;
+    private String eosPar3Pkt17BokstavA;
+    private boolean[] eosAar;
+    private boolean[] eosAarIkkeProrata;
+    private int trygdetidTeoretiskAar;
+    private int trygdetidTeoretiskMaaneder;
+    private int trygdetidProrataAar;
+    private int trygdetidProrataMaaneder;
+    private int pensjonEos;
+    private boolean[] eosAarProrata2;
+    private int trygdetidProrata2Aar;
+    private int trygdetidProrata2Maaneder;
+    private int trygdetidFaktiskNordiskAar;
+    private int trygdetidFaktiskNordiskMaaneder;
+    private int pensjonsaarFaktiskNordisk;
+    private String inntektsprovetEosPensjon;
+    private String eosOpplysning;
 
     public int getStatsborgerskap() {
         return statsborgerskap;
