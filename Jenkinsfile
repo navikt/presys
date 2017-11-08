@@ -3,12 +3,9 @@ node {
     def application = "presys"
 
     def mvnHome = tool "maven-3.3.9"
-    def mvn = "${mvnHome}/bin/mvn"
-    def nodeHome = tool "nodejs-6.6.0"
-    def node = "${nodeHome}/node"
-    def npm = "${nodeHome}/npm"
+    def nodeHome = tool "nodejs-6.9.4"
 
-    def commitHash, commitHashShort, commitUrl, committer, releaseVersion
+    def commitHash, commitHashShort, commitUrl, committer, deploymentId
 
     try {
         cleanWs()
@@ -28,18 +25,25 @@ node {
             commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             commitUrl = "https://github.com/${project}/${application}/commit/${commitHash}"
 
-            // rewrite XX-SNAPSHOT to XX.YY-SNAPSHOT, where YY is the commit sha
-            releaseVersion = pom.version.tokenize("-")[0] + "." + commitHashShort + "-SNAPSHOT"
-
             /* gets the person who committed last as "Surname, First name" */
             committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
         }
 
         stage("build") {
             dir ("klient") {
-                sh "${npm} install"
+                withEnv(["PATH+NODE=${nodeHome}/bin"]) {
+                    sh "npm install"
+                }
             }
-            sh "${mvn} clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn clean install -Djava.io.tmpdir=/tmp/${application} -B -e"
+            }
+
+            dir ("server") {
+                sh "/usr/local/bin/nais validate"
+                sh "docker build -t docker.adeo.no:5000/${application}:${commitHashShort} ."
+            }
         }
 
         // in a multibranch pipeline, when using "GitHub Branch Source" plugin with "Discover pull requests",
@@ -68,29 +72,66 @@ node {
             }
         }
 
-        stage("release snapshot") {
-            sh "${mvn} versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-
-            sh "${mvn} clean deploy -DskipTests -B -e"
-        }
-
         stage("integration tests") {
-            build([
-                job: 'presys-deploy-pipeline',
-                parameters: [
-                    string(name: 'RELEASE_VERSION', value: releaseVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 't0')
-                ]
-            ])
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'PRESYSDB_USERNAME', passwordVariable: 'PRESYSDB_PASSWORD']]) {
+                sh """
+                    docker run --name ${application}-${commitHashShort} --rm -dP \
+                        -e PRESYSDB_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
+                        -e PRESYSDB_USERNAME \
+                        -e PRESYSDB_PASSWORD \
+                        -e ABAC_URL=https://wasapp-t0.adeo.no/asm-pdp/authorize \
+                        -e SRVPRESYS_USERNAME=presys \
+                        -e SRVPRESYS_PASSWORD=foobar \
+                        -e JWT_PASSWORD=somesecret \
+                        -e LDAP_URL=ldaps://ldapgw.test.local \
+                        -e LDAP_BASEDN=dc=test,dc=local \
+                        -e LDAP_DOMAIN=TEST.LOCAL \
+                        docker.adeo.no:5000/${application}:${commitHashShort}
+                """
+            }
 
             dir ("qa") {
-                withEnv(["PATH+NODE=${nodeHome}", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "${npm} install"
+                withEnv(["PATH+NODE=${nodeHome}/bin", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                    sh "npm install"
                 }
 
-                sh "./node_modules/.bin/nightwatch --env jenkins"
+                dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
+
+                // wait for app to become ready
+                timeout(time: 180, unit: 'SECONDS') {
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
+                }
+
+                sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
             }
+
+            sh "docker stop ${application}-${commitHashShort} || true"
+        }
+
+        stage("release snapshot") {
+            sh "docker push docker.adeo.no:5000/${application}:${commitHashShort}"
+
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn clean deploy -DskipTests -B -e"
+            }
+
+            dir ("server") {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
+                    sh "/usr/local/bin/nais upload --app ${application} -v ${commitHashShort}"
+                }
+            }
+        }
+
+        stage("deploy") {
+            build([
+                job: 'presys-deploy-pipeline',
+                propagate: false,
+                parameters: [
+                    string(name: 'RELEASE_VERSION', value: commitHashShort),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 'q0')
+                ]
+            ])
         }
 
         slackSend([
@@ -100,6 +141,8 @@ node {
 
         currentBuild.result = 'SUCCESS'
     } catch (e) {
+        sh "docker stop ${application}-${commitHashShort} || true"
+
         slackSend([
             color: 'danger',
             message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${application}@${env.BRANCH_NAME} by ${committer} failed"
