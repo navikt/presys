@@ -11,6 +11,7 @@ import GrunnblankettUforepensjonU2 from './GrunnblankettUforepensjonU2';
 import GrunnblankettUforepensjonU3 from './GrunnblankettUforepensjonU3';
 import GrunnblankettEtterlatteEktefelleEeS from './GrunnblankettEtterlatteEktefelleEeS';
 import GrunnblankettYrkesskadePensjon from './GrunnblankettYrkesskadePensjon';
+import GrunnblankettAlderspensjonA1 from './GrunnblankettAlderspensjonA1';
 
 import Barn from './Barn';
 
@@ -22,6 +23,7 @@ const blankettyper = {
   O1: Opphorsblankett1,
   U2: GrunnblankettUforepensjonU2,
   U3: GrunnblankettUforepensjonU3,
+  A1: GrunnblankettAlderspensjonA1,
 };
 
 

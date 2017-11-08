@@ -226,6 +226,28 @@
   "Uforepensjon.frys. " : " ",
   "Uforepensjon.frys." : " ",
 
+
+  "GrunnblankettAlderspensjonA1.statsborgerskap" : "Statsborgerskap",
+  "GrunnblankettAlderspensjonA1.bosattNorge" : "Er bosatt i Norge?",
+  "GrunnblankettAlderspensjonA1.bosattLand" : "Bosatt i",
+  "GrunnblankettAlderspensjonA1.erFlyktning" : "Er flyktning?",
+  "GrunnblankettAlderspensjonA1.overkompensasjonUtland" : "Overkompensasjon utland",
+  "GrunnblankettAlderspensjonA1.fravikTrygdetidUtland" : "Fravik trygdetid utlan",
+  "GrunnblankettAlderspensjonA1.trygdetidFra16Til66" : "Trygdetid fra 16 til 66",
+  "GrunnblankettAlderspensjonA1.ikkeGrunnpensjon" : "Ikke grunnpensjon",
+  "GrunnblankettAlderspensjonA1.alderspensjonIProsent" : "Alderspensjon i prosent",
+  "GrunnblankettAlderspensjonA1.fodselsnummerEktefelle" : "Ektefelles fødselsnummer",
+  "GrunnblankettAlderspensjonA1.navnEktefelle" : "Ektefelles navn",
+  "GrunnblankettAlderspensjonA1.framtidigArbeidsinntekt" : "Framtidig arbeidsinntekt",
+  "GrunnblankettAlderspensjonA1.tilleggEktefelle" : "Ektefelles tillegg",
+  "GrunnblankettAlderspensjonA1.inntektEktefelle" : "Ektefelles inntekt",
+  "GrunnblankettAlderspensjonA1.antallBarn" : "Antall barn",
+  "GrunnblankettAlderspensjonA1.ektefelleMinst4G" : "Har ektefelle minst 4G i inntekt?",
+  "GrunnblankettAlderspensjonA1.ektefelleInntektOver2G" : "Har ektefelle inntekt over 2G?",
+  "GrunnblankettAlderspensjonA1.fravikKonvensjonTPOrdning" : "Fravik konvensjon TP-ordning",
+  "GrunnblankettAlderspensjonA1.reduksjonGrunnpensjonPar3Pkt2Ledd5" : "Reduksjon i grunnpensjon etter §3-2-5",
+
+
   "GrunnblankettUforepensjonU3.trygdetidFra1937" : "Trygdetid fra 1937",
   "GrunnblankettUforepensjonU3.trygdetidFor1967" : "Trygdetid før 1967",
   "GrunnblankettUforepensjonU3.trygdetidFor1967AarEktefelle" : "Trygdetid før 1967 for ektefelle",
@@ -439,6 +461,12 @@
   "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner",
   "kodeverk.sivilstand. ": " ",
   "kodeverk.sivilstand.": " ",
+
+  "kodeverk.standardtekst.aarOg": " år og ",
+  "kodeverk.standardtekst.maaneder": " måneder",
+  "kodeverk.standardtekst.kr": "Kr ",
+  "kodeverk.standardtekst.punktumStrek": ".- ",
+
 
   "EtterlatteBarn.pensjonEtter" : "Pensjon etter",
   "EtterlatteBarn.gp" : "Grunnpensjon",
