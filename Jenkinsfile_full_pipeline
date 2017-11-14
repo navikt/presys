@@ -129,20 +129,6 @@ node {
             sh "git commit -m 'Commit before creating tag ${application}-${releaseVersion}'"
             sh "git tag -a '${application}-${releaseVersion}' -m '${application}-${releaseVersion}'"
 
-            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                    sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
-                }
-            }
-
-            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
-                sh "mvn clean deploy -DskipTests -B -e"
-            }
-
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
-            }
-
             withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
                 sh "mvn versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
             }
@@ -152,8 +138,12 @@ node {
 
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                    sh("git push https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
+                    sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
                 }
+            }
+
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
             }
         }
 

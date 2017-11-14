@@ -111,10 +111,6 @@ node {
         stage("release snapshot") {
             sh "docker push docker.adeo.no:5000/${application}:${commitHashShort}"
 
-            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
-                sh "mvn clean deploy -DskipTests -B -e"
-            }
-
             dir ("server") {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
                     sh "/usr/local/bin/nais upload --app ${application} -v ${commitHashShort}"
