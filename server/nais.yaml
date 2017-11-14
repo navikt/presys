@@ -24,10 +24,10 @@ prometheus: #Optional
   path: /metrics # Path to prometheus-metrics
 resources: # Optional. See: http://kubernetes.io/docs/user-guide/compute-resources/
   limits:
-    cpu: 500m # app will have its cpu usage throttled if exceeding this limit
+    cpu: 1000m # app will have its cpu usage throttled if exceeding this limit
     memory: 512Mi  # app will be killed if exceeding these limits
   requests: # app will be scheduled on nodes with at least this amount resources available
-    cpu: 200m
+    cpu: 500m
     memory: 256Mi
 fasitResources: # resources fetched from Fasit
   used: # this will be injected into the application as environment variables
@@ -35,8 +35,6 @@ fasitResources: # resources fetched from Fasit
     resourceType: credential
   - alias: ldap
     resourceType: ldap
-  - alias: ldap
-    resourceType: applicationproperties
   - alias: presysDB
     resourceType: datasource
   - alias: srvpresys
