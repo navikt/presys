@@ -57,22 +57,20 @@ node {
             }
 
             withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
+            }
+
+            sh "git add '*pom.xml'"
+            sh "git commit -m 'Commit before creating tag ${application}-${releaseVersion}'"
+            sh "git tag -am 'auto-tag by build pipeline' ${application}-${releaseVersion}"
+
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
                 sh "mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
             }
 
             dir ("server") {
                 sh "/usr/local/bin/nais validate"
                 sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
-            }
-        }
-
-        stage("sonar analysis") {
-            def scannerHome = tool 'sonarqube-scanner';
-
-            // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
-            // so we don't have to set them as cli args to sonar-scanner
-            withSonarQubeEnv('Presys Sonar') {
-                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${pom.version}"
             }
         }
 
@@ -112,6 +110,16 @@ node {
             sh "docker stop ${application}-${releaseVersion} || true"
         }
 
+        stage("sonar analysis") {
+            def scannerHome = tool 'sonarqube-scanner';
+
+            // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
+            // so we don't have to set them as cli args to sonar-scanner
+            withSonarQubeEnv('Presys Sonar') {
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${pom.version}"
+            }
+        }
+
         stage("release") {
             sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
 
@@ -120,14 +128,6 @@ node {
                     sh "/usr/local/bin/nais upload --app ${application} -v ${releaseVersion}"
                 }
             }
-
-            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
-                sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-            }
-
-            sh "git add '*pom.xml'"
-            sh "git commit -m 'Commit before creating tag ${application}-${releaseVersion}'"
-            sh "git tag -a '${application}-${releaseVersion}' -m '${application}-${releaseVersion}'"
 
             withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
                 sh "mvn versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
