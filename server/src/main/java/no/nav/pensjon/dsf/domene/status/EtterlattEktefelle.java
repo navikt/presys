@@ -72,7 +72,7 @@ public class EtterlattEktefelle {
 
     @Felt(name = "stiAMD", start = 38, length = 5)
     @PackedDecimal
-    private String stiAMD;
+    private int stiAMD;
 
     @Felt(name = "stBrutto", start = 51, length = 3)
     @PackedDecimal
@@ -137,9 +137,9 @@ public class EtterlattEktefelle {
 
     public void setForventet(int forventet) { this.forventet = forventet; }
 
-    public String getStiAMD() { return stiAMD; }
+    public int getStiAMD() { return stiAMD; }
 
-    public void setStiAMD(String stiAMD) { this.stiAMD = stiAMD; }
+    public void setStiAMD(int stiAMD) { this.stiAMD = stiAMD; }
 
     public int getStBrutto() { return stBrutto; }
 

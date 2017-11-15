@@ -85,7 +85,7 @@ const EtterlattEktefelle = ({ omsorgAvdBa,
                             </tr>
                             <tr>
                               <td><FormattedMessage id="EtterlattEktefelle.stiAMD" /></td>
-                              <td><DsfDate value={parseInt(stiAMD, 10)}><ISO8601 /></DsfDate></td>
+                              <td><DsfDate value={stiAMD}><ISO8601 /></DsfDate></td>
                             </tr>
                             <tr>
                               <td><FormattedMessage id="EtterlattEktefelle.stBrutto" /></td>
