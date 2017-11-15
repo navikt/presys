@@ -4,7 +4,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
 import java.math.BigDecimal;
 
-@Segment(name = "EØSINFO ", length = 130)
+@Segment(name = "EØSINFO", length = 130)
 @UnmappedField(name="FILLER", length = 13, start = 117)
 public class EosInfo {
 

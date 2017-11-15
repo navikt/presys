@@ -5,7 +5,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
-@Segment(name="EOAFP   ", length = 60)
+@Segment(name="EOAFP", length = 60)
 @UnmappedField(name = "filler", length = 10, start = 50)
 public class EtteroppgjorAFP {
 

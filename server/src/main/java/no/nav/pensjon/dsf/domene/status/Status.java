@@ -5,7 +5,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Segment(name = "STATUS  ", length = 94)
+@Segment(name = "STATUS", length = 94)
 @UnmappedField(name = "garanti_tp", length = 3, start = 52)
 @UnmappedField(name = "garanti_dato_md", length = 5, start = 55)
 @UnmappedField(name = "gt_lov92", length = 3, start = 60)
