@@ -37,7 +37,7 @@ public class EtterlattEktefelleSegmentTest {
         assertThat(etterlattEktefelle.getPaaAvd(), is(10));
         assertThat(etterlattEktefelle.getTpProsent(), is(120));
         assertThat(etterlattEktefelle.getForventet(), is(933));
-        assertThat(etterlattEktefelle.getStiAMD(), is("019980110"));
+        assertThat(etterlattEktefelle.getStiAMD(), is(19980110));
         assertThat(etterlattEktefelle.getStBrutto(), is(1230));
         assertThat(etterlattEktefelle.getFradrag2G(), is("T"));
     }
