@@ -25,6 +25,6 @@ public class TilknSegmentTest {
         Tilknytning tilknytning = AnnotationMapper.les(new ScrollableArray(file), Tilknytning.class);
         assertThat(tilknytning.getFnr(), is("06037300045"));
         assertThat(tilknytning.getTilknytningskode(), is("D"));
-        assertThat(tilknytning.getFt_fr_91(), is(" "));
+        assertThat(tilknytning.getForsorgerTilleggFor1991(), is(" "));
     }
 }

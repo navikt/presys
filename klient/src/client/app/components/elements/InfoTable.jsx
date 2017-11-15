@@ -8,7 +8,7 @@ const InfoTable = ({ children }) => (
   </tbody></table>);
 
 InfoTable.propTypes = {
-  children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.element), React.PropTypes.element]).isRequired,
+  children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.element), React.PropTypes.shape({})]).isRequired,
 };
 
 export default InfoTable;

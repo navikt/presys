@@ -66,7 +66,7 @@ AvdodFortsetter.propTypes = {
   trygdetidProrataAar: React.PropTypes.number.isRequired,
   trygdetidProrataMaaneder: React.PropTypes.number.isRequired,
   pensjonEos: React.PropTypes.number.isRequired,
-  eosAarProrata2: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
+  eosAarProrata2: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   trygdetidProrata2Aar: React.PropTypes.number.isRequired,
   trygdetidProrata2Maaneder: React.PropTypes.number.isRequired,
   trygdetidFaktiskNordiskAar: React.PropTypes.number.isRequired,
@@ -155,8 +155,8 @@ Avdod.propTypes = {
   trygdetidKonvensjonAarEktefelle: React.PropTypes.number.isRequired,
   beregnFolketrygd: React.PropTypes.string.isRequired,
   eosPar3Pkt17BokstavA: React.PropTypes.string.isRequired,
-  eosAar: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
-  eosAarIkkeProrata: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
+  eosAar: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  eosAarIkkeProrata: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 };
 
 
@@ -172,7 +172,7 @@ const GrunnblankettEtterlatteEktefelleEeS = ({
     erFlyktning,
     trygdetidEndres,
     ...ubehandlede }) => <Row>
-      <Column size={6}>
+      <Column size={12}>
         <div>&nbsp;<h4>Etterlatt ektefelle:</h4></div>
         <InfoTable>
           <tr>
@@ -217,16 +217,17 @@ const GrunnblankettEtterlatteEktefelleEeS = ({
           </tr>
 
         </InfoTable>
-        <table>
-          <div>&nbsp;<h4>Avdød:</h4></div>
-          <Avdod {...ubehandlede} />
-          <tbody /></table>
       </Column>
       <Column size={6}>
-        <AvdodFortsetter {...ubehandlede} />
+        <div>&nbsp;<h4>Avdød:</h4></div>
+        <Avdod {...ubehandlede} />
+      </Column>
+      <Column size={6}>
         <div>&nbsp;<h4>Avdød fortsetter:</h4></div>
+        <AvdodFortsetter {...ubehandlede} />
       </Column>
     </Row>;
+
 
 GrunnblankettEtterlatteEktefelleEeS.propTypes = {
   statsborgerskap: React.PropTypes.number.isRequired,

@@ -24,8 +24,8 @@ public class EtterlattEktefelleSegmentTest {
         isEttepens.readFully(file);
         EtterlattEktefelle etterlattEktefelle = AnnotationMapper.les(new ScrollableArray(file), EtterlattEktefelle.class);
         assertThat(etterlattEktefelle.getOmsorgAvdBa(), is("N"));
-        assertThat(etterlattEktefelle.getVilkaar_10_5(), is("J"));
-        assertThat(etterlattEktefelle.getHjemmel_10_8(), is("O"));
+        assertThat(etterlattEktefelle.getVilkaarPar10Pkt5(), is("J"));
+        assertThat(etterlattEktefelle.getHjemmelPar10Pkt8(), is("O"));
         assertThat(etterlattEktefelle.getGpBrutto(), is(2533));
         assertThat(etterlattEktefelle.getGpNetto(), is(876));
         assertThat(etterlattEktefelle.getSt(), is(1230));

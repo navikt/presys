@@ -96,7 +96,7 @@ public class GrunnblankettUforepensjonDtoTest {
         model.setReaktivisering("??");
         model.setUnntakVentetid("??");
         model.setEktefelleInntektOver2G("??");
-        model.setGarantertTjenestepensjon("??");
+        model.setGarantiTilleggspensjon("??");
         model.setFrysp5AarArbeid("??");
         model.setFryspTidsb("??");
         model.setPoengaarIEOSIkkeMedIProrata(new boolean[] {false, true});
@@ -188,7 +188,7 @@ public class GrunnblankettUforepensjonDtoTest {
         assertEquals(model.getReaktivisering(), dto.getReaktivisering());
         assertEquals(model.getUnntakVentetid(), dto.getUnntakVentetid());
         assertEquals(model.getEktefelleInntektOver2G(), dto.getEktefelleInntektOver2G());
-        assertEquals(model.getGarantertTjenestepensjon(), dto.getGarantertTjenestepensjon());
+        assertEquals(model.getGarantiTilleggspensjon(), dto.getGarantiTilleggspensjon());
         assertEquals(model.getFrysp5AarArbeid(), dto.getFrysp5AarArbeid());
         assertEquals(model.getFryspTidsb(), dto.getFryspTidsb());
         assertEquals( Arrays.asList(1968), dto.getPoengaarIEOSIkkeMedIProrata());
@@ -273,7 +273,7 @@ public class GrunnblankettUforepensjonDtoTest {
         expected.put("reaktivisering", "??");
         expected.put("unntakVentetid", "??");
         expected.put("ektefelleInntektOver2G", "??");
-        expected.put("garantertTjenestepensjon", "??");
+        expected.put("garantiTilleggspensjon", "??");
         expected.put("frysp5AarArbeid", "??");
         expected.put("fryspTidsb", "??");
         expected.put("poengaarIEOSIkkeMedIProrata",  Arrays.asList(1968));

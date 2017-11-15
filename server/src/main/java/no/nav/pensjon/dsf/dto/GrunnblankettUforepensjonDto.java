@@ -77,7 +77,7 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
     private String reaktivisering;
     private String unntakVentetid;
     private String ektefelleInntektOver2G;
-    private String garantertTjenestepensjon;
+    private String garantiTilleggspensjon;
     private String frysp5AarArbeid;
     private String fryspTidsb;
     private List<Integer> poengaarIEOSIkkeMedIProrata;
@@ -671,12 +671,12 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
         this.ektefelleInntektOver2G = ektefelleInntektOver2G;
     }
 
-    public String getGarantertTjenestepensjon() {
-        return garantertTjenestepensjon;
+    public String getGarantiTilleggspensjon() {
+        return garantiTilleggspensjon;
     }
 
-    public void setGarantertTjenestepensjon(String garantertTjenestepensjon) {
-        this.garantertTjenestepensjon = garantertTjenestepensjon;
+    public void setGarantiTilleggspensjon(String garantiTilleggspensjon) {
+        this.garantiTilleggspensjon = garantiTilleggspensjon;
     }
 
     public String getFrysp5AarArbeid() {

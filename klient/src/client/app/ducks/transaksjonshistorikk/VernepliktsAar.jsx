@@ -4,26 +4,26 @@ import Column from 'components/elements/Column';
 
 import InfoTable from 'components/elements/InfoTable';
 
-const VernepliktsAar = ({ vernepliktAar1,
-                             vernepliktAar2,
-                             vernepliktAar3,
-                             vernepliktAar4 }) => <Row>
+const VernepliktsAar = ({ vernepliktaar1,
+                             vernepliktaar2,
+                             vernepliktaar3,
+                             vernepliktaar4 }) => <Row>
                                <Column size={12}>
                                  <InfoTable>
                                    <tr>
                                      <td>Vernepliktår</td>
                                      <td><ul>
-                                       {[vernepliktAar1, vernepliktAar2, vernepliktAar3, vernepliktAar4].filter(e => e > 0).map(e => <li>{e}</li>)}
+                                       {[vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4].filter(e => e > 0).map(e => <li>{e}</li>)}
                                      </ul></td>
                                    </tr>
                                  </InfoTable>
                                </Column>
                              </Row>;
 VernepliktsAar.propTypes = {
-  vernepliktAar1: React.PropTypes.number.isRequired,
-  vernepliktAar2: React.PropTypes.number.isRequired,
-  vernepliktAar3: React.PropTypes.number.isRequired,
-  vernepliktAar4: React.PropTypes.number.isRequired,
+  vernepliktaar1: React.PropTypes.number.isRequired,
+  vernepliktaar2: React.PropTypes.number.isRequired,
+  vernepliktaar3: React.PropTypes.number.isRequired,
+  vernepliktaar4: React.PropTypes.number.isRequired,
 };
 
 export default VernepliktsAar;

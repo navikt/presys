@@ -20,11 +20,11 @@ public class EtterlattEktefelle {
     @Felt(name = "omsorgAvdBa", start = 0, length = 1)
     private String omsorgAvdBa;
 
-    @Felt(name = "vilkaar_10_5", start = 1, length = 1)
-    private String vilkaar_10_5;
+    @Felt(name = "vilkaarPar10Pkt5", start = 1, length = 1)
+    private String vilkaarPar10Pkt5;
 
-    @Felt(name = "hjemmel_10_8", start = 2, length = 1)
-    private String hjemmel_10_8;
+    @Felt(name = "hjemmelPar10Pkt8", start = 2, length = 1)
+    private String hjemmelPar10Pkt8;
 
     @Felt(name = "gpBrutto", start = 3, length = 3)
     @PackedDecimal
@@ -85,13 +85,13 @@ public class EtterlattEktefelle {
 
     public void setOmsorgAvdBa(String omsorgAvdBa) { this.omsorgAvdBa = omsorgAvdBa; }
 
-    public String getVilkaar_10_5() { return vilkaar_10_5; }
+    public String getVilkaarPar10Pkt5() { return vilkaarPar10Pkt5; }
 
-    public void setVilkaar_10_5(String vilkaar_10_5) { this.vilkaar_10_5 = vilkaar_10_5; }
+    public void setVilkaarPar10Pkt5(String vilkaarPar10Pkt5) { this.vilkaarPar10Pkt5 = vilkaarPar10Pkt5; }
 
-    public String getHjemmel_10_8() { return hjemmel_10_8; }
+    public String getHjemmelPar10Pkt8() { return hjemmelPar10Pkt8; }
 
-    public void setHjemmel_10_8(String hjemmel_10_8) { this.hjemmel_10_8 = hjemmel_10_8; }
+    public void setHjemmelPar10Pkt8(String hjemmelPar10Pkt8) { this.hjemmelPar10Pkt8 = hjemmelPar10Pkt8; }
 
     public int getGpBrutto() { return gpBrutto; }
 
