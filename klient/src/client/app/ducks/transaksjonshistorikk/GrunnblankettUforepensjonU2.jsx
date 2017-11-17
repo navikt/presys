@@ -128,6 +128,8 @@ Fortsettelse.propTypes = {
   inntektForUforhet: React.PropTypes.number.isRequired,
 };
 
+const finnVernepliktsAar = ({ vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4 }) =>
+[vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4].filter(elementIListe => elementIListe > 0);
 
 const GrunnblankettUforepensjonU2 = ({
     attforingUfor,
@@ -202,7 +204,7 @@ const GrunnblankettUforepensjonU2 = ({
       </Column>
       <Column size={4}>
         <div>&nbsp;<h3>Vernepliktsår:</h3></div>
-        <VernepliktsAar {...ubehandlede} />
+        <VernepliktsAar vernepliktaar={finnVernepliktsAar(ubehandlede)} />
       </Column>
 
     </Row>;

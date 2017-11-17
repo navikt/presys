@@ -74,7 +74,7 @@ public class PersonService {
         auditlog(fnr, "Hentet inntekter for person");
         Person person = repo.findPerson(fnr);
         List<InntektDto> inntekter = new ArrayList<>();
-        person.getTilberpo().forEach(t->{
+        hentTilberpo(fnr).forEach(t->{
             inntekter.add(inntekt(t.getAi63(), 1963, "AI"));
             inntekter.add(inntekt(t.getAi64(), 1964, "AI"));
             inntekter.add(inntekt(t.getAi65(), 1965, "AI"));

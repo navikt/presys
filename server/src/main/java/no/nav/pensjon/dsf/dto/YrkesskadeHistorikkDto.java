@@ -1,5 +1,8 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class YrkesskadeHistorikkDto {
 
     private int yrkeUforetidspunkt;
@@ -12,6 +15,7 @@ public class YrkesskadeHistorikkDto {
     private int opphorsdato;
     private String opphorskode;
     private String sluttpoengtall;
+    private List<GradsendringInnenforYrkesskadeperiodenDto> gradsendringInnenforYrkesskadeperioden = new ArrayList<>();
 
     public int getYrkeUforetidspunkt() {
         return yrkeUforetidspunkt;
@@ -91,5 +95,13 @@ public class YrkesskadeHistorikkDto {
 
     public void setSluttpoengtall(String sluttpoengtall) {
         this.sluttpoengtall = sluttpoengtall;
+    }
+
+    public List<GradsendringInnenforYrkesskadeperiodenDto> getGradsendringInnenforYrkesskadeperioden() {
+        return gradsendringInnenforYrkesskadeperioden;
+    }
+
+    public void setGradsendringInnenforYrkesskadeperioden(List<GradsendringInnenforYrkesskadeperiodenDto> gradsendringInnenforYrkesskadeperioden) {
+        this.gradsendringInnenforYrkesskadeperioden = gradsendringInnenforYrkesskadeperioden;
     }
 }
