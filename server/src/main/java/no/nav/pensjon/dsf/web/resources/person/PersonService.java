@@ -74,7 +74,7 @@ public class PersonService {
         auditlog(fnr, "Hentet inntekter for person");
         Person person = repo.findPerson(fnr);
         List<InntektDto> inntekter = new ArrayList<>();
-        hentTilberpo(fnr).forEach(t->{
+        hentTilberpo(person).forEach(t->{
             inntekter.add(inntekt(t.getAi63(), 1963, "AI"));
             inntekter.add(inntekt(t.getAi64(), 1964, "AI"));
             inntekter.add(inntekt(t.getAi65(), 1965, "AI"));
@@ -117,7 +117,11 @@ public class PersonService {
 
     public List<TilberpoDto> hentTilberpo(String fnr) {
         auditlog(fnr, "Hentet tilhørigheter for person");
-        return repo.findPerson(fnr).getTilberpo().stream()
+        return hentTilberpo(repo.findPerson(fnr));
+    }
+
+    public List<TilberpoDto> hentTilberpo(Person p) {
+        return p.getTilberpo().stream()
                 .map(tilberpo -> modelMapper.map(tilberpo, TilberpoDto.class))
                 .collect(Collectors.toList());
     }
