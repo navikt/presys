@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>91-SNAPSHOT</version>
+		<version>92-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>26</version>
+			<version>27</version>
 		</dependency>
 		<dependency>
 			<groupId>no.nav.pensjon</groupId>
