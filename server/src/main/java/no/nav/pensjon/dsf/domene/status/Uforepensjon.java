@@ -8,14 +8,12 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 import java.math.BigDecimal;
 
 @Segment(name = "UFØRPENS", length = 70)
-@UnmappedField(name="PAA", length = 2, start = 29)
 @UnmappedField(name="UTDANNING", length = 1, start = 31)
 @UnmappedField(name="YRKESM_ATTF", length = 1, start = 32)
 @UnmappedField(name="STI_AAMD", length = 5, start = 33)
 @UnmappedField(name="SPT_1291", length = 2, start = 38)
 @UnmappedField(name="OPT_1291", length = 2, start = 40)
 @UnmappedField(name="PAA_1291", length = 2, start = 42)
-@UnmappedField(name="PAA_ETTER91", length = 2, start = 44)
 @UnmappedField(name="YNGSTE_BARN_FOR", length = 3, start = 46)
 @UnmappedField(name="INNTEKT_FOR_UP", length = 3, start = 49)
 @UnmappedField(name="INNT_DATO_AAMD", length = 5, start = 52)
@@ -42,6 +40,8 @@ public class Uforepensjon {
     @Felt(name="TP", length = 3, start = 22) @PackedDecimal private int tilleggspensjon;
     @Felt(name="SPT", length = 2, start = 25) @PackedDecimal(decimals = 2) private BigDecimal sluttpoengtall;
     @Felt(name="OPT", length = 2, start = 27) @PackedDecimal(decimals = 2) private BigDecimal overkompensasjonstillegg;
+    @Felt(name="PAA", length = 2, start = 29) @PackedDecimal private int poengAar;
+    @Felt(name="PAA_ETTER91", length = 2, start = 44) @PackedDecimal private int poengAarEtter91;
 
     public int getUforegrad() {
         return uforegrad;
@@ -137,5 +137,21 @@ public class Uforepensjon {
 
     public void setOverkompensasjonstillegg(BigDecimal overkompensasjonstillegg) {
         this.overkompensasjonstillegg = overkompensasjonstillegg;
+    }
+
+    public int getPoengAarEtter91() {
+        return poengAarEtter91;
+    }
+
+    public void setPoengAarEtter91(int poengAarEtter91) {
+        this.poengAarEtter91 = poengAarEtter91;
+    }
+
+    public int getPoengAar() {
+        return poengAar;
+    }
+
+    public void setPoengAar(int poengAar) {
+        this.poengAar = poengAar;
     }
 }
