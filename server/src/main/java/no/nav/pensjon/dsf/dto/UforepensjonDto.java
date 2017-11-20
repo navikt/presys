@@ -16,6 +16,8 @@ public class UforepensjonDto {
     private int tilleggspensjon;
     private BigDecimal sluttpoengtall;
     private BigDecimal overkompensasjonstillegg;
+    private int poengAar;
+    private int poengAarEtter91;
 
     public int getUforegrad() {
         return uforegrad;
@@ -111,5 +113,21 @@ public class UforepensjonDto {
 
     public void setOverkompensasjonstillegg(BigDecimal overkompensasjonstillegg) {
         this.overkompensasjonstillegg = overkompensasjonstillegg;
+    }
+
+    public int getPoengAar() {
+        return poengAar;
+    }
+
+    public void setPoengAar(int poengAar) {
+        this.poengAar = poengAar;
+    }
+
+    public int getPoengAarEtter91() {
+        return poengAarEtter91;
+    }
+
+    public void setPoengAarEtter91(int poengAarEtter91) {
+        this.poengAarEtter91 = poengAarEtter91;
     }
 }
