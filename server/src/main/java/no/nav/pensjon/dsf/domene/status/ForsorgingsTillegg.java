@@ -13,7 +13,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 @UnmappedField(name ="BT_SÆRBARN", length = 3, start = 19)
 @UnmappedField(name ="GARANTITILLEGG_SÆRBARN", length = 3, start = 22)
 @UnmappedField(name ="FILLER", length = 9, start = 25)
-@Segment(name = "FORSI   ", length = 34)
+@Segment(name = "FORSI", length = 34)
 public class ForsorgingsTillegg {
 
     //ingenting skal vises av dette segmentet.

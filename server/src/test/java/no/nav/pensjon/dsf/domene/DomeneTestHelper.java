@@ -43,7 +43,7 @@ public class DomeneTestHelper {
 
         Segment seg = clazz.getAnnotation(Segment.class);
         clazz.getConstructor();
-        assertThat("Segmentnavn må være 8 tegn. Dette segmentet har lengre navn: "+ clazz.getSimpleName(), seg.name().length(), is(8));
+        assertThat("Segmentnavn må være 8 tegn. Dette segmentet har lengre navn: "+ clazz.getSimpleName(), seg.name().length(), is(lessThan(9)));
 
         int[] fields = new int[seg.length()];
 

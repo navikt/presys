@@ -9,7 +9,7 @@ import setSearchString from 'actions/personsokActions';
 export const PersonsokIndex = props => <FagsakSearch
   searchString={props.searchString}
   setSearchStringCallback={props.setSearchString}
-  searchFagsakCallback={({ searchString }) => props.push(`/person/${searchString}`)}
+  searchFagsakCallback={({ searchString }) => props.push(`/person/${searchString.trim().replace(/\s/g, '')}`)}
 />;
 
 PersonsokIndex.propTypes = {

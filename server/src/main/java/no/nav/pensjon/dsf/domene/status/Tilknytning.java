@@ -9,7 +9,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
  * FAMILIEPERSONER : EKTEFELLE, BARN, FORELDRE, SØSKEN
  * (AVDØDE/GJENLEVENDE)
  */
-@Segment(name = "TILKN   ", length = 8)
+@Segment(name = "TILKN", length = 8)
 public class Tilknytning {
 
     /**

@@ -6,7 +6,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 
 import java.math.BigDecimal;
 
-@Segment(name = "AFPHIST ", length = 20)
+@Segment(name = "AFPHIST", length = 20)
 public class AfpHistorikk {
 
     @Felt(name="AFPDATO_AAMD", length = 5, start = 0) @PackedDecimal private int afpDato;
