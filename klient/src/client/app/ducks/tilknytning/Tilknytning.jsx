@@ -9,8 +9,8 @@ const Tilknytning = ({ fnr,
            tilknytningskode,
            forsorgerTilleggFor1991 }) => <Row>
              <Column size={6}>
+               <div>&nbsp;<h4>Tilknytning:</h4></div>
                <InfoTable>
-                 <div>&nbsp;<h4>Tilknytning:</h4></div>
                  <tr>
                    <td>Fødselsnummer</td>
                    <td>{fnr}</td>

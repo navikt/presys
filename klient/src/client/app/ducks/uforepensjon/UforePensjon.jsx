@@ -17,8 +17,8 @@ const UforePensjon = ({ uforegrad,
                sluttpoengtall,
                overkompensasjonstillegg }) => <Row>
                  <Column size={6}>
+                   <div>&nbsp;<h4>Uforepensjon:</h4></div>
                    <InfoTable>
-                     <div>&nbsp;<h4>Uforepensjon:</h4></div>
                      <tr>
                        <td>Uforegrad</td>
                        <td>{uforegrad}</td>

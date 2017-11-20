@@ -115,7 +115,7 @@ EtterlattEktefelle.propTypes = {
   paaAvd: React.PropTypes.number.isRequired,
   tpProsent: React.PropTypes.number.isRequired,
   forventet: React.PropTypes.number.isRequired,
-  stiAMD: React.PropTypes.string.isRequired,
+  stiAMD: React.PropTypes.number.isRequired,
   stBrutto: React.PropTypes.number.isRequired,
   fradrag2G: React.PropTypes.string.isRequired,
 };

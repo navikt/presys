@@ -16,8 +16,8 @@ const Trygdetid = ({ trygdetidFoer1967,
                trygdetidGaranti,
                trygdetid1666 }) => <Row>
                  <Column size={6}>
+                   <div>&nbsp;<h4>Trygdetid:</h4></div>
                    <InfoTable>
-                     <div>&nbsp;<h4>Trygdetid:</h4></div>
                      <tr>
                        <td>Trygdetid før 1967 antall år</td>
                        <td>{trygdetidFoer1967}</td>
@@ -63,8 +63,8 @@ const Pensjonstyper = ({ pensjonsType1,
               pensjonsType2,
               pensjonsType3 }) => <Row>
                 <Column size={6}>
+                  <div>&nbsp;<h4>Pensjonstyper:</h4></div>
                   <InfoTable>
-                    <div>&nbsp;<h4>Pensjonstyper:</h4></div>
                     <tr>
                       <td>Pensjonstype 1</td>
                       <td><FormattedMessage id={`StatusSegment.Pensjonstype1.${pensjonsType1}`} /></td>
@@ -111,8 +111,8 @@ const StatusSegment = ({ virkDato,
               friinntektDato,
                ...ubehandlede }) => <Row>
                  <Column size={6}>
+                   <div>&nbsp;<h4>Status:</h4></div>
                    <InfoTable>
-                     <div>&nbsp;<h4>Status:</h4></div>
                      <tr>
                        <td>Virkningsdato</td>
                        <td><DsfDate value={virkDato}><ISO8601 /></DsfDate></td>

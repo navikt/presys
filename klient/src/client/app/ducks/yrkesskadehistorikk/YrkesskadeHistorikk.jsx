@@ -5,7 +5,7 @@ import { DsfDate } from 'components/elements/ParseDate';
 import { ISO8601 } from 'components/elements/FormattedDate';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
-import styles from './YrkesskadeHistorikk.less';
+import InfoTable from 'components/elements/InfoTable';
 
 const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
              yrkeUforegrad,
@@ -19,9 +19,9 @@ const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
              sluttpoengtall,
              gradsendringInnenforYrkesskadeperioden }) => (
                <Row>
-                 <Column size={7}>
-                   <table className={styles.infotable}><tbody>
-                     <tr><td><b>Yrkesskadehistorikk</b></td><td /></tr>
+                 <Column size={6}>
+                   <div>&nbsp;<h4>Yrkesskadehistorikk:</h4></div>
+                   <InfoTable>
                      <tr>
                        <td>Yrkesuforetidspunkt</td>
                        <td><DsfDate value={yrkeUforetidspunkt}><ISO8601 /></DsfDate></td>
@@ -62,9 +62,10 @@ const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
                        <td>Sluttpoengtall</td>
                        <td><FormattedNumber value={sluttpoengtall} /></td>
                      </tr>
-                   </tbody></table>
-                 </Column><Column size={5}>
-                   <table className={styles.infotable}><tbody>
+                   </InfoTable>
+                 </Column><Column size={3}>
+                   <div>&nbsp;<h4>Gradsendringer:</h4></div>
+                   <InfoTable>
                      <tr>
                        <td><b>Dato</b></td>
                        <td><b>Grad</b></td>
@@ -78,8 +79,8 @@ const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
                          <td>{grad.endringsDato !== 0 ? <DsfDate value={grad.endringsDato}><ISO8601 /></DsfDate> : '' }</td>
                          <td>{grad.grad || ''} </td>
                        </tr>)}
-                   </tbody></table>
-                 </Column>
+                   </InfoTable>
+                 </Column><Column size={3} />
                </Row>);
 
 YrkesskadeHistorikk.propTypes = {
