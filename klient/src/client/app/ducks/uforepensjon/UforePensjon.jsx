@@ -15,7 +15,9 @@ const UforePensjon = ({ uforegrad,
                kompensasjonstillegg,
                tilleggspensjon,
                sluttpoengtall,
-               overkompensasjonstillegg }) => <Row>
+               overkompensasjonstillegg,
+               poengAar,
+               poengAarEtter91 }) => <Row>
                  <Column size={6}>
                    <div>&nbsp;<h4>Uforepensjon:</h4></div>
                    <InfoTable>
@@ -67,6 +69,14 @@ const UforePensjon = ({ uforegrad,
                        <td>Overkompensasjonstillegg</td>
                        <td>{overkompensasjonstillegg}</td>
                      </tr>
+                     <tr>
+                       <td>Antall poengår</td>
+                       <td>{poengAar}</td>
+                     </tr>
+                     <tr>
+                       <td>Antall poengår etter 1991</td>
+                       <td>{poengAarEtter91}</td>
+                     </tr>
                    </InfoTable>
                  </Column>
                </Row>;
@@ -84,6 +94,8 @@ UforePensjon.propTypes = {
   tilleggspensjon: React.PropTypes.number.isRequired,
   sluttpoengtall: React.PropTypes.number.isRequired,
   overkompensasjonstillegg: React.PropTypes.number.isRequired,
+  poengAar: React.PropTypes.number.isRequired,
+  poengAarEtter91: React.PropTypes.number.isRequired,
 };
 
 export default UforePensjon;
