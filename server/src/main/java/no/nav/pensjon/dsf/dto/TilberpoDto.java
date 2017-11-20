@@ -1,5 +1,9 @@
 package no.nav.pensjon.dsf.dto;
-
+/**
+ * Vi ganger intektene i denne Dto'en med 100 for å få riktig visning
+ * EBCD-filen lagret beløp/100
+ * NB! - Dette betyr at denne klassen ikke kan brukes (slik den er nå) til å sette verdier (hvis det noen gang skulle bli aktuelt)
+ */
 public class TilberpoDto {
 
     private int vernepliktaar1;
@@ -57,7 +61,7 @@ public class TilberpoDto {
     }
 
     public void setAi63(int ai63) {
-        this.ai63 = ai63;
+        this.ai63 = ai63 * 100;
     }
 
     public int getAi64() {
@@ -65,7 +69,7 @@ public class TilberpoDto {
     }
 
     public void setAi64(int ai64) {
-        this.ai64 = ai64;
+        this.ai64 = ai64 * 100;
     }
 
     public int getAi65() {
@@ -73,7 +77,7 @@ public class TilberpoDto {
     }
 
     public void setAi65(int ai65) {
-        this.ai65 = ai65;
+        this.ai65 = ai65 * 100;
     }
 
     public int getAi66() {
@@ -81,7 +85,7 @@ public class TilberpoDto {
     }
 
     public void setAi66(int ai66) {
-        this.ai66 = ai66;
+        this.ai66 = ai66 * 100;
     }
 
     public int getPi66() {
@@ -89,6 +93,6 @@ public class TilberpoDto {
     }
 
     public void setPi66(int pi66) {
-        this.pi66 = pi66;
+        this.pi66 = pi66 * 100;
     }
 }

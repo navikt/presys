@@ -9,23 +9,19 @@ const Tilknytning = ({ fnr,
            tilknytningskode,
            forsorgerTilleggFor1991 }) => <Row>
              <Column size={6}>
+               <div>&nbsp;<h4>Tilknytning:</h4></div>
                <InfoTable>
-                 <div>&nbsp;<h4>Tilknytning:</h4></div>
                  <tr>
                    <td>Fødselsnummer</td>
                    <td>{fnr}</td>
                  </tr>
                  <tr>
                    <td>Tilknytningskode</td>
-                   <td>{tilknytningskode !== null ?
-                     <FormattedMessage id={`Tilknytning.tilknytningskode.${tilknytningskode}`} /> :
-                   'Forsørgingstillegg regnes etter reglene før 1.5.1991'}</td>
+                   <td><FormattedMessage id={`Tilknytning.tilknytningskode.${tilknytningskode}`} /></td>
                  </tr>
                  <tr>
                    <td>Forsørgertillegg før 1991</td>
-                   <td>{forsorgerTilleggFor1991 !== null ?
-                     <FormattedMessage id={`Tilknytning.forsorgertilleggFor1999.${forsorgerTilleggFor1991}`} /> :
-                   'Forsørgingstillegg regnes etter reglene før 1.5.1991'}</td>
+                   <td><FormattedMessage id={`Tilknytning.forsorgertilleggFor1999.${forsorgerTilleggFor1991}`} /></td>
                  </tr>
                </InfoTable>
              </Column>

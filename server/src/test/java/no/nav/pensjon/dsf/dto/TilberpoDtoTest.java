@@ -42,12 +42,17 @@ public class TilberpoDtoTest {
     }
 
     @Test
+    /**
+     * Vi ganger tallet i Dto'en med 100 for å få riktig visning
+     * EBCD-filen lagret beløp/100
+     */
+
     public void thatTilberpoIsMappedCorrectlyToDto() {
-        assertEquals(tilberpo.getAi63(), tilberpoDto.getAi63());
-        assertEquals(tilberpo.getAi64(), tilberpoDto.getAi64());
-        assertEquals(tilberpo.getAi65(), tilberpoDto.getAi65());
-        assertEquals(tilberpo.getAi66(), tilberpoDto.getAi66());
-        assertEquals(tilberpo.getPi66(), tilberpoDto.getPi66());
+        assertEquals(tilberpo.getAi63()*100, tilberpoDto.getAi63());
+        assertEquals(tilberpo.getAi64()*100, tilberpoDto.getAi64());
+        assertEquals(tilberpo.getAi65()*100, tilberpoDto.getAi65());
+        assertEquals(tilberpo.getAi66()*100, tilberpoDto.getAi66());
+        assertEquals(tilberpo.getPi66()*100, tilberpoDto.getPi66());
         assertEquals(tilberpo.getVernepliktaar1(), tilberpoDto.getVernepliktaar1());
         assertEquals(tilberpo.getVernepliktaar2(), tilberpoDto.getVernepliktaar2());
         assertEquals(tilberpo.getVernepliktaar3(), tilberpoDto.getVernepliktaar3());
@@ -57,11 +62,11 @@ public class TilberpoDtoTest {
     @Test
     public void thatTilberpoDtoIsMappedCorrectlyToJson() {
         Map<String, Object> expected = new HashMap<>();
-        expected.put("ai63", 1010);
-        expected.put("ai64", 1111);
-        expected.put("ai65", 1212);
-        expected.put("ai66", 1313);
-        expected.put("pi66", 1414);
+        expected.put("ai63", 101000);
+        expected.put("ai64", 111100);
+        expected.put("ai65", 121200);
+        expected.put("ai66", 131300);
+        expected.put("pi66", 141400);
         expected.put("vernepliktaar1", 1515);
         expected.put("vernepliktaar2", 1616);
         expected.put("vernepliktaar3", 1717);

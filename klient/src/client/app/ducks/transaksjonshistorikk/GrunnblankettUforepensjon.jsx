@@ -125,6 +125,8 @@ Fravik.propTypes = {
   ikkeGrunnpensjon: React.PropTypes.string.isRequired,
 };
 
+const finnVernepliktsAar = ({ vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4 }) =>
+[vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4].filter(elementIListe => elementIListe > 0);
 
 const GrunnblankettUforepensjon = ({
     anntallBarn,
@@ -195,7 +197,7 @@ const GrunnblankettUforepensjon = ({
         <div>&nbsp;<h3>Fravik:</h3></div>
         <Fravik {...ubehandlede} />
         <div>&nbsp;<h3>Vernepliktsår:</h3></div>
-        <VernepliktsAar {...ubehandlede} />
+        <VernepliktsAar vernepliktaar={finnVernepliktsAar(ubehandlede)} />
         <div>&nbsp;<h3>Ektefelle:</h3></div>
         <EktefelleInfo {...ubehandlede} />
       </Column>

@@ -272,7 +272,7 @@ public class GRUNNBU3 {
     private String ektefelleInntektOver2G;
 
     @Felt(name="GARANTERT_TP", length = 1, start = 195)
-    private String garantertTjenestepensjon;
+    private String garantiTilleggspensjon;
 
     @Felt(name="FRYSP_5AAR_ARB", length = 1, start = 196)
     private String frysp5AarArbeid;
@@ -877,12 +877,12 @@ public class GRUNNBU3 {
         this.ektefelleInntektOver2G = ektefelleInntektOver2G;
     }
 
-    public String getGarantertTjenestepensjon() {
-        return garantertTjenestepensjon;
+    public String getGarantiTilleggspensjon() {
+        return garantiTilleggspensjon;
     }
 
-    public void setGarantertTjenestepensjon(String garantertTjenestepensjon) {
-        this.garantertTjenestepensjon = garantertTjenestepensjon;
+    public void setGarantiTilleggspensjon(String garantiTilleggspensjon) {
+        this.garantiTilleggspensjon = garantiTilleggspensjon;
     }
 
     public String getFrysp5AarArbeid() {

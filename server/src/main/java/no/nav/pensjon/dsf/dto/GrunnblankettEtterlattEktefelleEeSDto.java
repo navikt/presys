@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.util.List;
+
 public class GrunnblankettEtterlattEktefelleEeSDto extends GrunnblankettDto {
     private int statsborgerskap;
     private int bosattLand;
@@ -22,14 +24,14 @@ public class GrunnblankettEtterlattEktefelleEeSDto extends GrunnblankettDto {
     private int trygdetidKonvensjonAarEktefelle;
     private String beregnFolketrygd;
     private String eosPar3Pkt17BokstavA;
-    private boolean[] eosAar;
-    private boolean[] eosAarIkkeProrata;
+    private List<Integer> eosAar;
+    private List<Integer> eosAarIkkeProrata;
     private int trygdetidTeoretiskAar;
     private int trygdetidTeoretiskMaaneder;
     private int trygdetidProrataAar;
     private int trygdetidProrataMaaneder;
     private int pensjonEos;
-    private boolean[] eosAarProrata2;
+    private List<Integer> eosAarProrata2;
     private int trygdetidProrata2Aar;
     private int trygdetidProrata2Maaneder;
     private int trygdetidFaktiskNordiskAar;
@@ -206,20 +208,20 @@ public class GrunnblankettEtterlattEktefelleEeSDto extends GrunnblankettDto {
         this.eosPar3Pkt17BokstavA = eosPar3Pkt17BokstavA;
     }
 
-    public boolean[] getEosAar() {
+    public List<Integer>  getEosAar() {
         return eosAar;
     }
 
     public void setEosAar(boolean[] eosAar) {
-        this.eosAar = eosAar;
+        this.eosAar = ConvertersUtil.bittabellTilAarstallFra1967(eosAar);
     }
 
-    public boolean[] getEosAarIkkeProrata() {
+    public List<Integer> getEosAarIkkeProrata() {
         return eosAarIkkeProrata;
     }
 
     public void setEosAarIkkeProrata(boolean[] eosAarIkkeProrata) {
-        this.eosAarIkkeProrata = eosAarIkkeProrata;
+        this.eosAarIkkeProrata = ConvertersUtil.bittabellTilAarstallFra1967(eosAarIkkeProrata);
     }
 
     public int getTrygdetidTeoretiskAar() {
@@ -262,12 +264,12 @@ public class GrunnblankettEtterlattEktefelleEeSDto extends GrunnblankettDto {
         this.pensjonEos = pensjonEos;
     }
 
-    public boolean[] getEosAarProrata2() {
+    public List<Integer> getEosAarProrata2() {
         return eosAarProrata2;
     }
 
     public void setEosAarProrata2(boolean[] eosAarProrata2) {
-        this.eosAarProrata2 = eosAarProrata2;
+        this.eosAarProrata2 = ConvertersUtil.bittabellTilAarstallFra1967(eosAarProrata2);
     }
 
     public int getTrygdetidProrata2Aar() {

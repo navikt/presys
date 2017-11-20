@@ -47,16 +47,16 @@ public class Tilknytning {
      * R = redusert barnetillegg
      * Blank betyr at personen ikke var forsørget før 1.5.91
      */
-    @Felt(name = "ft_fr_91", start = 7, length = 1)
-    private String ft_fr_91;
+    @Felt(name = "forsorgerTilleggFor1991", start = 7, length = 1)
+    private String forsorgerTilleggFor1991;
 
     public String getFnr() { return fnr; }
 
     public void setFnr(String fnr) { this.fnr = fnr; }
 
-    public String getFt_fr_91() { return ft_fr_91; }
+    public String getForsorgerTilleggFor1991() { return forsorgerTilleggFor1991; }
 
-    public void setFt_fr_91(String ft_fr_91) { this.ft_fr_91 = ft_fr_91; }
+    public void setForsorgerTilleggFor1991(String forsorgerTilleggFor1991) { this.forsorgerTilleggFor1991 = forsorgerTilleggFor1991; }
 
     public String getTilknytningskode() { return tilknytningskode; }
 

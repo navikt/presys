@@ -122,7 +122,7 @@ Trygdetid.propTypes = {
 
 };
 
-const GrunnblankettUforepensjonFortsetter2 = ({
+const GrunnblankettUforepensjonFortsetter3 = ({
     fodselsnummerEktefelle,
     navnEktefelle,
     statsborgerskap,
@@ -135,9 +135,7 @@ const GrunnblankettUforepensjonFortsetter2 = ({
     minst20Aar,
     folgerKonvensjonMedAndreLand,
     konvensjonsLand,
-    fravikBosattEOS,
     fravikPar8Pkt1,
-    ungUfor,
     godkjentFlyktningUDI,
     overkompensert,
     fravikpar19Pkt3 }) => <Row>
@@ -192,16 +190,8 @@ const GrunnblankettUforepensjonFortsetter2 = ({
             <td><FormattedMessage id={`kodeverk.land.${konvensjonsLand}`} /></td>
           </tr>
           <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.fravikBosattEOS" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${fravikBosattEOS}`} /></td>
-          </tr>
-          <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.fravikPar8Pkt1" /></td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${fravikPar8Pkt1}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.ungUfor" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${ungUfor}`} /></td>
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.godkjentFlyktningUDI" /></td>
@@ -219,7 +209,7 @@ const GrunnblankettUforepensjonFortsetter2 = ({
       </Column>
     </Row>;
 
-GrunnblankettUforepensjonFortsetter2.propTypes = {
+GrunnblankettUforepensjonFortsetter3.propTypes = {
   fodselsnummerEktefelle: React.PropTypes.string.isRequired,
   navnEktefelle: React.PropTypes.string.isRequired,
   statsborgerskap: React.PropTypes.number.isRequired,
@@ -232,38 +222,33 @@ GrunnblankettUforepensjonFortsetter2.propTypes = {
   minst20Aar: React.PropTypes.string.isRequired,
   folgerKonvensjonMedAndreLand: React.PropTypes.string.isRequired,
   konvensjonsLand: React.PropTypes.number.isRequired,
-  fravikBosattEOS: React.PropTypes.string.isRequired,
   fravikPar8Pkt1: React.PropTypes.string.isRequired,
-  ungUfor: React.PropTypes.string.isRequired,
   godkjentFlyktningUDI: React.PropTypes.string.isRequired,
   overkompensert: React.PropTypes.string.isRequired,
   fravikpar19Pkt3: React.PropTypes.string.isRequired,
 };
 
 
-const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
+const GrunnblankettUforepensjonFortsetter2 = ({ ikkeBeregneGrunnpensjon,
     avkorteSaertillegg,
     tilleggspensjonFraAnnetNordiskland,
     tilleggspensjonsland,
     beregningKonvensjon,
     beregneFolketrygd,
-    eosPar8Pkt4Ledd3BokstavA,
-    pensjonEOS,
-    poengaarIEOS,
-    inntektForUforepensjon,
     faktiskeNordiskePoengaar,
-    reaktivisering,
-    unntakVentetid,
     ektefelleInntektOver2G,
-    garantertTjenestepensjon,
-    frysp5AarArbeid,
-    fryspTidsb,
-    poengaarIEOSIkkeMedIProrata,
-    reduksjonGrunnpensjonEtterPar3Pkt2Ledd5,
-    eosOpplysning,
-    lonnstilskudd }) => <Row>
+    garantiTilleggspensjon,
+    reduksjonGrunnpensjonEtterPar3Pkt2Ledd5 }) => <Row>
       <Column size={12}>
         <InfoTable>
+          <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.ektefelleInntektOver2G" /></td>
+            <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelleInntektOver2G}`} /></td>
+          </tr>
+          <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.reduksjonGrunnpensjonEtterPar3Pkt2Ledd5" /></td>
+            <td><FormattedMessage id={`kodeverk.ja.nei.${reduksjonGrunnpensjonEtterPar3Pkt2Ledd5}`} /></td>
+          </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.ikkeBeregneGrunnpensjon" /></td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${ikkeBeregneGrunnpensjon}`} /></td>
@@ -289,6 +274,40 @@ const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
             <td><FormattedMessage id={`kodeverk.ja.nei.${beregneFolketrygd}`} /></td>
           </tr>
           <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.faktiskeNordiskePoengaar" /></td>
+            <td>{faktiskeNordiskePoengaar}</td>
+          </tr>
+          <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.garantiTilleggspensjon" /></td>
+            <td><FormattedMessage id={`kodeverk.ja.nei.${garantiTilleggspensjon}`} /></td>
+          </tr>
+        </InfoTable>
+      </Column>
+    </Row>;
+
+GrunnblankettUforepensjonFortsetter2.propTypes = {
+  ikkeBeregneGrunnpensjon: React.PropTypes.string.isRequired,
+  avkorteSaertillegg: React.PropTypes.string.isRequired,
+  tilleggspensjonFraAnnetNordiskland: React.PropTypes.number.isRequired,
+  tilleggspensjonsland: React.PropTypes.number.isRequired,
+  beregningKonvensjon: React.PropTypes.string.isRequired,
+  beregneFolketrygd: React.PropTypes.string.isRequired,
+  faktiskeNordiskePoengaar: React.PropTypes.number.isRequired,
+  ektefelleInntektOver2G: React.PropTypes.string.isRequired,
+  garantiTilleggspensjon: React.PropTypes.string.isRequired,
+  reduksjonGrunnpensjonEtterPar3Pkt2Ledd5: React.PropTypes.string.isRequired,
+};
+
+const EOS = ({
+    eosPar8Pkt4Ledd3BokstavA,
+    pensjonEOS,
+    poengaarIEOS,
+    poengaarIEOSIkkeMedIProrata,
+    eosOpplysning,
+    fravikBosattEOS }) => <Row>
+      <Column size={12}>
+        <InfoTable>
+          <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.eosPar8Pkt4Ledd3BokstavA" /></td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${eosPar8Pkt4Ledd3BokstavA}`} /></td>
           </tr>
@@ -301,28 +320,56 @@ const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
             <td><ul>{poengaarIEOS.map(e => <li key={e}>{e}</li>)}</ul></td>
           </tr>
           <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.poengaarIEOSIkkeMedIProrata" /></td>
+            <td><ul>{poengaarIEOSIkkeMedIProrata.map(e => <li key={e}>{e}</li>)}</ul></td>
+          </tr>
+          <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.eosOpplysning" /></td>
+            <td><FormattedMessage id={`kodeverk.ja.nei.${eosOpplysning}`} /></td>
+          </tr>
+          <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.fravikBosattEOS" /></td>
+            <td><FormattedMessage id={`kodeverk.ja.nei.${fravikBosattEOS}`} /></td>
+          </tr>
+        </InfoTable>
+      </Column>
+    </Row>;
+
+EOS.propTypes = {
+  eosPar8Pkt4Ledd3BokstavA: React.PropTypes.string.isRequired,
+  pensjonEOS: React.PropTypes.number.isRequired,
+  poengaarIEOS: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
+  poengaarIEOSIkkeMedIProrata: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
+  eosOpplysning: React.PropTypes.string.isRequired,
+  fravikBosattEOS: React.PropTypes.string.isRequired,
+};
+
+
+const GrunnblankettUforepensjonFortsetter = ({
+    friinntektDato,
+    inntektForUforepensjon,
+    unntakVentetid,
+    reaktivisering,
+    frysp5AarArbeid,
+    fryspTidsb,
+    lonnstilskudd }) => <Row>
+      <Column size={12}>
+        <InfoTable>
+          <tr>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.friinntektDato" /></td>
+            <td><DsfDate value={friinntektDato}><ISO8601 /></DsfDate></td>
+          </tr>
+          <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.inntektForUforepensjon" /></td>
             <td>Kr {inntektForUforepensjon}</td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.faktiskeNordiskePoengaar" /></td>
-            <td>{faktiskeNordiskePoengaar}</td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.reaktivisering" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${reaktivisering}`} /></td>
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.unntakVentetid" /></td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${unntakVentetid}`} /></td>
           </tr>
           <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.ektefelleInntektOver2G" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelleInntektOver2G}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.garantertTjenestepensjon" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${garantertTjenestepensjon}`} /></td>
+            <td><FormattedMessage id="GrunnblankettUforepensjonU3.reaktivisering" /></td>
+            <td><FormattedMessage id={`kodeverk.ja.nei.${reaktivisering}`} /></td>
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.frysp5AarArbeid" /></td>
@@ -333,18 +380,6 @@ const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
             <td><FormattedMessage id={`Uforepensjon.frys.${fryspTidsb}`} /></td>
           </tr>
           <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.poengaarIEOSIkkeMedIProrata" /></td>
-            <td><ul>{poengaarIEOSIkkeMedIProrata.map(e => <li key={e}>{e}</li>)}</ul></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.reduksjonGrunnpensjonEtterPar3Pkt2Ledd5" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${reduksjonGrunnpensjonEtterPar3Pkt2Ledd5}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.eosOpplysning" /></td>
-            <td>{eosOpplysning}</td>
-          </tr>
-          <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU3.lonnstilskudd" /></td>
             <td><FormattedMessage id={`kodeverk.ja.nei.${lonnstilskudd}`} /></td>
           </tr>
@@ -352,129 +387,115 @@ const GrunnblankettUforepensjonFortsetter = ({ ikkeBeregneGrunnpensjon,
       </Column>
     </Row>;
 
+
 GrunnblankettUforepensjonFortsetter.propTypes = {
-  ikkeBeregneGrunnpensjon: React.PropTypes.string.isRequired,
-  avkorteSaertillegg: React.PropTypes.string.isRequired,
-  tilleggspensjonFraAnnetNordiskland: React.PropTypes.number.isRequired,
-  tilleggspensjonsland: React.PropTypes.number.isRequired,
-  beregningKonvensjon: React.PropTypes.string.isRequired,
-  beregneFolketrygd: React.PropTypes.string.isRequired,
-  eosPar8Pkt4Ledd3BokstavA: React.PropTypes.string.isRequired,
-  pensjonEOS: React.PropTypes.number.isRequired,
-  poengaarIEOS: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
+  friinntektDato: React.PropTypes.number.isRequired,
   inntektForUforepensjon: React.PropTypes.number.isRequired,
-  faktiskeNordiskePoengaar: React.PropTypes.number.isRequired,
-  reaktivisering: React.PropTypes.string.isRequired,
   unntakVentetid: React.PropTypes.string.isRequired,
-  ektefelleInntektOver2G: React.PropTypes.string.isRequired,
-  garantertTjenestepensjon: React.PropTypes.string.isRequired,
+  reaktivisering: React.PropTypes.string.isRequired,
   frysp5AarArbeid: React.PropTypes.string.isRequired,
   fryspTidsb: React.PropTypes.string.isRequired,
-  poengaarIEOSIkkeMedIProrata: React.PropTypes.arrayOf(React.PropTypes.bool).isRequired,
-  reduksjonGrunnpensjonEtterPar3Pkt2Ledd5: React.PropTypes.string.isRequired,
-  eosOpplysning: React.PropTypes.string.isRequired,
   lonnstilskudd: React.PropTypes.string.isRequired,
 };
 
+const finnVernepliktsAar = ({ vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4 }) =>
+[vernepliktaar1, vernepliktaar2, vernepliktaar3, vernepliktaar4].filter(elementIListe => elementIListe > 0);
 
 const GrunnblankettUforepensjonU3 = ({
-    attforingUfor,
-    navn,
-    bosattNorge,
-    ektefelletillegg,
-    barnetillegg,
-    vilkaarPar8Pkt4Ledd3BokstavA,
-    pensjonsgivendeInntekt,
-    yngsteBarnFodselsaar,
-    yrkesskadetillegg,
-    yrkesmessigAttforing,
-    utdanning,
-    yrke,
-    uforegrad,
-    uforetidspunkt,
-    friinntektDato,
-    virkningsdato,
-    ...ubehandlede }) => <Row>
-      <Column size={6}>
-        <div>&nbsp;<h4>Uforepensjon:</h4></div>
-        <InfoTable>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.attforingUfor" /></td>
-            <td><FormattedMessage id={`Uforepensjon.attforingUfore.${attforingUfor}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.navn" /></td>
-            <td>{navn}</td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.bosattNorge" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${bosattNorge}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.ektefelletillegg" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelletillegg}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.barnetillegg" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${barnetillegg}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.vilkaarPar8Pkt4Ledd3BokstavA" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${vilkaarPar8Pkt4Ledd3BokstavA}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.pensjonsgivendeInntekt" /></td>
-            <td>{pensjonsgivendeInntekt}</td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.yngsteBarnFodselsaar" /></td>
-            <td>{yngsteBarnFodselsaar}</td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.yrkesskadetillegg" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${yrkesskadetillegg}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.yrkesmessigAttforing" /></td>
-            <td><FormattedMessage id={`kodeverk.ja.nei.${yrkesmessigAttforing}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.utdanning" /></td>
-            <td><FormattedMessage id={`Uforepensjon.utdanning.${utdanning}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.yrke" /></td>
-            <td><FormattedMessage id={`kodeverk.yrke.${yrke}`} /></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.uforegrad" /></td>
-            <td>{uforegrad}%</td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.uforetidspunkt" /></td>
-            <td><DsfDate value={uforetidspunkt}><ISO8601 /></DsfDate></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.friinntektDato" /></td>
-            <td><DsfDate value={friinntektDato}><ISO8601 /></DsfDate></td>
-          </tr>
-          <tr>
-            <td><FormattedMessage id="GrunnblankettUforepensjonU3.virkningsdato" /></td>
-            <td><DsfDate value={virkningsdato}><ISO8601 /></DsfDate></td>
-          </tr>
-        </InfoTable>
-        <table>
-          <GrunnblankettUforepensjonFortsetter2 {...ubehandlede} />
-          <div>&nbsp;<h4>Trygdetid:</h4></div>
-          <Trygdetid {...ubehandlede} />
-          <tbody /></table>
-      </Column>
-      <Column size={6}>
-        <GrunnblankettUforepensjonFortsetter {...ubehandlede} />
-        <div>&nbsp;<h4>Vernepliktsår:</h4></div>
-        <VernepliktsAar {...ubehandlede} />
-      </Column>
-    </Row>;
+          attforingUfor,
+          navn,
+          bosattNorge,
+          ektefelletillegg,
+          barnetillegg,
+          vilkaarPar8Pkt4Ledd3BokstavA,
+          pensjonsgivendeInntekt,
+          yngsteBarnFodselsaar,
+          yrkesskadetillegg,
+          yrkesmessigAttforing,
+          utdanning,
+          yrke,
+          uforegrad,
+          uforetidspunkt,
+          ungUfor,
+        ...ubehandlede }) => <Row>
+          <Column size={6}>
+            <div>&nbsp;<h4>Uforepensjon:</h4></div>
+            <InfoTable>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.attforingUfor" /></td>
+                <td><FormattedMessage id={`Uforepensjon.attforingUfore.${attforingUfor}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.navn" /></td>
+                <td>{navn}</td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.bosattNorge" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${bosattNorge}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.ektefelletillegg" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelletillegg}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.barnetillegg" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${barnetillegg}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.vilkaarPar8Pkt4Ledd3BokstavA" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${vilkaarPar8Pkt4Ledd3BokstavA}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.pensjonsgivendeInntekt" /></td>
+                <td>{pensjonsgivendeInntekt}</td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.yngsteBarnFodselsaar" /></td>
+                <td>{yngsteBarnFodselsaar}</td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.yrkesskadetillegg" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${yrkesskadetillegg}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.yrkesmessigAttforing" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${yrkesmessigAttforing}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.utdanning" /></td>
+                <td><FormattedMessage id={`Uforepensjon.utdanning.${utdanning}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.yrke" /></td>
+                <td><FormattedMessage id={`kodeverk.yrke.${yrke}`} /></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.uforegrad" /></td>
+                <td>{uforegrad}%</td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.uforetidspunkt" /></td>
+                <td><DsfDate value={uforetidspunkt}><ISO8601 /></DsfDate></td>
+              </tr>
+              <tr>
+                <td><FormattedMessage id="GrunnblankettUforepensjonU3.ungUfor" /></td>
+                <td><FormattedMessage id={`kodeverk.ja.nei.${ungUfor}`} /></td>
+              </tr>
+            </InfoTable>
+            <GrunnblankettUforepensjonFortsetter {...ubehandlede} />
+            <GrunnblankettUforepensjonFortsetter2 {...ubehandlede} />
+            <GrunnblankettUforepensjonFortsetter3 {...ubehandlede} />
+          </Column>
+          <Column size={6}>
+            <div>&nbsp;<h4>EØS:</h4></div>
+            <EOS {...ubehandlede} />
+            <div>&nbsp;<h4>Trygdetid:</h4></div>
+            <Trygdetid {...ubehandlede} />
+            <div>&nbsp;<h4>Vernepliktsår:</h4></div>
+            <VernepliktsAar vernepliktaar={finnVernepliktsAar(ubehandlede)} />
+          </Column>
+        </Row>;
+
 
 GrunnblankettUforepensjonU3.propTypes = {
   attforingUfor: React.PropTypes.string.isRequired,
@@ -491,8 +512,7 @@ GrunnblankettUforepensjonU3.propTypes = {
   yrke: React.PropTypes.number.isRequired,
   uforegrad: React.PropTypes.number.isRequired,
   uforetidspunkt: React.PropTypes.number.isRequired,
-  friinntektDato: React.PropTypes.number.isRequired,
-  virkningsdato: React.PropTypes.number.isRequired,
+  ungUfor: React.PropTypes.string.isRequired,
 };
 
 

@@ -2,6 +2,7 @@ package no.nav.pensjon.dsf.domene.status;
 
 import no.nav.pensjon.presys.utils.ebcdic.annotations.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @UnmappedField(name = "filler", length = 2, start = 28)
@@ -20,7 +21,7 @@ public class YrkesskadeHistorikk {
     @Felt(name="PAAA", length = 2, start = 26) @PackedDecimal(decimals = 2) private String sluttpoengtall;
 
     @SubSegment
-    List<GradsendringInnenforYrkesskadeperioden> gradsendringInnenforYrkesskadeperiodens;
+    private List<GradsendringInnenforYrkesskadeperioden> gradsendringInnenforYrkesskadeperiodens  = new ArrayList<>();
 
     public int getYrkeUforetidspunkt() {
         return yrkeUforetidspunkt;

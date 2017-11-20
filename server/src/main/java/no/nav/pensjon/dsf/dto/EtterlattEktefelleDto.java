@@ -16,7 +16,7 @@ public class EtterlattEktefelleDto extends GrunnblankettDto {
     private int paaAvd;
     private int tpProsent;
     private int forventet;
-    private String stiAMD;
+    private int stiAMD;
     private int stBrutto;
     private String fradrag2G;
 
@@ -132,11 +132,11 @@ public class EtterlattEktefelleDto extends GrunnblankettDto {
         this.forventet = forventet;
     }
 
-    public String getStiAMD() {
+    public int getStiAMD() {
         return stiAMD;
     }
 
-    public void setStiAMD(String stiAMD) {
+    public void setStiAMD(int stiAMD) {
         this.stiAMD = stiAMD;
     }
 
