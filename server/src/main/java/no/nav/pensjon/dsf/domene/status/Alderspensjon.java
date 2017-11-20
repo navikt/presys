@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Samme segment for AFP og Alderspensjon
  */
-@Segment(name = "ALDERSP ", length = 142)
+@Segment(name = "ALDERSP", length = 142)
 @UnmappedField(name = "bt", length = 3, start = 6)
 @UnmappedField(name = "kt", length = 3, start = 9)
 @UnmappedField(name = "et", length = 3, start = 12)

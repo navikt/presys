@@ -5,7 +5,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
-@Segment(name = "OPPHBL1 ", length = 42)
+@Segment(name = "OPPHBL1", length = 42)
 @UnmappedField(name = "filler", length = 2, start = 40)
 public class OPPHBL1 {
 

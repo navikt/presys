@@ -69,7 +69,6 @@
   "Transaksjonshistorikk.spraak.N" : "Nynorsk",
   "Transaksjonshistorikk.spraak.B" : "Bokmål",
   "Transaksjonshistorikk.spraak.E" : "Engelsk",
-  "Transaksjonshistorikk.spraak. " : " ",
   "Transaksjonshistorikk.spraak." : " ",
 
 
@@ -78,7 +77,6 @@
   "StatusSegment.gpRedKode.Y" : "W-samboer har sammenstøtende pensjon",
   "StatusSegment.gpRedKode.Z" : "V/W-samboer har inntekt over 2G",
   "StatusSegment.gpRedKode.X" : "Redusert grunnpensjon pga. samboer 3-2-5 med inntekt eller pensjon",
-  "StatusSegment.gpRedKode. " : " ",
   "StatusSegment.gpRedKode." : " ",
 
   "StatusSegment.Pensjonstype1.A" : "Alderspensjon",
@@ -94,7 +92,6 @@
   "StatusSegment.Pensjonstype1.G" : "Gift (ikke forsørget, ikke pensjon eller annen kode)",
   "StatusSegment.Pensjonstype1.K" : "AFP",
   "StatusSegment.Pensjonstype1." : " ",
-  "StatusSegment.Pensjonstype1. " : " ",
 
   "StatusSegment.Pensjonstype2.E" : "Etterlattepensjon",
   "StatusSegment.Pensjonstype2.A" : "Attføringspenger- dagsatser",
@@ -111,33 +108,29 @@
   "StatusSegment.Pensjonstype2.W" : "Fellesbarn",
   "StatusSegment.Pensjonstype2.Ø" : "Øvrige barn i kullet",
   "StatusSegment.Pensjonstype2." : " ",
-  "StatusSegment.Pensjonstype2. " : " ",
 
   "StatusSegment.Pensjonstype3.K" : "AFP-pensjon i kommunal ordning",
   "StatusSegment.Pensjonstype3.S" : "AFP-pensjon i statlig ordning",
   "StatusSegment.Pensjonstype3.B" : "AFP-pensjon i bank-ordning",
   "StatusSegment.Pensjonstype3.V" : "AFP-pensjon i NAVO-bedrift",
   "StatusSegment.Pensjonstype3.N" : "AFP-pensjon med 0-pensjon uten rett til AFP-tillegg",
-  "StatusSegment.Pensjonstype3. " : " ",
   "StatusSegment.Pensjonstype3." : " ",
   "StatusSegment.Pensjonstype3.U" : "UFØRPENSJON SAMMEN MED BARNEPENSJON",
   "StatusSegment.Pensjonstype3.A" : "Foreløpig uførestønad",
 
   "StatusSegment.statuskodehistorikk.X" : "Det finnes en uførehistorikk",
   "StatusSegment.statuskodehistorikk.O" : "Andre opphørte personer",
-  "StatusSegment.statuskodehistorikk. " : " ",
   "StatusSegment.statuskodehistorikk." : " ",
 
   "StatusSegment.garantertTilleggsPensjonKode.E" : "Personen har rett på en garantert minste tilleggspensjon for den som er født 1923-40 og ufør før 26 år.",
+  "StatusSegment.garantertTilleggsPensjonKode." : " ",
   "StatusSegment.statusKode.S" : "Siste",
   "StatusSegment.statusKode.N" : "Nest siste",
-  "StatusSegment.statusKode. " : " ",
   "StatusSegment.statusKode." : " ",
 
   "StatusSegment.poengtilleggskode.A" : "A",
   "StatusSegment.poengtilleggskode.B" : "B",
   "StatusSegment.poengtilleggskode.C" : "C",
-  "StatusSegment.poengtilleggskode. " : " ",
   "StatusSegment.poengtilleggskode." : " ",
 
   "yrkesskadehistorikk.opphorskode.A" : "Alder/AFP",
@@ -148,11 +141,11 @@
   "yrkesskadehistorikk.opphorskode.F" : "Barnepensjon",
   "yrkesskadehistorikk.opphorskode.G" : "Kompensasjonstillegg til barnepensjon",
   "yrkesskadehistorikk.opphorskode.H" : "Attføringspenger i ventetid",
+  "yrkesskadehistorikk.opphorskode." : " ",
 
   "Tilknytning.forsorgertilleggFor1999.J" : "Det skal regnes inntektsprøvede forsørgingstillegg",
   "Tilknytning.forsorgertilleggFor1999.N" : "Det skal bare regnes garanti",
   "Tilknytning.forsorgertilleggFor1999.D" : "FORSI-segmentet skal erstattes med blanke",
-  "Tilknytning.forsorgertilleggFor1999. " : "Forsørgingstillegg regnes etter reglene før 1.5.1991",
   "Tilknytning.forsorgertilleggFor1999." : "Forsørgingstillegg regnes etter reglene før 1.5.1991",
 
   "Tilknytning.tilknytningskode.A" : "Alderspensjon",
@@ -209,21 +202,18 @@
 
   "Uforepensjon.fravik193.012345678": "Ja",
   "Uforepensjon.fravik193.J": "Ja",
-  "Uforepensjon.fravik193. ": " ",
+  "Uforepensjon.fravik193.": " ",
   "Uforepensjon.attforingUfore.U": "Uførepensjon",
   "Uforepensjon.attforingUfore.A": "Foreløpig uførepensjon",
   "Uforepensjon.attforingUfore.X": "Rehabeliteringspenger",
-  "Uforepensjon.attforingUfore. ": " ",
   "Uforepensjon.attforingUfore.": " ",
 
   "Uforepensjon.utdanning.1" : "Grunnskole/Realskole",
   "Uforepensjon.utdanning.2" : "Videregående skole/Gymnas",
   "Uforepensjon.utdanning.3" : "Ett år eller mer utover videregående skole/gymnasnivå",
-  "Uforepensjon.utdanning. " : " ",
   "Uforepensjon.utdanning." : " ",
   "Uforepensjon.frys.S" : "Start",
   "Uforepensjon.frys.X" : "Opphør",
-  "Uforepensjon.frys. " : " ",
   "Uforepensjon.frys." : " ",
 
 
@@ -398,7 +388,6 @@
 
   "kodeverk.ja.nei.J": "Ja",
   "kodeverk.ja.nei.N": "Nei",
-  "kodeverk.ja.nei. ": " ",
   "kodeverk.ja.nei.": " ",
   "kodeverk.ja.nei.undefined": "Udefinert??? ",
 
@@ -433,7 +422,6 @@
   "kodeverk.opphorsblankett2.F": "Barnepensjon",
   "kodeverk.opphorsblankett2.G": "Kompensasjonstillegg til barnepensjon",
   "kodeverk.opphorsblankett2.H": "Attføringspenger i ventetid",
-  "kodeverk.opphorsblankett2. ": " ",
   "kodeverk.opphorsblankett2.": " ",
 
 
@@ -459,7 +447,6 @@
   "kodeverk.sivilstand.S": "Skilt",
   "kodeverk.sivilstand.W": "Samboer etter § 1-5",
   "kodeverk.sivilstand.V": "Samboer etter § 3-2P – Partner",
-  "kodeverk.sivilstand. ": " ",
   "kodeverk.sivilstand.": " ",
 
   "kodeverk.standardtekst.aarOg": " år og ",
@@ -482,7 +469,6 @@
 
   "EtterlatteBarn.pensjonEtter.M" : "Mor",
   "EtterlatteBarn.pensjonEtter.F" : "Far",
-  "EtterlatteBarn.pensjonEtter. " : " ",
   "EtterlatteBarn.pensjonEtter." : " ",
 
   "EtterlattEktefelle.omsorgAvdBa" : "Omsorg for avdødes barn",

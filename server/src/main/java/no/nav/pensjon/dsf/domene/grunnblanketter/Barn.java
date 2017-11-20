@@ -5,7 +5,7 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
-@Segment(name = "BARN    ", length = 38)
+@Segment(name = "BARN", length = 38)
 @UnmappedField(name = "filler", length = 1, start = 37)
 public class Barn {
     @Felt(name="fnr", length = 6, start = 0)
