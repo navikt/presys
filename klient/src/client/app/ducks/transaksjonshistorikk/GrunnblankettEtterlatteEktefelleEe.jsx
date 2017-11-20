@@ -8,6 +8,10 @@ import { ISO8601 } from 'components/elements/FormattedDate';
 import InfoTable from 'components/elements/InfoTable';
 import VernepliktsAar from './VernepliktsAar';
 
+const finnVernepliktsAar = ({ vernepliktaar1Ektefelle, vernepliktaar2Ektefelle, vernepliktaar3Ektefelle, vernepliktaar4Ektefelle }) =>
+[vernepliktaar1Ektefelle, vernepliktaar2Ektefelle, vernepliktaar3Ektefelle, vernepliktaar4Ektefelle].filter(elementIListe => elementIListe > 0);
+
+
 const GrunnblankettEtterlatteEktefelleEe = ({ bosattNorge,
           forventetArbeidsInntekt,
           forventetArbeidsInntektMellom67Og70,
@@ -25,8 +29,8 @@ const GrunnblankettEtterlatteEktefelleEe = ({ bosattNorge,
           ektefelleInntektOver2G,
           ...ubehandlede }) => <Row>
             <Column size={6}>
+              <div>&nbsp;<h4>Etterlatte ektefelle:</h4></div>
               <InfoTable>
-                <div>&nbsp;<h4>Etterlatte ektefelle:</h4></div>
                 <tr>
                   <td><FormattedMessage id="GrunnblankettEtterlatteEktefelleEe.bosattNorge" /></td>
                   <td><FormattedMessage id={`kodeverk.ja.nei.${bosattNorge}`} /></td>
@@ -94,7 +98,7 @@ const GrunnblankettEtterlatteEktefelleEe = ({ bosattNorge,
             </Column>
             <Column size={6}>
               <div>&nbsp;<h4>Vernepliktsår:</h4></div>
-              <VernepliktsAar {...ubehandlede} />
+              <VernepliktsAar vernepliktaar={finnVernepliktsAar(ubehandlede)} />
             </Column>
           </Row>;
 

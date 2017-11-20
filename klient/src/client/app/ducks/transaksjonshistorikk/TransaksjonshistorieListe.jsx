@@ -78,15 +78,15 @@ class TransaksjonshistorieListe extends Component {
       </Row>
       <Row>
         <Column size={1}>
-          {selectedIndex > 0 ? <Link
-            href={`#${this.urlForTranshist((selectedIndex - 1).toString())}`}
-          > &#8678;nyere</Link> : <span>&#8678;nyere</span>}
-        </Column>
-        <Column size={1}>
           {selectedIndex < transaksjonshistorie.length - 1 ? <Link
             href={`#${
                    this.urlForTranshist((selectedIndex + 1).toString())}`}
-          > eldre&#8680;</Link> : <span>eldre&#8680;</span>}
+          > &#8678;eldre</Link> : <span>&#8678;eldre</span>}
+        </Column>
+        <Column size={1}>
+          {selectedIndex > 0 ? <Link
+            href={`#${this.urlForTranshist((selectedIndex - 1).toString())}`}
+          > nyere&#8680;</Link> : <span>nyere&#8680;</span>}
         </Column>
       </Row>
 
