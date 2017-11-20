@@ -133,14 +133,10 @@
   "StatusSegment.poengtilleggskode.C" : "C",
   "StatusSegment.poengtilleggskode." : " ",
 
-  "yrkesskadehistorikk.opphorskode.A" : "Alder/AFP",
-  "yrkesskadehistorikk.opphorskode.B" : "Uførepensjon",
-  "yrkesskadehistorikk.opphorskode.C" : "Grunnstønad",
-  "yrkesskadehistorikk.opphorskode.D" : "Hjelpestønad",
-  "yrkesskadehistorikk.opphorskode.E" : "Etterlattepensjon/Overgangsstønad",
-  "yrkesskadehistorikk.opphorskode.F" : "Barnepensjon",
-  "yrkesskadehistorikk.opphorskode.G" : "Kompensasjonstillegg til barnepensjon",
-  "yrkesskadehistorikk.opphorskode.H" : "Attføringspenger i ventetid",
+  "yrkesskadehistorikk.opphorskode.A" : "Alder",
+  "yrkesskadehistorikk.opphorskode.D" : "Død",
+  "yrkesskadehistorikk.opphorskode.J" : "Andre årsaker",
+  "yrkesskadehistorikk.opphorskode.O" : "Ble satt av det gamle systemet",
   "yrkesskadehistorikk.opphorskode." : " ",
 
   "Tilknytning.forsorgertilleggFor1999.J" : "Det skal regnes inntektsprøvede forsørgingstillegg",
@@ -161,8 +157,7 @@
   "Tilknytning.tilknytningskode.V" : "Forsørget barn - særkullbarn f.o.m. 1.5.1991",
   "Tilknytning.tilknytningskode.W" : "Forsørget barn - fellesbarn f.o.m. 1.5.1991",
   "Tilknytning.tilknytningskode.Y" : "Yrkesskadepensjon",
-
-
+  "Tilknytning.tilknytningskode." : " ",
 
   "UforeHistorikk.maaned" : "Uføretidspunkt",
   "UforeHistorikk.ufg" : "Uføregrad",
@@ -179,6 +174,7 @@
   "UforeHistorikk.opphorskode.D" : "Død",
   "UforeHistorikk.opphorskode.J" : "Andre årsaker",
   "UforeHistorikk.opphorskode.O" : "Ble satt av det gamle systemet",
+  "UforeHistorikk.opphorskode." : " ",
 
   "Uforegrad.uforegradDato" : "Uføregradsdato",
   "Uforegrad.uforegradOvrige" : "Uføregrad",
@@ -203,6 +199,7 @@
   "Uforepensjon.fravik193.012345678": "Ja",
   "Uforepensjon.fravik193.J": "Ja",
   "Uforepensjon.fravik193.": " ",
+
   "Uforepensjon.attforingUfore.U": "Uførepensjon",
   "Uforepensjon.attforingUfore.A": "Foreløpig uførepensjon",
   "Uforepensjon.attforingUfore.X": "Rehabeliteringspenger",
@@ -408,7 +405,6 @@
   "kodeverk.ja.nei.J": "Ja",
   "kodeverk.ja.nei.N": "Nei",
   "kodeverk.ja.nei.": " ",
-  "kodeverk.ja.nei.undefined": "Udefinert??? ",
 
   "kodeverk.aar": "år",
   "kodeverk.og": "og",
@@ -421,17 +417,7 @@
   "kodeverk.ufKriterier.4": "Løpende yrkesskade-pensjon",
   "kodeverk.ufKriterier.5": "Engangsutløst yrkesskade-pensjon ",
   "kodeverk.ufKriterier.6": "AFP",
-
-  "kodeverk.opphorsdato.A": "Alder/AFP",
-  "kodeverk.opphorsdato.B": "Uførepensjon",
-  "kodeverk.opphorsdato.C": "Grunnstønad",
-  "kodeverk.opphorsdato.D": "Død",
-  "kodeverk.opphorsdato.E": "Etterlattepensjon/Overgangsstønad",
-  "kodeverk.opphorsdato.F": "Barnepensjon",
-  "kodeverk.opphorsdato.G": "Kompensasjonstillegg til barnepensjon",
-  "kodeverk.opphorsdato.H": "Attføringspenger i ventetid",
-  "kodeverk.opphorsdato.I": "Koden PI_66_65 skal blankes",
-  "kodeverk.opphorsdato.J": "Opphørt pga andre årsaker",
+  "kodeverk.ufKriterier.": " ",
 
   "kodeverk.opphorsblankett2.A": "Alder/AFP",
   "kodeverk.opphorsblankett2.B": "Uførepensjon",
@@ -458,6 +444,7 @@
   "kodeverk.bupGarantiKode.C": "Ung ufør som venter, og som ble ufør 20 år gammel",
   "kodeverk.bupGarantiKode.D": "Ung ufør med rett til 3,3 poeng fra 0592",
   "kodeverk.bupGarantiKode.E": "Unge uføre før 1967",
+  "kodeverk.bupGarantiKode.": " ",
 
   "kodeverk.sivilstand.U": "Ugift",
   "kodeverk.sivilstand.G": "Gift",
@@ -755,6 +742,7 @@
   "kodeverk.land.832": "Wallis- og Futuna-øyene /Frankrike/",
   "kodeverk.land.980": "Statsløs",
   "kodeverk.land.990": "Uoppgitt/ukjent",
+  "kodeverk.land.": " ",
 
   "kodeverk.yrke.0": "Intet yrke (vurder først kodene 11-18)",
   "kodeverk.yrke.1": "Arbeider",
@@ -774,6 +762,7 @@
   "kodeverk.yrke.16": "Formelt eller faktisk separert",
   "kodeverk.yrke.17": "Ektefellens inntekt er mindre enn 2G",
   "kodeverk.yrke.18": "Vurdert som utelukkende hjemmearbeidende",
+  "kodeverk.yrke.": " ",
 
   "kodeverk.yrke11.F" : "Fisker/fangstmann",
   "kodeverk.yrke11.M" : "Militærperson",
@@ -781,6 +770,7 @@
   "kodeverk.yrke11.E" : "Elev/student",
   "kodeverk.yrke11.V" : "Elev uten opplæring til bestemt yrke",
   "kodeverk.yrke11.S" : "Selvstendig næringsdrivende",
-  "kodeverk.yrke11.A" : "Annet - vanlige arbeidstaker"
+  "kodeverk.yrke11.A" : "Annet - vanlige arbeidstaker",
+  "kodeverk.yrke11." : " "
 
 }

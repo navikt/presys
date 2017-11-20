@@ -53,7 +53,7 @@ opphorsKode, redusertAntallBupAar, foedselsaarYngsteBarn, virkningsdatoUfrHistor
           <tr key={grad.uforegradDato}>
             <td>{grad.uforegradDato !== 0 ? <DsfDate value={grad.uforegradDato}><MonthInYear /></DsfDate> : '' }</td>
             <td>{grad.uforegradOvrige}</td>
-            <td>{grad.yngsteBarnFoerGrad !== 0 ? <DsfDate value={grad.yngsteBarnFoerGrad}><MonthInYear /></DsfDate> : '' }</td>
+            <td>{grad.yngsteBarnFoerGrad || '' }</td>
           </tr>)}
       </tbody></table>
     </Column>

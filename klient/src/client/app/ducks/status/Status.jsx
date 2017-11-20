@@ -33,7 +33,7 @@ const Status = ({ yrkesskadepensjoner,
                     {renderIfExcist(afpHistorikker, AfpHistorikk)}
                     {renderIfExcist(tilknytninger, Tilknytning)}
                     {renderIfExcist(alderspensjoner, Alderspensjon)}
-                    {renderIfExcist(yrkesskadeHistorikker, YrkesskadeHistorikk)}
+                    {yrkesskadeHistorikker.map(y => <YrkesskadeHistorikk {...y} />)}
                     {renderIfExcist(etterlattEktefeller, EtterlattEktefelle)}
                     {renderIfExcist(etterlattBarn, EtterlattBarn)}
                     {renderIfExcist(eosInfoer, EosInfo)}
