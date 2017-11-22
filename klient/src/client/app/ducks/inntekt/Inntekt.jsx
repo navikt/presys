@@ -14,6 +14,7 @@ export const inntektProptype = {
   kommune: React.PropTypes.string.isRequired,
   personInntektType: React.PropTypes.string.isRequired,
   personInntekt: React.PropTypes.number.isRequired,
+    rapporteringsDato:React.PropTypes.number.isRequired,
 };
 
 Inntekt.propTypes = inntektProptype;
