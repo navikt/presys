@@ -6,7 +6,7 @@
     <parent>
         <groupId>no.nav.pensjon.presys</groupId>
         <artifactId>presys</artifactId>
-        <version>97</version>
+        <version>98-SNAPSHOT</version>
     </parent>
 
     <artifactId>presys-frontend</artifactId>
