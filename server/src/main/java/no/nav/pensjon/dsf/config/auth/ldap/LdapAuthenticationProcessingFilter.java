@@ -26,6 +26,12 @@ public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationPr
     public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, CounterService counterService) {
         super(requiresAuthenticationRequestMatcher);
         this.counterService = counterService;
+
+        counterService.reset("counter.login.attempt");
+        counterService.reset("counter.login.malformed_input");
+        counterService.reset("counter.login.error");
+        counterService.reset("counter.login.success");
+        counterService.reset("counter.login.failed");
     }
 
     @Override

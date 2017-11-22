@@ -23,6 +23,11 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
     public JwtAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, CounterService counterService) {
         super(requiresAuthenticationRequestMatcher);
         this.counterService = counterService;
+
+        counterService.reset("counter.login_jwt.attempt");
+        counterService.reset("counter.login_jwt.malformed_input");
+        counterService.reset("counter.login_jwt.success");
+        counterService.reset("counter.login_jwt.failed");
     }
 
     @Override
