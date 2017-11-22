@@ -72,12 +72,12 @@ class UforeHistorikkListe extends Component {
           {selectedIndex < maanedliste.length - 1 ? <Link
             href={`#${
                    this.urlForHistorikk(maanedliste[selectedIndex + 1].toString())}`}
-          > eldre&#8680;</Link> : <span>eldre&#8680;</span>}
+          > &#8678;eldre</Link> : <span>&#8678;eldre</span>}
         </Column>
         <Column size={1}>
           {selectedIndex > 0 ? <Link
             href={`#${this.urlForHistorikk(maanedliste[selectedIndex - 1].toString())}`}
-          > &#8678;nyere</Link> : <span>&#8678;nyere</span>}
+          > nyere&#8680;</Link> : <span>nyere&#8680;</span>}
         </Column>
       </Row>
       <Row>

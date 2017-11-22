@@ -21,4 +21,8 @@ VernepliktsAar.propTypes = {
   vernepliktaar: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 };
 
+VernepliktsAar.defaultProps = {
+  vernepliktaar: [],
+};
+
 export default VernepliktsAar;
