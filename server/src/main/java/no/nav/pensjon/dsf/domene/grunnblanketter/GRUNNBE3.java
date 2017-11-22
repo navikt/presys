@@ -37,11 +37,11 @@ public class GRUNNBE3 {
     @Felt(name="OVERKOMP_UTL", length = 1, start = 79) private String overkompensasjonUtland;
     @Felt(name="IKKE_GP", length = 1, start = 80) private String skalIkkeBeregnesGrunnpenson;
     @Felt(name="BEREGNING_KONVENSJON", length = 1, start = 81) private String pensjonBeregnesEtterKonvensjonsregler;
-    @Felt(name="TT_KONVENSJON_AAR", length = 2, start = 82) @PackedDecimal private int grunnpensjonBeregnesEtterAnnenSamletTrygdetid;
+    @Felt(name="TT_KONVENSJON_AAR", length = 2, start = 82) @PackedDecimal private int trygdetidKonvensjonsaar;
     @Felt(name="TT_FRAMT_DOD", length = 2, start = 84) @PackedDecimal private int framtidigTrygdetidFraDod;
     @Felt(name="TT_FRA_1937_AAR", length = 2, start = 86) @PackedDecimal private int faktiskTrygdetidAar;
     @Felt(name="TT_FRA_1937_MND", length = 2, start = 88) @PackedDecimal private int faktiskTrygdetidMaaneder;
-    @Felt(name="TT_NORDEN_ANNET", length = 1, start = 90) private String beregnesEtterNordiskKonvensjon;
+    @Felt(name="TT_NORDEN_ANNET", length = 1, start = 90) private String trygdetidIAnnetNordiskLand;
     @Felt(name="VILKAAR_10_5_NR2", length = 1, start = 91) private String vilkaarPar10Pkt5nr2;
     @Felt(name="STI_AAMD", length = 5, start = 92) @PackedDecimal private int medlemFolketrygdenFra;
     @Felt(name="STATSBORGER_EK", length = 2, start = 97) @PackedDecimal private int statsborgerskapEktefelle;
@@ -275,12 +275,12 @@ public class GRUNNBE3 {
         this.pensjonBeregnesEtterKonvensjonsregler = pensjonBeregnesEtterKonvensjonsregler;
     }
 
-    public int getGrunnpensjonBeregnesEtterAnnenSamletTrygdetid() {
-        return grunnpensjonBeregnesEtterAnnenSamletTrygdetid;
+    public int getTrygdetidKonvensjonsaar() {
+        return trygdetidKonvensjonsaar;
     }
 
-    public void setGrunnpensjonBeregnesEtterAnnenSamletTrygdetid(int grunnpensjonBeregnesEtterAnnenSamletTrygdetid) {
-        this.grunnpensjonBeregnesEtterAnnenSamletTrygdetid = grunnpensjonBeregnesEtterAnnenSamletTrygdetid;
+    public void setTrygdetidKonvensjonsaar(int trygdetidKonvensjonsaar) {
+        this.trygdetidKonvensjonsaar = trygdetidKonvensjonsaar;
     }
 
     public int getFramtidigTrygdetidFraDod() {
@@ -307,12 +307,12 @@ public class GRUNNBE3 {
         this.faktiskTrygdetidMaaneder = faktiskTrygdetidMaaneder;
     }
 
-    public String getBeregnesEtterNordiskKonvensjon() {
-        return beregnesEtterNordiskKonvensjon;
+    public String getTrygdetidIAnnetNordiskLand() {
+        return trygdetidIAnnetNordiskLand;
     }
 
-    public void setBeregnesEtterNordiskKonvensjon(String beregnesEtterNordiskKonvensjon) {
-        this.beregnesEtterNordiskKonvensjon = beregnesEtterNordiskKonvensjon;
+    public void setTrygdetidIAnnetNordiskLand(String trygdetidIAnnetNordiskLand) {
+        this.trygdetidIAnnetNordiskLand = trygdetidIAnnetNordiskLand;
     }
 
     public String getVilkaarPar10Pkt5nr2() {
