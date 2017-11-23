@@ -3,6 +3,7 @@ import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 
 import InfoTable from 'components/elements/InfoTable';
+import { FormattedMessage } from 'react-intl';
 
 const GrunnblankettF7 = ({
 arbeidsinntekt,
@@ -17,7 +18,7 @@ pensjonsinntektEktefelle }) => <Row>
       <tr><td>antall forsørgede barn</td><td>{antallBarnetillegg}</td></tr>
       <tr>
         <td>Ektefelletillegg</td>
-        <td><input type="checkbox" checked={ektefelletillegg !== ' '} /></td>
+        <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelletillegg}`} /></td>
       </tr>
       <tr>
         <td>Arbeidsinntekt søker</td>

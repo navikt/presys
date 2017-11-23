@@ -2,6 +2,7 @@ import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
 import InfoTable from 'components/elements/InfoTable';
+import { FormattedMessage } from 'react-intl';
 
 const Barn = ({
 fnr,
@@ -21,7 +22,7 @@ fellesEtter0591 }) => <Row>
       </tr>
       <tr>
         <td>Felles barn</td>
-        <td>{<input type="checkbox" checked={fellesBarn === 'J'} />}</td>
+        <td><FormattedMessage id={`kodeverk.ja.nei.${fellesBarn}`} /></td>
       </tr>
       <tr>
         <td>Felles barn født før mai 1991</td>

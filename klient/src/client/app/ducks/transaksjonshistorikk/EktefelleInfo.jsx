@@ -16,7 +16,7 @@ const EktefelleInfo = ({ ektefelletillegg,
                    <InfoTable>
                      <tr>
                        <td>Ektefelletillegg</td>
-                       <td><input type="checkbox" checked={ektefelletillegg !== ' '} /></td>
+                       <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelletillegg}`} /></td>
                      </tr>
                      <tr>
                        <td>Fødselsnummer ektefelle</td>

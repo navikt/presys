@@ -88,7 +88,7 @@ const Fortsettelse = ({ fodselsnummerEktefelle,
               </tr>
               <tr>
                 <td><FormattedMessage id="GrunnblankettUforepensjonU2.nordiskTrygdetid" /></td>
-                <td>{nordiskTrygdetid !== ' ' ? { nordiskTrygdetid } : ''}</td>
+                <td>{nordiskTrygdetid}</td>
               </tr>
               <tr>
                 <td><FormattedMessage id="GrunnblankettUforepensjonU2.fravikPar8Pkt1LeddNr3" /></td>
