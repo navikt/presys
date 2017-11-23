@@ -15,6 +15,8 @@ import GrunnblankettEtterlatteEktefelle from './GrunnblankettEtterlatteEktefelle
 import GrunnblankettYrkesskadePensjon from './GrunnblankettYrkesskadePensjon';
 import GrunnblankettAlderspensjonA1 from './GrunnblankettAlderspensjonA1';
 import GrunnblankettForsorgertilleggEktefelleBarn from './GrunnblankettForsorgertilleggEktefelleBarn';
+import GrunnblankettEndringsblankettEn from './GrunnblankettEndringsblankettEn';
+
 
 import Barn from './Barn';
 
@@ -30,6 +32,7 @@ const blankettyper = {
   EE: GrunnblankettEtterlatteEktefelleEe,
   E3: GrunnblankettEtterlatteEktefelle,
   FT: GrunnblankettForsorgertilleggEktefelleBarn,
+  EN: GrunnblankettEndringsblankettEn,
 };
 
 
