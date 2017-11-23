@@ -447,6 +447,15 @@
   "GrunnblankettYrkesskadePensjon.fodselsnummerBarn" : "Fødselsnummer barn",
   "GrunnblankettYrkesskadePensjon.fodselsnummerPleiebarn" : "Fødselsnummer pleiebarn",
 
+  "GrunnblankettForsorgertilleggEktefelleBarn.ektefelleTillegg" : "Ektefelletillegg",
+  "GrunnblankettForsorgertilleggEktefelleBarn.bosattUtland" : "Bosatt i utlandet",
+  "GrunnblankettForsorgertilleggEktefelleBarn.trygdetidFor1967Ektefelle" : "Trygdetid før 1967 for ektefelle",
+  "GrunnblankettForsorgertilleggEktefelleBarn.trygdetidEtter1966Ektefelle" : "Trygdetid etter 1966 for ektefelle",
+  "GrunnblankettForsorgertilleggEktefelleBarn.antallBarnetillegg" : "Antall barnetillegg",
+  "GrunnblankettForsorgertilleggEktefelleBarn.fodselsnummerEktefelle" : "Ektefelle fødselsnummer",
+  "GrunnblankettForsorgertilleggEktefelleBarn.navnEktefelle" : "Ektefelles navn",
+  "GrunnblankettForsorgertilleggEktefelleBarn.ektefellesInntektOver4G" : "Ektefelles inntekt over 4G",
+
   "kodeverk.ja.nei.J": "Ja",
   "kodeverk.ja.nei.N": "Nei",
   "kodeverk.ja.nei.": " ",
