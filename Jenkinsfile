@@ -42,7 +42,7 @@ node {
 
         stage("build") {
             dir ("klient") {
-                withEnv(["PATH+NODE=${nodeHome}/bin"]) {
+                withEnv(["PATH+NODE=${nodeHome}/bin", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     sh "npm install"
                 }
             }
