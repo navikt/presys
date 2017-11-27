@@ -30,11 +30,11 @@ public class GrunnblankettEtterlattEktefelleDto extends GrunnblankettDto {
     private String overkompensasjonUtland;
     private String skalIkkeBeregnesGrunnpenson;
     private String pensjonBeregnesEtterKonvensjonsregler;
-    private int grunnpensjonBeregnesEtterAnnenSamletTrygdetid;
+    private int trygdetidKonvensjonsaar;
     private int framtidigTrygdetidFraDod;
     private int faktiskTrygdetidAar;
     private int faktiskTrygdetidMaaneder;
-    private String beregnesEtterNordiskKonvensjon;
+    private String trygdetidIAnnetNordiskLand;
     private String vilkaarPar10Pkt5nr2;
     private int medlemFolketrygdenFra;
     private int statsborgerskapEktefelle;
@@ -268,12 +268,12 @@ public class GrunnblankettEtterlattEktefelleDto extends GrunnblankettDto {
         this.pensjonBeregnesEtterKonvensjonsregler = pensjonBeregnesEtterKonvensjonsregler;
     }
 
-    public int getGrunnpensjonBeregnesEtterAnnenSamletTrygdetid() {
-        return grunnpensjonBeregnesEtterAnnenSamletTrygdetid;
+    public int getTrygdetidKonvensjonsaar() {
+        return trygdetidKonvensjonsaar;
     }
 
-    public void setGrunnpensjonBeregnesEtterAnnenSamletTrygdetid(int grunnpensjonBeregnesEtterAnnenSamletTrygdetid) {
-        this.grunnpensjonBeregnesEtterAnnenSamletTrygdetid = grunnpensjonBeregnesEtterAnnenSamletTrygdetid;
+    public void setTrygdetidKonvensjonsaar(int trygdetidKonvensjonsaar) {
+        this.trygdetidKonvensjonsaar = trygdetidKonvensjonsaar;
     }
 
     public int getFramtidigTrygdetidFraDod() {
@@ -300,12 +300,12 @@ public class GrunnblankettEtterlattEktefelleDto extends GrunnblankettDto {
         this.faktiskTrygdetidMaaneder = faktiskTrygdetidMaaneder;
     }
 
-    public String getBeregnesEtterNordiskKonvensjon() {
-        return beregnesEtterNordiskKonvensjon;
+    public String getTrygdetidIAnnetNordiskLand() {
+        return trygdetidIAnnetNordiskLand;
     }
 
-    public void setBeregnesEtterNordiskKonvensjon(String beregnesEtterNordiskKonvensjon) {
-        this.beregnesEtterNordiskKonvensjon = beregnesEtterNordiskKonvensjon;
+    public void setTrygdetidIAnnetNordiskLand(String trygdetidIAnnetNordiskLand) {
+        this.trygdetidIAnnetNordiskLand = trygdetidIAnnetNordiskLand;
     }
 
     public String getVilkaarPar10Pkt5nr2() {
