@@ -451,6 +451,17 @@
   "GrunnblankettBarnepensjonEnForeldreDod.dodAvYrkesskade" : "Død av yrkesskade",
   "GrunnblankettBarnepensjonEnForeldreDod.pleiebarn" : "Pleiebarn",
 
+  "GrunnblankettBarnepensjonEnForeldreDodB6.beregnesEtterRedusertTrygdetid" : "Beregnes etter redusert trygdetid",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.redusertTrygdetid" : "Redusert trygdetid",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.konvensjon" : "Konvensjon",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.pensjonstrygdet" : "Pensjonstrygdet",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.minst20Aar" : "Minst 20 år",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.fodselsnummerAvdod" : "Avdødes fødselsnummer",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.navnAvdod" : "Avdødes navn",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.dodsdato" : "Dødsdato",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.vilkaarPar8Pkt4Ledd3BokstavA" : "Vilkår §8-4 bokstav a",
+  "GrunnblankettBarnepensjonEnForeldreDodB6.pensjonsgivendeInntektAvdod" : "Avdødes pensjonsgivende inntekt",
+
   "GrunnblankettYrkesskadePensjon.vilkaarPar1Pkt2Ledd2BokstavA" : "Vilkår §1-2A",
   "GrunnblankettYrkesskadePensjon.vilkaarPar1Pkt2Ledd2BokstavB" : "Vilkår §1-2B",
   "GrunnblankettYrkesskadePensjon.yrkesskadetidspunkt" : "Yrkesskadetidspunkt",
@@ -731,6 +742,8 @@
   "kodeverk.grunnblankettType.FO": "FORSØRGINGSTILLEGG EKTEFELLE OG/ELLER BARN",
   "kodeverk.grunnblankettType.EP": "GRUNNBLANKETT ETTERLATTE EKTEFELLE",
   "kodeverk.grunnblankettType.BP": "FOLKETRYGDEN - GRUNNBLANKETT ETTERLATTE BARN. EN AV FORELDRENE ER DØD",
+  "kodeverk.grunnblankettType.B6": "FOLKETRYGDEN - GRUNNBLANKETT ETTERLATTE BARN. EN AV FORELDRENE ER DØD",
+
 
 
   "kodeverk.land.0": "Norge",
