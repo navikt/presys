@@ -13,6 +13,7 @@ const GrunnblankettBarnepensjonEnForeldreDod = ({ fodselsnummerAvdod,
               dodAvYrkesskade,
               pleiebarn }) => <Row>
                 <Column size={6}>
+                  <div>&nbsp;<h4>Barnepensjon en foreldre død:</h4></div>
                   <InfoTable>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettBarnepensjonEnForeldreDod.fodselsnummerAvdod" /></td>
