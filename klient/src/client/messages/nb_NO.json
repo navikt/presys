@@ -635,6 +635,26 @@
   "GrunnblankettEtterlattEktefelleEp.overgangsstonadPensjonKode.P" : "Pensjon",
   "GrunnblankettEtterlattEktefelleEp.overgangsstonadPensjonKode." : " ",
 
+  "GrunnblankettEtterlattFamiliepleieE4.norskBosatt" : "Bosatt i Norge",
+  "GrunnblankettEtterlattFamiliepleieE4.forventetInntekt" : "Forventet inntekt",
+  "GrunnblankettEtterlattFamiliepleieE4.overgangsstonadPensjonKode" : "Overgangsstønad eller pensjon",
+  "GrunnblankettEtterlattFamiliepleieE4.framleggsdato" : "Framleggsdato",
+  "GrunnblankettEtterlattFamiliepleieE4.framleggskode" : "Framleggskode",
+  "GrunnblankettEtterlattFamiliepleieE4.statsborgerskap" : "Statsborger i",
+  "GrunnblankettEtterlattFamiliepleieE4.bosattLand" : "Bosatt land",
+  "GrunnblankettEtterlattFamiliepleieE4.pensjonstrygdet" : "Pensjonstrygdet",
+  "GrunnblankettEtterlattFamiliepleieE4.minst20Aar" : "Minst 20 år",
+  "GrunnblankettEtterlattFamiliepleieE4.fravikKonvensjon" : "Fravik konvensjon",
+  "GrunnblankettEtterlattFamiliepleieE4.erFlyktning" : "Flyktning?",
+  "GrunnblankettEtterlattFamiliepleieE4.trygdetidFra1937" : "trygdetid fra 1937",
+  "GrunnblankettEtterlattFamiliepleieE4.trygdettidNordenAnnet" : "Trygdettid i annet nordisk land?",
+  "GrunnblankettEtterlattFamiliepleieE4.beregningKonvensjon" : "Beregning konvensjon",
+  "GrunnblankettEtterlattFamiliepleieE4.trygdetidKonvensjon" : "Trygdetid konvensjon",
+  "GrunnblankettEtterlattFamiliepleieE4.reduksjonGrunnpensjonPar3Pkt2Ledd5" : "Reduksjon av grunnpensjon etter §3-2 5",
+
+  "GrunnblankettEtterlattFamiliepleieE4.overgangsstonadPensjonKode.O" : "Overgangsstønad",
+  "GrunnblankettEtterlattFamiliepleieE4.overgangsstonadPensjonKode.P" : "Pensjon",
+
 
   "kodeverk.ja.nei.J": "Ja",
   "kodeverk.ja.nei.N": "Nei",
@@ -760,6 +780,8 @@
   "kodeverk.grunnblankettType.EP": "GRUNNBLANKETT ETTERLATTE EKTEFELLE",
   "kodeverk.grunnblankettType.BP": "FOLKETRYGDEN - GRUNNBLANKETT ETTERLATTE BARN. EN AV FORELDRENE ER DØD",
   "kodeverk.grunnblankettType.B6": "FOLKETRYGDEN - GRUNNBLANKETT ETTERLATTE BARN. EN AV FORELDRENE ER DØD",
+  "kodeverk.grunnblankettType.E4": "FOLKETRYGDEN - GRUNNBLANKETT ETTERLATT FAMILIEPLEIER",
+
 
 
 

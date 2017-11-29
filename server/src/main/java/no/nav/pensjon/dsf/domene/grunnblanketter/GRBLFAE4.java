@@ -12,7 +12,7 @@ public class GRBLFAE4 {
     @Felt(name ="NORSK_BOSATT", length = 1, start = 0) private String norskBosatt;
     @Felt(name ="FORVENTET_INNT", length = 3, start = 1) @PackedDecimal private int forventetInntekt;
     @Felt(name ="GP_OS_KODE", length = 1, start = 4) private String overgangsstonadPensjonKode;
-    @Felt(name ="FRAMLEGGSDATO_AAMD", length = 5, start = 5) @PackedDecimal private int grunnpensjon;
+    @Felt(name ="FRAMLEGGSDATO_AAMD", length = 5, start = 5) @PackedDecimal private int framleggsdato;
     @Felt(name ="FRAMLEGGSKODE", length = 1, start = 10) private String framleggskode;
     @Felt(name ="STATSBORGER", length = 2, start = 11) @PackedDecimal private int statsborgerskap;
     @Felt(name ="BOSATT", length = 2, start = 13) @PackedDecimal private int bosattLand;
@@ -51,12 +51,12 @@ public class GRBLFAE4 {
         this.overgangsstonadPensjonKode = overgangsstonadPensjonKode;
     }
 
-    public int getGrunnpensjon() {
-        return grunnpensjon;
+    public int getFramleggsdato() {
+        return framleggsdato;
     }
 
-    public void setGrunnpensjon(int grunnpensjon) {
-        this.grunnpensjon = grunnpensjon;
+    public void setFramleggsdato(int framleggsdato) {
+        this.framleggsdato = framleggsdato;
     }
 
     public String getFramleggskode() {

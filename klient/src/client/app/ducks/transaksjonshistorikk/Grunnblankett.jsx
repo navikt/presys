@@ -23,6 +23,7 @@ import GrunnblankettEtterlattEktefelleEp from './GrunnblankettEtterlattEktefelle
 import GrunnblankettBarnepensjonEnForeldreDod from './GrunnblankettBarnepensjonEnForeldreDod';
 import GrunnblankettBarnepensjonEnForeldreDodB6 from './GrunnblankettBarnepensjonEnForeldreDodB6';
 import GrunnblankettAvtalefestetPensjon from './GrunnblankettAvtalefestetPensjon';
+import GrunnblankettEtterlattFamiliepleieE4 from './GrunnblankettEtterlattFamiliepleieE4';
 
 
 import Barn from './Barn';
@@ -47,6 +48,7 @@ const blankettyper = {
   BP: GrunnblankettBarnepensjonEnForeldreDod,
   B6: GrunnblankettBarnepensjonEnForeldreDodB6,
   AF: GrunnblankettAvtalefestetPensjon,
+  E4: GrunnblankettEtterlattFamiliepleieE4,
 };
 
 
