@@ -81,8 +81,8 @@ const Trygdetid = ({ trygdetidProRataMaaneder,
                    trygdetidNordiskFramtidigNetto,
                    trygdetidFaktiskNorskMaaneder }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>Trygdetid:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>Trygdetid:</h4></div>
                          <tr>
                            <td>Trygdetid pro rata i måneder</td>
                            <td>{trygdetidProRataMaaneder}</td>
@@ -139,8 +139,8 @@ const Nordisk = ({ nordiskKonvensjon,
                    sluttpoengtallNordiskArtikkel15,
                    overkompensasjonNordiskArtikkel15 }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>Nordisk:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>Nordisk:</h4></div>
                          <tr>
                            <td>Nordisk konvensjon</td>
                            <td>{nordiskKonvensjon}</td>
@@ -200,8 +200,8 @@ const EosInfo = ({ beregnFolketrygd,
                    pensjonsaarEosFaktisk,
                    proRata21967Til2014, ...ubehandlede }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>EØS informasjon:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>EØS informasjon:</h4></div>
                          <tr>
                            <td>Beregnet folketrygd</td>
                            <td>{beregnFolketrygd}</td>

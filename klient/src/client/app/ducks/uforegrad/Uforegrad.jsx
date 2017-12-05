@@ -10,9 +10,9 @@ const Uforegrad = ({ uforegradDato,
              uforegradOvrige,
              yngsteBarnFoerGrad,
              virkningsdatoUforegrad }) => <Row>
+             <div>&nbsp;<h4>Uføregrad:</h4></div>
                <Column size={6}>
                  <InfoTable>
-                 <div>&nbsp;<h4>Uføregrad:</h4></div>
                    <tr>
                      <td>Uføregradsdato</td>
                      <td><DsfDate value={uforegradDato}><ISO8601 /></DsfDate></td>
