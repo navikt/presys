@@ -23,7 +23,7 @@ const Alternativ = ({ alternativGrunnpensjon,
                            <td>{alternativGrunnpensjon}</td>
                          </tr>
                          <tr>
-                           <td>Alternativ sætillegg</td>
+                           <td>Alternativ særtillegg</td>
                            <td>{alternativSaertillegg}</td>
                          </tr>
                          <tr>
@@ -47,11 +47,11 @@ const Alternativ = ({ alternativGrunnpensjon,
                            <td>{alternativtSaertilleggBrutto}</td>
                          </tr>
                          <tr>
-                           <td>Alternetiv grunnpensjon brutto</td>
+                           <td>Alternativ grunnpensjon brutto</td>
                            <td>{alternetivGrunnpensjonBrutto}</td>
                          </tr>
                          <tr>
-                           <td>Alternetiv tjenestepensjon brutto</td>
+                           <td>Alternativ tjenestepensjon brutto</td>
                            <td>{alternetivTjenestepensjonBrutto}</td>
                          </tr>
                        </InfoTable>
@@ -158,11 +158,11 @@ const Nordisk = ({ nordiskKonvensjon,
                            <td>{pensjonsAarNordiskFramtidigNetto}</td>
                          </tr>
                          <tr>
-                           <td>Nordisk sluttpoengtall artikke l15</td>
+                           <td>Nordisk sluttpoengtall artikkel 15</td>
                            <td><FormattedNumber value={sluttpoengtallNordiskArtikkel15} /></td>
                          </tr>
                          <tr>
-                           <td>Nordisk overkompensasjon artikke l15</td>
+                           <td>Nordisk overkompensasjon artikkel 15</td>
                            <td>{overkompensasjonNordiskArtikkel15}</td>
                          </tr>
                        </InfoTable>

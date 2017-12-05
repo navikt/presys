@@ -305,7 +305,7 @@
   "GrunnblankettUforepensjonU3.ektefelleInntektOver2G" : "Har ektefelle inntekt over 2G",
   "GrunnblankettUforepensjonU3.garantiTilleggspensjon" : "Garanti tilleggspensjon",
   "GrunnblankettUforepensjonU3.frysp5AarArbeid" : "Frysperiode 5 år arbeid",
-  "GrunnblankettUforepensjonU3.fryspTidsb" : "Frysperiode tidsberegnet",
+  "GrunnblankettUforepensjonU3.fryspTidsb" : "Frysperiode tidsbegrenset",
   "GrunnblankettUforepensjonU3.poengaarIEOSIkkeMedIProrata" : "Poengår i EØS som ikke er med i pro rata",
   "GrunnblankettUforepensjonU3.reduksjonGrunnpensjonEtterPar3Pkt2Ledd5" : "Reduksjon i  grunnpensjon etter §3-2-5",
   "GrunnblankettUforepensjonU3.eosOpplysning" : "EØS-opplysninger",
@@ -321,7 +321,7 @@
   "GrunnblankettUforepensjonU3.pensjonstrygdet" : "Pensjonstrygdet",
   "GrunnblankettUforepensjonU3.minst20Aar" : "Minst 20 års botid",
   "GrunnblankettUforepensjonU3.folgerKonvensjonMedAndreLand" : "Følger konvensjon med andre land",
-  "GrunnblankettUforepensjonU3.konvensjonsLand" : "Konvensjons land",
+  "GrunnblankettUforepensjonU3.konvensjonsLand" : "Konvensjonsland",
   "GrunnblankettUforepensjonU3.fravikBosattEOS" : "Fravik bosatt EØS",
   "GrunnblankettUforepensjonU3.fravikPar8Pkt1" : "Fravik 8-1",
   "GrunnblankettUforepensjonU3.ungUfor" : "Ung ufør",
@@ -330,7 +330,7 @@
   "GrunnblankettUforepensjonU3.fravikpar19Pkt3" : "Fravik §19-3",
 
 
-  "GrunnblankettUforepensjonU2.attforingUfor" : "Attføring ufør",
+  "GrunnblankettUforepensjonU2.attforingUfor" : "Attføring/ufør",
   "GrunnblankettUforepensjonU2.ektefelleTillegg" : "Ektefelletillegg",
   "GrunnblankettUforepensjonU2.bosattNorge" : "Bosatt i Norge",
   "GrunnblankettUforepensjonU2.antaBarnMedBarnetillegg" : "Antall barn med barnetillegg",
@@ -755,7 +755,7 @@
   "Opphorsblankett1.ektefelleNavn" : "Ektefelles navn",
   "Opphorsblankett1.avdodesPensjonsgivendeInntekt" : "Avdødes pensjonsgivende inntekt",
 
-  "Opphorsblankett2.stoppet" : "Er ektefelletillegget stoppe",
+  "Opphorsblankett2.stoppet" : "Er ektefelletillegget stoppet",
   "Opphorsblankett2.opphorskode" : "Opphørt ytelse",
 
   "kodeverk.bupGarantiKode.A": "Ung ufør som venter på rett til 3,3 pensjonspoeng",

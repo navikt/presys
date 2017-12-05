@@ -19,10 +19,10 @@ const UforePensjon = ({ uforegrad,
                poengAar,
                poengAarEtter91 }) => <Row>
                  <Column size={6}>
-                   <div>&nbsp;<h4>Uforepensjon:</h4></div>
+                   <div>&nbsp;<h4>Uførepensjon:</h4></div>
                    <InfoTable>
                      <tr>
-                       <td>Uforegrad</td>
+                       <td>Uføregrad</td>
                        <td>{uforegrad}</td>
                      </tr>
                      <tr>

@@ -68,7 +68,7 @@ const Grunnblankett = ({ type, barn, grunnees, grunnbyp, ...rest }) => {
       </InfoTable>
     </Column>
   </Row>)}</div>
-    {barn.length > 0 ? <div>&nbsp;<h3>Barn:</h3></div> : null}
+    {barn.length > 0 ? <div>&nbsp;<h4>Barn:</h4></div> : null}
     {barn.map(b => <Barn key={b.fnr} {...b} />)}
     {grunnees.length > 0 ? <div>&nbsp;<h3>Etterlatte:</h3></div> : null}
     {grunnees.map(b => <GrunnblankettEtterlatteEktefelleEeS {...b} />)}

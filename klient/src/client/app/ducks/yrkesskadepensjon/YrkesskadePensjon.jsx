@@ -20,7 +20,7 @@ const YrkesskadePensjon = ({ gjeldendeYrkesgrad,
                   <div>&nbsp;<h4>Yrkesskadepensjon:</h4></div>
                   <InfoTable>
                     <tr>
-                      <td>Gjendende yrkesgrad</td>
+                      <td>Gjeldende yrkesgrad</td>
                       <td>{gjeldendeYrkesgrad}</td>
                     </tr>
                     <tr>
@@ -48,7 +48,7 @@ const YrkesskadePensjon = ({ gjeldendeYrkesgrad,
                       <td>{tilleggspensjon}</td>
                     </tr>
                     <tr>
-                      <td>Yrkeskadepoengtall</td>
+                      <td>Yrkesskadepoengtall</td>
                       <td>{yrkeskadepoengtall}</td>
                     </tr>
                     <tr>
