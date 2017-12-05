@@ -47,7 +47,9 @@ public class InntektDto {
     }
 
     public String getKommune() {
-        return kommune;
+        if(kommune.length()>4) {
+            return kommune.substring(1, 5);
+        } else return kommune;
     }
 
     public void setKommune(String kommune) {

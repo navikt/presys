@@ -3,19 +3,19 @@ import Table from 'components/elements/Table';
 
 const EtteroppgjorAfpListe = ({ etteroppgjor }) => <Table
   headerTextCodes={['Inntekt.Aar',
-    'PGI',
+    'Inntekt.Pensjonsgivende',
     'AFP.Inntekt_pre_Uttak',
     'AFP.IFU.fraDsfInfotrygd',
     'AFP.Inntekt_etter_opphor',
     'AFP.IEO.fraDsfInfotrygd',
     'AFP.Inntekt_i_perioden',
     'AFP.Infotrygd.Beregnet_eller_registrert',
-    'Oppgitt framtidig inntekt',
-    'Tidligere inntekt',
-    '100% AFP i avregningsperioden',
-    'Faktisk utbetalt',
-    'Differanse for mye utbetalt',
-    'Differanse for lite utbealt']}
+    'AFP.OppgittFramtidigInntekt',
+    'AFP.TidligereInntekt',
+    'AFP.100ProsentAFPIAvregningsperioden',
+    'AFP.FaktiskUtbetalt',
+    'AFP.DifferanseForMyeUtbetalt',
+    'AFP.DifferanseForLiteUtbealt']}
   data={etteroppgjor.map(row => ({ key: row.inntektsAar,
     columns: [
           { key: 'a', value: row.inntektsAar },

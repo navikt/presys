@@ -59,6 +59,12 @@
   "AFP.Inntekt_etter_opphor":"Inntekt etter opphør",
   "AFP.Inntekt_i_perioden":"Inntekt i AFP Perioden",
   "AFP.Infotrygd.Beregnet_eller_registrert":"Beregnet eller reg via Infotrygd",
+  "AFP.OppgittFramtidigInntekt" : "Oppgitt framtidig inntekt",
+  "AFP.TidligereInntekt" : "Tidligere inntekt",
+  "AFP.100ProsentAFPIAvregningsperioden" : "100% AFP i avregningsperioden",
+  "AFP.FaktiskUtbetalt" : "Faktisk utbetalt",
+  "AFP.DifferanseForMyeUtbetalt" : "Differanse for mye utbetalt",
+  "AFP.DifferanseForLiteUtbealt" : "Differanse for lite utbetalt",
 
   "Transaksjonshistorikk.virkningsdato" : "Virkningsdato:",
   "Transaksjonshistorikk.registreringsdato" : "Registreringsdato:",
