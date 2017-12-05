@@ -2,15 +2,15 @@ package no.nav.pensjon.dsf.dto;
 
 public class GrunnblankettUngUforFor1967Dto extends GrunnblankettDto {
 
-    private String uforedato;
+    private int uforedato;
     private String fil;
 
-    public String getUforedato() {
+    public int getUforedato() {
         return uforedato;
     }
 
     public void setUforedato(String uforedato) {
-        this.uforedato = uforedato;
+        this.uforedato = Integer.parseInt(uforedato);
     }
 
     public String getFil() {
