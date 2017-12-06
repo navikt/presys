@@ -61,7 +61,7 @@ node {
 
             dir ("server") {
                 sh "/usr/local/bin/nais validate"
-                sh "docker build -t docker.adeo.no:5000/${application}:${releaseVersion} ."
+                sh "docker build --pull -t docker.adeo.no:5000/${application}:${releaseVersion} ."
             }
         }
 
