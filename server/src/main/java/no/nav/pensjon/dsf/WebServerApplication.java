@@ -35,7 +35,9 @@ public class WebServerApplication {
 
     @EventListener
     public void onApplicationStartup(ApplicationReadyEvent event) {
-        startupStopWatch.stop();
+        if (startupStopWatch.isRunning()) {
+            startupStopWatch.stop();
+        }
 
         new StartupInfoExports( ManagementFactory.getRuntimeMXBean().getUptime() / 1000.0, startupStopWatch.getTotalTimeSeconds()).register();
     }
