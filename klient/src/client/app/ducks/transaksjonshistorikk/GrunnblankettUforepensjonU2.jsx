@@ -146,7 +146,7 @@ const GrunnblankettUforepensjonU2 = ({
     yrke,
     ...ubehandlede }) => <Row>
       <Column size={4}>
-        <div>&nbsp;<h3>Uforepensjon:</h3></div>
+        <div>&nbsp;<h3>Uførepensjon:</h3></div>
         <InfoTable>
           <tr>
             <td><FormattedMessage id="GrunnblankettUforepensjonU2.attforingUfor" /></td>

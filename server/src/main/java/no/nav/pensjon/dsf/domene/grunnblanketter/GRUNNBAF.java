@@ -27,7 +27,7 @@ public class GRUNNBAF {
     @Felt(name="OVERKOMP_UTL", length = 1, start = 60) private String overkompensasjonUtland;
     @Felt(name="AFP_TILLEGG_KODE ", length = 1, start = 61) private String afpTilleggskode;
     @Felt(name="AFP_ORDNING ", length = 1, start = 62) private String afpOrdning;
-    @Felt(name="PI", length = 3, start = 63) private String pensjonsinntekt;
+    @Felt(name="PI", length = 3, start = 63) private int pensjonsinntekt;
 
     public String getEktefelleTillegg() {
         return ektefelleTillegg;
@@ -157,11 +157,11 @@ public class GRUNNBAF {
         this.afpOrdning = afpOrdning;
     }
 
-    public String getPensjonsinntekt() {
+    public int getPensjonsinntekt() {
         return pensjonsinntekt;
     }
 
-    public void setPensjonsinntekt(String pensjonsinntekt) {
+    public void setPensjonsinntekt(int pensjonsinntekt) {
         this.pensjonsinntekt = pensjonsinntekt;
     }
 }

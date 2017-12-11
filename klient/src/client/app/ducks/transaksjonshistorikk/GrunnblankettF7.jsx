@@ -14,8 +14,11 @@ ektefelletillegg,
 pensjonsinntekt,
 pensjonsinntektEktefelle }) => <Row>
   <Column size={6}>
+    <div>&nbsp;<h4>Forørgingstillegg ektefelle/barn:</h4></div>
     <InfoTable>
-      <tr><td>antall forsørgede barn</td><td>{antallBarnetillegg}</td></tr>
+      <tr>
+        <td>Antall forsørgede barn</td>
+        <td>{antallBarnetillegg}</td></tr>
       <tr>
         <td>Ektefelletillegg</td>
         <td><FormattedMessage id={`kodeverk.ja.nei.${ektefelletillegg}`} /></td>
@@ -40,6 +43,7 @@ pensjonsinntektEktefelle }) => <Row>
     </InfoTable>
   </Column>
   <Column size={6}>
+    <div>&nbsp;<h4>Ektefelle:</h4></div>
     <InfoTable>
       <tr>
         <td>Ektefelle:</td>

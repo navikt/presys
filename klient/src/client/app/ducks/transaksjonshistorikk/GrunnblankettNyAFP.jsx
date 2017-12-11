@@ -29,7 +29,7 @@ const GrunnblankettNyAFP = ({ norskBosatt,
                   <td><FormattedMessage id={`kodeverk.ja.nei.${norskBosatt}`} /></td>
                 </tr>
                 <tr>
-                  <td><FormattedMessage id="GrunnblankettNyAFP.trygdetidAar" /></td>
+                  <td><FormattedMessage id="GrunnblankettNyAFP.trygdetid" /></td>
                   <td>{trygdetidAar}<FormattedMessage id="kodeverk.standardtekst.aarOg" />
                     {trygdetidMaaneder}<FormattedMessage id="kodeverk.standardtekst.maaneder" /></td>
                 </tr>

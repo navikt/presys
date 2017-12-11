@@ -23,7 +23,7 @@ const Alternativ = ({ alternativGrunnpensjon,
                            <td>{alternativGrunnpensjon}</td>
                          </tr>
                          <tr>
-                           <td>Alternativ sætillegg</td>
+                           <td>Alternativ særtillegg</td>
                            <td>{alternativSaertillegg}</td>
                          </tr>
                          <tr>
@@ -47,11 +47,11 @@ const Alternativ = ({ alternativGrunnpensjon,
                            <td>{alternativtSaertilleggBrutto}</td>
                          </tr>
                          <tr>
-                           <td>Alternetiv grunnpensjon brutto</td>
+                           <td>Alternativ grunnpensjon brutto</td>
                            <td>{alternetivGrunnpensjonBrutto}</td>
                          </tr>
                          <tr>
-                           <td>Alternetiv tjenestepensjon brutto</td>
+                           <td>Alternativ tjenestepensjon brutto</td>
                            <td>{alternetivTjenestepensjonBrutto}</td>
                          </tr>
                        </InfoTable>
@@ -81,8 +81,8 @@ const Trygdetid = ({ trygdetidProRataMaaneder,
                    trygdetidNordiskFramtidigNetto,
                    trygdetidFaktiskNorskMaaneder }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>Trygdetid:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>Trygdetid:</h4></div>
                          <tr>
                            <td>Trygdetid pro rata i måneder</td>
                            <td>{trygdetidProRataMaaneder}</td>
@@ -139,8 +139,8 @@ const Nordisk = ({ nordiskKonvensjon,
                    sluttpoengtallNordiskArtikkel15,
                    overkompensasjonNordiskArtikkel15 }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>Nordisk:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>Nordisk:</h4></div>
                          <tr>
                            <td>Nordisk konvensjon</td>
                            <td>{nordiskKonvensjon}</td>
@@ -158,11 +158,11 @@ const Nordisk = ({ nordiskKonvensjon,
                            <td>{pensjonsAarNordiskFramtidigNetto}</td>
                          </tr>
                          <tr>
-                           <td>Nordisk sluttpoengtall artikke l15</td>
+                           <td>Nordisk sluttpoengtall artikkel 15</td>
                            <td><FormattedNumber value={sluttpoengtallNordiskArtikkel15} /></td>
                          </tr>
                          <tr>
-                           <td>Nordisk overkompensasjon artikke l15</td>
+                           <td>Nordisk overkompensasjon artikkel 15</td>
                            <td>{overkompensasjonNordiskArtikkel15}</td>
                          </tr>
                        </InfoTable>
@@ -200,8 +200,8 @@ const EosInfo = ({ beregnFolketrygd,
                    pensjonsaarEosFaktisk,
                    proRata21967Til2014, ...ubehandlede }) => <Row>
                      <Column size={6}>
+                       <div>&nbsp;<h4>EØS informasjon:</h4></div>
                        <InfoTable>
-                         <div>&nbsp;<h4>EØS informasjon:</h4></div>
                          <tr>
                            <td>Beregnet folketrygd</td>
                            <td>{beregnFolketrygd}</td>

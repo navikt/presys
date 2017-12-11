@@ -18,6 +18,15 @@ import GrunnblankettForsorgertilleggEktefelleBarn from './GrunnblankettForsorger
 import GrunnblankettEndringsblankettEn from './GrunnblankettEndringsblankettEn';
 import GrunnblankettNyAFP from './GrunnblankettNyAFP';
 import GrunnblankettEndringsblankett from './GrunnblankettEndringsblankett';
+import GrunnblankettForsorgertilleggEktefelleOgEllerBarn from './GrunnblankettForsorgertilleggEktefelleOgEllerBarn';
+import GrunnblankettEtterlattEktefelleEp from './GrunnblankettEtterlattEktefelleEp';
+import GrunnblankettBarnepensjonEnForeldreDod from './GrunnblankettBarnepensjonEnForeldreDod';
+import GrunnblankettBarnepensjonEnForeldreDodB6 from './GrunnblankettBarnepensjonEnForeldreDodB6';
+import GrunnblankettAvtalefestetPensjon from './GrunnblankettAvtalefestetPensjon';
+import GrunnblankettEtterlattFamiliepleieE4 from './GrunnblankettEtterlattFamiliepleieE4';
+import GrunnblankettUngUforFor1967 from './GrunnblankettUngUforFor1967';
+import GrunnblankettForeldreloseBarn from './GrunnblankettForeldreloseBarn';
+import GrunnblankettEtterlattFamiliepleie from './GrunnblankettEtterlattFamiliepleie';
 
 
 import Barn from './Barn';
@@ -37,6 +46,15 @@ const blankettyper = {
   EN: GrunnblankettEndringsblankettEn,
   KF: GrunnblankettNyAFP,
   E1: GrunnblankettEndringsblankett,
+  FO: GrunnblankettForsorgertilleggEktefelleOgEllerBarn,
+  EP: GrunnblankettEtterlattEktefelleEp,
+  BP: GrunnblankettBarnepensjonEnForeldreDod,
+  B6: GrunnblankettBarnepensjonEnForeldreDodB6,
+  AF: GrunnblankettAvtalefestetPensjon,
+  E4: GrunnblankettEtterlattFamiliepleieE4,
+  UF: GrunnblankettUngUforFor1967,
+  FB: GrunnblankettForeldreloseBarn,
+  EF: GrunnblankettEtterlattFamiliepleie,
 };
 
 
@@ -50,7 +68,7 @@ const Grunnblankett = ({ type, barn, grunnees, grunnbyp, ...rest }) => {
       </InfoTable>
     </Column>
   </Row>)}</div>
-    {barn.length > 0 ? <div>&nbsp;<h3>Barn:</h3></div> : null}
+    {barn.length > 0 ? <div>&nbsp;<h4>Barn:</h4></div> : null}
     {barn.map(b => <Barn key={b.fnr} {...b} />)}
     {grunnees.length > 0 ? <div>&nbsp;<h3>Etterlatte:</h3></div> : null}
     {grunnees.map(b => <GrunnblankettEtterlatteEktefelleEeS {...b} />)}

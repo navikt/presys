@@ -2,33 +2,33 @@ package no.nav.pensjon.dsf.dto;
 
 public class GrunnblankettEndringsblankettDto extends GrunnblankettDto {
 
-    private int framtidigArbeidsinntekt;
-    private String hoyestePensjonsgrad;
-    private int alderspensjonsdelIProsent;
-    private int uforegrad;
-    private int forventetInntekt;
-    private String overgangsstonadTilPensjon;
-    private int tilleggspensjonForGjenlevendePensjonIProsent;
-    private int framleggsdato;
-    private String opphortOvergangsstonadGjennlevende;
-    private String nyttNavnPensjonist;
-    private String nyttNavnEps;
-    private String fodselsnummerEktefelle;
-    private String navnEktefelle;
-    private String skilsmisse;
-    private String flyttetFraHverandre;
-    private String flyttetSammen;
-    private String inntektMinst4G;
-    private String inntektUnder4G;
-    private int yrkeUforegrad;
+        private int framtidigArbeidsinntekt;
+        private String hoyestePensjonsgrad;
+        private int alderspensjonsdelIProsent;
+        private int uforegrad;
+        private int forventetInntekt;
+        private String overgangsstonadTilPensjon;
+        private int tilleggspensjonForGjenlevendePensjonIProsent;
+        private int framleggsdato;
+        private String opphortOvergangsstonadGjennlevende;
+        private String nyttNavnPensjonist;
+        private String nyttNavnEps;
+        private String fodselsnummerEktefelle;
+        private String navnEktefelle;
+        private String skilsmisse;
+        private String flyttetFraHverandre;
+        private String flyttetSammen;
+        private String inntektMinst4G;
+        private String inntektUnder4G;
+        private int yrkeUforegrad;
 
     public int getFramtidigArbeidsinntekt() {
         return framtidigArbeidsinntekt;
     }
 
     public void setFramtidigArbeidsinntekt(int framtidigArbeidsinntekt) {
-        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt;
-    }
+        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt*100;
+    }//ligger 1/100 i ebcdic-filen
 
     public String getHoyestePensjonsgrad() {
         return hoyestePensjonsgrad;

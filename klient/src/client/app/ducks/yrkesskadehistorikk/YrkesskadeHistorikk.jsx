@@ -23,7 +23,7 @@ const YrkesskadeHistorikk = ({ yrkeUforetidspunkt,
                    <div>&nbsp;<h4>Yrkesskadehistorikk:</h4></div>
                    <InfoTable>
                      <tr>
-                       <td>Yrkesuforetidspunkt</td>
+                       <td>Yrkesuføretidspunkt</td>
                        <td><DsfDate value={yrkeUforetidspunkt}><ISO8601 /></DsfDate></td>
                      </tr>
                      <tr>

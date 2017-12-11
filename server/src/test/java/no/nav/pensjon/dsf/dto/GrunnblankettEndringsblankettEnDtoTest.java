@@ -74,7 +74,7 @@ public class GrunnblankettEndringsblankettEnDtoTest {
 
     @Test
     public void thatENBLAN1IsMappedCorrectlyToDto() {
-        assertEquals(model.getFramtidigArbeidsinntekt(), dto.getFramtidigArbeidsinntekt());
+        assertEquals(model.getFramtidigArbeidsinntekt()*100, dto.getFramtidigArbeidsinntekt());
         assertEquals(model.getUforegrad(), dto.getUforegrad());
         assertEquals(model.getForventetInntekt() *100, dto.getForventetInntekt());
         assertEquals(model.getFraOvergangsstonadTilPensjon(), dto.getFraOvergangsstonadTilPensjon());
@@ -119,7 +119,7 @@ public class GrunnblankettEndringsblankettEnDtoTest {
     @Test
     public void thatGrunnblankettEndringsblankettEnDtoIsMappedCorrectlyToJson() {
         Map<String, Object> expected = new HashMap<>();
-        expected.put("framtidigArbeidsinntekt", 1010);
+        expected.put("framtidigArbeidsinntekt", 101000);
         expected.put("uforegrad", 1111);
         expected.put("forventetInntekt", 121200);
         expected.put("fraOvergangsstonadTilPensjon", "??");

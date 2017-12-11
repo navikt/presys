@@ -5,7 +5,7 @@ public class GrunnblankettEtterlattFamiliepleieE4Dto extends GrunnblankettDto {
     private String norskBosatt;
     private int forventetInntekt;
     private String overgangsstonadPensjonKode;
-    private int grunnpensjon; /* 5 -> 9 */
+    private int framleggsdato;
     private String framleggskode;
     private int statsborgerskap;
     private int bosattLand;
@@ -44,12 +44,12 @@ public class GrunnblankettEtterlattFamiliepleieE4Dto extends GrunnblankettDto {
         this.overgangsstonadPensjonKode = overgangsstonadPensjonKode;
     }
 
-    public int getGrunnpensjon() {
-        return grunnpensjon;
+    public int getFramleggsdato() {
+        return framleggsdato;
     }
 
-    public void setGrunnpensjon(int grunnpensjon) {
-        this.grunnpensjon = grunnpensjon;
+    public void setFramleggsdato(int framleggsdato) {
+        this.framleggsdato = framleggsdato;
     }
 
     public String getFramleggskode() {

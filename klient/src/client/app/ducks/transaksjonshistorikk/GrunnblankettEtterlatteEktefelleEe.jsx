@@ -97,7 +97,7 @@ const GrunnblankettEtterlatteEktefelleEe = ({ bosattNorge,
               </InfoTable>
             </Column>
             <Column size={6}>
-              <div>&nbsp;<h4>Vernepliktsår:</h4></div>
+              <div>&nbsp;<h4>Vernepliktsår ektefelle:</h4></div>
               <VernepliktsAar vernepliktaar={finnVernepliktsAar(ubehandlede)} />
             </Column>
           </Row>;

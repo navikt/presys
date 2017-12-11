@@ -18,7 +18,7 @@ public class GrunnblankettAvtalefestetPensjonDto extends GrunnblankettDto {
     private String overkompensasjonUtland;
     private String afpTilleggskode;
     private String afpOrdning;
-    private String pensjonsinntekt;
+    private int pensjonsinntekt;
 
     public String getEktefelleTillegg() {
         return ektefelleTillegg;
@@ -148,11 +148,11 @@ public class GrunnblankettAvtalefestetPensjonDto extends GrunnblankettDto {
         this.afpOrdning = afpOrdning;
     }
 
-    public String getPensjonsinntekt() {
+    public int getPensjonsinntekt() {
         return pensjonsinntekt;
     }
 
-    public void setPensjonsinntekt(String pensjonsinntekt) {
+    public void setPensjonsinntekt(int pensjonsinntekt) {
         this.pensjonsinntekt = pensjonsinntekt;
     }
 }

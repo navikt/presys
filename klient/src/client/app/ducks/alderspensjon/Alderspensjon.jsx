@@ -12,8 +12,8 @@ const Alderspensjon = ({ grunnpensjon,
             overkompensasjonPoengtall,
             poengaar }) => <Row>
               <Column size={6}>
+                <div>&nbsp;<h4>Alderspensjon:</h4></div>
                 <InfoTable>
-                  <div>&nbsp;<h4>Alderspensjon:</h4></div>
                   <tr>
                     <td>Grunnpensjon</td>
                     <td>{grunnpensjon}</td>
