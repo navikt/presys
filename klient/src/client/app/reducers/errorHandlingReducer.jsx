@@ -1,8 +1,13 @@
 import * as types from 'constants/actionTypes';
 
 function extractErrorMessage(data) {
-  if (data.response && data.response.data && data.response.data.entity) {
-    return data.response.data.entity;
+  if (data.response && data.response.data) {
+    if (data.response.data.message) {
+      return `errorcode.${data.response.data.message}`;
+    }
+    if (data.response.data.entity) {
+      return data.response.data.entity;
+    }
   }
   if (data.message) {
     return data.message;
