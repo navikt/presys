@@ -18,7 +18,7 @@ prometheus:
   enabled: true
 resources:
   limits:
-    cpu: 250m
+    cpu: 1000m
     memory: 384Mi
   requests:
     cpu: 100m
@@ -31,7 +31,16 @@ fasitResources:
     resourceType: ldap
   - alias: presysDB
     resourceType: datasource
+    propertyMap:
+      url: SPRING_DATASOURCE_URL
+      username: SPRING_DATASOURCE_USERNAME
+      password: SPRING_DATASOURCE_PASSWORD
   - alias: srvpresys
     resourceType: credential
+    propertyMap:
+      username: ABAC_USERNAME
+      password: ABAC_PASSWORD
   - alias: abac.pdp.endpoint
     resourceType: restservice
+    propertyMap:
+      url: ABAC_URL
