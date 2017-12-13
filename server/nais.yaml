@@ -18,7 +18,7 @@ prometheus:
   enabled: true
 resources:
   limits:
-    cpu: 250m
+    cpu: 1000m
     memory: 384Mi
   requests:
     cpu: 100m
