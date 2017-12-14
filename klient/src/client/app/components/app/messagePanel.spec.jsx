@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-
 import MessagePanel from './MessagePanel';
 
 describe('<MessagePanel>', () => {
@@ -10,8 +9,8 @@ describe('<MessagePanel>', () => {
       errorMessage="Error!"
     />);
 
-    const div = wrapper.find('div');
+    const div = wrapper.find('FormattedMessage');
     expect(div).to.have.length(1);
-    expect(div.text()).to.eql('Error!');
+    expect(div.props().id).to.equal('Error!');
   });
 });
