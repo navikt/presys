@@ -526,7 +526,9 @@ public class GrunnblankettUforepensjonDto extends GrunnblankettDto {
     }
 
     public int getTilleggspensjonsland() {
-        return tilleggspensjonsland;
+        if(tilleggspensjonsland == 0)
+            return 999; //viser blank i stede for Norge
+        else return tilleggspensjonsland;
     }
 
     public void setTilleggspensjonsland(int tilleggspensjonsland) {
