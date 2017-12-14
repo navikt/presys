@@ -34,7 +34,7 @@ public class GrunnblankettEtterlattEktefelleEeDto extends GrunnblankettDto {
     }
 
     public void setForventetArbeidsInntekt(int forventetArbeidsInntekt) {
-        this.forventetArbeidsInntekt = forventetArbeidsInntekt;
+        this.forventetArbeidsInntekt = forventetArbeidsInntekt *100;
     }
 
     public int getForventetArbeidsInntektMellom67Og70() {
