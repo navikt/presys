@@ -5,6 +5,8 @@ import no.nav.pensjon.presys.utils.ebcdic.annotations.PackedDecimal;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.Segment;
 import no.nav.pensjon.presys.utils.ebcdic.annotations.UnmappedField;
 
+import java.math.BigDecimal;
+
 @UnmappedField(name="PAA_ETTER91", length = 2, start = 28)
 @UnmappedField(name="YRKE_POENG_1291", length = 2, start = 30)
 @UnmappedField(name="FILLER", length = 6, start = 32)
@@ -18,8 +20,8 @@ public class Yrkesskadepensjon {
     @Felt(name="BT", length = 3, start = 11) @PackedDecimal private int barnetillegg;
     @Felt(name="GARANTI_YRKEGRAD", length = 3, start = 14) @PackedDecimal private int garantiYrkegrad;
     @Felt(name="TP", length = 3, start = 17) @PackedDecimal private int tilleggspensjon;
-    @Felt(name="YPT", length = 2, start = 20) @PackedDecimal(decimals = 2) private String yrkeskadepoengtall;
-    @Felt(name="SPT", length = 2, start = 22) @PackedDecimal(decimals = 2) private String sluttpoengtall;
+    @Felt(name="YPT", length = 2, start = 20) @PackedDecimal(decimals = 2) private BigDecimal yrkeskadepoengtall;
+    @Felt(name="SPT", length = 2, start = 22) @PackedDecimal(decimals = 2) private BigDecimal sluttpoengtall;
     @Felt(name="PAA", length = 2, start = 24) @PackedDecimal private int antallPoengaar;
     @Felt(name="YPT_KODE", length = 1, start = 26) private String poengberegningsalternativ;
     @Felt(name="YSYKDOM", length = 1, start = 27) private String yrkessykdom;
@@ -80,19 +82,19 @@ public class Yrkesskadepensjon {
         this.tilleggspensjon = tilleggspensjon;
     }
 
-    public String getYrkeskadepoengtall() {
+    public BigDecimal getYrkeskadepoengtall() {
         return yrkeskadepoengtall;
     }
 
-    public void setYrkeskadepoengtall(String yrkeskadepoengtall) {
+    public void setYrkeskadepoengtall(BigDecimal yrkeskadepoengtall) {
         this.yrkeskadepoengtall = yrkeskadepoengtall;
     }
 
-    public String getSluttpoengtall() {
+    public BigDecimal getSluttpoengtall() {
         return sluttpoengtall;
     }
 
-    public void setSluttpoengtall(String sluttpoengtall) {
+    public void setSluttpoengtall(BigDecimal sluttpoengtall) {
         this.sluttpoengtall = sluttpoengtall;
     }
 

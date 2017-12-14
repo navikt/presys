@@ -1,5 +1,7 @@
 package no.nav.pensjon.dsf.dto;
 
+import java.math.BigDecimal;
+
 public class YrkesskadepensjonDto {
 
     private int gjeldendeYrkesgrad;
@@ -9,8 +11,8 @@ public class YrkesskadepensjonDto {
     private int barnetillegg;
     private int garantiYrkegrad;
     private int tilleggspensjon;
-    private String yrkeskadepoengtall;
-    private String sluttpoengtall;
+    private BigDecimal yrkeskadepoengtall;
+    private BigDecimal sluttpoengtall;
     private int antallPoengaar;
     private String poengberegningsalternativ;
     private String yrkessykdom;
@@ -71,19 +73,19 @@ public class YrkesskadepensjonDto {
         this.tilleggspensjon = tilleggspensjon;
     }
 
-    public String getYrkeskadepoengtall() {
+    public BigDecimal getYrkeskadepoengtall() {
         return yrkeskadepoengtall;
     }
 
-    public void setYrkeskadepoengtall(String yrkeskadepoengtall) {
+    public void setYrkeskadepoengtall(BigDecimal yrkeskadepoengtall) {
         this.yrkeskadepoengtall = yrkeskadepoengtall;
     }
 
-    public String getSluttpoengtall() {
+    public BigDecimal getSluttpoengtall() {
         return sluttpoengtall;
     }
 
-    public void setSluttpoengtall(String sluttpoengtall) {
+    public void setSluttpoengtall(BigDecimal sluttpoengtall) {
         this.sluttpoengtall = sluttpoengtall;
     }
 

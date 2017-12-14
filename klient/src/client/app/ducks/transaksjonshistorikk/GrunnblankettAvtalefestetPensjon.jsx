@@ -65,7 +65,7 @@ const GrunnblankettAvtalefestetPensjon = ({ ektefelleTillegg,
                     </tr>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettAvtalefestetPensjon.alderspensjonsdel" /></td>
-                      <td>{alderspensjonsdel}</td>
+                      <td>{alderspensjonsdel}%</td>
                     </tr>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettAvtalefestetPensjon.fodselsnummerEktefelle" /></td>

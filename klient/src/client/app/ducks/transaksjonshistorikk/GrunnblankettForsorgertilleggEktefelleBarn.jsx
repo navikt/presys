@@ -60,7 +60,7 @@ GrunnblankettForsorgertilleggEktefelleBarn.propTypes = {
   trygdetidEtter1966EktefelleAar: React.PropTypes.number.isRequired,
   trygdetidEtter1966EktefelleMaaneder: React.PropTypes.number.isRequired,
   antallBarnetillegg: React.PropTypes.number.isRequired,
-  fodselsnummerEktefelle: React.PropTypes.number.isRequired,
+  fodselsnummerEktefelle: React.PropTypes.string.isRequired,
   navnEktefelle: React.PropTypes.string.isRequired,
   ektefellesInntektOver4G: React.PropTypes.string.isRequired,
 };

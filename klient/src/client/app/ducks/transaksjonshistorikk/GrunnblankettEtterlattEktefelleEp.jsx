@@ -31,7 +31,7 @@ const EtterlattEktefelleFortsetter2 = ({
         <InfoTable>
           <tr>
             <td><FormattedMessage id="GrunnblankettEtterlattEktefelleEp.trygdetidVentUtland" /></td>
-            <td>{trygdetidVentUtland}</td>
+            <td>{trygdetidVentUtland}<FormattedMessage id="kodeverk.standardtekst.aar" /></td>
           </tr>
           <tr>
             <td><FormattedMessage id="GrunnblankettEtterlattEktefelleEp.ikkeGrunnpensjon" /></td>
