@@ -1,14 +1,12 @@
 package no.nav.pensjon.dsf.web;
 
+import no.nav.pensjon.dsf.WebServerApplication;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 @ActiveProfiles("test")
+@Import(WebServerApplication.class)
 public class WebServerApplicationTests {
 
 	@Test

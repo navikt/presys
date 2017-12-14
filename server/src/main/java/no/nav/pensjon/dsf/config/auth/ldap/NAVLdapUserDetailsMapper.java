@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
-class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
+public class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
 
     @Override
     public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
