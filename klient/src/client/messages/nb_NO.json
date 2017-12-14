@@ -727,11 +727,11 @@
   "kodeverk.og": "og",
   "kodeverk.maaneder": "måneder",
 
-  "kodeverk.AFP.S": "Stat",
-  "kodeverk.AFP.K": "Kommunal",
-  "kodeverk.AFP.B": "Bank/Finans",
+  "kodeverk.AFP.S": "AFP i statlig sektor",
+  "kodeverk.AFP.K": "Kommunal sektor",
+  "kodeverk.AFP.B": "Bank/Finans sektor",
   "kodeverk.AFP.N": "NAVO",
-  "kodeverk.AFP.LO": "LO/NHO",
+  "kodeverk.AFP.L": "LO/NHO ordningen",
   "kodeverk.AFP.": " ",
 
   "kodeverk.ufKriterier.0": " ",
