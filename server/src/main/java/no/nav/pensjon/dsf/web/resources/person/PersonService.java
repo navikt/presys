@@ -1,7 +1,6 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
 import no.nav.abac.xacml.NavAttributter;
-import no.nav.pensjon.dsf.config.auth.abac.PresysAttributes;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
@@ -126,7 +125,6 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.STATUS + "')")
     public List<StatusDto> hentStatus(String fnr) {
         auditlog(fnr, "Hentet statuser for person");
         return repo.findPerson(fnr).getStatus().stream()
@@ -134,7 +132,6 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.STATUS + "')")
     public StatusDto hentSisteStatus(String fnr) {
         auditlog(fnr, "Hentet den siste statusen for person");
         return repo.findPerson(fnr).getStatus().stream()
@@ -144,7 +141,6 @@ public class PersonService {
                 .orElseThrow(ResourceNotFound::new);
     }
 
-    @PreAuthorize("hasPermission(#fnr, '" + PresysAttributes.UFOREHISTORIKK + "')")
     public List<UforeHistorikkDto> hentUforehistorikk(String fnr) {
         /* finn siste status og returner uførehistorikken knyttet til denne */
         auditlog(fnr, "Henter uførehistorikken for siste status for person");
