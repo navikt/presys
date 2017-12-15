@@ -162,7 +162,7 @@ const Nordisk = ({ nordiskKonvensjon,
                            <td><FormattedNumber value={sluttpoengtallNordiskArtikkel15} /></td>
                          </tr>
                          <tr>
-                           <td>Nordisk overkompensasjon artikkel 15</td>
+                           <td>Nordisk sluttpoengtall artikkel 15 med overkompensasjon</td>
                            <td>{overkompensasjonNordiskArtikkel15}</td>
                          </tr>
                        </InfoTable>
