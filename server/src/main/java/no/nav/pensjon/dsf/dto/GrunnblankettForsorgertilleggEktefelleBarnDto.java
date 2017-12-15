@@ -8,7 +8,7 @@ public class GrunnblankettForsorgertilleggEktefelleBarnDto extends Grunnblankett
     private int  trygdetidEtter1966EktefelleAar;
     private int  trygdetidEtter1966EktefelleMaaneder;
     private int  antallBarnetillegg;
-    private int  fodselsnummerEktefelle;
+    private String fodselsnummerEktefelle;
     private String navnEktefelle;
     private String ektefellesInntektOver4G;
 
@@ -60,11 +60,11 @@ public class GrunnblankettForsorgertilleggEktefelleBarnDto extends Grunnblankett
         this.antallBarnetillegg = antallBarnetillegg;
     }
 
-    public int getFodselsnummerEktefelle() {
+    public String getFodselsnummerEktefelle() {
         return fodselsnummerEktefelle;
     }
 
-    public void setFodselsnummerEktefelle(int fodselsnummerEktefelle) {
+    public void setFodselsnummerEktefelle(String fodselsnummerEktefelle) {
         this.fodselsnummerEktefelle = fodselsnummerEktefelle;
     }
 

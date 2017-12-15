@@ -219,7 +219,10 @@
   "Uforepensjon.frys.S" : "Start",
   "Uforepensjon.frys.X" : "Opphør",
   "Uforepensjon.frys." : " ",
-
+  "YrkesskadePensjon.poengberegningsalternativ.Y": "Yrke 11",
+  "YrkesskadePensjon.poengberegningsalternativ.A": "Antatt årlig arbeidsinntekt",
+  "YrkesskadePensjon.poengberegningsalternativ.V": "Vanlig",
+  "YrkesskadePensjon.poengberegningsalternativ.U": "Kapittel 8",
 
   "GrunnblankettAlderspensjonA1.statsborgerskap" : "Statsborger i",
   "GrunnblankettAlderspensjonA1.bosattNorge" : "Bosatt i Norge?",
@@ -525,7 +528,7 @@
 
   "GrunnblankettEndringsblankett.framtidigArbeidsinntekt" : "Framtidig arbeidsinntekt",
   "GrunnblankettEndringsblankett.hoyestePensjonsgrad" : "Høyeste pensjonsgrad",
-  "GrunnblankettEndringsblankett.alderspensjonsdelIProsent" : " Alderspensjonsprosent ",
+  "GrunnblankettEndringsblankett.alderspensjonsdelIProsent" : " Pensjonsgrad ",
   "GrunnblankettEndringsblankett.uforegrad" : "Uføregrad",
   "GrunnblankettEndringsblankett.forventetInntekt" : " Forventet inntekt ",
   "GrunnblankettEndringsblankett.overgangsstonadTilPensjon" : "Overgangsstønad til pensjon",
@@ -724,11 +727,11 @@
   "kodeverk.og": "og",
   "kodeverk.maaneder": "måneder",
 
-  "kodeverk.AFP.S": "Stat",
-  "kodeverk.AFP.K": "Kommunal",
-  "kodeverk.AFP.B": "Bank/Finans",
+  "kodeverk.AFP.S": "AFP i statlig sektor",
+  "kodeverk.AFP.K": "Kommunal sektor",
+  "kodeverk.AFP.B": "Bank/Finans sektor",
   "kodeverk.AFP.N": "NAVO",
-  "kodeverk.AFP.LO": "LO/NHO",
+  "kodeverk.AFP.L": "LO/NHO ordningen",
   "kodeverk.AFP.": " ",
 
   "kodeverk.ufKriterier.0": " ",

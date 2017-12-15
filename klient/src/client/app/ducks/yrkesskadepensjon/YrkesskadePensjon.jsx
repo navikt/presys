@@ -1,6 +1,7 @@
 import React from 'react';
 import Row from 'components/elements/Row';
 import Column from 'components/elements/Column';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import InfoTable from 'components/elements/InfoTable';
 
@@ -49,11 +50,11 @@ const YrkesskadePensjon = ({ gjeldendeYrkesgrad,
                     </tr>
                     <tr>
                       <td>Yrkesskadepoengtall</td>
-                      <td>{yrkeskadepoengtall}</td>
+                      <td><FormattedNumber value={yrkeskadepoengtall} /></td>
                     </tr>
                     <tr>
                       <td>Sluttpoengtall</td>
-                      <td>{sluttpoengtall}</td>
+                      <td><FormattedNumber value={sluttpoengtall} /></td>
                     </tr>
                     <tr>
                       <td>Antall poengår</td>
@@ -61,7 +62,7 @@ const YrkesskadePensjon = ({ gjeldendeYrkesgrad,
                     </tr>
                     <tr>
                       <td>Poengberegningsalternativ</td>
-                      <td>{poengberegningsalternativ}</td>
+                      <td><FormattedMessage id={`YrkesskadePensjon.poengberegningsalternativ.${poengberegningsalternativ}`} /></td>
                     </tr>
                     <tr>
                       <td>Yrkessykdom</td>
@@ -79,8 +80,8 @@ YrkesskadePensjon.propTypes = {
   barnetillegg: React.PropTypes.number.isRequired,
   garantiYrkegrad: React.PropTypes.number.isRequired,
   tilleggspensjon: React.PropTypes.number.isRequired,
-  yrkeskadepoengtall: React.PropTypes.string.isRequired,
-  sluttpoengtall: React.PropTypes.string.isRequired,
+  yrkeskadepoengtall: React.PropTypes.number.isRequired,
+  sluttpoengtall: React.PropTypes.number.isRequired,
   antallPoengaar: React.PropTypes.number.isRequired,
   poengberegningsalternativ: React.PropTypes.string.isRequired,
   yrkessykdom: React.PropTypes.string.isRequired,

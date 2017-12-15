@@ -112,7 +112,7 @@ const Trygdetid = ({ trygdetidProRataMaaneder,
                            <td>{trygdetidNordiskFramtidigNetto}</td>
                          </tr>
                          <tr>
-                           <td>Faktisk norsk trygdetid i måneder</td>
+                           <td>Faktisk nordisk trygdetid for beregning etter art 13/art 10/art 9</td>
                            <td>{trygdetidFaktiskNorskMaaneder}</td>
                          </tr>
                        </InfoTable>
@@ -146,7 +146,7 @@ const Nordisk = ({ nordiskKonvensjon,
                            <td>{nordiskKonvensjon}</td>
                          </tr>
                          <tr>
-                           <td>Faktisk nordisk pensjonsår</td>
+                           <td>Faktiske nordiske poengår for beregning etter art 15/art 10/art 9</td>
                            <td>{pensjonsAarNordiskFaktisk}</td>
                          </tr>
                          <tr>
