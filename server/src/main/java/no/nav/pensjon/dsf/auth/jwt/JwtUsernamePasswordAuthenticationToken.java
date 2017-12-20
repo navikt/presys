@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.auth.jwt;
+package no.nav.pensjon.dsf.auth.jwt;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 

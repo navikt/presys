@@ -1,6 +1,6 @@
-package no.nav.pensjon.dsf.config.auth.ldap;
+package no.nav.pensjon.dsf.auth.ldap;
 
-import no.nav.pensjon.dsf.config.auth.PresysUser;
+import no.nav.pensjon.dsf.auth.PresysUser;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

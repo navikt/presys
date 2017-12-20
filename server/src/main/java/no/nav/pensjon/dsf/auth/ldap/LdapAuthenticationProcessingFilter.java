@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.auth.ldap;
+package no.nav.pensjon.dsf.auth.ldap;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.auth.abac;
+package no.nav.pensjon.dsf.auth.abac;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
