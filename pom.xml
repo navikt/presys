@@ -17,7 +17,6 @@
     <modules>
         <module>klient</module>
 		<module>server</module>
-        <module>appconfig</module>
     </modules>
 
     <!-- BEGIN: Specific to mapping unit tests and covered code -->
