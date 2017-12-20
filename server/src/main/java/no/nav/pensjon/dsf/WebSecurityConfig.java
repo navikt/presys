@@ -7,6 +7,7 @@ import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationProcessingFilter;
 import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationSuccessHandler;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -70,8 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                     .expressionHandler(expressionHandler)
-                    .antMatchers("/api/person/{fnr}").access("harTilgangTilPerson(#fnr)")
-                    .anyRequest().denyAll().and()
+                    .antMatchers("/", "public/**", "/api/internal/**", "/metrics").permitAll()
+                    .antMatchers("/api/person/{fnr}").access("harTilgangTilPerson(#fnr)").and()
                 .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
