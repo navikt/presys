@@ -1,13 +1,12 @@
 package no.nav.pensjon.dsf;
 
+import no.nav.pensjon.dsf.auth.abac.AbacSecurityExpressionHandler;
 import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProcessingFilter;
 import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProvider;
 import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationProcessingFilter;
 import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationSuccessHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -22,17 +21,25 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private ActiveDirectoryLdapAuthenticationProvider ldapProvider;
 
-    @Autowired
     private JwtAuthenticationProvider jwtProvider;
 
-    @Autowired
     private LdapAuthenticationSuccessHandler ldapSuccessHandler;
 
-    @Autowired
     private CounterService counterService;
+
+    private AbacSecurityExpressionHandler expressionHandler;
+
+    public WebSecurityConfig(ActiveDirectoryLdapAuthenticationProvider ldapProvider, JwtAuthenticationProvider jwtProvider,
+                             LdapAuthenticationSuccessHandler ldapSuccessHandler, AbacSecurityExpressionHandler expressionHandler,
+                             CounterService counterService) {
+        this.ldapProvider = ldapProvider;
+        this.jwtProvider = jwtProvider;
+        this.ldapSuccessHandler = ldapSuccessHandler;
+        this.expressionHandler = expressionHandler;
+        this.counterService = counterService;
+    }
 
     private LdapAuthenticationProcessingFilter ldapAuthenticationProcessingFilter() throws Exception {
         LdapAuthenticationProcessingFilter filter = new LdapAuthenticationProcessingFilter(
@@ -62,7 +69,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.GET, "/", "/public/**").permitAll().and()
+                    .expressionHandler(expressionHandler)
+                    .antMatchers("/api/person/{fnr}").access("harTilgangTilPerson(#fnr)")
+                    .anyRequest().denyAll().and()
                 .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -75,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/internal/**", "/metrics");
+        web.ignoring().antMatchers("/", "public/**", "/api/internal/**", "/metrics");
 
     }
 }

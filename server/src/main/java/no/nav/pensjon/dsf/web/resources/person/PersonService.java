@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
-import no.nav.abac.xacml.NavAttributter;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
@@ -11,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -20,7 +18,6 @@ import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @Service
-@PreAuthorize("hasPermission(#fnr, '" + NavAttributter.RESOURCE_FELLES_PERSON + "')")
 public class PersonService {
 
     private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
