@@ -11,7 +11,8 @@
 	<logger name="org.eclipse.jetty" level="WARN" />
 	<logger name="javax.management" level="WARN" />
 	<logger name="org.apache.tomcat.jdbc" level="WARN" />
-    
+	<logger name="sun.net.www" level="WARN" />
+
     <!-- don't log AUDITLOG to stdout until nais can handle audit logs -->
     <logger name="AUDITLOG" additvity="false" />
 
