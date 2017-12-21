@@ -1,0 +1,46 @@
+dn: dc=test,dc=local
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: test
+
+dn: ou=groups,dc=test,dc=local
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: ou=people,dc=test,dc=local
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: uid=ben,ou=people,dc=test,dc=local
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+uid: ben
+cn: Ben Alex
+sn: Alex
+givenName: Ben
+mail: ben@alex.com
+userPassword: benspassword
+
+dn: uid=bob,ou=people,dc=test,dc=local
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+uid: bob
+cn: Bob Hamilton
+sn: Hamilton
+givenName: Bob
+mail: bob@hamilton.com
+userPassword: bobspassword
+
+dn: cn=0000-ga-pensjon_saksbehandler,ou=groups,dc=test,dc=local
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: 0000-ga-pensjon_saksbehandler
+ou: 0000-ga-pensjon_saksbehandler
+uniqueMember: uid=bob,ou=people,dc=test,dc=local

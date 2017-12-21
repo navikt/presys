@@ -1,8 +1,10 @@
 package no.nav.pensjon.dsf.auth.ldap;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.ldap.authentication.AbstractLdapAuthenticationProvider;
 import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 
@@ -25,7 +27,13 @@ public class LdapConfiguration {
     private final Basedn serviceuser = new Basedn();
 
     @Bean
-    public ActiveDirectoryLdapAuthenticationProvider ldapAuthenticationProvider(UserDetailsContextMapper contextMapper) {
+    public UserDetailsContextMapper userDetailsContextMapper() {
+        return new NAVLdapUserDetailsMapper();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public AbstractLdapAuthenticationProvider activeDirectoryAuthenticationProvider(UserDetailsContextMapper contextMapper) {
         ActiveDirectoryLdapAuthenticationProvider provider = new ActiveDirectoryLdapAuthenticationProvider(
                 domain, url, basedn
         );

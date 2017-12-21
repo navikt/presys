@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-@Component
 class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
 
     @Override

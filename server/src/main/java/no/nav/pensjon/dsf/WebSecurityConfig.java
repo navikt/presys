@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
+import org.springframework.security.ldap.authentication.AbstractLdapAuthenticationProvider;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -20,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private ActiveDirectoryLdapAuthenticationProvider ldapProvider;
+    private AbstractLdapAuthenticationProvider ldapProvider;
 
     private JwtAuthenticationProvider jwtProvider;
 
@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private AbacSecurityExpressionHandler expressionHandler;
 
-    public WebSecurityConfig(ActiveDirectoryLdapAuthenticationProvider ldapProvider, JwtAuthenticationProvider jwtProvider,
+    public WebSecurityConfig(AbstractLdapAuthenticationProvider ldapProvider, JwtAuthenticationProvider jwtProvider,
                              LdapAuthenticationSuccessHandler ldapSuccessHandler, AbacSecurityExpressionHandler expressionHandler,
                              CounterService counterService) {
         this.ldapProvider = ldapProvider;
