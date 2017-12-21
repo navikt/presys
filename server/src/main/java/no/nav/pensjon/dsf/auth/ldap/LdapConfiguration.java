@@ -65,36 +65,3 @@ public class LdapConfiguration {
         }
     }
 }
-
-/*
-    "user.basedn": "ou=NAV,ou=BusinessUnits,dc=preprod,dc=local",
-    "serviceuser.basedn": "ou=ServiceAccounts,dc=preprod,dc=local",
-    "domain": "PREPROD.LOCAL",
-    "basedn": "dc=preprod,dc=local",
-    "url": "ldaps://ldapgw.preprod.local",
-    "username": "srvSSOLinux"
- */
-
-/*
-Environment:
-      APP_VERSION:			truststore5
-      NAV_TRUSTSTORE_KEYSTOREALIAS:	na
-      NAV_TRUSTSTORE_PASSWORD:		<set to the key 'nav_truststore_password' in secret 'presys'>	Optional: false
-      NAV_TRUSTSTORE_PATH:		/var/run/secrets/naisd.io/nav_truststore_keystore
-      JWT_USERNAME:			dummyuser
-      JWT_PASSWORD:			<set to the key 'jwt_password' in secret 'presys'>	Optional: false
-      LDAP_USER_BASEDN:			ou=NAV,ou=BusinessUnits,dc=preprod,dc=local
-      LDAP_SERVICEUSER_BASEDN:		ou=ServiceAccounts,dc=preprod,dc=local
-      LDAP_DOMAIN:			PREPROD.LOCAL
-      LDAP_BASEDN:			dc=preprod,dc=local
-      LDAP_URL:				ldaps://ldapgw.preprod.local
-      LDAP_USERNAME:			srvSSOLinux
-      LDAP_PASSWORD:			<set to the key 'ldap_password' in secret 'presys'>	Optional: false
-      SPRING_DATASOURCE_URL:		jdbc:oracle:thin:@a01dbfl032.adeo.no:1521/presys_q0
-      SPRING_DATASOURCE_USERNAME:	presys
-      SPRING_DATASOURCE_PASSWORD:	<set to the key 'presysDB_password' in secret 'presys'>	Optional: false
-      ABAC_USERNAME:			srvpresys
-      ABAC_PASSWORD:			<set to the key 'srvpresys_password' in secret 'presys'>	Optional: false
-      ABAC_PDP_ENDPOINT_DESCRIPTION:	The XACML JSON Endpoint for evaluating attributes against policies
-      ABAC_URL:				https://wasapp-q0.adeo.no/asm-pdp/authorize
- */
