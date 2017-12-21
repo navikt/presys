@@ -9,7 +9,6 @@ import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -66,12 +65,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+        http
+                .csrf()
+                    .disable()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                     .expressionHandler(expressionHandler)
-                    .antMatchers("/", "public/**", "/api/internal/**", "/metrics").permitAll()
-                    .antMatchers("/api/person/{fnr}").access("harTilgangTilPerson(#fnr)").and()
+                    .antMatchers("/api/**")
+                        .authenticated()
+                    .antMatchers("/api/person/{fnr}")
+                        .access("harTilgangTilPerson(#fnr)")
+                    .anyRequest()
+                        .permitAll()
+                .and()
+                .logout()
+                    .disable()
                 .addFilterBefore(ldapAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -80,11 +90,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(ldapProvider);
         auth.authenticationProvider(jwtProvider);
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/", "public/**", "/api/internal/**", "/metrics");
-
     }
 }

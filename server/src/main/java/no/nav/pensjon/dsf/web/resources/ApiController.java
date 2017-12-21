@@ -4,15 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PresysController {
+@RequestMapping("/api")
+public class ApiController {
 
-    @RequestMapping("/isAlive")
-    public String isAlive() {
-        return "OK";
-    }
-
-    @RequestMapping("/isReady")
-    public String isReady() {
+    @RequestMapping()
+    public String index() {
         return "OK";
     }
 }

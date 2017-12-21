@@ -1,7 +1,7 @@
 package no.nav.pensjon.dsf.auth.ldap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.pensjon.dsf.auth.JwtService;
+import no.nav.pensjon.dsf.auth.jwt.JwtService;
 import no.nav.pensjon.dsf.auth.PresysUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
