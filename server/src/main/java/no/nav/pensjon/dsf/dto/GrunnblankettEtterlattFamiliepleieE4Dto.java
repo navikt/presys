@@ -33,8 +33,8 @@ public class GrunnblankettEtterlattFamiliepleieE4Dto extends GrunnblankettDto {
     }
 
     public void setForventetInntekt(int forventetInntekt) {
-        this.forventetInntekt = forventetInntekt;
-    }
+        this.forventetInntekt = forventetInntekt *100;
+    }//Lagret i DSF-db i hele 100 Kr
 
     public String getOvergangsstonadPensjonKode() {
         return overgangsstonadPensjonKode;

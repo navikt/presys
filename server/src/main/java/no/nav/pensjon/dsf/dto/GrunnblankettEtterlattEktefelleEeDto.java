@@ -42,7 +42,7 @@ public class GrunnblankettEtterlattEktefelleEeDto extends GrunnblankettDto {
     }
 
     public void setForventetArbeidsInntektMellom67Og70(int forventetArbeidsInntektMellom67Og70) {
-        this.forventetArbeidsInntektMellom67Og70 = forventetArbeidsInntektMellom67Og70;
+        this.forventetArbeidsInntektMellom67Og70 = forventetArbeidsInntektMellom67Og70 *100;
     }
 
     public String getOvergangsstonadPensjonKode() {

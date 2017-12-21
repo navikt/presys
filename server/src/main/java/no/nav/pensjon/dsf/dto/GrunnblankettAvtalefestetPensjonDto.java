@@ -33,7 +33,7 @@ public class GrunnblankettAvtalefestetPensjonDto extends GrunnblankettDto {
     }
 
     public void setFramtidigArbeidsinntekt(int framtidigArbeidsinntekt) {
-        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt;
+        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt *100;
     }
 
     public String getBosattNorge() {
@@ -153,6 +153,6 @@ public class GrunnblankettAvtalefestetPensjonDto extends GrunnblankettDto {
     }
 
     public void setPensjonsinntekt(int pensjonsinntekt) {
-        this.pensjonsinntekt = pensjonsinntekt;
+        this.pensjonsinntekt = pensjonsinntekt *100;
     }
 }

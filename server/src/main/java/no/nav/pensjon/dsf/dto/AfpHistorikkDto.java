@@ -33,7 +33,7 @@ public class AfpHistorikkDto {
     }
 
     public void setFramtidigErvervsinntekt(int framtidigErvervsinntekt) {
-        this.framtidigErvervsinntekt = framtidigErvervsinntekt;
+        this.framtidigErvervsinntekt = framtidigErvervsinntekt *100;
     }
 
     public int getUtbetalingsgrad() {

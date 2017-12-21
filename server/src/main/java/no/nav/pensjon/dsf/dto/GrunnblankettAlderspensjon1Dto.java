@@ -108,7 +108,7 @@ public class GrunnblankettAlderspensjon1Dto extends GrunnblankettDto {
     }
 
     public void setFramtidigArbeidsinntekt(int framtidigArbeidsinntekt) {
-        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt;
+        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt *100;
     }
 
     public String getNavnEktefelle() {

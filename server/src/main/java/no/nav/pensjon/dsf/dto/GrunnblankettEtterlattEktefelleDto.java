@@ -81,7 +81,7 @@ public class GrunnblankettEtterlattEktefelleDto extends GrunnblankettDto {
     }
 
     public void setFramtidigArbeidsinntekt(int framtidigArbeidsinntekt) {
-        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt;
+        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt *100;
     }
 
     public String getYtelse() {

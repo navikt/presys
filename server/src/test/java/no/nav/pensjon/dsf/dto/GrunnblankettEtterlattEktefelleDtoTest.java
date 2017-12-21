@@ -79,7 +79,7 @@ public class GrunnblankettEtterlattEktefelleDtoTest {
         assertEquals(model.getOmsorgAvdodesBarn(), dto.getOmsorgAvdodesBarn());
         assertEquals(model.getVilkaarPar10Pkt5(), dto.getVilkaarPar10Pkt5());
         assertEquals(model.getForventetInntekt(), dto.getForventetInntekt());
-        assertEquals(model.getFramtidigArbeidsinntekt(), dto.getFramtidigArbeidsinntekt());
+        assertEquals(model.getFramtidigArbeidsinntekt()*100, dto.getFramtidigArbeidsinntekt());
         assertEquals(model.getYtelse(), dto.getYtelse());
         assertEquals(model.getYrkesskadeTillegg(), dto.getYrkesskadeTillegg());
         assertEquals(model.getFramleggsdato(), dto.getFramleggsdato());
@@ -125,7 +125,7 @@ public class GrunnblankettEtterlattEktefelleDtoTest {
         expected.put("omsorgAvdodesBarn", "??");
         expected.put("vilkaarPar10Pkt5", "??");
         expected.put("forventetInntekt", 1010);
-        expected.put("framtidigArbeidsinntekt", 1111);
+        expected.put("framtidigArbeidsinntekt", 111100);//*100
         expected.put("ytelse", "??");
         expected.put("yrkesskadeTillegg", "??");
         expected.put("framleggsdato", 1212);
