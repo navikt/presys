@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import no.nav.abac.xacml.NavAttributter;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
+@Profile("!test")
+
 @Import({
         AbacConfig.class,
         AbacRestTemplateConfig.class

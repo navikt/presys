@@ -26,7 +26,7 @@ public class PersonRepository {
         this.db = db;
     }
 
-    Person findPerson(String fnr) {
+    public Person findPerson(String fnr) {
         MDC.put("bruker", fnr);
         try {
             Map<String, Object> map = db.queryForMap("select data from db_person where fnr=?", fnr);

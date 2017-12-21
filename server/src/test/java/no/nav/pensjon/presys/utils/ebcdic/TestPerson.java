@@ -38,7 +38,7 @@ public class TestPerson {
         return p;
     }
 
-    static TestPerson createPerson(String fnr, String navn, int ai67){
+    public static TestPerson createPerson(String fnr, String navn, int ai67){
         Person p = new Person();
         p.setFnr(fnr);
         p.setNavn(navn);
