@@ -99,7 +99,7 @@ node {
 
                 // wait for app to become ready
                 timeout(time: 180, unit: 'SECONDS') {
-                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/isReady; do sleep 1; done"
                 }
 
                 sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
