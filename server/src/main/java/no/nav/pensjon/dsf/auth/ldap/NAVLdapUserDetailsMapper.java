@@ -5,7 +5,6 @@ import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 

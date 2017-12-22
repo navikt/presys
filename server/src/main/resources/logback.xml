@@ -6,6 +6,7 @@
 	</appender>
 
 	<logger name="org.springframework" level="WARN" />
+	<logger name="org.springframework.security.ldap" level="DEBUG" />
 	<logger name="org.jboss" level="WARN" />
 	<logger name="org.hibernate" level="WARN" />
 	<logger name="org.eclipse.jetty" level="WARN" />

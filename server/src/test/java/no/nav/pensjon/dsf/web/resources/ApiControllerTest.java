@@ -2,6 +2,7 @@ package no.nav.pensjon.dsf.web.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
+import no.nav.pensjon.dsf.LdapTestConfiguration;
 import no.nav.pensjon.dsf.WebServerApplication;
 import no.nav.pensjon.dsf.auth.PresysUser;
 import no.nav.pensjon.dsf.auth.jwt.JwtService;
@@ -10,17 +11,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.ldap.core.ContextSource;
-import org.springframework.ldap.core.support.BaseLdapPathContextSource;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.ldap.authentication.AbstractLdapAuthenticationProvider;
-import org.springframework.security.ldap.authentication.BindAuthenticator;
-import org.springframework.security.ldap.authentication.LdapAuthenticationProvider;
-import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator;
-import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -42,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @SpringBootTest(classes = WebServerApplication.class)
 @AutoConfigureMockMvc
+@Import(LdapTestConfiguration.class)
 public class ApiControllerTest {
     @Autowired
     private MockMvc mvc;
@@ -51,28 +45,6 @@ public class ApiControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Configuration
-    static class ContextConfiguration {
-        @Bean
-        public AbstractLdapAuthenticationProvider ldapAuthenticationProvider(ContextSource contextSource, UserDetailsContextMapper contextMapper) {
-
-            BindAuthenticator authenticator = new BindAuthenticator((BaseLdapPathContextSource) contextSource);
-            authenticator.setUserDnPatterns(new String[]{"uid={0},ou=people,dc=test,dc=local"});
-
-            DefaultLdapAuthoritiesPopulator populator = new DefaultLdapAuthoritiesPopulator(
-                    contextSource, "ou=groups,dc=test,dc=local");
-            populator.setGroupSearchFilter("(uniqueMember={0})");
-
-            LdapAuthenticationProvider provider = new LdapAuthenticationProvider(authenticator, populator);
-
-            provider.setHideUserNotFoundExceptions(false);
-            provider.setUserDetailsContextMapper(contextMapper);
-            provider.setUseAuthenticationRequestCredentials(true);
-
-            return provider;
-        }
-    }
 
     @Test
     public void should_Fail_When_RequestIsInvalid() throws Exception {
@@ -86,7 +58,7 @@ public class ApiControllerTest {
     @Test
     public void should_Fail_When_BadCredentials() throws Exception {
         mvc.perform(post("/api/login")
-                .content("{\"username\": \"bob\", \"password\": \"wrongpassword\"}")
+                .content("{\"username\": \"H990100\", \"password\": \"badpassword\"}")
                 .with(securityContext(SecurityContextHolder.getContext()))
         ).andExpect(status().isUnauthorized())
                 .andExpect(status().reason("Authentication Failed: Bad credentials"))
@@ -96,12 +68,12 @@ public class ApiControllerTest {
     @Test
     public void should_ReturnToken_When_OK() throws Exception {
         String responseJson = mvc.perform(post("/api/login")
-                .content("{\"username\": \"bob\", \"password\": \"bobspassword\"}")
+                .content("{\"username\": \"H990100\", \"password\": \"bobspassword\"}")
                 .with(securityContext(SecurityContextHolder.getContext()))
         ).andExpect(status().isOk())
                 .andExpect(authenticated()
-                        .withUsername("bob")
-                        .withRoles("0000-GA-PENSJON_SAKSBEHANDLER")
+                        .withUsername("H990100")
+                        .withRoles("0000-GA-PENSJON_SAKSBEHANDLER", "0000-GA-PENSJON_SAKSBEHANDLER-UFORE")
                 )
                 .andReturn()
                 .getResponse()
@@ -111,14 +83,15 @@ public class ApiControllerTest {
 
         Claims claims = jwtService.parseToken(response.token);
 
-        assertEquals("bob", claims.getSubject());
+        assertEquals("H990100", claims.getSubject());
         assertEquals("Bob Hamilton", claims.get("name"));
         assertEquals("Hamilton", claims.get("surname"));
         assertEquals("presys", claims.getIssuer());
 
         List<String> scopes = claims.get("scopes", List.class);
-        assertEquals(1, scopes.size());
+        assertEquals(2, scopes.size());
         assertEquals("ROLE_0000-GA-PENSJON_SAKSBEHANDLER", scopes.get(0));
+        assertEquals("ROLE_0000-GA-PENSJON_SAKSBEHANDLER-UFORE", scopes.get(1));
 
     }
 

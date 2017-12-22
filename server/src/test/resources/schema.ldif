@@ -1,46 +1,80 @@
-dn: dc=test,dc=local
+dn: DC=test,DC=local
 objectclass: top
 objectclass: domain
 objectclass: extensibleObject
 dc: test
 
-dn: ou=groups,dc=test,dc=local
+dn: OU=BusinessUnits,DC=test,DC=local
 objectclass: top
 objectclass: organizationalUnit
-ou: groups
+ou: BusinessUnits
 
-dn: ou=people,dc=test,dc=local
+dn: OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 objectclass: top
 objectclass: organizationalUnit
-ou: people
+ou: MyOrganization
 
-dn: uid=ben,ou=people,dc=test,dc=local
+dn: OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 objectclass: top
-objectclass: person
-objectclass: organizationalPerson
-objectclass: inetOrgPerson
-uid: ben
-cn: Ben Alex
-sn: Alex
+objectclass: organizationalUnit
+ou: Groups
+
+dn: OU=AccountGroups,OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+objectclass: top
+objectclass: organizationalUnit
+ou: AccountGroups
+
+dn: OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+objectclass: top
+objectclass: organizationalUnit
+ou: Users
+
+dn: CN=A990000,OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+objectClass: user
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: A990000
+displayName: Alex, Ben
+distinguishedName: CN=A990000,OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 givenName: Ben
-mail: ben@alex.com
+mail: Ben.Alex@myorganization.com
+name: A990000
+sAMAccountName: A990000
+sn: Alex
+uid: A990000
+userPrincipalName: A990000@TEST.LOCAL
 userPassword: benspassword
 
-dn: uid=bob,ou=people,dc=test,dc=local
-objectclass: top
-objectclass: person
-objectclass: organizationalPerson
-objectclass: inetOrgPerson
-uid: bob
-cn: Bob Hamilton
-sn: Hamilton
+dn: CN=H990100,OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+objectClass: user
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: H990100
+displayName: Hamilton, Bob
+distinguishedName: CN=H990100,OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 givenName: Bob
-mail: bob@hamilton.com
+mail: Bob.Hamilton@myorganization.com
+name: H990100
+sAMAccountName: H990100
+sn: Hamilton
+uid: H990100
+userPrincipalName: H990100@TEST.LOCAL
 userPassword: bobspassword
+memberOf: CN=0000-GA-PENSJON_SAKSBEHANDLER,OU=AccountGroups,OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+memberOf: CN=0000-GA-PENSJON_SAKSBEHANDLER-UFORE,OU=AccountGroups,OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 
-dn: cn=0000-ga-pensjon_saksbehandler,ou=groups,dc=test,dc=local
+dn: CN=0000-GA-PENSJON_SAKSBEHANDLER,OU=AccountGroups,OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 objectclass: top
-objectclass: groupOfUniqueNames
-cn: 0000-ga-pensjon_saksbehandler
-ou: 0000-ga-pensjon_saksbehandler
-uniqueMember: uid=bob,ou=people,dc=test,dc=local
+objectclass: group
+cn: 0000-GA-PENSJON_SAKSBEHANDLER
+name: 0000-GA-PENSJON_SAKSBEHANDLER
+member: CN=H990100,OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+
+dn: CN=0000-GA-PENSJON_SAKSBEHANDLER-UFORE,OU=AccountGroups,OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
+objectclass: top
+objectclass: group
+cn: 0000-GA-PENSJON_SAKSBEHANDLER-UFORE
+name: 0000-GA-PENSJON_SAKSBEHANDLER-UFORE
+member: CN=H990100,OU=Users,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local

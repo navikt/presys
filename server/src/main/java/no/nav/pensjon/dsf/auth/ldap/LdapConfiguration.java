@@ -35,7 +35,7 @@ public class LdapConfiguration {
     @ConditionalOnMissingBean
     public AbstractLdapAuthenticationProvider activeDirectoryAuthenticationProvider(UserDetailsContextMapper contextMapper) {
         ActiveDirectoryLdapAuthenticationProvider provider = new ActiveDirectoryLdapAuthenticationProvider(
-                domain, url, basedn
+                getDomain(), getUrl(), getBasedn()
         );
 
         provider.setUserDetailsContextMapper(contextMapper);
@@ -43,6 +43,34 @@ public class LdapConfiguration {
         provider.setConvertSubErrorCodesToExceptions(true);
 
         return provider;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public String getBasedn() {
+        return basedn;
+    }
+
+    public Basedn getUser() {
+        return user;
+    }
+
+    public Basedn getServiceuser() {
+        return serviceuser;
     }
 
     public void setUrl(String url) {
