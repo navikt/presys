@@ -36,8 +36,8 @@ fasitResources:
   - alias: srvpresys
     resourceType: credential
     propertyMap:
-      username: ABAC_USERNAME
-      password: ABAC_PASSWORD
+      username: SERVICEUSER_USERNAME
+      password: SERVICEUSER_PASSWORD
   - alias: abac.pdp.endpoint
     resourceType: restservice
     propertyMap:

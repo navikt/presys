@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+no.nav.autoconfigure.abac.AbacAutoConfiguration,\
+no.nav.autoconfigure.ldap.LdapProviderAutoConfiguration,\
+no.nav.autoconfigure.ldap.NAVLdapAutoConfiguration,\
+no.nav.autoconfigure.serviceuser.ServiceUserProperties
