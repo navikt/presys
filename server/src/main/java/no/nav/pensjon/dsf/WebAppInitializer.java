@@ -1,7 +1,7 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf;
 
 import no.nav.pensjon.dsf.WebServerApplication;
-import no.nav.pensjon.dsf.config.auth.abac.PEPAbacConfig;
+import no.nav.pensjon.dsf.auth.abac.PEPAbacConfig;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

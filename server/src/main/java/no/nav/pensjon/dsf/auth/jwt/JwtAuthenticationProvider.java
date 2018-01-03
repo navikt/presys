@@ -1,11 +1,11 @@
-package no.nav.pensjon.dsf.config.auth.jwt;
+package no.nav.pensjon.dsf.auth.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
-import no.nav.pensjon.dsf.config.auth.JwtService;
-import no.nav.pensjon.dsf.config.auth.PresysUser;
+import no.nav.pensjon.dsf.auth.JwtService;
+import no.nav.pensjon.dsf.auth.PresysUser;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>no.nav.pensjon.presys</groupId>
 		<artifactId>presys</artifactId>
-		<version>105-SNAPSHOT</version>
+		<version>108-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -104,11 +104,6 @@
 			<artifactId>ebcdicutil</artifactId>
 			<version>27</version>
 		</dependency>
-		<dependency>
-			<groupId>no.nav.pensjon</groupId>
-			<artifactId>presys-appconfig</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 
 		<!-- prometheus -->
 		<!-- The client -->
@@ -123,7 +118,7 @@
 			<artifactId>simpleclient_hotspot</artifactId>
 			<version>0.0.26</version>
 		</dependency>
-        
+
         <dependency>
             <groupId>no.nav.freg</groupId>
             <artifactId>abac-spring</artifactId>

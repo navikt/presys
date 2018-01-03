@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.auth.abac;
+package no.nav.pensjon.dsf.auth.abac;
 
 import no.nav.abac.xacml.NavAttributter;
 import no.nav.freg.abac.core.annotation.Abac;

@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.nav.pensjon.presys</groupId>
-    <version>105-SNAPSHOT</version>
+    <version>108-SNAPSHOT</version>
     <artifactId>presys</artifactId>
     <packaging>pom</packaging>
     <name>presys-root</name>
@@ -17,7 +17,6 @@
     <modules>
         <module>klient</module>
 		<module>server</module>
-        <module>appconfig</module>
     </modules>
 
     <!-- BEGIN: Specific to mapping unit tests and covered code -->

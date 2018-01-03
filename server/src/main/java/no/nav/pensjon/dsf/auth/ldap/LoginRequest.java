@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.config.auth.ldap;
+package no.nav.pensjon.dsf.auth.ldap;
 
 class LoginRequest {
 

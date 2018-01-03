@@ -1,9 +1,9 @@
-package no.nav.pensjon.dsf.config;
+package no.nav.pensjon.dsf;
 
-import no.nav.pensjon.dsf.config.auth.jwt.JwtAuthenticationProcessingFilter;
-import no.nav.pensjon.dsf.config.auth.jwt.JwtAuthenticationProvider;
-import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationProcessingFilter;
-import no.nav.pensjon.dsf.config.auth.ldap.LdapAuthenticationSuccessHandler;
+import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProvider;
+import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.context.annotation.Configuration;
