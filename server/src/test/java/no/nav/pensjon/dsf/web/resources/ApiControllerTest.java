@@ -2,7 +2,6 @@ package no.nav.pensjon.dsf.web.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
-import no.nav.pensjon.dsf.LdapTestConfiguration;
 import no.nav.pensjon.dsf.WebServerApplication;
 import no.nav.pensjon.dsf.auth.PresysUser;
 import no.nav.pensjon.dsf.auth.jwt.JwtService;
@@ -11,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
@@ -35,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @SpringBootTest(classes = WebServerApplication.class)
 @AutoConfigureMockMvc
-@Import(LdapTestConfiguration.class)
 public class ApiControllerTest {
     @Autowired
     private MockMvc mvc;
