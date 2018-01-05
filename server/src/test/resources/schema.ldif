@@ -14,6 +14,30 @@ objectclass: top
 objectclass: organizationalUnit
 ou: MyOrganization
 
+dn: OU=ServiceAccounts,DC=test,DC=local
+objectclass: top
+objectclass: organizationalUnit
+ou: Groups
+
+dn: OU=ApplAccounts,OU=ServiceAccounts,DC=test,DC=local
+objectclass: top
+objectclass: organizationalUnit
+ou: Groups
+
+dn: CN=srvapp,OU=ApplAccounts,OU=ServiceAccounts,DC=test,DC=local
+objectClass: user
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: srvapp
+displayName: srvapp
+distinguishedName: CN=srvapp,OU=ApplAccounts,OU=ServiceAccounts,DC=test,DC=local
+givenName: srvapp
+name: srvapp
+sAMAccountName: srvapp
+userPrincipalName: srvapp@TEST.LOCAL
+userPassword: serviceuserpassword
+
 dn: OU=Groups,OU=MyOrganization,OU=BusinessUnits,DC=test,DC=local
 objectclass: top
 objectclass: organizationalUnit

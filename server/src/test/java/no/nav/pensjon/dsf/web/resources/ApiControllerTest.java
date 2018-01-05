@@ -93,6 +93,36 @@ public class ApiControllerTest {
     }
 
     @Test
+    public void should_ReturnToken_When_Login_Using_UserPrincipalName() throws Exception {
+        String responseJson = mvc.perform(post("/api/login")
+                .content("{\"username\": \"H990100@TEST.LOCAL\", \"password\": \"bobspassword\"}")
+                .with(securityContext(SecurityContextHolder.getContext()))
+        ).andExpect(status().isOk())
+                .andExpect(authenticated()
+                        .withUsername("H990100")
+                        .withRoles("0000-GA-PENSJON_SAKSBEHANDLER", "0000-GA-PENSJON_SAKSBEHANDLER-UFORE")
+                )
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        TokenResponse response = objectMapper.readValue(responseJson, TokenResponse.class);
+
+        Claims claims = jwtService.parseToken(response.token);
+
+        assertEquals("H990100", claims.getSubject());
+        assertEquals("Bob Hamilton", claims.get("name"));
+        assertEquals("Hamilton", claims.get("surname"));
+        assertEquals("presys", claims.getIssuer());
+
+        List<String> scopes = claims.get("scopes", List.class);
+        assertEquals(2, scopes.size());
+        assertEquals("ROLE_0000-GA-PENSJON_SAKSBEHANDLER", scopes.get(0));
+        assertEquals("ROLE_0000-GA-PENSJON_SAKSBEHANDLER-UFORE", scopes.get(1));
+
+    }
+
+    @Test
     public void should_Fail_When_AuthorizationHeaderIsMissing() throws Exception {
         mvc.perform(get("/api")
                 .with(securityContext(SecurityContextHolder.getContext()))

@@ -17,7 +17,7 @@ class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
         String lastName = ctx.getStringAttribute("sn");
 
         return new PresysUser(
-            username,
+            ctx.getStringAttribute("sAMAccountName"),
             "",
             firstName,
             lastName,
