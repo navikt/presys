@@ -8,11 +8,11 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
 
-public class AbacSecurityExpressionHandler extends DefaultWebSecurityExpressionHandler {
+public class AbacWebSecurityExpressionHandler extends DefaultWebSecurityExpressionHandler {
 
     private AbacEvaluator abacEvaluator;
 
-    AbacSecurityExpressionHandler(AbacEvaluator abacEvaluator) {
+    AbacWebSecurityExpressionHandler(AbacEvaluator abacEvaluator) {
         this.abacEvaluator = abacEvaluator;
     }
 

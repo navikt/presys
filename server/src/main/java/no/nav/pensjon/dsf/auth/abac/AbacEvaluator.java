@@ -6,8 +6,12 @@ import no.nav.freg.abac.core.dto.request.XacmlRequest;
 import no.nav.freg.abac.core.dto.response.Decision;
 import no.nav.freg.abac.core.dto.response.XacmlResponse;
 import no.nav.freg.abac.core.service.AbacService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class AbacEvaluator {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AbacEvaluator.class);
 
     private AbacService abacService;
 
@@ -16,6 +20,8 @@ class AbacEvaluator {
     }
 
     public boolean harTilgangTilPerson(String hvem, String hva) {
+        LOG.debug("Evaluerer tilgang til {} for {}", hva, hvem);
+
         XacmlRequest request = new XacmlRequest();
 
         request.failOnIndeterminate(true);

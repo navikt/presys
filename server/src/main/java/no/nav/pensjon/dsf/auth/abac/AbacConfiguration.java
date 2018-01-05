@@ -13,7 +13,12 @@ class AbacConfiguration {
     }
 
     @Bean
-    public AbacSecurityExpressionHandler abacSecurityExpressionHandler(AbacEvaluator abacEvaluator) {
-        return new AbacSecurityExpressionHandler(abacEvaluator);
+    public AbacWebSecurityExpressionHandler abacSecurityExpressionHandler(AbacEvaluator abacEvaluator) {
+        return new AbacWebSecurityExpressionHandler(abacEvaluator);
+    }
+
+    @Bean
+    public AbacMethodSecurityExpressionHandler abacMethodExpressionHandler(AbacEvaluator abacEvaluator) {
+        return new AbacMethodSecurityExpressionHandler(abacEvaluator);
     }
 }

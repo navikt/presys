@@ -1,6 +1,6 @@
 package no.nav.pensjon.dsf;
 
-import no.nav.pensjon.dsf.auth.abac.AbacSecurityExpressionHandler;
+import no.nav.pensjon.dsf.auth.abac.AbacWebSecurityExpressionHandler;
 import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProcessingFilter;
 import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProvider;
 import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationProcessingFilter;
@@ -28,10 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private CounterService counterService;
 
-    private AbacSecurityExpressionHandler expressionHandler;
+    private AbacWebSecurityExpressionHandler expressionHandler;
 
     public WebSecurityConfig(AbstractLdapAuthenticationProvider ldapProvider, JwtAuthenticationProvider jwtProvider,
-                             LdapAuthenticationSuccessHandler ldapSuccessHandler, AbacSecurityExpressionHandler expressionHandler,
+                             LdapAuthenticationSuccessHandler ldapSuccessHandler, AbacWebSecurityExpressionHandler expressionHandler,
                              CounterService counterService) {
         this.ldapProvider = ldapProvider;
         this.jwtProvider = jwtProvider;
