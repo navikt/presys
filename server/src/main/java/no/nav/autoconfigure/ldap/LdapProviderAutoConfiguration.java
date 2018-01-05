@@ -30,6 +30,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Creates a LdapAuthenticationProvider bean compatible with Active Directory
+ * and other LDAP compliant directory servers.
+ *
+ * Filter based searches are depending on a service username and password, and
+ * will only be enabled if they are provided.
+ */
 @Configuration
 @EnableConfigurationProperties(LdapProviderProperties.class)
 public class LdapProviderAutoConfiguration {

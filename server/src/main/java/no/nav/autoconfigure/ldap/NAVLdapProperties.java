@@ -1,8 +1,15 @@
 package no.nav.autoconfigure.ldap;
 
+import no.nav.autoconfigure.serviceuser.ServiceUserProperties;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.env.Environment;
+import org.springframework.ldap.support.LdapEncoder;
+import org.springframework.ldap.support.LdapUtils;
+import org.springframework.util.StringUtils;
+
+import java.text.MessageFormat;
 
 /**
  * Configures LDAP properties.
@@ -18,15 +25,20 @@ import org.springframework.core.env.Environment;
  * ldap.serviceuser-dn-pattern=CN={0},OU=ServiceAccounts
  */
 @ConfigurationProperties(prefix = "ldap")
-public class NAVLdapProperties {
+public class NAVLdapProperties implements InitializingBean {
 
     private final LdapProperties properties;
 
     private final Environment environment;
 
-    public NAVLdapProperties(LdapProperties properties, Environment environment) {
+    private final LdapProviderProperties providerProperties;
+    private final ServiceUserProperties serviceUserProperties;
+
+    public NAVLdapProperties(LdapProperties properties, Environment environment, LdapProviderProperties providerProperties, ServiceUserProperties serviceUserProperties) {
         this.properties = properties;
         this.environment = environment;
+        this.providerProperties = providerProperties;
+        this.serviceUserProperties = serviceUserProperties;
     }
 
     public String getUrl() {
@@ -59,5 +71,34 @@ public class NAVLdapProperties {
 
     public void setPassword(String password) {
         properties.setPassword(password);
+    }
+
+    private String getDistinguishedName(String pattern, String base, String... args) {
+        MessageFormat dnPattern = new MessageFormat(pattern);
+        String dn = dnPattern.format(args);
+
+        if (base != null && base.length() > 0) {
+            return LdapUtils.prepend(
+                    LdapUtils.newLdapName(dn),
+                    LdapUtils.newLdapName(base)
+            ).toString();
+        }
+
+        return dn;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        if (StringUtils.hasText(getUsername()) && StringUtils.hasText(getPassword())) {
+            return;
+        }
+
+        if (StringUtils.hasText(providerProperties.getServiceuserDnPattern())) {
+            setUsername(getDistinguishedName(providerProperties.getServiceuserDnPattern(),
+                    getBasedn(), LdapEncoder.nameEncode(serviceUserProperties.getUsername())));
+        } else {
+            setUsername(serviceUserProperties.getUsername());
+        }
+
+        setPassword(serviceUserProperties.getPassword());
     }
 }

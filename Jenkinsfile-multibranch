@@ -80,12 +80,10 @@ node {
                         -e SPRING_DATASOURCE_USERNAME \
                         -e SPRING_DATASOURCE_PASSWORD \
                         -e ABAC_URL=https://wasapp-t0.adeo.no/asm-pdp/authorize \
-                        -e ABAC_USERNAME=presys \
-                        -e ABAC_PASSWORD=foobar \
+                        -e SERVICEUSER_USERNAME=presys \
+                        -e SERVICEUSER_PASSWORD=foobar \
                         -e JWT_PASSWORD=somesecret \
                         -e LDAP_URL=ldaps://ldapgw.test.local \
-                        -e LDAP_BASEDN=dc=test,dc=local \
-                        -e LDAP_DOMAIN=TEST.LOCAL \
                         docker.adeo.no:5000/${application}:${commitHashShort}
                 """
             }

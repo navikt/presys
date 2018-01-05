@@ -56,9 +56,7 @@ public class AbacProperties implements InitializingBean {
             return;
         }
 
-        if (serviceUserProperties.getUsername() != null && serviceUserProperties.getPassword() != null) {
-            setUsername(serviceUserProperties.getUsername());
-            setPassword(serviceUserProperties.getPassword());
-        }
+        setUsername(serviceUserProperties.getUsername());
+        setPassword(serviceUserProperties.getPassword());
     }
 }
