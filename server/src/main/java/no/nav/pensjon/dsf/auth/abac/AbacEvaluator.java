@@ -38,7 +38,11 @@ class AbacEvaluator {
 
         request.action(StandardAttributter.ACTION_ID, "read");
 
-        XacmlResponse response = abacService.evaluate(request);
-        return response.getDecision() == Decision.PERMIT;
+        try {
+            XacmlResponse response = abacService.evaluate(request);
+            return response.getDecision() == Decision.PERMIT;
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Feil ved ABAC-kall", e);
+        }
     }
 }
