@@ -1,13 +1,12 @@
 package no.nav.pensjon.dsf;
 
 import no.nav.pensjon.dsf.auth.abac.AbacMethodSecurityExpressionHandler;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+// deaktiverer method security for å teste startup-tid
+//@Configuration
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurity extends GlobalMethodSecurityConfiguration {
     private final AbacMethodSecurityExpressionHandler expressionHandler;
 
