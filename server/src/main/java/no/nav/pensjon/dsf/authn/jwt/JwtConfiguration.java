@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.auth.jwt;
+package no.nav.pensjon.dsf.authn.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

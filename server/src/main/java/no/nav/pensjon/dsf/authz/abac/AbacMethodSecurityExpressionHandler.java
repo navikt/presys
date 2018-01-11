@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.auth.abac;
+package no.nav.pensjon.dsf.authz.abac;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;

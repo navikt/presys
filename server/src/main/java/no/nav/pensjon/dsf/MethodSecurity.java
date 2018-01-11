@@ -1,6 +1,6 @@
 package no.nav.pensjon.dsf;
 
-import no.nav.pensjon.dsf.auth.abac.AbacMethodSecurityExpressionHandler;
+import no.nav.pensjon.dsf.authz.abac.AbacMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 

@@ -1,7 +1,7 @@
-package no.nav.pensjon.dsf.auth.jwt;
+package no.nav.pensjon.dsf.authn.jwt;
 
 import io.jsonwebtoken.*;
-import no.nav.pensjon.dsf.auth.PresysUser;
+import no.nav.pensjon.dsf.authn.PresysUser;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

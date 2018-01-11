@@ -1,10 +1,10 @@
 package no.nav.pensjon.dsf;
 
-import no.nav.pensjon.dsf.auth.abac.AbacWebSecurityExpressionHandler;
-import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProcessingFilter;
-import no.nav.pensjon.dsf.auth.jwt.JwtAuthenticationProvider;
-import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationProcessingFilter;
-import no.nav.pensjon.dsf.auth.ldap.LdapAuthenticationSuccessHandler;
+import no.nav.pensjon.dsf.authz.abac.AbacWebSecurityExpressionHandler;
+import no.nav.pensjon.dsf.authn.jwt.JwtAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.authn.jwt.JwtAuthenticationProvider;
+import no.nav.pensjon.dsf.authn.ldap.LdapAuthenticationProcessingFilter;
+import no.nav.pensjon.dsf.authn.ldap.LdapAuthenticationSuccessHandler;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

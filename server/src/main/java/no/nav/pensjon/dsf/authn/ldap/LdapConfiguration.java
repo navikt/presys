@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.auth.ldap;
+package no.nav.pensjon.dsf.authn.ldap;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

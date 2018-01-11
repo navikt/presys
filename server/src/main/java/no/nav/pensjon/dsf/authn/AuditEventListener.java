@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.auth;
+package no.nav.pensjon.dsf.authn;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;

@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.auth.abac;
+package no.nav.pensjon.dsf.authz.abac;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
