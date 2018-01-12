@@ -16,7 +16,7 @@ class PersonFraFnr extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.fnr && nextProps.params.fnr !== nextProps.person.fnr && !nextProps.person.loading) {
+    if (nextProps.params.fnr && nextProps.params.fnr !== nextProps.person.fnr && !nextProps.person.loading && !nextProps.person.failed) {
       nextProps.fetchPerson(nextProps.params.fnr);
     }
   }
@@ -80,6 +80,7 @@ class PersonFraFnr extends Component {
 PersonFraFnr.propTypes = {
   person: React.PropTypes.shape({
     loading: React.PropTypes.bool.isRequired,
+    failed: React.PropTypes.bool.isRequired,
     fnr: React.PropTypes.string,
   }).isRequired,
   fetchPerson: React.PropTypes.func.isRequired,

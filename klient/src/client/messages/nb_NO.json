@@ -1110,6 +1110,7 @@
   "kodeverk.yrke11.V" : "Elev uten opplæring til bestemt yrke",
   "kodeverk.yrke11.S" : "Selvstendig næringsdrivende",
   "kodeverk.yrke11.A" : "Annet - vanlige arbeidstaker",
-  "kodeverk.yrke11." : " "
+  "kodeverk.yrke11." : " ",
 
+  "errorcode.personikkefunnet" : "Personen du søker etter finnes ikke i Presys"
 }
