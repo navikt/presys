@@ -73,8 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                     .expressionHandler(expressionHandler)
-                    .antMatchers("/api/person/{fnr}")
-                        .access("isAuthenticated() and harTilgangTilPerson(#fnr)")
                     .antMatchers("/api/**")
                         .authenticated()
                     .anyRequest()
