@@ -41,14 +41,14 @@ public class PresysControllerTest {
     public void isAlive() throws Exception {
         mvc.perform(get("/isAlive"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("OK"));
+                .andExpect(content().string("{}"));
     }
 
     @Test
     public void isReady() throws Exception {
         mvc.perform(get("/isReady"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("OK"));
+                .andExpect(content().string(containsString("\"status\":\"UP\"")));
     }
 
     @Test
