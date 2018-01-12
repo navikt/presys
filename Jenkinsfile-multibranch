@@ -73,17 +73,19 @@ node {
         }
 
         stage("integration tests") {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'SPRING_DATASOURCE_USERNAME', passwordVariable: 'SPRING_DATASOURCE_PASSWORD']]) {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'SPRING_DATASOURCE_USERNAME', passwordVariable: 'SPRING_DATASOURCE_PASSWORD'],
+                             [$class: 'UsernamePasswordMultiBinding', credentialsId: 'srvpresys', usernameVariable: 'SERVICEUSER_USERNAME', passwordVariable: 'SERVICEUSER_PASSWORD']]) {
                 sh """
                     docker run --name ${application}-${commitHashShort} --rm -dP \
                         -e SPRING_DATASOURCE_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
                         -e SPRING_DATASOURCE_USERNAME \
                         -e SPRING_DATASOURCE_PASSWORD \
                         -e ABAC_URL=https://wasapp-t0.adeo.no/asm-pdp/authorize \
-                        -e SERVICEUSER_USERNAME=presys \
-                        -e SERVICEUSER_PASSWORD=foobar \
+                        -e SERVICEUSER_USERNAME \
+                        -e SERVICEUSER_PASSWORD \
                         -e JWT_PASSWORD=somesecret \
-                        -e LDAP_URL=ldaps://ldapgw.test.local \
+                        -e LDAP_URL=ldaps://ldapgw.preprod.local \
+                        -e LDAP_BASEDN=dc=preprod,dc=local \
                         docker.adeo.no:5000/${application}:${commitHashShort}
                 """
             }
