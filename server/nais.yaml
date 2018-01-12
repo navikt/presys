@@ -5,12 +5,10 @@ replicas:
   max: 1
 healthcheck:
   liveness:
-    path: api/internal/isAlive
     initialDelay: 60
     periodSeconds: 2
     failureThreshold: 90
   readiness:
-    path: api/internal/isReady
     initialDelay: 60
     periodSeconds: 2
     failureThreshold: 90
@@ -38,8 +36,8 @@ fasitResources:
   - alias: srvpresys
     resourceType: credential
     propertyMap:
-      username: ABAC_USERNAME
-      password: ABAC_PASSWORD
+      username: SERVICEUSER_USERNAME
+      password: SERVICEUSER_PASSWORD
   - alias: abac.pdp.endpoint
     resourceType: restservice
     propertyMap:

@@ -1,4 +1,4 @@
-package no.nav.pensjon.dsf.auth.jwt;
+package no.nav.pensjon.dsf.authn.jwt;
 
 import org.slf4j.MDC;
 import org.springframework.boot.actuate.metrics.CounterService;

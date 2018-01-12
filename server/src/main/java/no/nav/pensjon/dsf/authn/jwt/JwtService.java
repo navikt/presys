@@ -1,22 +1,23 @@
-package no.nav.pensjon.dsf.auth;
+package no.nav.pensjon.dsf.authn.jwt;
 
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import no.nav.pensjon.dsf.authn.PresysUser;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-@Service
 public class JwtService {
 
     private final byte[] secret;
 
     private static final int EXPIRATION_DAYS = 7;
 
-    public JwtService(@Value("${jwt.password}") byte[] secret) {
+    private final String issuer;
+
+    public JwtService(byte[] secret, String issuer) {
         this.secret = secret;
+        this.issuer = issuer;
     }
 
     public String issueToken(PresysUser user) {
@@ -26,7 +27,7 @@ public class JwtService {
 
         Claims claims = user.getClaims();
 
-        claims.setIssuer("presys");
+        claims.setIssuer(issuer);
         claims.setNotBefore(now);
         claims.setIssuedAt(now);
         claims.setExpiration(expiration);
@@ -43,7 +44,7 @@ public class JwtService {
 
     public Claims parseToken(String rawToken) throws ExpiredJwtException, MalformedJwtException, SignatureException {
         return Jwts.parser()
-                .requireIssuer("presys")
+                .requireIssuer(issuer)
                 .setSigningKey(secret)
                 .parseClaimsJws(rawToken)
                 .getBody();

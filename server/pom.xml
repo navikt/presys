@@ -56,6 +56,13 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<!-- generate configuration metadata -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- logging -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -119,16 +126,21 @@
 			<version>0.0.26</version>
 		</dependency>
 
-        <dependency>
-            <groupId>no.nav.freg</groupId>
-            <artifactId>abac-spring</artifactId>
-            <version>1.0.3</version>
-        </dependency>
+		<dependency>
+			<groupId>no.nav.freg</groupId>
+			<artifactId>abac-spring</artifactId>
+			<version>1.0.3</version>
+		</dependency>
 
 		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.unboundid</groupId>
+			<artifactId>unboundid-ldapsdk</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

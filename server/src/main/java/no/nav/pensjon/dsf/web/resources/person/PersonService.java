@@ -1,6 +1,5 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
-import no.nav.abac.xacml.NavAttributter;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.domene.grunnblanketter.GRUNNBIF;
 import no.nav.pensjon.dsf.domene.grunnblanketter.TranHist;
@@ -20,11 +19,11 @@ import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @Service
-@PreAuthorize("hasPermission(#fnr, '" + NavAttributter.RESOURCE_FELLES_PERSON + "')")
+@PreAuthorize("harTilgangTilPerson(#fnr)")
 public class PersonService {
 
-    private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
-    private static final Logger LOGG = LoggerFactory.getLogger(PersonService.class);
+    private static final Logger AUDITLOG = LoggerFactory.getLogger("AUDITLOG");
+    private static final Logger LOG = LoggerFactory.getLogger(PersonService.class);
 
     private PersonRepository repo;
 
@@ -174,7 +173,7 @@ public class PersonService {
         try {
             Optional.ofNullable(grunnblankettMappers.get(tranhist.getGrunnblankettkode())).ifPresent(c->c.accept(tranhist, dto));
         }catch (IndexOutOfBoundsException e){
-            LOGG.warn("Mangler grunnblankett", e);
+            LOG.warn("Mangler grunnblankett", e);
         }
         return dto;
     }
@@ -187,7 +186,7 @@ public class PersonService {
      */
     private static void auditlog(String target, String grunn) {
         MDC.put("bruker", target);
-        LOG.info("Presys gjorde en aksess av (" + target + "). Grunnen var (" + grunn + ")");
+        AUDITLOG.info("Presys gjorde en aksess av (" + target + "). Grunnen var (" + grunn + ")");
         MDC.remove("bruker");
     }
 }

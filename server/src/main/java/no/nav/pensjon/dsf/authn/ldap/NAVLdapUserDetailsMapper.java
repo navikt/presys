@@ -1,15 +1,13 @@
-package no.nav.pensjon.dsf.auth.ldap;
+package no.nav.pensjon.dsf.authn.ldap;
 
-import no.nav.pensjon.dsf.auth.PresysUser;
+import no.nav.pensjon.dsf.authn.PresysUser;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-@Component
 class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
 
     @Override
@@ -19,7 +17,7 @@ class NAVLdapUserDetailsMapper extends LdapUserDetailsMapper {
         String lastName = ctx.getStringAttribute("sn");
 
         return new PresysUser(
-            username,
+            ctx.getStringAttribute("sAMAccountName"),
             "",
             firstName,
             lastName,

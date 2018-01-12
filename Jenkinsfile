@@ -66,20 +66,24 @@ node {
         }
 
         stage("integration tests") {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'presysDB_U', usernameVariable: 'SPRING_DATASOURCE_USERNAME', passwordVariable: 'SPRING_DATASOURCE_PASSWORD']]) {
+            withCredentials([usernamePassword(credentialsId: 'presysDB_U', usernameVariable: 'SPRING_DATASOURCE_USERNAME', passwordVariable: 'SPRING_DATASOURCE_PASSWORD'),
+                             usernamePassword(credentialsId: 'srvpresys', usernameVariable: 'SERVICEUSER_USERNAME', passwordVariable: 'SERVICEUSER_PASSWORD'),
+                             certificate(aliasVariable: '', credentialsId: 'nav_truststore', keystoreVariable: 'NAV_TRUSTSTORE_PATH', passwordVariable: 'NAV_TRUSTSTORE_PASSWORD')]) {
                 sh """
-                    docker run --name ${application}-${releaseVersion} --rm -dP \
+                    docker run --name ${application}-${commitHashShort} --rm -dP \
+                        -e NAV_TRUSTSTORE_PATH=/app/cacerts \
+                        -e NAV_TRUSTSTORE_PASSWORD \
                         -e SPRING_DATASOURCE_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
                         -e SPRING_DATASOURCE_USERNAME \
                         -e SPRING_DATASOURCE_PASSWORD \
                         -e ABAC_URL=https://wasapp-t0.adeo.no/asm-pdp/authorize \
-                        -e ABAC_USERNAME=presys \
-                        -e ABAC_PASSWORD=foobar \
+                        -e SERVICEUSER_USERNAME \
+                        -e SERVICEUSER_PASSWORD \
                         -e JWT_PASSWORD=somesecret \
-                        -e LDAP_URL=ldaps://ldapgw.test.local \
-                        -e LDAP_BASEDN=dc=test,dc=local \
-                        -e LDAP_DOMAIN=TEST.LOCAL \
-                        docker.adeo.no:5000/${application}:${releaseVersion}
+                        -e LDAP_URL=ldaps://ldapgw.preprod.local \
+                        -e LDAP_BASEDN=dc=preprod,dc=local \
+                        -v ${NAV_TRUSTSTORE_PATH}:/app/cacerts \
+                        docker.adeo.no:5000/${application}:${commitHashShort}
                 """
             }
 
@@ -92,7 +96,7 @@ node {
 
                 // wait for app to become ready
                 timeout(time: 180, unit: 'SECONDS') {
-                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/api/internal/isReady; do sleep 1; done"
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/isReady; do sleep 1; done"
                 }
 
                 sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"

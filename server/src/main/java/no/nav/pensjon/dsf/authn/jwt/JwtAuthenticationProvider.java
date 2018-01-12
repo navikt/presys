@@ -1,20 +1,17 @@
-package no.nav.pensjon.dsf.auth.jwt;
+package no.nav.pensjon.dsf.authn.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
-import no.nav.pensjon.dsf.auth.JwtService;
-import no.nav.pensjon.dsf.auth.PresysUser;
+import no.nav.pensjon.dsf.authn.PresysUser;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
-@Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     private JwtService jwtService;
