@@ -70,7 +70,7 @@ node {
                              usernamePassword(credentialsId: 'srvpresys', usernameVariable: 'SERVICEUSER_USERNAME', passwordVariable: 'SERVICEUSER_PASSWORD'),
                              certificate(aliasVariable: '', credentialsId: 'nav_truststore', keystoreVariable: 'NAV_TRUSTSTORE_PATH', passwordVariable: 'NAV_TRUSTSTORE_PASSWORD')]) {
                 sh """
-                    docker run --name ${application}-${commitHashShort} --rm -dP \
+                    docker run --name ${application}-${releaseVersion} --rm -dP \
                         -e NAV_TRUSTSTORE_PATH=/app/cacerts \
                         -e NAV_TRUSTSTORE_PASSWORD \
                         -e SPRING_DATASOURCE_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
@@ -83,7 +83,7 @@ node {
                         -e LDAP_URL=ldaps://ldapgw.preprod.local \
                         -e LDAP_BASEDN=dc=preprod,dc=local \
                         -v ${NAV_TRUSTSTORE_PATH}:/app/cacerts \
-                        docker.adeo.no:5000/${application}:${commitHashShort}
+                        docker.adeo.no:5000/${application}:${releaseVersion}
                 """
             }
 
