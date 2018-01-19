@@ -170,7 +170,6 @@
 					<profiles>
 						<profile>dev</profile>
 					</profiles>
-					<jvmArguments>-Ddisable.metrics.report=true</jvmArguments>
 					<folders>
 						<!-- Adds src/test/resources to classpath so that
 							profile-specific properties files may be loaded from there -->
