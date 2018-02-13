@@ -30,9 +30,7 @@ node {
 
         stage("build") {
             dir ("klient") {
-                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "npm install"
-                }
+                sh "npm install"
             }
 
             withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
@@ -94,9 +92,7 @@ node {
             }
 
             dir ("qa") {
-                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "npm install"
-                }
+                sh "npm install"
 
                 dockerPort = sh(script: "docker port ${application}-${commitHashShort} 8080/tcp | sed s/.*://", returnStdout: true).trim()
 

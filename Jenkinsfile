@@ -18,9 +18,7 @@ node {
             // we are cloning the repository manually, because the standard 'git' and 'checkout' steps
             // infer with the Git polling that Jenkins already does (when polling for changes to the
             // repo containing the Jenkinsfile).
-            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                sh(script: "git clone https://github.com/${project}/${repoName}.git .")
-            }
+            sh "git clone https://github.com/${project}/${repoName}.git ."
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
             commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
@@ -41,9 +39,7 @@ node {
 
         stage("build") {
             dir ("klient") {
-                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "npm install"
-                }
+                sh "npm install"
             }
 
             withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
@@ -87,9 +83,7 @@ node {
             }
 
             dir ("qa") {
-                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
-                    sh "npm install"
-                }
+                sh "npm install"
 
                 dockerPort = sh(script: "docker port ${application}-${releaseVersion} 8080/tcp | sed s/.*://", returnStdout: true).trim()
 
@@ -130,10 +124,8 @@ node {
             sh "git add '*pom.xml'"
             sh "git commit -m 'Updated version to ${nextVersion} after release'"
 
-            withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                    sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
-                }
+            withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
             }
 
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
