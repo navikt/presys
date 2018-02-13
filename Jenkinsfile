@@ -7,7 +7,6 @@ node {
     def commitHash, commitHashShort, commitUrl, committer, pom, currentVersion, releaseVersion
 
     def mvnHome = tool "maven-3.3.9"
-    def nodeHome = tool "nodejs-6.9.4"
 
     try {
         // delete whole workspace before starting the build,
@@ -42,7 +41,7 @@ node {
 
         stage("build") {
             dir ("klient") {
-                withEnv(["PATH+NODE=${nodeHome}/bin", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     sh "npm install"
                 }
             }
@@ -60,7 +59,7 @@ node {
             }
 
             dir ("server") {
-                sh "/usr/local/bin/nais validate"
+                sh "nais validate"
                 sh "docker build --pull -t docker.adeo.no:5000/${application}:${releaseVersion} ."
             }
         }
@@ -88,7 +87,7 @@ node {
             }
 
             dir ("qa") {
-                withEnv(["PATH+NODE=${nodeHome}/bin", 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
+                withEnv(['HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=adeo.no']) {
                     sh "npm install"
                 }
 
@@ -120,7 +119,7 @@ node {
 
             dir ("server") {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
-                    sh "/usr/local/bin/nais upload --app ${application} -v ${releaseVersion}"
+                    sh "nais upload --app ${application} -v ${releaseVersion}"
                 }
             }
 
