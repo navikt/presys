@@ -15,10 +15,10 @@ node {
         cleanWs()
 
         stage("checkout") {
-            // we are cloning the repository manually, because the standard 'git' and 'checkout' steps
-            // infer with the Git polling that Jenkins already does (when polling for changes to the
-            // repo containing the Jenkinsfile).
-            sh "git clone https://github.com/${project}/${repoName}.git ."
+            withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
+                sh "git init"
+                sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git"
+            }
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
             commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
