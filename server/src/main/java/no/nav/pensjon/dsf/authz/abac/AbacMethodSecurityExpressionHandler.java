@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class AbacMethodSecurityExpressionHandler extends DefaultMethodSecurityExpressionHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(AbacMethodSecurityExpressionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
     private AbacEvaluator abacEvaluator;
 
     AbacMethodSecurityExpressionHandler(AbacEvaluator abacEvaluator) {

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 class AbacEvaluator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbacEvaluator.class);
+    private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
 
     private AbacService abacService;
 

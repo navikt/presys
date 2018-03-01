@@ -11,7 +11,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
 
 public class AbacWebSecurityExpressionHandler extends DefaultWebSecurityExpressionHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(AbacWebSecurityExpressionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger("AUDITLOG");
     private AbacEvaluator abacEvaluator;
 
     AbacWebSecurityExpressionHandler(AbacEvaluator abacEvaluator) {
