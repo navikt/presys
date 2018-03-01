@@ -31,7 +31,7 @@
 		<appender-ref ref="AUDITLOG" />
 	</logger>
 
-	<root level="all">
+	<root level="DEBUG">
 		<appender-ref ref="STDOUT_JSON" />
 	</root>
 
