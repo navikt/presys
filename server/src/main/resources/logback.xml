@@ -7,7 +7,7 @@
 
 	<appender name="AUDITLOG" class="com.papertrailapp.logback.Syslog4jAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%m%n%xEx</pattern>
+			<pattern>%mdc %m%n%xEx</pattern>
 		</layout>
 
 		<syslogConfig class="org.productivity.java.syslog4j.impl.net.tcp.TCPNetSyslogConfig">
