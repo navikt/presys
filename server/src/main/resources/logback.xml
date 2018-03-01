@@ -5,6 +5,19 @@
 		<encoder class="net.logstash.logback.encoder.LogstashEncoder" />
 	</appender>
 
+	<appender name="AUDITLOG" class="com.papertrailapp.logback.Syslog4jAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%m%n%xEx</pattern>
+		</layout>
+
+		<syslogConfig class="org.productivity.java.syslog4j.impl.net.tcp.TCPNetSyslogConfig">
+			<host>audit.nais</host>
+			<port>6514</port>
+			<ident>presys</ident>
+			<maxMessageLength>128000</maxMessageLength>
+		</syslogConfig>
+	</appender>
+
 	<logger name="org.springframework" level="WARN" />
 	<logger name="org.springframework.security.ldap" level="DEBUG" />
 	<logger name="org.jboss" level="WARN" />
@@ -14,8 +27,9 @@
 	<logger name="org.apache.tomcat.jdbc" level="WARN" />
 	<logger name="sun.net.www" level="WARN" />
 
-    <!-- don't log AUDITLOG to stdout until nais can handle audit logs -->
-    <logger name="AUDITLOG" additvity="false" />
+    <logger name="AUDITLOG" additvity="false">
+		<appender-ref ref="AUDITLOG" />
+	</logger>
 
 	<root level="all">
 		<appender-ref ref="STDOUT_JSON" />
