@@ -1,17 +1,10 @@
+#!/usr/bin/env groovy
+@Library('peon-pipeline') _
+
 node {
-    def project = "navikt"
-    def repoName = "presys"
-    def application = "presys"
-
-    /* metadata */
-    def commitHash, commitHashShort, commitUrl, committer, pom, currentVersion, releaseVersion
-
-    def mvnHome = tool "maven-3.3.9"
+    def commitHash, frontendVersion, backendVersion
 
     try {
-        // delete whole workspace before starting the build,
-        // so that the 'git clone' command below doesn't fail due to
-        // directory not being empty
         cleanWs()
 
         stage("checkout") {
@@ -20,52 +13,27 @@ node {
                 sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git"
             }
 
+            sh "make bump-version"
+
+            backendVersion = sh(script: 'cat ./server/VERSION', returnStdout: true).trim()
+            frontendVersion = sh(script: 'cat ./klient/VERSION', returnStdout: true).trim()
+
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-            commitHashShort = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-            commitUrl = "https://github.com/${project}/${repoName}/commit/${commitHash}"
-
-            /* gets the person who committed last as "Surname, First name" */
-            committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
-
-            notifyGithub(project, repoName, 'continuous-integration/jenkins', commitHash, 'pending', "Build #${env.BUILD_NUMBER} has started")
-        }
-
-        stage("initialize") {
-            pom = readMavenPom file: 'pom.xml'
-            currentVersion = pom.version
-            releaseVersion = pom.version.tokenize("-")[0]
-            nextVersion = (releaseVersion.toInteger() + 1) + "-SNAPSHOT"
+            github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'pending', "Build #${env.BUILD_NUMBER} has started")
         }
 
         stage("build") {
-            dir ("klient") {
-                sh "npm install"
-            }
-
-            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
-                sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-            }
-
-            sh "git add '*pom.xml'"
-            sh "git commit -m 'Commit before creating tag ${application}-${releaseVersion}'"
-            sh "git tag -am 'auto-tag by build pipeline' ${application}-${releaseVersion}"
-
-            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
-                sh "mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Djava.io.tmpdir=/tmp/${application} -B -e"
-            }
-
-            dir ("server") {
-                sh "nais validate"
-                sh "docker build --pull -t docker.adeo.no:5000/${application}:${releaseVersion} ."
-            }
+            sh "make"
         }
 
         stage("integration tests") {
+            sh "docker network create presys-cluster"
+
             withCredentials([usernamePassword(credentialsId: 'presysDB_U', usernameVariable: 'SPRING_DATASOURCE_USERNAME', passwordVariable: 'SPRING_DATASOURCE_PASSWORD'),
                              usernamePassword(credentialsId: 'srvpresys', usernameVariable: 'SERVICEUSER_USERNAME', passwordVariable: 'SERVICEUSER_PASSWORD'),
                              certificate(aliasVariable: '', credentialsId: 'nav_truststore', keystoreVariable: 'NAV_TRUSTSTORE_PATH', passwordVariable: 'NAV_TRUSTSTORE_PASSWORD')]) {
                 sh """
-                    docker run --name ${application}-${releaseVersion} --rm -dP \
+                    docker run --name presys-${backendVersion} --rm -dP \
                         -e NAV_TRUSTSTORE_PATH=/app/cacerts \
                         -e NAV_TRUSTSTORE_PASSWORD \
                         -e SPRING_DATASOURCE_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
@@ -78,109 +46,102 @@ node {
                         -e LDAP_URL=ldaps://ldapgw.preprod.local \
                         -e LDAP_BASEDN=dc=preprod,dc=local \
                         -v ${NAV_TRUSTSTORE_PATH}:/app/cacerts \
-                        docker.adeo.no:5000/${application}:${releaseVersion}
+                        --hostname presys \
+                        --network presys-cluster \
+                        repo.adeo.no:5443/presys:${backendVersion}
                 """
             }
+
+            sh """
+                docker run --name presys-frontend-${frontendVersion} --rm -dP \
+                    --hostname presys-frontend \
+                    --network presys-cluster \
+                    repo.adeo.no:5443/presys-frontend:${frontendVersion}
+            """
 
             dir ("qa") {
                 sh "npm install"
 
-                dockerPort = sh(script: "docker port ${application}-${releaseVersion} 8080/tcp | sed s/.*://", returnStdout: true).trim()
+                backendPort = sh(script: "docker port presys-${backendVersion} 8080/tcp | sed s/.*://", returnStdout: true).trim()
+                frontendPort = sh(script: "docker port presys-frontend-${frontendVersion} 80/tcp | sed s/.*://", returnStdout: true).trim()
 
                 // wait for app to become ready
                 timeout(time: 180, unit: 'SECONDS') {
-                    sh "until curl -o /dev/null -s --head --fail http://localhost:${dockerPort}/isReady; do sleep 1; done"
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${backendPort}/isReady; do sleep 1; done"
+                }
+                timeout(time: 180, unit: 'SECONDS') {
+                    sh "until curl -o /dev/null -s --head --fail http://localhost:${frontendPort}/isReady; do sleep 1; done"
                 }
 
-                sh "PORT=${dockerPort} ./node_modules/.bin/nightwatch --env jenkins"
+                sh "PORT=${frontendPort} ./node_modules/.bin/nightwatch --env jenkins"
             }
 
-            sh "docker stop ${application}-${releaseVersion} || true"
-        }
-
-        stage("sonar analysis") {
-            def scannerHome = tool 'sonarqube-scanner';
-
-            // withSonarQubeEnv injects SONAR_HOST_URL and SONAR_AUTH_TOKEN (amongst others),
-            // so we don't have to set them as cli args to sonar-scanner
-            withSonarQubeEnv('Presys Sonar') {
-                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${pom.version}"
-            }
+            sh "docker stop presys-${backendVersion}"
+            sh "docker stop presys-frontend-${frontendVersion}"
+            sh "docker network rm presys-cluster"
         }
 
         stage("release") {
-            sh "docker push docker.adeo.no:5000/${application}:${releaseVersion}"
-
-            dir ("server") {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
-                    sh "nais upload --app ${application} -v ${releaseVersion}"
-                }
+            withCredentials([usernamePassword(credentialsId: 'nexusUploader', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+                sh "docker login -u ${env.NEXUS_USERNAME} -p ${env.NEXUS_PASSWORD} repo.adeo.no:5443"
             }
 
-            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
-                sh "mvn versions:set -B -DnewVersion=${nextVersion} -DgenerateBackupPoms=false"
-            }
-
-            sh "git add '*pom.xml'"
-            sh "git commit -m 'Updated version to ${nextVersion} after release'"
+            sh "make release"
 
             withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git master")
+                sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git HEAD:master")
             }
 
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                sh "/usr/bin/jilease -jiraUrl https://jira.adeo.no -project PRE -application ${application} -version ${releaseVersion} -username ${env.USERNAME} -password ${env.PASSWORD}"
+            withCredentials([usernamePassword(credentialsId: 'nexusUploader', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+                sh "make manifest"
+            }
+
+            withCredentials([usernamePassword(credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh """
+                    /usr/bin/jilease \
+                        -jiraUrl https://jira.adeo.no \
+                        -project PRE \
+                        -application presys \
+                        -version ${version} \
+                        -username ${env.USERNAME} \
+                        -password ${env.PASSWORD}
+                """
             }
         }
 
         stage("deploy") {
             build([
-                job: 'presys-deploy-pipeline',
+                job: 'nais-deploy-pipeline',
                 propagate: false,
                 parameters: [
-                    string(name: 'RELEASE_VERSION', value: releaseVersion),
+                    string(name: 'APP', value: "presys"),
+                    string(name: 'REPO', value: "navikt/presys"),
+                    string(name: 'VERSION', value: version),
                     string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'p')
+                    string(name: 'DEPLOY_ENV', value: 'q0')
+                ]
+            ])
+            build([
+                job: 'nais-deploy-pipeline',
+                propagate: false,
+                parameters: [
+                    string(name: 'APP', value: "presys-frontend"),
+                    string(name: 'REPO', value: "navikt/presys"),
+                    string(name: 'VERSION', value: version),
+                    string(name: 'COMMIT_HASH', value: commitHash),
+                    string(name: 'DEPLOY_ENV', value: 'q0')
                 ]
             ])
         }
 
-        notifyGithub(project, repoName, 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
-        slackSend([
-            color: 'good',
-            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} passed"
-        ])
+        github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
     } catch (e) {
-        sh "docker stop ${application}-${releaseVersion} || true"
+        sh "docker stop presys-${version} || true"
+        sh "docker stop presys-frontend-${version} || true"
+        sh "docker network rm presys-cluster || true"
 
-        notifyGithub(project, repoName, 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
-        slackSend([
-            color: 'danger',
-            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${repoName}@master by ${committer} failed"
-        ])
+        github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
 
         throw e
-    }
-}
-
-def notifyGithub(owner, repo, context, sha, state, description) {
-    def postBody = [
-            state: "${state}",
-            context: "${context}",
-            description: "${description}",
-            target_url: "${env.BUILD_URL}"
-    ]
-    def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-
-    withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-        withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-            sh """
-                curl -H 'Authorization: token ${GITHUB_OAUTH_TOKEN}' \
-                    -H 'Content-Type: application/json' \
-                    -X POST \
-                    -d '${postBodyString}' \
-                    'https://api.github.com/repos/${owner}/${repo}/statuses/${sha}'
-            """
-        }
     }
 }

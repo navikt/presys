@@ -25,19 +25,6 @@ public class PresysControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void testIndex() throws Exception {
-        mvc.perform(get("/index.html"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("<!DOCTYPE html>")));
-    }
-
-    @Test
-    public void testAssets() throws Exception {
-        mvc.perform(get("/public/style.css"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     public void isAlive() throws Exception {
         mvc.perform(get("/isAlive"))
                 .andExpect(status().isOk())
