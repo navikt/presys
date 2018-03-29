@@ -2,7 +2,7 @@ DOCKER  := docker
 NAIS    := nais
 NPM     := npm
 VERSION := $(shell cat ./VERSION)
-REGISTRY:= repo.adeo.no:5443
+REGISTRY:= docker.adeo.no:5000
 
 .PHONY: all build test docker docker-push bump-version manifest
 

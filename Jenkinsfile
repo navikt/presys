@@ -47,14 +47,14 @@ node {
                         -e LDAP_BASEDN=dc=preprod,dc=local \
                         -v ${NAV_TRUSTSTORE_PATH}:/app/cacerts \
                         --network presys-cluster \
-                        repo.adeo.no:5443/presys:${backendVersion}
+                        docker.adeo.no:5000/presys:${backendVersion}
                 """
             }
 
             sh """
                 docker run --name presys-frontend --rm -dP \
                     --network presys-cluster \
-                    repo.adeo.no:5443/presys-frontend:${frontendVersion}
+                    docker.adeo.no:5000/presys-frontend:${frontendVersion}
             """
 
             dir ("qa") {
@@ -81,7 +81,7 @@ node {
 
         stage("release") {
             withCredentials([usernamePassword(credentialsId: 'nexusUploader', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
-                sh "docker login -u ${env.NEXUS_USERNAME} -p ${env.NEXUS_PASSWORD} repo.adeo.no:5443"
+                sh "docker login -u ${env.NEXUS_USERNAME} -p ${env.NEXUS_PASSWORD} docker.adeo.no:5000"
             }
 
             sh "make release"
@@ -91,7 +91,7 @@ node {
             }
 
             withCredentials([usernamePassword(credentialsId: 'nexusUploader', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
-                sh "make manifest"
+                sh "make manifest NEXUS_URL=http://maven.adeo.no/nexus/content/repositories/m2internal"
             }
 
             withCredentials([usernamePassword(credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {

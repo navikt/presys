@@ -1,5 +1,5 @@
 name: presys-frontend
-image: repo.adeo.no:5443/presys-frontend
+image: docker.adeo.no:5000/presys-frontend
 port: 80
 replicas:
   min: 1
