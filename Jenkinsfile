@@ -102,7 +102,7 @@ node {
                         -jiraUrl https://jira.adeo.no \
                         -project PRE \
                         -application presys \
-                        -version ${version} \
+                        -version ${backendVersion} \
                         -username ${env.USERNAME} \
                         -password ${env.PASSWORD}
                 """
@@ -116,7 +116,7 @@ node {
                 parameters: [
                     string(name: 'APP', value: "presys"),
                     string(name: 'REPO', value: "navikt/presys"),
-                    string(name: 'VERSION', value: version),
+                    string(name: 'VERSION', value: backendVersion),
                     string(name: 'COMMIT_HASH', value: commitHash),
                     string(name: 'DEPLOY_ENV', value: 'q0')
                 ]
@@ -127,7 +127,7 @@ node {
                 parameters: [
                     string(name: 'APP', value: "presys-frontend"),
                     string(name: 'REPO', value: "navikt/presys"),
-                    string(name: 'VERSION', value: version),
+                    string(name: 'VERSION', value: frontendVersion),
                     string(name: 'COMMIT_HASH', value: commitHash),
                     string(name: 'DEPLOY_ENV', value: 'q0')
                 ]
@@ -136,8 +136,8 @@ node {
 
         github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
     } catch (e) {
-        sh "docker stop presys-${version} || true"
-        sh "docker stop presys-frontend-${version} || true"
+        sh "docker stop presys-${backendVersion} || true"
+        sh "docker stop presys-frontend-${frontendVersion} || true"
         sh "docker network rm presys-cluster || true"
 
         github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
