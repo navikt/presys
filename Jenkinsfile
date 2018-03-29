@@ -33,7 +33,7 @@ node {
                              usernamePassword(credentialsId: 'srvpresys', usernameVariable: 'SERVICEUSER_USERNAME', passwordVariable: 'SERVICEUSER_PASSWORD'),
                              certificate(aliasVariable: '', credentialsId: 'nav_truststore', keystoreVariable: 'NAV_TRUSTSTORE_PATH', passwordVariable: 'NAV_TRUSTSTORE_PASSWORD')]) {
                 sh """
-                    docker run --name presys-${backendVersion} --rm -dP \
+                    docker run --name presys --rm -dP \
                         -e NAV_TRUSTSTORE_PATH=/app/cacerts \
                         -e NAV_TRUSTSTORE_PASSWORD \
                         -e SPRING_DATASOURCE_URL='jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=d26dbfl023.test.local)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=PRESYSCDU1)(INSTANCE_NAME=ccuf02)(UR=A)(SERVER=DEDICATED)))' \
@@ -46,15 +46,13 @@ node {
                         -e LDAP_URL=ldaps://ldapgw.preprod.local \
                         -e LDAP_BASEDN=dc=preprod,dc=local \
                         -v ${NAV_TRUSTSTORE_PATH}:/app/cacerts \
-                        --hostname presys \
                         --network presys-cluster \
                         repo.adeo.no:5443/presys:${backendVersion}
                 """
             }
 
             sh """
-                docker run --name presys-frontend-${frontendVersion} --rm -dP \
-                    --hostname presys-frontend \
+                docker run --name presys-frontend --rm -dP \
                     --network presys-cluster \
                     repo.adeo.no:5443/presys-frontend:${frontendVersion}
             """
@@ -62,8 +60,8 @@ node {
             dir ("qa") {
                 sh "npm install"
 
-                backendPort = sh(script: "docker port presys-${backendVersion} 8080/tcp | sed s/.*://", returnStdout: true).trim()
-                frontendPort = sh(script: "docker port presys-frontend-${frontendVersion} 80/tcp | sed s/.*://", returnStdout: true).trim()
+                backendPort = sh(script: "docker port presys 8080/tcp | sed s/.*://", returnStdout: true).trim()
+                frontendPort = sh(script: "docker port presys-frontend 80/tcp | sed s/.*://", returnStdout: true).trim()
 
                 // wait for app to become ready
                 timeout(time: 180, unit: 'SECONDS') {
@@ -76,8 +74,8 @@ node {
                 sh "PORT=${frontendPort} ./node_modules/.bin/nightwatch --env jenkins"
             }
 
-            sh "docker stop presys-${backendVersion}"
-            sh "docker stop presys-frontend-${frontendVersion}"
+            sh "docker stop presys"
+            sh "docker stop presys-frontend"
             sh "docker network rm presys-cluster"
         }
 
@@ -136,8 +134,8 @@ node {
 
         github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
     } catch (e) {
-        sh "docker stop presys-${backendVersion} || true"
-        sh "docker stop presys-frontend-${frontendVersion} || true"
+        sh "docker stop presys || true"
+        sh "docker stop presys-frontend || true"
         sh "docker network rm presys-cluster || true"
 
         github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
