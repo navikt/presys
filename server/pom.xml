@@ -116,7 +116,7 @@
 		<dependency>
 			<groupId>no.nav.pensjon.presys.util</groupId>
 			<artifactId>ebcdicutil</artifactId>
-			<version>27</version>
+			<version>31</version>
 		</dependency>
 
 		<!-- prometheus -->

@@ -1,5 +1,5 @@
 name: presys
-image: docker.adeo.no:5000/presys
+image: repo.adeo.no:5443/presys
 replicas:
   min: 1
   max: 1
