@@ -14,6 +14,9 @@ build:
 test:
 	$(MVN) verify -B
 
+test-coverage:
+	$(MVN) clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -Pcoverage-per-test -B -e
+
 docker:
 	$(NAIS) validate
 	$(DOCKER) build --pull -t $(REGISTRY)/presys -t $(REGISTRY)/presys:$(VERSION) .

@@ -3,14 +3,16 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<groupId>no.nav.pensjon.presys</groupId>
 	<artifactId>presys-server</artifactId>
+	<version>1</version>
 	<packaging>jar</packaging>
 	<name>presys-server</name>
 
 	<parent>
-		<groupId>no.nav.pensjon.presys</groupId>
-		<artifactId>presys</artifactId>
-		<version>1</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.2.RELEASE</version>
 	</parent>
 
 	<properties>
@@ -191,4 +193,39 @@
 			</resource>
 		</resources>
 	</build>
+
+	<!-- BEGIN: Specific to mapping unit tests and covered code -->
+	<profiles>
+		<profile>
+			<id>coverage-per-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<!-- Minimal supported version is 2.4 -->
+						<version>2.13</version>
+						<configuration>
+							<properties>
+								<property>
+									<name>listener</name>
+									<value>org.sonar.java.jacoco.JUnitListener</value>
+								</property>
+							</properties>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.sonarsource.java</groupId>
+					<artifactId>sonar-jacoco-listeners</artifactId>
+					<version>3.8</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+	<!-- END: Specific to mapping unit tests and covered code -->
 </project>
