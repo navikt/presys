@@ -64,9 +64,9 @@ node {
                 frontendPort = sh(script: "docker port presys-frontend 80/tcp | sed s/.*://", returnStdout: true).trim()
 
                 // wait for app to become ready
-                timeout(time: 180, unit: 'SECONDS') {
+                /*timeout(time: 180, unit: 'SECONDS') {
                     sh "until curl -o /dev/null -s --head --fail http://localhost:${backendPort}/isReady; do sleep 1; done"
-                }
+                }*/
                 timeout(time: 180, unit: 'SECONDS') {
                     sh "until curl -o /dev/null -s --head --fail http://localhost:${frontendPort}/isReady; do sleep 1; done"
                 }
@@ -74,7 +74,7 @@ node {
                 sh "PORT=${frontendPort} ./node_modules/.bin/nightwatch --env jenkins"
             }
 
-            sh "docker stop presys"
+            sh "docker stop presys || true"
             sh "docker stop presys-frontend"
             sh "docker network rm presys-cluster"
         }
