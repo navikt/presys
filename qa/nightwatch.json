@@ -33,7 +33,7 @@
     "jenkins": {
       "launch_url" : "http://localhost:${PORT}",
       "cli_args": {
-        "webdriver.chrome.driver": "/usr/local/bin/chromedriver"
+        "webdriver.chrome.driver": "./node_modules/chromedriver/lib/chromedriver/chromedriver"
       },
       "desiredCapabilities": {
         "chromeOptions" : {
