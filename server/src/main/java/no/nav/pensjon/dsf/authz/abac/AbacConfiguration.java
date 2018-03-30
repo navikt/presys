@@ -1,6 +1,6 @@
 package no.nav.pensjon.dsf.authz.abac;
 
-import no.nav.freg.abac.core.service.AbacService;
+import no.nav.abac.core.service.AbacService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

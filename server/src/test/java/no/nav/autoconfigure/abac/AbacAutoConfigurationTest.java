@@ -1,7 +1,7 @@
 package no.nav.autoconfigure.abac;
 
 import no.nav.autoconfigure.serviceuser.ServiceUserProperties;
-import no.nav.freg.abac.core.consumer.AbacConsumer;
+import no.nav.abac.core.consumer.AbacConsumer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

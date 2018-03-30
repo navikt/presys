@@ -1,11 +1,11 @@
 package no.nav.autoconfigure.abac;
 
-import no.nav.freg.abac.core.consumer.AbacConsumer;
-import no.nav.freg.abac.core.service.AbacService;
-import no.nav.freg.abac.core.service.AbacServiceImpl;
-import no.nav.freg.abac.spring.consumer.AbacRequestMapper;
-import no.nav.freg.abac.spring.consumer.AbacResponseMapper;
-import no.nav.freg.abac.spring.consumer.AbacRestTemplateConsumer;
+import no.nav.abac.core.consumer.AbacConsumer;
+import no.nav.abac.core.service.AbacService;
+import no.nav.abac.core.service.AbacServiceImpl;
+import no.nav.abac.spring.consumer.AbacRequestMapper;
+import no.nav.abac.spring.consumer.AbacResponseMapper;
+import no.nav.abac.spring.consumer.AbacRestTemplateConsumer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

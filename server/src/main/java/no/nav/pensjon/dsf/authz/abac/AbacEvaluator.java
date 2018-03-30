@@ -2,10 +2,10 @@ package no.nav.pensjon.dsf.authz.abac;
 
 import no.nav.abac.xacml.NavAttributter;
 import no.nav.abac.xacml.StandardAttributter;
-import no.nav.freg.abac.core.dto.request.XacmlRequest;
-import no.nav.freg.abac.core.dto.response.Decision;
-import no.nav.freg.abac.core.dto.response.XacmlResponse;
-import no.nav.freg.abac.core.service.AbacService;
+import no.nav.abac.core.dto.request.XacmlRequest;
+import no.nav.abac.core.dto.response.Decision;
+import no.nav.abac.core.dto.response.XacmlResponse;
+import no.nav.abac.core.service.AbacService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
