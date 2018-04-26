@@ -86,7 +86,7 @@ public class AbacRestTemplateConsumerTest {
         consumer.evaluate(requestMock);
 
         verify(restTemplateMock).postForEntity(eq("url"), httpEntityCaptor.capture(), eq(String.class));
-        MatcherAssert.assertThat(httpEntityCaptor.getValue().getHeaders().getAccept(), CoreMatchers.hasItem(equalTo(MediaType.parseMediaType("application/no.nav.pensjon.abac.core.xacml+json"))));
+        MatcherAssert.assertThat(httpEntityCaptor.getValue().getHeaders().getAccept(), CoreMatchers.hasItem(equalTo(MediaType.parseMediaType("application/xacml+json"))));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class AbacRestTemplateConsumerTest {
         consumer.evaluate(requestMock);
 
         verify(restTemplateMock).postForEntity(eq("url"), httpEntityCaptor.capture(), eq(String.class));
-        MatcherAssert.assertThat(httpEntityCaptor.getValue().getHeaders().getContentType(), equalTo(MediaType.parseMediaType("application/no.nav.pensjon.abac.core.xacml+json")));
+        MatcherAssert.assertThat(httpEntityCaptor.getValue().getHeaders().getContentType(), equalTo(MediaType.parseMediaType("application/xacml+json")));
     }
 
     @Test
