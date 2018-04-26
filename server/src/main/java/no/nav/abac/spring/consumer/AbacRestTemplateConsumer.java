@@ -14,7 +14,7 @@ import static java.util.Collections.singletonList;
 
 public class AbacRestTemplateConsumer implements AbacConsumer {
 
-    private static final MediaType APPLICATION_XACML_AND_JSON = MediaType.parseMediaType("application/no.nav.pensjon.abac.core.xacml+json");
+    private static final MediaType APPLICATION_XACML_AND_JSON = MediaType.parseMediaType("application/xacml+json");
 
     private RestTemplate restTemplate;
     private String url;
