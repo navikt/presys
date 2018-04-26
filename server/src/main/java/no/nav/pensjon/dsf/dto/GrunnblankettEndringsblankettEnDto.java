@@ -48,7 +48,12 @@ public class GrunnblankettEndringsblankettEnDto extends GrunnblankettDto {
     }
 
     public void setFramtidigArbeidsinntekt(int framtidigArbeidsinntekt) {
-        this.framtidigArbeidsinntekt = framtidigArbeidsinntekt*100;
+        if (framtidigArbeidsinntekt==99999) {
+            this.framtidigArbeidsinntekt = 9999999;
+        }
+        else {
+            this.framtidigArbeidsinntekt = framtidigArbeidsinntekt*100;
+        }
     }//ligger 1/100 i ebcdic-filen
 
     public int getUforegrad() {
@@ -64,7 +69,12 @@ public class GrunnblankettEndringsblankettEnDto extends GrunnblankettDto {
     }
 
     public void setForventetInntekt(int forventetInntekt) {
-        this.forventetInntekt = forventetInntekt * 100;
+        if (forventetInntekt==99999) {
+            this.forventetInntekt = 9999999;
+        }
+        else {
+            this.forventetInntekt = (forventetInntekt * 100);
+        }
     }//ligger 1/100 i ebcdic-filen
 
     public String getFraOvergangsstonadTilPensjon() {

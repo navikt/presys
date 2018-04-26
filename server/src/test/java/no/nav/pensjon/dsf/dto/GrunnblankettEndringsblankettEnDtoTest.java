@@ -16,8 +16,10 @@ public class GrunnblankettEndringsblankettEnDtoTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     private ENBLAN1 model;
+    private ENBLAN1 modelWithOnly9s;
 
     private GrunnblankettEndringsblankettEnDto dto;
+    private GrunnblankettEndringsblankettEnDto dtoWithOnly9s;
 
     @Before
     public void setUp() {
@@ -64,6 +66,12 @@ public class GrunnblankettEndringsblankettEnDtoTest {
         model.setLonnstilskudd("??");
 
         dto = modelMapper.map(model, GrunnblankettEndringsblankettEnDto.class);
+
+        modelWithOnly9s = new ENBLAN1();
+        modelWithOnly9s.setFramtidigArbeidsinntekt(99999);
+        modelWithOnly9s.setForventetInntekt(99999);
+
+        dtoWithOnly9s = modelMapper.map(modelWithOnly9s, GrunnblankettEndringsblankettEnDto.class);
     }
 
     @After
@@ -114,6 +122,12 @@ public class GrunnblankettEndringsblankettEnDtoTest {
         assertEquals(model.getTrygdetidEOSMaaneder(), dto.getTrygdetidEOSMaaneder());
         assertEquals(model.getEpsInntektOverG(), dto.getEpsInntektOverG());
         assertEquals(model.getLonnstilskudd(), dto.getLonnstilskudd());
+    }
+
+    @Test
+    public void thatENBLAN1IsMappedCorrectlyToDtoWithOnly9s() {
+        assertEquals(9999999, dtoWithOnly9s.getFramtidigArbeidsinntekt());
+        assertEquals(9999999, dtoWithOnly9s.getForventetInntekt());
     }
 
     @Test
