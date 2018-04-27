@@ -109,26 +109,48 @@ node {
 
         stage("deploy") {
             build([
-                job: 'nais-deploy-pipeline',
-                propagate: false,
-                parameters: [
-                    string(name: 'APP', value: "presys"),
-                    string(name: 'REPO', value: "navikt/presys"),
-                    string(name: 'VERSION', value: backendVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'q0')
-                ]
+                    job: 'nais-deploy-pipeline',
+                    propagate: false,
+                    parameters: [
+                            string(name: 'APP', value: "presys"),
+                            string(name: 'REPO', value: "navikt/presys"),
+                            string(name: 'VERSION', value: backendVersion),
+                            string(name: 'COMMIT_HASH', value: commitHash),
+                            string(name: 'DEPLOY_ENV', value: 'q0')
+                    ]
             ])
             build([
-                job: 'nais-deploy-pipeline',
-                propagate: false,
-                parameters: [
-                    string(name: 'APP', value: "presys-frontend"),
-                    string(name: 'REPO', value: "navikt/presys"),
-                    string(name: 'VERSION', value: frontendVersion),
-                    string(name: 'COMMIT_HASH', value: commitHash),
-                    string(name: 'DEPLOY_ENV', value: 'q0')
-                ]
+                    job: 'nais-deploy-pipeline',
+                    propagate: false,
+                    parameters: [
+                            string(name: 'APP', value: "presys-frontend"),
+                            string(name: 'REPO', value: "navikt/presys"),
+                            string(name: 'VERSION', value: frontendVersion),
+                            string(name: 'COMMIT_HASH', value: commitHash),
+                            string(name: 'DEPLOY_ENV', value: 'q0')
+                    ]
+            ])
+            build([
+                    job: 'nais-deploy-pipeline',
+                    propagate: false,
+                    parameters: [
+                            string(name: 'APP', value: "presys"),
+                            string(name: 'REPO', value: "navikt/presys"),
+                            string(name: 'VERSION', value: backendVersion),
+                            string(name: 'COMMIT_HASH', value: commitHash),
+                            string(name: 'DEPLOY_ENV', value: 'p')
+                    ]
+            ])
+            build([
+                    job: 'nais-deploy-pipeline',
+                    propagate: false,
+                    parameters: [
+                            string(name: 'APP', value: "presys-frontend"),
+                            string(name: 'REPO', value: "navikt/presys"),
+                            string(name: 'VERSION', value: frontendVersion),
+                            string(name: 'COMMIT_HASH', value: commitHash),
+                            string(name: 'DEPLOY_ENV', value: 'p')
+                    ]
             ])
         }
 
