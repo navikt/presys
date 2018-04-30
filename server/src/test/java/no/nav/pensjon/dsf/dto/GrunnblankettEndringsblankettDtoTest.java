@@ -16,8 +16,10 @@ public class GrunnblankettEndringsblankettDtoTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     private ENDRBLAN model;
+    private ENDRBLAN modelWithOnly9s;
 
     private GrunnblankettEndringsblankettDto dto;
+    private GrunnblankettEndringsblankettDto dtoWithOnly9s;
 
     @Before
     public void setUp() {
@@ -43,6 +45,16 @@ public class GrunnblankettEndringsblankettDtoTest {
         model.setYrkeUforegrad(1717);
 
         dto = modelMapper.map(model, GrunnblankettEndringsblankettDto.class);
+
+
+        modelWithOnly9s = new ENDRBLAN();
+        modelWithOnly9s.setFramtidigArbeidsinntekt(99999);
+        modelWithOnly9s.setForventetInntekt(99999);
+
+        dtoWithOnly9s = modelMapper.map(modelWithOnly9s, GrunnblankettEndringsblankettDto.class);
+
+
+
     }
 
     @After
@@ -73,6 +85,14 @@ public class GrunnblankettEndringsblankettDtoTest {
         assertEquals(model.getInntektUnder4G(), dto.getInntektUnder4G());
         assertEquals(model.getYrkeUforegrad(), dto.getYrkeUforegrad());
     }
+
+
+    @Test
+    public void thatENDRBLANsMappedCorrectlyToDtoWithOnly9s() {
+        assertEquals(9999999, dtoWithOnly9s.getFramtidigArbeidsinntekt());
+        assertEquals(9999999, dtoWithOnly9s.getForventetInntekt());
+    }
+
 
     @Test
     public void thatGrunnblankettEndringsblankettDtoIsMappedCorrectlyToJson() {
