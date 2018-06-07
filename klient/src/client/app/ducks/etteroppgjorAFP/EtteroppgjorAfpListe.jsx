@@ -2,20 +2,50 @@ import React from 'react';
 import Table from 'components/elements/Table';
 
 const EtteroppgjorAfpListe = ({ etteroppgjor }) => <Table
-  headerTextCodes={['Inntekt.Aar',
-    'Inntekt.Pensjonsgivende',
-    'AFP.Inntekt_pre_Uttak',
-    'AFP.IFU.fraDsfInfotrygd',
-    'AFP.Inntekt_etter_opphor',
-    'AFP.IEO.fraDsfInfotrygd',
-    'AFP.Inntekt_i_perioden',
-    'AFP.Infotrygd.Beregnet_eller_registrert',
-    'AFP.OppgittFramtidigInntekt',
-    'AFP.TidligereInntekt',
-    'AFP.100ProsentAFPIAvregningsperioden',
-    'AFP.FaktiskUtbetalt',
-    'AFP.DifferanseForMyeUtbetalt',
-    'AFP.DifferanseForLiteUtbealt']}
+  headerTextCodes={[
+    {
+      textCode: 'Inntekt.Aar',
+    },
+    {
+      textCode: 'Inntekt.Pensjonsgivende',
+    },
+    {
+      textCode: 'AFP.Inntekt_pre_Uttak',
+    },
+    {
+      textCode: 'AFP.IFU.fraDsfInfotrygd',
+    },
+    {
+      textCode: 'AFP.Inntekt_etter_opphor',
+    },
+    {
+      textCode: 'AFP.IEO.fraDsfInfotrygd',
+    },
+    {
+      textCode: 'AFP.Inntekt_i_perioden',
+    },
+    {
+      textCode: 'AFP.Infotrygd.Beregnet_eller_registrert',
+    },
+    {
+      textCode: 'AFP.OppgittFramtidigInntekt',
+    },
+    {
+      textCode: 'AFP.TidligereInntekt',
+    },
+    {
+      textCode: 'AFP.100ProsentAFPIAvregningsperioden',
+    },
+    {
+      textCode: 'AFP.FaktiskUtbetalt',
+    },
+    {
+      textCode: 'AFP.DifferanseForMyeUtbetalt',
+    },
+    {
+      textCode: 'AFP.DifferanseForLiteUtbealt',
+    },
+  ]}
   data={etteroppgjor.map(row => ({ key: row.inntektsAar,
     columns: [
           { key: 'a', value: row.inntektsAar },

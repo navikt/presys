@@ -9,15 +9,40 @@ const formatRappdate = (rappdate) => {
   return `${asString.slice(0, 4)} ${asString.slice(4)}`;
 };
 
+const formatPersoninntekt = (personinntekt) => {
+  if (!personinntekt) {
+    return '';
+  }
+  const piString = personinntekt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return piString;
+};
+
 export const InntektListe = ({ inntekter }) => <div>{!inntekter ? null : <Table
-  headerTextCodes={['Inntekt.Aar', 'Kommune', 'Type', 'Inntekt.Pensjonsgivende', 'Inntekt.Rapporteringsdato']}
+  headerTextCodes={[
+    {
+      textCode: 'Inntekt.Aar',
+    },
+    {
+      textCode: 'Kommune',
+    },
+    {
+      textCode: 'Type',
+    },
+    {
+      textCode: 'Inntekt.Pensjonsgivende',
+      classNameTd: 'hoyreJustertKolonne',
+    },
+    {
+      textCode: 'Inntekt.Rapporteringsdato',
+      classNameTd: 'midtJustertKolonne',
+    }]}
   data={inntekter.map((row, i) => ({ key: i,
     columns: [
           { key: '0', value: row.personInntektAar },
           { key: '1', value: row.kommune },
           { key: '2', value: row.personInntektType },
-          { key: '3', value: row.personInntekt },
-          { key: '4', value: formatRappdate(row.rapporteringsDato) },
+          { key: '3', value: formatPersoninntekt(row.personInntekt), classNameTd: 'hoyreJustertKolonne' },
+          { key: '4', value: formatRappdate(row.rapporteringsDato), classNameTd: 'midtJustertKolonne' },
     ] }))}
 />
         }</div>;

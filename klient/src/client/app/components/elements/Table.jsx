@@ -16,8 +16,8 @@ const Table = ({
   <table className={`${styles.table} ${classNameTable}`}>
     <thead>
       <TableRow isHeader>
-        {headerTextCodes.map(textCode =>
-          <TableColumn key={textCode} textCode={textCode} />,
+        {headerTextCodes.map(headerObject =>
+          <TableColumn key={headerObject.textCode} textCode={headerObject.textCode} classNameTd={headerObject.classNameTd} />,
         )}
       </TableRow>
     </thead>
@@ -25,7 +25,7 @@ const Table = ({
       {data.map(row =>
         <TableRow key={row.key} id={row.key} model={row.model} onMouseDown={onMouseDownRow} onKeyDown={onKeyDownRow} tabIndex={tabIndex}>
           {row.columns.map(value =>
-            <TableColumn key={value.key} value={value.value} />,
+            <TableColumn key={value.key} value={value.value} classNameTd={value.classNameTd} />,
           )}
         </TableRow>,
       )}
@@ -41,6 +41,7 @@ Table.propTypes = {
     columns: React.PropTypes.arrayOf(React.PropTypes.shape({
       key: React.PropTypes.string,
       value: React.PropTypes.any,
+      classNameTd: React.PropTypes.string,
     })).isRequired,
   })).isRequired,
   onMouseDownRow: React.PropTypes.func,
