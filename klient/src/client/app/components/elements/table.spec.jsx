@@ -15,8 +15,12 @@ describe('<Table>', () => {
   }];
 
   const headerTextCodes = [
-    'FagsakList.Saksnummer',
-    'FagsakList.Sakstype',
+      {
+          textCode: 'FagsakList.Saksnummer'
+      },
+      {
+          textCode: 'FagsakList.Sakstype'
+      }
   ];
 
   it('skal vise korrekt antall kolonneheadere med korrekt tekst', () => {
