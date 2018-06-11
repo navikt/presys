@@ -97,7 +97,7 @@ const Trygdetid = ({ trygdetidProRataMaaneder,
                          </tr>
                          <tr>
                            <td>Anvendt EØS trygdetid</td>
-                           <td>{trygdetidEosAnvendtAAr} år og {trygdetidEosAnvendtMaaneder} måneder</td>
+                           <td>{trygdetidEosAnvendtAAr} år eller {trygdetidEosAnvendtMaaneder} måneder</td>
                          </tr>
                          <tr>
                            <td>Faktisk nordisk trygdetid i måneder</td>
