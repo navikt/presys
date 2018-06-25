@@ -73,7 +73,7 @@ const GrunnblankettAlderspensjon = ({
           </tr>
           <tr>
             <td>Alderspensjonsdel</td>
-            <td>{alderspensjonsdel}</td>
+            <td>{(alderspensjonsdel !== 999) ? alderspensjonsdel : 0}</td>
           </tr>
           <tr>
             <td>Fødselsnummer ektefelle</td>
