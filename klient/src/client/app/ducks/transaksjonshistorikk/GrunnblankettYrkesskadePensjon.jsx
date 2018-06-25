@@ -40,7 +40,7 @@ const GrunnblankettYrkesskadePensjon = ({ vilkaarPar1Pkt2Ledd2BokstavA,
                     </tr>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettYrkesskadePensjon.yrkesskadeufor" /></td>
-                      <td>{yrkesskadeufor} %</td>
+                      <td>{(yrkesskadeufor !== 0) ? `${yrkesskadeufor}%` : ''}</td>
                     </tr>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettYrkesskadePensjon.kapittel11Pkt7Utlost" /></td>
