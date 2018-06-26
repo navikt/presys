@@ -62,7 +62,7 @@ const GrunnblankettAlderspensjonA1 = ({ statsborgerskap,
                     </tr>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettAlderspensjonA1.alderspensjonIProsent" /></td>
-                      <td>{alderspensjonIProsent} %</td>
+                      <td>{(alderspensjonIProsent !== 999) ? alderspensjonIProsent : 100} %</td>
                     </tr>
                     <tr>
                       <td><FormattedMessage id="GrunnblankettAlderspensjonA1.framtidigArbeidsinntekt" /></td>
