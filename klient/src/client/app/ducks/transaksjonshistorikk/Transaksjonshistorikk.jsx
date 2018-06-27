@@ -29,7 +29,7 @@ const Transaksjonshistorikk = ({ virkningsdato, registreringsdato, sivilstand, s
         <td>{trygdekontornummer}</td>
       </tr>
       <tr>
-        <td>TerminalId:</td>
+        <td>Terminal-Id:</td>
         <td>{terminalId}</td>
       </tr>
     </InfoTable>
