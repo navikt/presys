@@ -22,7 +22,7 @@ def createRlm(String version) {
         def postBodyString = groovy.json.JsonOutput.toJson(postBody)
         def base64encoded = "${env.USERNAME}:${env.PASSWORD}".bytes.encodeBase64().toString()
 
-        System.setProperty("http.nonProxyHosts", "*.adeo.no")
+        //System.setProperty("http.nonProxyHosts", "*.adeo.no")
 
         def response = httpRequest(
                 url: 'https://jira.adeo.no/rest/api/2/issue/',
