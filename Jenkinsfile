@@ -13,8 +13,8 @@ def createRlm(String version) {
                         issuetype: [ name: "Produksjonsendring" ],
                         customfield_21440: [id:"Leveransetypenavn", value: "Continuous delivery (CD)"],
                         customfield_21110: [id:"Tjeneste og komponent", value: "Registrer tjeneste og komponent"],
-                        customfield_20768: [id:"Tjeneste", value: ["Presys (Pensjon)"]],
-                        customfield_20717: [id:"Component/s (Insight)" , value: [app]],
+                        customfield_20768: [[id:"Tjeneste", value: "Presys (Pensjon)"]],
+                        customfield_20717: [[id:"Component/s (Insight)" , value: app]],
                         customfield_20761: [id:"Behov for fixversion?" , value: "Nei"]
                 ]
         ]
