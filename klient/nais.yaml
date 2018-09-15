@@ -1,5 +1,6 @@
 name: presys-frontend
 image: repo.adeo.no:5443/presys-frontend
+team: peon
 port: 80
 replicas:
   min: 1
