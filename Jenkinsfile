@@ -147,32 +147,39 @@ node {
             createRlm(backendVersion)
         }
 
-        stage("deploy") {
-            build([
-                    job: 'nais-deploy-pipeline',
-                    propagate: false,
-                    parameters: [
+        stage("deploy preprod") {
+            steps {
+                parallel {
+                    build([
+                        job: 'nais-deploy-pipeline',
+                        propagate: false,
+                        parameters: [
                             string(name: 'APP', value: "presys"),
                             string(name: 'REPO', value: "navikt/presys"),
                             string(name: 'VERSION', value: backendVersion),
                             string(name: 'COMMIT_HASH', value: commitHash),
                             string(name: 'DEPLOY_ENV', value: 'q0')
-                    ]
-            ])
-            build([
-                    job: 'nais-deploy-pipeline',
-                    propagate: false,
-                    parameters: [
+                        ]
+                    ])
+                    build([
+                        job: 'nais-deploy-pipeline',
+                        propagate: true,
+                        parameters: [
                             string(name: 'APP', value: "presys-frontend"),
                             string(name: 'REPO', value: "navikt/presys"),
                             string(name: 'VERSION', value: frontendVersion),
                             string(name: 'COMMIT_HASH', value: commitHash),
                             string(name: 'DEPLOY_ENV', value: 'q0')
-                    ]
-            ])
+                        ]
+                    ])
+                }
+            }
+        }
+        
+        stage("deploy prod") {
             build([
                     job: 'nais-deploy-pipeline',
-                    propagate: false,
+                    propagate: true,
                     parameters: [
                             string(name: 'APP', value: "presys"),
                             string(name: 'REPO', value: "navikt/presys"),
