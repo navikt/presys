@@ -1,6 +1,6 @@
 name: presys
 image: repo.adeo.no:5443/presys
-team: peon
+team: teampeon
 replicas:
   min: 1
   max: 1
