@@ -149,10 +149,10 @@ node {
 
         stage("deploy preprod") {
             steps {
-                parallel {
+                parallel backend: {
                     build([
                         job: 'nais-deploy-pipeline',
-                        propagate: false,
+                        propagate: true,
                         parameters: [
                             string(name: 'APP', value: "presys"),
                             string(name: 'REPO', value: "navikt/presys"),
@@ -161,6 +161,8 @@ node {
                             string(name: 'DEPLOY_ENV', value: 'q0')
                         ]
                     ])
+                },
+                frontend
                     build([
                         job: 'nais-deploy-pipeline',
                         propagate: true,
@@ -190,7 +192,7 @@ node {
             ])
             build([
                     job: 'nais-deploy-pipeline',
-                    propagate: false,
+                    propagate: true,
                     parameters: [
                             string(name: 'APP', value: "presys-frontend"),
                             string(name: 'REPO', value: "navikt/presys"),
