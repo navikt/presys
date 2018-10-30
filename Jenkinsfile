@@ -162,7 +162,7 @@ node {
                         ]
                     ])
                 },
-                frontend
+                frontend: {
                     build([
                         job: 'nais-deploy-pipeline',
                         propagate: true,
