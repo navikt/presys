@@ -148,33 +148,31 @@ node {
         }
 
         stage("deploy preprod") {
-            steps {
-                parallel backend: {
-                    build([
-                        job: 'nais-deploy-pipeline',
-                        propagate: true,
-                        parameters: [
-                            string(name: 'APP', value: "presys"),
-                            string(name: 'REPO', value: "navikt/presys"),
-                            string(name: 'VERSION', value: backendVersion),
-                            string(name: 'COMMIT_HASH', value: commitHash),
-                            string(name: 'DEPLOY_ENV', value: 'q0')
-                        ]
-                    ])
-                },
-                frontend: {
-                    build([
-                        job: 'nais-deploy-pipeline',
-                        propagate: true,
-                        parameters: [
-                            string(name: 'APP', value: "presys-frontend"),
-                            string(name: 'REPO', value: "navikt/presys"),
-                            string(name: 'VERSION', value: frontendVersion),
-                            string(name: 'COMMIT_HASH', value: commitHash),
-                            string(name: 'DEPLOY_ENV', value: 'q0')
-                        ]
-                    ])
-                }
+            parallel backend: {
+                build([
+                    job: 'nais-deploy-pipeline',
+                    propagate: true,
+                    parameters: [
+                        string(name: 'APP', value: "presys"),
+                        string(name: 'REPO', value: "navikt/presys"),
+                        string(name: 'VERSION', value: backendVersion),
+                        string(name: 'COMMIT_HASH', value: commitHash),
+                        string(name: 'DEPLOY_ENV', value: 'q0')
+                    ]
+                ])
+            },
+            frontend: {
+                build([
+                    job: 'nais-deploy-pipeline',
+                    propagate: true,
+                    parameters: [
+                        string(name: 'APP', value: "presys-frontend"),
+                        string(name: 'REPO', value: "navikt/presys"),
+                        string(name: 'VERSION', value: frontendVersion),
+                        string(name: 'COMMIT_HASH', value: commitHash),
+                        string(name: 'DEPLOY_ENV', value: 'q0')
+                    ]
+                ])
             }
         }
         
