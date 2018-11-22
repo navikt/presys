@@ -1,42 +1,6 @@
 #!/usr/bin/env groovy
 @Library('peon-pipeline') _
 
-def createRlm(String version) {
-
-    withCredentials([usernamePassword(credentialsId: 'jiraServiceUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        def app = "presys"
-        def postBody = [
-                fields: [
-                        project          : [key: 'PROD'],
-                        summary          : app + version,
-                        description: "Produksjonsetting av " + app + version ,
-                        issuetype: [ name: "Produksjonsendring" ],
-                        customfield_21440: [id:"25705", value: "Continuous delivery (CD)"],
-                        customfield_21110: [id:"25279", value: "Registrer tjeneste og komponent"],
-                        customfield_20768: [[id:"CMDB-32605", value: "Presys (Pensjon)"]],
-                        customfield_20717: [[id:"CMDB-419" , value: "Presys"]],
-                        customfield_20761: [id:"24993" , value: "Nei"]
-                ]
-        ]
-
-        def postBodyString = groovy.json.JsonOutput.toJson(postBody)
-        def base64encoded = "${env.USERNAME}:${env.PASSWORD}".bytes.encodeBase64().toString()
-
-        //System.setProperty("http.nonProxyHosts", "*.adeo.no")
-
-        def response = httpRequest(
-                url: 'https://jira.adeo.no/rest/api/2/issue/',
-                customHeaders: [[name: "Authorization", value: "Basic ${base64encoded}"]],
-                consoleLogResponseBody: true,
-                contentType: 'APPLICATION_JSON',
-                httpMode: 'POST',
-                requestBody: postBodyString
-        )
-        def slurper = new groovy.json.JsonSlurperClassic()
-        return slurper.parseText(response.content)
-    }
-}
-
 node {
     def commitHash, frontendVersion, backendVersion
 
@@ -144,7 +108,6 @@ node {
                         -password ${env.PASSWORD}
                 """
             }
-            createRlm(backendVersion)
         }
 
         stage("deploy preprod") {
