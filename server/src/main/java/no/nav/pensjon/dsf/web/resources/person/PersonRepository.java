@@ -57,14 +57,16 @@ public class PersonRepository {
         person.setAi67(1234);
         person.setNavn("Donald Duck");
 
+
         Inntekt inntekt = new Inntekt();
-        inntekt.setKommune("123");
+        inntekt.setKommune("01234");
         inntekt.setPersonInntekt(100200);
         inntekt.setPersonInntektAar(2002);
         inntekt.setPersonInntektType("B");
+        inntekt.setPersonInntektMerke("");
         inntekt.setRapporteringsDato(2004147);
 
-        person.getInntekter().add(new Inntekt());
+        person.getInntekter().add(inntekt);
         return person;
     }
 }
