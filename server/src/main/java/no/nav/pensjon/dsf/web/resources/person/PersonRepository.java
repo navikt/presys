@@ -1,5 +1,6 @@
 package no.nav.pensjon.dsf.web.resources.person;
 
+import no.nav.pensjon.dsf.domene.Inntekt;
 import no.nav.pensjon.dsf.domene.Person;
 import no.nav.pensjon.dsf.web.exceptions.ResourceNotFound;
 import no.nav.pensjon.presys.utils.ebcdic.AnnotationMapper;
@@ -28,6 +29,11 @@ public class PersonRepository {
 
     Person findPerson(String fnr) {
         MDC.put("bruker", fnr);
+
+        if("1".equals(fnr)){
+            return testBruker();
+        }
+
         try {
             Map<String, Object> map = db.queryForMap("select data from db_person where fnr=?", fnr);
             return AnnotationMapper.les(new ScrollableArray(map.get("data") instanceof String ? Base64.getDecoder().decode((String) map.get("data")) : (byte[]) map.get("data")), Person.class);
@@ -43,5 +49,22 @@ public class PersonRepository {
 
     boolean exists(String fnr){
         return db.queryForObject("SELECT COUNT(*) FROM DB_PERSON WHERE fnr = ?", new Object[]{fnr} , Integer.class ) > 0;
+    }
+
+    private Person testBruker(){
+        Person person = new Person();
+        person.setFnr("1");
+        person.setAi67(1234);
+        person.setNavn("Donald Duck");
+
+        Inntekt inntekt = new Inntekt();
+        inntekt.setKommune("123");
+        inntekt.setPersonInntekt(100200);
+        inntekt.setPersonInntektAar(2002);
+        inntekt.setPersonInntektType("B");
+        inntekt.setRapporteringsDato(2004147);
+
+        person.getInntekter().add(new Inntekt());
+        return person;
     }
 }
