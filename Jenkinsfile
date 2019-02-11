@@ -2,16 +2,16 @@
 @Library('peon-pipeline') _
 
 node {
-    def commitHash, frontendVersion, backendVersion
+    def commitHash, frontendVersion, backendVersion, appToken
 
     try {
         cleanWs()
 
         stage("checkout") {
-            withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                sh "git init"
-                sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git"
-            }
+            appToken = github.generateAppToken()
+            sh "git init"
+            sh "git pull https://x-access-token:$appToken@github.com/navikt/presys.git"
+
 
             sh "make bump-version"
 
@@ -19,7 +19,7 @@ node {
             frontendVersion = sh(script: 'cat ./klient/VERSION', returnStdout: true).trim()
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-            github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'pending', "Build #${env.BUILD_NUMBER} has started")
+            github.commitStatus("pending", "navikt/presys", appToken, commitHash)
         }
 
         stage("build") {
@@ -89,9 +89,8 @@ node {
 
             sh "make release"
 
-            withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                sh("git push --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/presys.git HEAD:master")
-            }
+            sh "git push --tags https://x-access-token:$appToken@github.com/navikt/presys HEAD:master"
+
 
             withCredentials([usernamePassword(credentialsId: 'nexusUploader', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
                 sh "make manifest"
@@ -163,14 +162,13 @@ node {
                     ]
             ])
         }
-
-        github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
+        github.commitStatus("success", "navikt/presys", appToken, commitHash)
     } catch (e) {
         sh "docker stop presys || true"
         sh "docker stop presys-frontend || true"
         sh "docker network rm presys-cluster || true"
 
-        github.commitStatus("navikt-ci-oauthtoken", "navikt/presys", 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
+        github.commitStatus("failure", "navikt/presys", appToken, commitHash)
 
         throw e
     }
