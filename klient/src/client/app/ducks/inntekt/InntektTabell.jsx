@@ -36,7 +36,7 @@ export const InntektListe = ({ inntekter }) => <div>{!inntekter ? null : <Table
       textCode: 'Inntekt.Rapporteringsdato',
       classNameTd: 'midtJustertKolonne',
     }]}
-  data={inntekter.sort((a,b)=>b.personInntektAar - a.personInntektAar).map((row, i) => ({ key: i,
+  data={inntekter.sort((a, b) => b.personInntektAar - a.personInntektAar).map((row, i) => ({ key: i,
     columns: [
           { key: '0', value: row.personInntektAar },
           { key: '1', value: row.kommune },
