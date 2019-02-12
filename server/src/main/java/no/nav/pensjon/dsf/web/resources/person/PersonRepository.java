@@ -103,7 +103,7 @@ public class PersonRepository {
         tranHist.setTrygdekontornummer(124);
         tranHist.getGrunnba1er().add(testGrunnBa1());
         tranHist.getGrunnees().add(testEes());
-        tranHist.getGrblebener().add(testGrblebener())
+        tranHist.getGrblebener().add(testGrblebener());
         return tranHist;
     }
 
