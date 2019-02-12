@@ -57,16 +57,22 @@ public class PersonRepository {
         person.setAi67(1234);
         person.setNavn("Donald Duck");
 
+        person.getInntekter().add(testinntekt(1968, 12));
+        person.getInntekter().add(testinntekt(1969, 123));
+        person.getInntekter().add(testinntekt(1970, 1234));
+        person.getInntekter().add(testinntekt(1971, 12345));
+        person.getInntekter().add(testinntekt(1972, 123456));
+        return person;
+    }
 
+    private Inntekt testinntekt(int aar, int belop){
         Inntekt inntekt = new Inntekt();
         inntekt.setKommune("01234");
-        inntekt.setPersonInntekt(100200);
-        inntekt.setPersonInntektAar(2002);
+        inntekt.setPersonInntekt(belop);
+        inntekt.setPersonInntektAar(aar);
         inntekt.setPersonInntektType("B");
         inntekt.setPersonInntektMerke("");
         inntekt.setRapporteringsDato(2004147);
-
-        person.getInntekter().add(inntekt);
-        return person;
+        return inntekt;
     }
 }
