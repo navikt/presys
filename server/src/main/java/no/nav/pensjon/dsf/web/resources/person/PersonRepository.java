@@ -102,7 +102,6 @@ public class PersonRepository {
         tranHist.setTransaksjonsreturkode("TRK");
         tranHist.setTrygdekontornummer(124);
         tranHist.getGrunnba1er().add(testGrunnBa1());
-        tranHist.getGrunnees().add(testEes());
         tranHist.getGrblebener().add(testGrblebener());
         return tranHist;
     }
@@ -115,18 +114,6 @@ public class PersonRepository {
         grbleben.setNavnYngsteBarn("N/A");
         grbleben.setPleiebarn("PB");
         return grbleben;
-    }
-
-    private GRUNNEES testEes() {
-        GRUNNEES grunnees = new GRUNNEES();
-        grunnees.setBeregnFolketrygd("BFT");
-        grunnees.setEosOpplysning("EOSO");
-        grunnees.setErFlyktning("N");
-        grunnees.setUngUfor("N");
-        grunnees.setMedlem("Andeby");
-        grunnees.setTrygdetidProrataAar(7);
-        grunnees.setTrygdetidProrataMaaneder(4);
-        return grunnees;
     }
 
     private GRUNNBA1 testGrunnBa1() {
