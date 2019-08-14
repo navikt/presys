@@ -27,7 +27,6 @@ node {
         }
 
         stage("integration tests") {
-            /*
             sh "docker network create presys-cluster"
 
             withCredentials([usernamePassword(credentialsId: 'presysDB_U', usernameVariable: 'SPRING_DATASOURCE_USERNAME', passwordVariable: 'SPRING_DATASOURCE_PASSWORD'),
@@ -65,9 +64,9 @@ node {
                 frontendPort = sh(script: "docker port presys-frontend 80/tcp | sed s/.*://", returnStdout: true).trim()
 
                 // wait for app to become ready
-                /*timeout(time: 180, unit: 'SECONDS') {
+                timeout(time: 180, unit: 'SECONDS') {
                     sh "until curl -o /dev/null -s --head --fail http://localhost:${backendPort}/isReady; do sleep 1; done"
-                }*//*
+                }
                 timeout(time: 180, unit: 'SECONDS') {
                     sh "until curl -o /dev/null -s --head --fail http://localhost:${frontendPort}/isReady; do sleep 1; done"
                 }
@@ -78,7 +77,6 @@ node {
             sh "docker stop presys || true"
             sh "docker stop presys-frontend"
             sh "docker network rm presys-cluster"
-        */
         }
 
         stage("release") {
