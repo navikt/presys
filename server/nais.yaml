@@ -1,45 +1,36 @@
-name: presys
-image: repo.adeo.no:5443/presys
-team: teampeon
-replicas:
-  min: 1
-  max: 1
-healthcheck:
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: presys
+  namespace: {{namespace}}
+  labels:
+    team: teampeon
+spec:
+  image: repo.adeo.no:5443/presys:{{version}}
+  port: 8080
+  ingresses:
+    - {{ingress}}
   liveness:
+    path: isAlive
     initialDelay: 60
     periodSeconds: 2
     failureThreshold: 90
   readiness:
+    path: isReady
     initialDelay: 60
     periodSeconds: 2
     failureThreshold: 90
-prometheus:
-  enabled: true
-resources:
-  limits:
-    cpu: 1000m
-    memory: 384Mi
-  requests:
-    cpu: 100m
-    memory: 256Mi
-fasitResources:
-  used:
-  - alias: jwt
-    resourceType: credential
-  - alias: ldap
-    resourceType: ldap
-  - alias: presysDB
-    resourceType: datasource
-    propertyMap:
-      url: SPRING_DATASOURCE_URL
-      username: SPRING_DATASOURCE_USERNAME
-      password: SPRING_DATASOURCE_PASSWORD
-  - alias: srvpresys
-    resourceType: credential
-    propertyMap:
-      username: SERVICEUSER_USERNAME
-      password: SERVICEUSER_PASSWORD
-  - alias: abac.pdp.endpoint
-    resourceType: restservice
-    propertyMap:
-      url: ABAC_URL
+  vault:
+    enabled: true
+  replicas:
+    min: 1
+    max: 1
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 384Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  prometheus:
+    enabled: true

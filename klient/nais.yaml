@@ -1,8 +1,15 @@
-name: presys-frontend
-image: repo.adeo.no:5443/presys-frontend
-team: teampeon
-port: 80
-replicas:
-  min: 1
-  max: 1
-
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: presys-frontend
+  namespace: {{namespace}}
+  labels:
+    team: teampeon
+spec:
+  image: repo.adeo.no:5443/presys-frontend:{{version}}
+  port: 80
+  ingresses:
+    - {{ingress}}
+  replicas:
+    min: 1
+    max: 1
