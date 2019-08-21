@@ -1,8 +1,9 @@
-Innsyn i DFS
+Innsyn i DSF
 =============
 
 ### Struktur
-Delt inn i klientkode og serverkode. Pr nå må disse kjøres hver for seg
+
+Delt inn i klientkode og serverkode. Pr. nå må disse kjøres hver for seg.
 
 ### Kjøre applikasjonene lokalt
 
