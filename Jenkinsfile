@@ -104,8 +104,7 @@ node {
             env.COMMIT_HASH_LONG=commitHash
             env.COMMIT_HASH_SHORT=backendVersion
             deployments = [
-                    ["dev-fss", "default"],
-                    ["prod-fss", "default"]
+                    ["dev-fss", "default"]
             ]
 
             for (deployment in deployments) {
