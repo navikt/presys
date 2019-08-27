@@ -24,6 +24,11 @@ node {
         }
 
         stage("build") {
+            agent {
+                dockerfile {
+                    filename "server/Dockerfile"
+                }
+            }
             latestStage = env.STAGE_NAME
             sh "make"
         }
