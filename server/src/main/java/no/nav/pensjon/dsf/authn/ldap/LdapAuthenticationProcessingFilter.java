@@ -2,7 +2,8 @@ package no.nav.pensjon.dsf.authn.ldap;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.actuate.metrics.CounterService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.ldap.NamingException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -21,53 +22,53 @@ import java.io.IOException;
 
 public class LdapAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    private CounterService counterService;
+    private final Counter loginAttemptCounter;
+    private final Counter loginErrorCounter;
+    private final Counter loginFailedCounter;
+    private final Counter loginMalformedInputCounter;
+    private final Counter loginSuccessCounter;
 
-    public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, CounterService counterService) {
+    public LdapAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, MeterRegistry meterRegistry) {
         super(requiresAuthenticationRequestMatcher);
-        this.counterService = counterService;
-
-        counterService.reset("counter.login.attempt");
-        counterService.reset("counter.login.malformed_input");
-        counterService.reset("counter.login.error");
-        counterService.reset("counter.login.success");
-        counterService.reset("counter.login.failed");
+        this.loginAttemptCounter = meterRegistry.counter("counter.login.attempt");
+        this.loginErrorCounter = meterRegistry.counter("counter.login.error");
+        this.loginFailedCounter = meterRegistry.counter("counter.login.failed");
+        this.loginMalformedInputCounter = meterRegistry.counter("counter.login.malformed_input");
+        this.loginSuccessCounter = meterRegistry.counter("counter.login.success");
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException {
+        loginAttemptCounter.increment();
 
-        counterService.increment("counter.login.attempt");
         try {
             LoginRequest loginRequest = new ObjectMapper()
-                    .readValue(req.getInputStream(), LoginRequest.class);
+                    .readValue(request.getInputStream(), LoginRequest.class);
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),
-                            loginRequest.getPassword()
-                    )
-            );
+                            loginRequest.getPassword()));
         } catch (JsonMappingException e) {
-            counterService.increment("counter.login.malformed_input");
+            loginMalformedInputCounter.increment();
             throw new BadCredentialsException("Malformed JSON", e);
         } catch (NamingException e) {
-            counterService.increment("counter.login.error");
+            loginErrorCounter.increment();
             throw new InternalAuthenticationServiceException("Error while contacting LDAP server", e);
         }
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        counterService.increment("counter.login.success");
+        loginSuccessCounter.increment();
         SecurityContextHolder.getContext().setAuthentication(authResult);
         getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        counterService.increment("counter.login.failed");
+        loginFailedCounter.increment();
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }

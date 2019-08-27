@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,8 +25,9 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -139,6 +140,6 @@ public class AbacRestTemplateConsumerTest {
 
     private void mockRestTemplateResponse(String body, HttpStatus status) {
         ResponseEntity<String> entity = new ResponseEntity<>(body, status);
-        when(restTemplateMock.postForEntity(anyString(), anyString(), eq(String.class))).thenReturn(entity);
+        when(restTemplateMock.postForEntity(anyString(), any(), eq(String.class))).thenReturn(entity);
     }
 }

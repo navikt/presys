@@ -45,4 +45,10 @@ public class PresysControllerTest {
                 .andExpect(content().string(containsString("uptime")));
     }
 
+    @Test
+    public void prometheus() throws Exception {
+        mvc.perform(get("/prometheus"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("jvm")));
+    }
 }

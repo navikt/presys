@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
-import org.springframework.boot.test.util.EnvironmentTestUtils;
+import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AbacAutoConfigurationTest {
@@ -15,28 +15,32 @@ public class AbacAutoConfigurationTest {
 
     @Before
     public void setup() {
-        this.context = new AnnotationConfigApplicationContext();
+        context = new AnnotationConfigApplicationContext();
     }
 
     @After
     public void close() {
-        if (this.context != null) {
-            this.context.close();
+        if (context == null) {
+            return;
         }
+
+        context.close();
     }
 
     @Test
-    public void testSetUsernameAndPasswordFromServiceUser() throws Exception {
+    public void testSetUsernameAndPasswordFromServiceUser() {
         load("serviceuser.username:foo", "serviceuser.password:bar",
                 "abac.url:http://example.tld");
-        AbacConsumer abacConsumer = this.context.getBean(AbacConsumer.class);
+        context.getBean(AbacConsumer.class);
     }
 
     private void load(String... properties) {
-        EnvironmentTestUtils.addEnvironment(this.context, properties);
-        this.context.register(AbacAutoConfiguration.class,
+        TestPropertyValues.of(properties).applyTo(context);
+
+        context.register(AbacAutoConfiguration.class,
                 ServiceUserProperties.class,
                 PropertyPlaceholderAutoConfiguration.class);
-        this.context.refresh();
+
+        context.refresh();
     }
 }

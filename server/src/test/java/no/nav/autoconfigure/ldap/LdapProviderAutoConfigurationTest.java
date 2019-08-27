@@ -9,11 +9,12 @@ import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.ldap.LdapAutoConfiguration;
-import org.springframework.boot.test.util.EnvironmentTestUtils;
+import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.ldap.authentication.AbstractLdapAuthenticationProvider;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertNotNull;
 
 public class LdapProviderAutoConfigurationTest {
 
@@ -24,69 +25,74 @@ public class LdapProviderAutoConfigurationTest {
 
     @Before
     public void setup() {
-        this.context = new AnnotationConfigApplicationContext();
+        context = new AnnotationConfigApplicationContext();
     }
 
     @After
     public void close() {
-        if (this.context != null) {
-            this.context.close();
+        if (context == null) {
+            return;
         }
+
+        context.close();
     }
 
     @Test
-    public void thatNoLdapUserSearchOrDNPatternThrows() throws Exception {
+    public void thatNoLdapUserSearchOrDNPatternThrows() {
         thrown.expect(UnsatisfiedDependencyException.class);
         thrown.expectMessage(containsString("Either an LdapUserSearch or DN pattern (or both) must be supplied"));
 
         load("");
-        AbstractLdapAuthenticationProvider ldapProvider = this.context
-                .getBean(AbstractLdapAuthenticationProvider.class);
+        AbstractLdapAuthenticationProvider ldapProvider = context.getBean(AbstractLdapAuthenticationProvider.class);
+        assertNotNull(ldapProvider);
     }
 
     @Test
-    public void testBindUsingUser() throws Exception {
+    public void testBindUsingUser() {
         load("ldap.provider.user-dn-pattern:CN={0},OU=Users");
-        AbstractLdapAuthenticationProvider ldapProvider = this.context
-                .getBean(AbstractLdapAuthenticationProvider.class);
+        AbstractLdapAuthenticationProvider ldapProvider = context.getBean(AbstractLdapAuthenticationProvider.class);
+        assertNotNull(ldapProvider);
     }
 
     @Test
-    public void thatMissingUserSearchThrows() throws Exception {
+    public void thatMissingUserSearchThrows() {
         thrown.expect(UnsatisfiedDependencyException.class);
         thrown.expectMessage(containsString(" searchBase must not be null (an empty string is acceptable)"));
 
         load("ldap.username:CN=foo,OU=ServiceAccounts", "ldap.password:bar");
-        AbstractLdapAuthenticationProvider ldapProvider = this.context
-                .getBean(AbstractLdapAuthenticationProvider.class);
+        AbstractLdapAuthenticationProvider ldapProvider = context.getBean(AbstractLdapAuthenticationProvider.class);
+        assertNotNull(ldapProvider);
     }
 
     @Test
-    public void testBindAsManagerUsingUsernameAndPassword() throws Exception {
+    public void testBindAsManagerUsingUsernameAndPassword() {
         load("ldap.username:CN=foo,OU=ServiceAccounts", "ldap.password:bar",
                 "ldap.provider.user-search-base:OU=NAV,OU=BusinessUnits",
                 "ldap.provider.group-search-base:OU=NAV,OU=BusinessUnits");
-        AbstractLdapAuthenticationProvider ldapProvider = this.context
-                .getBean(AbstractLdapAuthenticationProvider.class);
+        AbstractLdapAuthenticationProvider ldapProvider = context.getBean(AbstractLdapAuthenticationProvider.class);
+        assertNotNull(ldapProvider);
     }
 
     @Test
-    public void testBindAsManagerUsingServiceUser() throws Exception {
+    public void testBindAsManagerUsingServiceUser() {
         load("serviceuser.username:foo", "serviceuser.password:bar",
                 "ldap.provider.serviceuser-dn-pattern:CN={0},OU=ServiceAccounts",
                 "ldap.provider.user-search-base:OU=NAV,OU=BusinessUnits",
                 "ldap.provider.group-search-base:OU=NAV,OU=BusinessUnits");
-        AbstractLdapAuthenticationProvider ldapProvider = this.context
-                .getBean(AbstractLdapAuthenticationProvider.class);
+
+        AbstractLdapAuthenticationProvider ldapProvider = context.getBean(AbstractLdapAuthenticationProvider.class);
+        assertNotNull(ldapProvider);
     }
 
     private void load(String... properties) {
-        EnvironmentTestUtils.addEnvironment(this.context, properties);
-        this.context.register(LdapProviderAutoConfiguration.class,
+        TestPropertyValues.of(properties).applyTo(context);
+
+        context.register(LdapProviderAutoConfiguration.class,
                 LdapAutoConfiguration.class,
                 ServiceUserProperties.class,
                 NAVLdapAutoConfiguration.class,
                 PropertyPlaceholderAutoConfiguration.class);
-        this.context.refresh();
+
+        context.refresh();
     }
 }

@@ -1,7 +1,8 @@
 package no.nav.pensjon.dsf.authn.jwt;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.MDC;
-import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -18,48 +19,43 @@ import java.io.IOException;
 
 public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    private final CounterService counterService;
+    private final Counter loginJwtAttemptCounter;
+    private final Counter loginJwtFailedCounter;
+    private final Counter loginJwtMalformedInputCounter;
+    private final Counter loginJwtSuccessCounter;
 
-    public JwtAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, CounterService counterService) {
+    public JwtAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher, MeterRegistry meterRegistry) {
         super(requiresAuthenticationRequestMatcher);
-        this.counterService = counterService;
-
-        counterService.reset("counter.login_jwt.attempt");
-        counterService.reset("counter.login_jwt.malformed_input");
-        counterService.reset("counter.login_jwt.success");
-        counterService.reset("counter.login_jwt.failed");
+        this.loginJwtAttemptCounter = meterRegistry.counter("counter.login_jwt.attempt");
+        this.loginJwtFailedCounter = meterRegistry.counter("counter.login_jwt.failed");
+        this.loginJwtMalformedInputCounter = meterRegistry.counter("counter.login_jwt.malformed_input");
+        this.loginJwtSuccessCounter = meterRegistry.counter("counter.login_jwt.success");
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
-            throws AuthenticationException, IOException, ServletException {
-        counterService.increment("counter.login_jwt.attempt");
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
+        loginJwtAttemptCounter.increment();
+        String authHeader = getAuthHeader(request);
 
-        String rawToken = req.getHeader("Authorization");
-
-        if (rawToken == null) {
-            counterService.increment("counter.login_jwt.malformed_input");
-            throw new BadCredentialsException("Missing Authorization");
-        }
-
-        if (!rawToken.startsWith("Bearer ")) {
-            counterService.increment("counter.login_jwt.malformed_input");
+        if (!authHeader.startsWith("Bearer ")) {
+            loginJwtMalformedInputCounter.increment();
             throw new BadCredentialsException("Missing Bearer");
         }
 
-        rawToken = rawToken.replace("Bearer ", "");
-        return getAuthenticationManager().authenticate(new JwtUsernamePasswordAuthenticationToken(null, rawToken));
+        String token = authHeader.replace("Bearer ", "");
+        return getAuthenticationManager().authenticate(new JwtUsernamePasswordAuthenticationToken(null, token));
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        counterService.increment("counter.login_jwt.success");
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult)
+            throws IOException, ServletException {
+        loginJwtSuccessCounter.increment();
         SecurityContextHolder.getContext().setAuthentication(authResult);
         /* continue with the request processing */
         try {
             UserDetails userDetails = (UserDetails) authResult.getPrincipal();
             MDC.put("saksbehandler", userDetails.getUsername());
-
             chain.doFilter(request, response);
         } finally {
             MDC.clear();
@@ -67,8 +63,20 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        counterService.increment("counter.login_jwt.failed");
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed)
+            throws IOException, ServletException {
+        loginJwtFailedCounter.increment();
         super.unsuccessfulAuthentication(request, response, failed);
+    }
+
+    private String getAuthHeader(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+
+        if (header == null) {
+            loginJwtMalformedInputCounter.increment();
+            throw new BadCredentialsException("Missing Authorization");
+        }
+
+        return header;
     }
 }
