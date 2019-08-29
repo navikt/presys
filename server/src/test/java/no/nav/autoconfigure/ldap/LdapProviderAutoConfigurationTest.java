@@ -90,7 +90,7 @@ public class LdapProviderAutoConfigurationTest {
         context.register(LdapProviderAutoConfiguration.class,
                 LdapAutoConfiguration.class,
                 ServiceUserProperties.class,
-                NAVLdapAutoConfiguration.class,
+                NavLdapAutoConfiguration.class,
                 PropertyPlaceholderAutoConfiguration.class);
 
         context.refresh();

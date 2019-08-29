@@ -94,7 +94,7 @@ public class ApiControllerTest {
     public void should_ReturnToken_When_Login_Using_UserPrincipalName() throws Exception {
         String responseJson = mvc.perform(post("/api/login")
                 .content("{\"username\": \"H990100@TEST.LOCAL\", \"password\": \"bobspassword\"}")
-                .with(securityContext(SecurityContextHolder.getContext()))        )
+                .with(securityContext(SecurityContextHolder.getContext())))
                 .andExpect(status().isOk())
                 .andExpect(authenticated()
                         .withUsername("H990100")

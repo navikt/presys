@@ -9,6 +9,6 @@ public class LdapConfiguration {
 
     @Bean
     public UserDetailsContextMapper userDetailsContextMapper() {
-        return new NAVLdapUserDetailsMapper();
+        return new NavLdapUserDetailsMapper();
     }
 }
