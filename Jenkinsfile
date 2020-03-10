@@ -83,8 +83,9 @@ pipeline {
                     env.COMMIT_HASH_SHORT = backendVersion
                     
                     deployments = [
-                        ["dev-fss", "default"]
-                    ]
+                        ["dev-fss", "default"],
+                        ["prod-fss", "default"]
+                   ]
                     
                     for (deployment in deployments) {
                         latestDeploy = [deployment]
