@@ -22,9 +22,8 @@
 
 	<repositories>
 		<repository>
-			<id>ebcdicutil</id>
-			<name>ebcdicutil gitHub packages</name>
-			<url>https://maven.pkg.github.com/navikt/ebcdicutil</url>
+			<id>github-package-registry-navikt</id>
+			<url>https://maven.pkg.github.com/navikt/maven-release</url>
 		</repository>
 	</repositories>
 
