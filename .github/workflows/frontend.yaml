@@ -1,4 +1,4 @@
-name: Build, release and deploy
+name: Frontend build, release and deploy
 
 on: push
 
@@ -33,6 +33,12 @@ jobs:
 
       - name: Build docker image
         run: docker build -t ${FRONTEND_IMAGE}:${VERSION} klient
+        env:
+          BACKEND_IMAGE: ${{ env.FRONTEND_IMAGE }}
+          VERSION: ${{ env.VERSION }}
+
+      - name: Release docker image
+        run: docker push ${FRONTEND_IMAGE}:${VERSION}
         env:
           BACKEND_IMAGE: ${{ env.FRONTEND_IMAGE }}
           VERSION: ${{ env.VERSION }}

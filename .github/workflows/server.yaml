@@ -1,4 +1,4 @@
-name: Build, release and deploy
+name: Backend build, release and deploy
 
 on: push
 
@@ -34,6 +34,12 @@ jobs:
 
       - name: Build docker image
         run: docker build -t ${BACKEND_IMAGE}:${VERSION} server
+        env:
+          BACKEND_IMAGE: ${{ env.BACKEND_IMAGE }}
+          VERSION: ${{ env.VERSION }}
+
+      - name: Release docker image
+        run: docker push ${BACKEND_IMAGE}:${VERSION}
         env:
           BACKEND_IMAGE: ${{ env.BACKEND_IMAGE }}
           VERSION: ${{ env.VERSION }}
