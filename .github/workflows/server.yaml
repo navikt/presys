@@ -43,3 +43,11 @@ jobs:
         env:
           BACKEND_IMAGE: ${{ env.BACKEND_IMAGE }}
           VERSION: ${{ env.VERSION }}
+
+      - name: Deploy to dev-fss
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DEV }}
+          CLUSTER: dev-fss
+          RESOURCE: server/nais.yaml
+          IMAGE: ${{ env.BACKEND_IMAGE }}:${{ env.VERSION }}
