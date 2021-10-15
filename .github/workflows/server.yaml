@@ -33,7 +33,7 @@ jobs:
           echo "VERSION=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build docker image
-        run: docker build -t ${BACKEND_IMAGE}:${VERSION} presys
+        run: docker build -t ${BACKEND_IMAGE}:${VERSION} server
         env:
           BACKEND_IMAGE: ${{ env.BACKEND_IMAGE }}
           VERSION: ${{ env.VERSION }}
