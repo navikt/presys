@@ -3,7 +3,7 @@ name: Backend build, release and deploy
 on: push
 
 env:
-  BACKEND_IMAGE: ghcr.io/${{ github.repository }}/presys
+  IMAGE: ghcr.io/${{ github.repository }}/presys
 
 jobs:
   build:
@@ -33,15 +33,15 @@ jobs:
           echo "VERSION=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build docker image
-        run: docker build -t ${BACKEND_IMAGE}:${VERSION} server
+        run: docker build -t ${IMAGE}:${VERSION} server
         env:
-          BACKEND_IMAGE: ${{ env.BACKEND_IMAGE }}
+          IMAGE: ${{ env.IMAGE }}
           VERSION: ${{ env.VERSION }}
 
       - name: Release docker image
-        run: docker push ${BACKEND_IMAGE}:${VERSION}
+        run: docker push ${IMAGE}:${VERSION}
         env:
-          BACKEND_IMAGE: ${{ env.BACKEND_IMAGE }}
+          IMAGE: ${{ env.IMAGE }}
           VERSION: ${{ env.VERSION }}
 
       - name: Deploy to dev-fss
@@ -50,4 +50,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DEV }}
           CLUSTER: dev-fss
           RESOURCE: server/nais.yaml
-          IMAGE: ${{ env.BACKEND_IMAGE }}:${{ env.VERSION }}
+          IMAGE: ${{ env.IMAGE }}:${{ env.VERSION }}

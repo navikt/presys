@@ -3,7 +3,7 @@ name: Frontend build, release and deploy
 on: push
 
 env:
-  FRONTEND_IMAGE: ghcr.io/${{ github.repository }}/presys-frontend
+  IMAGE: ghcr.io/${{ github.repository }}/presys-frontend
 
 jobs:
   build:
@@ -32,15 +32,15 @@ jobs:
           echo "VERSION=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build docker image
-        run: docker build -t ${FRONTEND_IMAGE}:${VERSION} klient
+        run: docker build -t ${IMAGE}:${VERSION} klient
         env:
-          BACKEND_IMAGE: ${{ env.FRONTEND_IMAGE }}
+          IMAGE: ${{ env.IMAGE }}
           VERSION: ${{ env.VERSION }}
 
       - name: Release docker image
-        run: docker push ${FRONTEND_IMAGE}:${VERSION}
+        run: docker push ${IMAGE}:${VERSION}
         env:
-          BACKEND_IMAGE: ${{ env.FRONTEND_IMAGE }}
+          IMAGE: ${{ env.IMAGE }}
           VERSION: ${{ env.VERSION }}
 
       - name: Deploy to dev-fss
@@ -49,4 +49,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DEV }}
           CLUSTER: dev-fss
           RESOURCE: klient/nais.yaml
-          IMAGE: ${{ env.BACKEND_IMAGE }}:${{ env.VERSION }}
+          IMAGE: ${{ env.IMAGE }}:${{ env.VERSION }}
