@@ -1,4 +1,4 @@
-FROM nginx:1.13-alpine
+FROM nginx:1.21.3-alpine
 
 COPY vhost.conf /etc/nginx/conf.d/default.conf
 COPY dist /usr/share/nginx/html/public/
