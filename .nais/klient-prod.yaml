@@ -1,0 +1,15 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: presys-frontend
+  namespace: teampeon
+  labels:
+    team: teampeon
+spec:
+  image: {{image}}
+  port: 8080
+  ingresses:
+    - "https://presys-frontend.nais.adeo.no"
+  replicas:
+    min: 1
+    max: 1

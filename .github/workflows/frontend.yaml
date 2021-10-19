@@ -53,3 +53,12 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: .nais/klient-dev.yaml
           IMAGE: ${{ env.IMAGE }}:${{ env.VERSION }}
+
+      - name: Deploy to prod-fss
+        if: github.ref == 'refs/heads/master'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_PROD }}
+          CLUSTER: prod-fss
+          RESOURCE: .nais/klient-prod.yaml
+          IMAGE: ${{ env.IMAGE }}:${{ env.VERSION }}
