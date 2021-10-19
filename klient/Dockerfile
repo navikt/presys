@@ -1,4 +1,4 @@
-FROM nginx:1.13-alpine
+FROM nginxinc/nginx-unprivileged:1.20-alpine
 
 COPY vhost.conf /etc/nginx/conf.d/default.conf
 COPY dist /usr/share/nginx/html/public/

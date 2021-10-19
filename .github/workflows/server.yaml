@@ -1,0 +1,56 @@
+name: Backend build, release and deploy
+
+on: push
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}/presys
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: 11
+
+      - name: Build
+        working-directory: ./server/
+        run: mvn --settings settings.xml clean install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create docker tag
+        run: |
+          echo "VERSION=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Build docker image
+        run: docker build -t ${IMAGE}:${VERSION} server
+        env:
+          IMAGE: ${{ env.IMAGE }}
+          VERSION: ${{ env.VERSION }}
+
+      - name: Log in to the Container registry
+        if: github.ref == 'refs/heads/master'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: x-access-token
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release docker image
+        if: github.ref == 'refs/heads/master'
+        run: docker push ${IMAGE}:${VERSION}
+        env:
+          IMAGE: ${{ env.IMAGE }}
+          VERSION: ${{ env.VERSION }}
+
+      - name: Deploy to dev-fss
+        if: github.ref == 'refs/heads/master'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DEV }}
+          CLUSTER: dev-fss
+          RESOURCE: .nais/server-dev.yaml
+          IMAGE: ${{ env.IMAGE }}:${{ env.VERSION }}

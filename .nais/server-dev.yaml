@@ -2,14 +2,15 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: presys
-  namespace: {{namespace}}
+  namespace: teampeon
   labels:
     team: teampeon
 spec:
-  image: repo.adeo.no:5443/presys:{{version}}
+  image: {{image}}
   port: 8080
   ingresses:
-    - {{ingress}}
+    - "https://presys.nais.preprod.local"
+    - "https://presys.dev.adeo.no"
   liveness:
     path: isAlive
     initialDelay: 60
