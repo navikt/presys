@@ -9,6 +9,7 @@ spec:
   image: {{image}}
   port: 8080
   ingresses:
+    - "https://presys.nais.preprod.local"
     - "https://presys.dev.adeo.no"
   liveness:
     path: isAlive

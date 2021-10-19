@@ -9,6 +9,7 @@ spec:
   image: {{image}}
   port: 8080
   ingresses:
+    - "https://presys-frontend.nais.preprod.local"
     - "https://presys-frontend.dev.adeo.no"
   replicas:
     min: 1
