@@ -13,3 +13,7 @@ Ekstern konfigurasjon ligger i vault
 Frontend/klienten må bygges før en bygger serverkoden.
 
 Se for øvrig README i modulene.
+
+### For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack til [#pensjon_saksbehandling](https://nav-it.slack.com/archives/CMRV23F8F).

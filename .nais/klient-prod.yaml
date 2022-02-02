@@ -2,9 +2,9 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: presys-frontend
-  namespace: teampeon
+  namespace: pensjon-saksbehandling
   labels:
-    team: teampeon
+    team: pensjon-saksbehandling
 spec:
   image: {{image}}
   port: 8080
