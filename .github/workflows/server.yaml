@@ -70,3 +70,4 @@ jobs:
           CLUSTER: prod-fss
           RESOURCE: .nais/server-prod.yaml
           IMAGE: ${{ env.IMAGE }}:${{ env.VERSION }}
+
