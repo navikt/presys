@@ -6,9 +6,6 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  IMAGE: ghcr.io/${{ github.repository }}/presys-frontend
-
 jobs:
   build:
     permissions:
@@ -32,6 +29,7 @@ jobs:
         id: docker-push
         with:
           docker_context: klient
+          image_suffix: klient
           team: pensjon-saksbehandling
 
       - name: Deploy to dev-fss

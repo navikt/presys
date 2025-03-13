@@ -34,6 +34,7 @@ jobs:
         id: docker-push
         with:
           docker_context: server
+          image_suffix: server
           team: pensjon-saksbehandling
 
       - name: Deploy to dev-fss
