@@ -5,6 +5,9 @@ metadata:
   namespace: pensjon-saksbehandling
   labels:
     team: pensjon-saksbehandling
+  annotations:
+    nginx.ingress.kubernetes.io/client_header_buffer_size: "16k"
+    nginx.ingress.kubernetes.io/large_client_header_buffers: "4 32k"
 spec:
   image: {{image}}
   port: 8080
