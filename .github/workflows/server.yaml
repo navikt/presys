@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - sandbox
   workflow_dispatch:
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
           team: pensjon-saksbehandling
 
       - name: Deploy to dev-fss
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/sandbox'
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-fss
