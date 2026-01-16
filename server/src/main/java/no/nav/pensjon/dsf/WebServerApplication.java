@@ -20,8 +20,24 @@ public class WebServerApplication {
 
     public static void main(String[] args) {
         STARTUP_TIMER.start();
-        ConfigurableApplicationContext context = SpringApplication.run(WebServerApplication.class, args);
-        STARTUP_TIMER.stop();
+
+        new SpringApplicationBuilder(WebServerApplication.class)
+                .initializers(ctx -> {
+                    Map<String, Object> props = new HashMap<>();
+
+                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/abac.env"));
+                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/credential.env"));
+                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/database.env"));
+                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/jwt.env"));
+                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/ldap.env"));
+
+                    ctx.getEnvironment()
+                            .getPropertySources()
+                            .addFirst(new MapPropertySource("vault-env", props));
+                })
+                .run(args);
+
+                STARTUP_TIMER.stop();
         context.publishEvent(new StartupEvent(STARTUP_TIMER.getTotalTimeSeconds()));
     }
 
@@ -71,6 +87,38 @@ public class WebServerApplication {
 
         double getTotalTime() {
             return totalTime;
+        }
+    }
+
+    private static Map<String, Object> loadEnvFile(String path) {
+        try {
+            Map<String, Object> result = new HashMap<>();
+
+            for (String line : Files.readAllLines(Path.of(path))) {
+                line = line.trim();
+
+                // hopp over tomme linjer og kommentarer
+                if (line.isEmpty() || line.startsWith("#")) {
+                    continue;
+                }
+
+                int idx = line.indexOf('=');
+                if (idx < 0) {
+                    continue;
+                }
+
+                String key = line.substring(0, idx).trim();
+                String value = line.substring(idx + 1).trim();
+
+                // fjern evt. quotes
+                value = value.replaceAll("^['\"]|['\"]$", "");
+
+                result.put(key, value);
+            }
+
+            return result;
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to read env file: " + path, e);
         }
     }
 }

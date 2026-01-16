@@ -24,9 +24,6 @@ spec:
   env:
     - name: JDK_JAVA_OPTIONS
       value: "-Djavax.net.ssl.trustStore=$(NAV_TRUSTSTORE_PATH) -Djavax.net.ssl.trustStorePassword=$(NAV_TRUSTSTORE_PASSWORD)"
-  envFrom:
-    - secret: presys-db-url
-    - secret: presys-ldap-secret
   vault:
     enabled: true
     paths:
