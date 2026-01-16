@@ -21,6 +21,8 @@ spec:
     initialDelay: 60
     periodSeconds: 10
     failureThreshold: 20
+  envFrom:
+    - secret: presys-db-url
   vault:
     enabled: true
     paths:
