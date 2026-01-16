@@ -18,6 +18,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.HashMap;
+import java.nio.file.Paths;
+import java.util.List;
 
 @SpringBootApplication
 public class WebServerApplication {
@@ -98,35 +100,39 @@ public class WebServerApplication {
         }
     }
 
-    private static Map<String, Object> loadEnvFile(String path) {
+    private static Map<String, Object> loadEnvFile(String filePath) {
+        Map<String, Object> envMap = new HashMap<>();
+        Path path = Paths.get(filePath);
+
         try {
-            Map<String, Object> result = new HashMap<>();
-
-            for (String line : Files.readAllLines(Path.of(path))) {
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
                 line = line.trim();
-
                 // hopp over tomme linjer og kommentarer
-                if (line.isEmpty() || line.startsWith("#")) {
-                    continue;
-                }
+                if (line.isEmpty() || line.startsWith("#")) continue;
 
+                // del på første '='
                 int idx = line.indexOf('=');
-                if (idx < 0) {
+                if (idx == -1) {
+                    System.err.println("Warning: line in env file has no '=': " + line);
                     continue;
                 }
 
                 String key = line.substring(0, idx).trim();
                 String value = line.substring(idx + 1).trim();
 
-                // fjern evt. quotes
-                value = value.replaceAll("^['\"]|['\"]$", "");
+                // fjern eventuelle " eller ' rundt verdien
+                if ((value.startsWith("\"") && value.endsWith("\"")) ||
+                        (value.startsWith("'") && value.endsWith("'"))) {
+                    value = value.substring(1, value.length() - 1);
+                }
 
-                result.put(key, value);
+                envMap.put(key, value);
             }
-
-            return result;
         } catch (IOException e) {
-            throw new IllegalStateException("Failed to read env file: " + path, e);
+            throw new RuntimeException("Failed to read env file: " + filePath, e);
         }
+
+        return envMap;
     }
 }
