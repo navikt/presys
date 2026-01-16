@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre
+FROM gcr.io/distroless/static-debian11
 WORKDIR /app
 USER apprunner
 COPY target/presys-server.jar /app/app.jar
