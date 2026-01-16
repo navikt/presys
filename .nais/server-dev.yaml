@@ -24,6 +24,8 @@ spec:
   env:
     - name: JDK_JAVA_OPTIONS
       value: "-Djavax.net.ssl.trustStore=$(NAV_TRUSTSTORE_PATH) -Djavax.net.ssl.trustStorePassword=$(NAV_TRUSTSTORE_PASSWORD)"
+    - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+      value: oracle.jdbc.driver.OracleDriver
   vault:
     enabled: true
     paths:
