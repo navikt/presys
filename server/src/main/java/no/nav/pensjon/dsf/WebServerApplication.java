@@ -4,13 +4,20 @@ import io.micrometer.core.instrument.Metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.*;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.util.StopWatch;
 
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Map;
+import java.util.HashMap;
 
 @SpringBootApplication
 public class WebServerApplication {
@@ -21,23 +28,24 @@ public class WebServerApplication {
     public static void main(String[] args) {
         STARTUP_TIMER.start();
 
-        new SpringApplicationBuilder(WebServerApplication.class)
-                .initializers(ctx -> {
-                    Map<String, Object> props = new HashMap<>();
+        ConfigurableApplicationContext context =
+            new SpringApplicationBuilder(WebServerApplication.class)
+                    .initializers(ctx -> {
+                        Map<String, Object> props = new HashMap<>();
 
-                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/abac.env"));
-                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/credential.env"));
-                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/database.env"));
-                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/jwt.env"));
-                    props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/ldap.env"));
+                        props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/abac.env"));
+                        props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/credential.env"));
+                        props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/database.env"));
+                        props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/jwt.env"));
+                        props.putAll(loadEnvFile("/var/run/secrets/nais.io/vault/ldap.env"));
 
-                    ctx.getEnvironment()
-                            .getPropertySources()
-                            .addFirst(new MapPropertySource("vault-env", props));
-                })
-                .run(args);
+                        ctx.getEnvironment()
+                                .getPropertySources()
+                                .addFirst(new MapPropertySource("vault-env", props));
+                    })
+                    .run(args);
 
-                STARTUP_TIMER.stop();
+        STARTUP_TIMER.stop();
         context.publishEvent(new StartupEvent(STARTUP_TIMER.getTotalTimeSeconds()));
     }
 
