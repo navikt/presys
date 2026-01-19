@@ -6,7 +6,7 @@ Innsyn i DSF
 Delt inn i klientkode og serverkode. Pr. nå må disse kjøres hver for seg.
 
 ### Ekstern konfigurasjon
-Ekstern konfigurasjon ligger i vault
+Ekstern konfigurasjon ligger i nais-console
 
 ### Kjøre applikasjonene lokalt
 
