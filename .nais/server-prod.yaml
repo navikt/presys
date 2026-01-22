@@ -20,13 +20,8 @@ spec:
     initialDelay: 60
     periodSeconds: 10
     failureThreshold: 20
-  vault:
-    enabled: true
-    paths:
-      - mountPath: /secrets/oracle/creds
-        kvPath: oracle/data/prod/creds/presys-user
-      - mountPath: /secrets/oracle/config
-        kvPath: oracle/data/prod/config/presys
+  envFrom:
+    - secret: presys-secret
   replicas:
     min: 2
     max: 2
