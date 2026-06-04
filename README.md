@@ -16,4 +16,4 @@ Se for øvrig README i modulene.
 
 ### For NAV-ansatte
 
-Interne henvendelser kan sendes via Slack til [#pensjon_saksbehandling](https://nav-it.slack.com/archives/CMRV23F8F).
+Interne henvendelser kan sendes via Slack til [#alderspensjon](https://nav-it.slack.com/archives/C08RVRJ0K53).
